@@ -107,6 +107,113 @@ namespace NetFabric
             }
         }
 
+        #region trigonometric functions
+
+        /// <summary>
+        /// Return the sine of the specified angle.
+        /// </summary>
+        /// <param name="angle">An angle.</param>
+        /// <returns>The sine of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</returns>
+        public static double Sin(Angle angle)
+        {
+            Contract.Ensures(Contract.Result<double>() >= -1.0);
+            Contract.Ensures(Contract.Result<double>() <= 1.0);
+
+            return System.Math.Sin(angle.radians);
+        }
+
+        /// <summary>
+        /// Returns the hyperbolic sine of the specified angle.
+        /// </summary>
+        /// <param name="angle">An angle.</param>
+        /// <returns>The hyperbolic sine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an Angle equal to value.</returns>
+        public static double Sinh(Angle angle)
+        {
+            return System.Math.Sinh(angle.radians);
+        }
+
+        /// <summary>
+        /// Returns the angle whose sine is the specified number.
+        /// </summary>
+        /// <param name="value">A number representing a sine, where value must be greater than or equal to -1, but less than or equal to 1.</param>
+        /// <returns>The angle whose sine is the specified number.</returns>
+        public static Angle Asin(double value)
+        {
+            Contract.Requires(value >= -1.0);
+            Contract.Requires(value <= 1.0);
+
+            return new Angle(System.Math.Asin(value));
+        }
+
+        /// <summary>
+        /// Return the cosine of the specified angle.
+        /// </summary>
+        /// <param name="angle">An angle.</param>
+        /// <returns>The cosine of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</returns>
+        public static double Cos(Angle angle)
+        {
+            Contract.Ensures(Contract.Result<double>() >= -1.0);
+            Contract.Ensures(Contract.Result<double>() <= 1.0);
+
+            return System.Math.Cos(angle.radians);
+        }
+
+        /// <summary>
+        /// Returns the hyperbolic cosine of the specified angle.
+        /// </summary>
+        /// <param name="angle">An angle.</param>
+        /// <returns>The hyperbolic cosine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an Angle equal to value.</returns>
+        public static double Cosh(Angle angle)
+        {
+            return System.Math.Cosh(angle.radians);
+        }
+
+        /// <summary>
+        /// Returns the angle whose cosine is the specified number.
+        /// </summary>
+        /// <param name="value">A number representing a cosine, where value must be greater than or equal to -1, but less than or equal to 1.</param>
+        /// <returns>The angle whose cosine is the specified number.</returns>
+        public static Angle Acos(double value)
+        {
+            Contract.Requires(value >= -1.0);
+            Contract.Requires(value <= 1.0);
+
+            return new Angle(System.Math.Acos(value));
+        }
+
+        /// <summary>
+        /// Returns the tangent of the specified angle.
+        /// </summary>
+        /// <param name="angle">An angle.</param>
+        /// <returns>The tangent of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</returns>
+        public static double Tan(Angle angle)
+        {
+            return System.Math.Tan(angle.radians);
+        }
+
+        /// <summary>
+        /// Returns the angle whose tangent is the specified number.
+        /// </summary>
+        /// <param name="value">A number representing a tangent.</param>
+        /// <returns>The angle whose tangent is the specified number.</returns>
+        public static Angle Atan(double value)
+        {
+            return new Angle(System.Math.Atan(value));
+        }
+
+        /// <summary>
+        /// Returns the angle whose tangent is the quotient of two specified numbers.
+        /// </summary>
+        /// <param name="x">The y coordinate of a point.</param>
+        /// <param name="y">The x coordinate of a point.</param>
+        /// <returns>The angle whose tangent is the quotient of two specified numbers.</returns>
+        public static Angle Atan2(double y, double x)
+        {
+            return new Angle(System.Math.Atan2(y, x));
+        }
+
+        #endregion
+
         #region equality implementation
 
         /// <summary>

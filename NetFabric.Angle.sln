@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle", "NetFabric.Angle.csproj", "{FCD2E42D-CCB1-41FB-BD17-94F595879C63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle", "NetFabric.Angle\NetFabric.Angle.csproj", "{FCD2E42D-CCB1-41FB-BD17-94F595879C63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.UnitTests", "..\NetFabric.Angle.UnitTests\NetFabric.Angle.UnitTests.csproj", "{35C09BA6-1CA5-4291-8828-ABCDAE9C2D83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.UnitTests", "NetFabric.Angle.UnitTests\NetFabric.Angle.UnitTests.csproj", "{35C09BA6-1CA5-4291-8828-ABCDAE9C2D83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

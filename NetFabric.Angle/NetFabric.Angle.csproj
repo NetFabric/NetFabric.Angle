@@ -125,10 +125,6 @@
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Angle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

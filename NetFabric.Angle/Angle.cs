@@ -7,6 +7,8 @@ namespace NetFabric
     [DebuggerDisplay("Degrees = {TotalDegrees}")]
     public struct Angle
         : IEquatable<Angle>
+        , IComparable
+        , IComparable<Angle>
     {
         double radians;
 
@@ -23,7 +25,7 @@ namespace NetFabric
         public static readonly Angle Zero = new Angle(0.0);
 
         /// <summary>
-        /// Represents the right Angle value (90 degrees). This field is read-only.
+        /// Represents the a2 Angle value (90 degrees). This field is read-only.
         /// </summary>
         public static readonly Angle Right = new Angle(RightAngle);
 
@@ -145,10 +147,93 @@ namespace NetFabric
         /// </summary>
         /// <param name="obj">An Angle to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
-        /// <remarks>This method implements the <see cref="System.IEquatable<T>"/> interface, and performs slightly better than <see cref="Equals"/> because it does not have to convert the obj parameter to an object.</remarks>
+        /// <remarks>This method implements the <see cref="System.IEquatable<T>"/> interface, and performs slightly better than <see cref="Angle.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
         public bool Equals(Angle obj)
         {
             return radians == obj.radians;
+        }
+
+        #endregion
+
+        #region comparison implementation
+
+        /// <summary>
+        /// Indicates whether a specified Angle is less than another specified Angle.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <returns>true if the value of a1 is less than the value of a2; otherwise, false.</returns>
+        public static bool operator <(Angle a1, Angle a2)
+        {
+            return a1.radians < a2.radians;
+        }
+
+        /// <summary>
+        /// Indicates whether a specified Angle is less than or equal to another specified Angle.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <returns>true if the value of a1 is less than or equal to the value of a2; otherwise, false.</returns>
+        public static bool operator <=(Angle a1, Angle a2)
+        {
+            return a1.radians <= a2.radians;
+        }
+
+        /// <summary>
+        /// Indicates whether a specified Angle is greater than another specified Angle.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <returns>true if the value of a1 is greater than the value of a2; otherwise, false.</returns>
+        public static bool operator >(Angle a1, Angle a2)
+        {
+            return a1.radians > a2.radians;
+        }
+
+        /// <summary>
+        /// Indicates whether a specified Angle is greater than or equal to another specified Angle.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <returns>true if the value of a1 is greater than or equal to the value of a2; otherwise, false.</returns>
+        public static bool operator >=(Angle a1, Angle a2)
+        {
+            return a1.radians >= a2.radians;
+        }
+
+        /// <summary>
+        /// Compares two Angle values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <returns></returns>
+        public static int Compare(Angle a1, Angle a2)
+        {
+            return a1.radians.CompareTo(a2.radians);
+        }
+
+        /// <summary>
+        /// Compares this instance to a specified Angle object and returns an integer that indicates whether this instance is shorter than, equal to, or longer than the Angle object.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns>-1 if a1 is smaller than a2; 0 if a1 equals to a2; 1 if a1 is larger than a2.</returns>
+        /// <remarks>This method implements the <see cref="System.IComparable<T>"/> interface, and performs slightly better than <see cref="Angle.CompareTo(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
+        public int CompareTo(Angle value)
+        {
+            return radians.CompareTo(value.radians);
+        }
+
+        /// <summary>
+        /// Compares this instance to a specified Angle object and returns an integer that indicates whether this instance is shorter than, equal to, or longer than the Angle object.
+        /// </summary>
+        /// <param name="value">An object to compare to this instance.</param>
+        /// <returns>-1 if a1 is smaller than a2; 0 if a1 equals to a2; 1 if a1 is larger than a2.</returns>
+        /// <exception cref="ArgumentException">value is not an Angle.</exception>
+        public int CompareTo(object obj)
+        {
+            if (!(obj is Angle))
+                throw new ArgumentException("Argument has to be an Angle.", "value");
+            return this.CompareTo((Angle)obj);
         }
 
         #endregion

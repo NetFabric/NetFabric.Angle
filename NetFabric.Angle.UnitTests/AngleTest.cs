@@ -145,51 +145,104 @@ namespace NetFabric.UnitTests
         }
 
         [TestMethod]
-        public void ObjectEqualsIsFalseForNull()
+        public void ObjectEquals()
         {
             Assert.IsFalse(Angle.Right.Equals(null));
-        }
-
-        [TestMethod]
-        public void ObjectEqualsIsFalseForOtherTypes()
-        {
             Assert.IsFalse(Angle.Right.Equals(90.0));
+            Assert.IsFalse(Angle.Zero.Equals((object)Angle.Right));
+            Assert.IsTrue(Angle.Right.Equals((object)Angle.Right));
         }
 
         [TestMethod]
-        public void ObjectEqualsIsTrueForSameAngle()
-        {
-            Assert.IsFalse(((object)Angle.Zero).Equals((object)Angle.Right));
-            Assert.IsTrue(((object)Angle.Right).Equals((object)Angle.Right));
-        }
-
-        [TestMethod]
-        public void ObjectGetHashCodeIsEqualForSameAngle()
+        public void ObjectGetHashCode()
         {
             Assert.AreNotEqual(Angle.Zero.GetHashCode(), Angle.Right.GetHashCode());
             Assert.AreEqual(Angle.Right.GetHashCode(), Angle.Right.GetHashCode());
         }
 
         [TestMethod]
-        public void EquatableEqualsIsTrueForSameAngle()
+        public void EquatableEquals()
         {
             Assert.IsFalse(Angle.Zero.Equals(Angle.Right));
             Assert.IsTrue(Angle.Right.Equals(Angle.Right));
         }
 
         [TestMethod]
-        public void OperatorEqualityIsTrueForSameAngle()
+        public void OperatorEquality()
         {
             Assert.IsFalse(Angle.Zero == Angle.Right);
             Assert.IsTrue(Angle.Right == Angle.Right);
         }
 
         [TestMethod]
-        public void OperatorinequalityIsFalseForSameAngle()
+        public void OperatorInequality()
         {
             Assert.IsTrue(Angle.Zero != Angle.Right);
             Assert.IsFalse(Angle.Right != Angle.Right);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ComparableCompareToObjectThrowsExcetionOnNull()
+        {
+            Angle.Right.CompareTo(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ComparableCompareToObjectThrowsExcetionOnOtherType()
+        {
+            Angle.Right.CompareTo(90.0);
+        }
+
+        [TestMethod]
+        public void ComparableCompareToObject()
+        {
+            Assert.AreEqual(-1, Angle.Right.CompareTo((object)Angle.Straight));
+            Assert.AreEqual(0, Angle.Right.CompareTo((object)Angle.Right));
+            Assert.AreEqual(1, Angle.Right.CompareTo((object)Angle.Zero));
+        }
+
+        [TestMethod]
+        public void ComparableCompareToAngle()
+        {
+            Assert.AreEqual(-1, Angle.Right.CompareTo(Angle.Straight));
+            Assert.AreEqual(0, Angle.Right.CompareTo(Angle.Right));
+            Assert.AreEqual(1, Angle.Right.CompareTo(Angle.Zero));
+        }
+
+        [TestMethod]
+        public void LessThanOperator()
+        {
+            Assert.IsTrue(Angle.Zero < Angle.Right);
+            Assert.IsFalse(Angle.Right < Angle.Right);
+            Assert.IsFalse(Angle.Straight < Angle.Right);
+        }
+
+        [TestMethod]
+        public void LessThanOrEqualToOperator()
+        {
+            Assert.IsTrue(Angle.Zero <= Angle.Right);
+            Assert.IsTrue(Angle.Right <= Angle.Right);
+            Assert.IsFalse(Angle.Straight <= Angle.Right);
+        }
+
+        [TestMethod]
+        public void GreaterThanOperator()
+        {
+            Assert.IsFalse(Angle.Zero > Angle.Right);
+            Assert.IsFalse(Angle.Right > Angle.Right);
+            Assert.IsTrue(Angle.Straight > Angle.Right);
+        }
+
+        [TestMethod]
+        public void GreaterThanOrEqualToOperator()
+        {
+            Assert.IsFalse(Angle.Zero >= Angle.Right);
+            Assert.IsTrue(Angle.Right >= Angle.Right);
+            Assert.IsTrue(Angle.Straight >= Angle.Right);
+        }
+
 
 
 

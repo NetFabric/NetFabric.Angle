@@ -6,6 +6,7 @@ namespace NetFabric
 {
     [DebuggerDisplay("Degrees = {TotalDegrees}")]
     public struct Angle
+        : IEquatable<Angle>
     {
         double radians;
 
@@ -103,5 +104,78 @@ namespace NetFabric
                 return radians * ToGradians;
             }
         }
+
+        #region equality implementation
+
+        /// <summary>
+        /// Indicates whether two Angle instances are equal.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        public static bool operator ==(Angle a1, Angle a2)
+        {
+            return a1.radians == a2.radians;
+        }
+
+        /// <summary>
+        /// Indicates whether two Angle instances are equal.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        public static bool operator !=(Angle a1, Angle a2)
+        {
+            return a1.radians != a2.radians;
+        }
+
+        /// <summary>
+        /// Indicates whether two Angle instances are equal.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        public static bool Equals(Angle a1, Angle a2)
+        {
+            return a1.radians == a2.radians;
+        }
+
+        /// <summary>
+        /// Indicates whether whether this instance is equal to a specified Angle object.
+        /// </summary>
+        /// <param name="obj">An Angle to compare with this instance.</param>
+        /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
+        /// <remarks>This method implements the <see cref="System.IEquatable<T>"/> interface, and performs slightly better than <see cref="Equals"/> because it does not have to convert the obj parameter to an object.</remarks>
+        public bool Equals(Angle obj)
+        {
+            return radians == obj.radians;
+        }
+
+        #endregion
+
+        #region object overrides
+
+        /// <summary>
+        /// Returns a value indicating whether this instance is equal to a specified object.
+        /// </summary>
+        /// <param name="obj">An object to compare with this instance.</param>
+        /// <returns>true if value is a Angle object that represents the same angle as the current Angle structure; otherwise, false.</returns>
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Angle))
+                return false;
+            return this.Equals((Angle)obj);
+        }
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return radians.GetHashCode();
+        }
+
+        #endregion
     }
 }

@@ -144,6 +144,54 @@ namespace NetFabric.UnitTests
             Assert.AreEqual(400.0, angle.TotalGradians);
         }
 
+        [TestMethod]
+        public void ObjectEqualsIsFalseForNull()
+        {
+            Assert.IsFalse(Angle.Right.Equals(null));
+        }
+
+        [TestMethod]
+        public void ObjectEqualsIsFalseForOtherTypes()
+        {
+            Assert.IsFalse(Angle.Right.Equals(90.0));
+        }
+
+        [TestMethod]
+        public void ObjectEqualsIsTrueForSameAngle()
+        {
+            Assert.IsFalse(((object)Angle.Zero).Equals((object)Angle.Right));
+            Assert.IsTrue(((object)Angle.Right).Equals((object)Angle.Right));
+        }
+
+        [TestMethod]
+        public void ObjectGetHashCodeIsEqualForSameAngle()
+        {
+            Assert.AreNotEqual(Angle.Zero.GetHashCode(), Angle.Right.GetHashCode());
+            Assert.AreEqual(Angle.Right.GetHashCode(), Angle.Right.GetHashCode());
+        }
+
+        [TestMethod]
+        public void EquatableEqualsIsTrueForSameAngle()
+        {
+            Assert.IsFalse(Angle.Zero.Equals(Angle.Right));
+            Assert.IsTrue(Angle.Right.Equals(Angle.Right));
+        }
+
+        [TestMethod]
+        public void OperatorEqualityIsTrueForSameAngle()
+        {
+            Assert.IsFalse(Angle.Zero == Angle.Right);
+            Assert.IsTrue(Angle.Right == Angle.Right);
+        }
+
+        [TestMethod]
+        public void OperatorinequalityIsFalseForSameAngle()
+        {
+            Assert.IsTrue(Angle.Zero != Angle.Right);
+            Assert.IsFalse(Angle.Right != Angle.Right);
+        }
+
+
 
 
 

@@ -25,7 +25,17 @@ namespace NetFabric
         public static readonly Angle Zero = new Angle(0.0);
 
         /// <summary>
-        /// Represents the a2 Angle value (90 degrees). This field is read-only.
+        /// Represents the smallest possible value of a Double. This field is read-only.
+        /// </summary>
+        public static readonly Angle MinValue = new Angle(double.MinValue);
+
+        /// <summary>
+        /// Represents the largest possible value of a Double. This field is read-only.
+        /// </summary>
+        public static readonly Angle MaxValue = new Angle(double.MaxValue);
+
+        /// <summary>
+        /// Represents the right Angle value (90 degrees). This field is read-only.
         /// </summary>
         public static readonly Angle Right = new Angle(RightAngle);
 
@@ -161,6 +171,30 @@ namespace NetFabric
         public double ToGradians()
         {
             return radians * GradiansByRadians;
+        }
+
+        /// <summary>
+        /// Returns the absolute value of the Angle.
+        /// </summary>
+        /// <param name="angle">Source angle.</param>
+        /// <returns>
+        /// An Angle, x, such that Angle.Zero <= x <= Angle.MaxValue.
+        /// </returns>
+        public static Angle Abs(Angle angle)
+        {
+            Contract.Ensures(Contract.Result<Angle>().ToRadians() >= 0.0);
+
+            return new Angle(Math.Abs(angle.radians));
+        }
+
+        /// <summary>
+        /// Returns a value indicating the sign of an angle.
+        /// </summary>
+        /// <param name="angle">Source angle.</param>
+        /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
+        public static int Sign(Angle angle)
+        {
+            return Math.Sign(angle.radians);
         }
 
         #region trigonometric functions

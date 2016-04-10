@@ -16,8 +16,8 @@ namespace NetFabric
         const double StraightAngle = System.Math.PI;
         const double FullAngle = System.Math.PI * 2.0;
 
-        const double ToDegrees = 360.0 / FullAngle;
-        const double ToGradians = 400.0 / FullAngle;
+        const double DegreesByRadians = 360.0 / FullAngle;
+        const double GradiansByRadians = 400.0 / FullAngle;
 
         /// <summary>
         /// Represents the zero Angle value (0 degrees). This field is read-only.
@@ -61,7 +61,41 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         public static Angle FromDegrees(double value)
         {
-            return new Angle(value / ToDegrees);
+            return new Angle(value / DegreesByRadians);
+        }
+
+        /// <summary>
+        /// Returns an Angle that represents a specified number of degrees and minutes.
+        /// </summary>
+        /// <param name="degrees">The degrees parcel of the angle value.</param>
+        /// <param name="minutes">The minutes parcel of the angle value.</param>
+        /// <returns>An object that represents value.</returns>
+        public static Angle FromDegrees(int degrees, double minutes)
+        {
+            Contract.Requires(minutes >= 0.0 && minutes < 60.0);
+
+            if (Math.Sign(degrees) < 0)
+                return new Angle((degrees - minutes / 60.0) / DegreesByRadians);
+            else
+                return new Angle((degrees + minutes / 60.0) / DegreesByRadians);
+        }
+
+        /// <summary>
+        /// Returns an Angle that represents a specified number of degrees, minutes and seconds.
+        /// </summary>
+        /// <param name="degrees">The degrees parcel of the angle value.</param>
+        /// <param name="minutes">The minutes parcel of the angle value.</param>
+        /// <param name="seconds">The seconds parcel of the angle value.</param>
+        /// <returns>An object that represents value.</returns>
+        public static Angle FromDegrees(int degrees, int minutes, double seconds)
+        {
+            Contract.Requires(minutes >= 0 && minutes < 60);
+            Contract.Requires(seconds >= 0.0 && seconds < 60.0);
+
+            if(Math.Sign(degrees) < 0)
+                return new Angle((degrees - minutes / 60.0 - seconds / 3600.0) / DegreesByRadians);
+            else
+                return new Angle((degrees + minutes / 60.0 + seconds / 3600.0) / DegreesByRadians);
         }
 
         /// <summary>
@@ -71,40 +105,62 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         public static Angle FromGradians(double value)
         {
-            return new Angle(value / ToGradians);
+            return new Angle(value / GradiansByRadians);
         }
 
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional radians.
         /// </summary>
-        public double TotalRadians
+        public double ToRadians()
         {
-            get
-            {
-                return radians;
-            }
+            return radians;
         }
 
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional degrees.
         /// </summary>
-        public double TotalDegrees
+        public double ToDegrees()
         {
-            get
-            {
-                return radians * ToDegrees;
-            }
+            return radians * DegreesByRadians;
+        }
+
+        /// <summary>
+        /// Gets the value of the current Angle structure expressed in degrees and minutes.
+        /// </summary>
+        /// <param name="degress"></param>
+        /// <param name="minutes"></param>
+        public void ToDegrees(out int degress, out double minutes)
+        {
+            Contract.Ensures(Contract.ValueAtReturn(out minutes) >= 0 && Contract.ValueAtReturn(out minutes) < 60);
+
+            var decimalDegrees = radians * DegreesByRadians;
+            degress = (int)decimalDegrees;
+            minutes = Math.Abs(decimalDegrees - degress) * 60.0;
+        }
+
+        /// <summary>
+        /// Gets the value of the current Angle structure expressed in degrees, minutes and seconds.
+        /// </summary>
+        /// <param name="degress"></param>
+        /// <param name="minutes"></param>
+        public void ToDegrees(out int degress, out int minutes, out double seconds)
+        {
+            Contract.Ensures(Contract.ValueAtReturn(out minutes) >= 0 && Contract.ValueAtReturn(out minutes) < 60);
+            Contract.Ensures(Contract.ValueAtReturn(out seconds) >= 0.0 && Contract.ValueAtReturn(out seconds) < 60.0);
+
+            var decimalDegrees = radians * DegreesByRadians;
+            degress = (int)decimalDegrees;
+            var decimalMinutes = Math.Abs(decimalDegrees - degress) * 60.0;
+            minutes = (int)decimalMinutes;
+            seconds = (decimalMinutes - minutes) * 60.0;
         }
 
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional gradians.
         /// </summary>
-        public double TotalGradians
+        public double ToGradians()
         {
-            get
-            {
-                return radians * ToGradians;
-            }
+            return radians * GradiansByRadians;
         }
 
         #region trigonometric functions

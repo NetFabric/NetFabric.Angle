@@ -10,138 +10,211 @@ namespace NetFabric.UnitTests
         public void FromRadiansCreatesAngleCorrectly()
         {
             var angle = Angle.FromRadians(0.0);
-            Assert.AreEqual(0.0, angle.TotalRadians);
+            Assert.AreEqual(0.0, angle.ToRadians());
 
             angle = Angle.FromRadians(Math.PI);
-            Assert.AreEqual(Math.PI, angle.TotalRadians);
+            Assert.AreEqual(Math.PI, angle.ToRadians());
 
             angle = Angle.FromRadians(double.NaN);
-            Assert.AreEqual(double.NaN, angle.TotalRadians);
+            Assert.AreEqual(double.NaN, angle.ToRadians());
         }
 
         [TestMethod]
         public void FromDegreesConvertsToRadiansCorrectly()
         {
             var angle = Angle.FromDegrees(0.0);
-            Assert.AreEqual(0.0, angle.TotalRadians);
+            Assert.AreEqual(0.0, angle.ToRadians());
 
             angle = Angle.FromDegrees(45.0);
-            Assert.AreEqual(Math.PI / 4.0, angle.TotalRadians);
+            Assert.AreEqual(Math.PI / 4.0, angle.ToRadians());
 
             angle = Angle.FromDegrees(90.0);
-            Assert.AreEqual(Math.PI / 2.0, angle.TotalRadians);
+            Assert.AreEqual(Math.PI / 2.0, angle.ToRadians());
 
             angle = Angle.FromDegrees(180.0);
-            Assert.AreEqual(Math.PI, angle.TotalRadians);
+            Assert.AreEqual(Math.PI, angle.ToRadians());
 
             angle = Angle.FromDegrees(360.0);
-            Assert.AreEqual(Math.PI * 2.0, angle.TotalRadians);
+            Assert.AreEqual(Math.PI * 2.0, angle.ToRadians());
 
             angle = Angle.FromDegrees(double.NaN);
-            Assert.AreEqual(double.NaN, angle.TotalRadians);
+            Assert.AreEqual(double.NaN, angle.ToRadians());
         }
 
         [TestMethod]
-        public void TotalDegreesConvertsFromRadiansCorrectly()
+        public void ToDegreesConvertsFromRadiansCorrectly()
         {
             var angle = Angle.FromRadians(0.0);
-            Assert.AreEqual(0.0, angle.TotalDegrees);
+            Assert.AreEqual(0.0, angle.ToDegrees());
 
             angle = Angle.FromRadians(Math.PI / 4.0);
-            Assert.AreEqual(45.0, angle.TotalDegrees);
+            Assert.AreEqual(45.0, angle.ToDegrees());
 
             angle = Angle.FromRadians(Math.PI / 2.0);
-            Assert.AreEqual(90.0, angle.TotalDegrees);
+            Assert.AreEqual(90.0, angle.ToDegrees());
 
             angle = Angle.FromRadians(Math.PI);
-            Assert.AreEqual(180.0, angle.TotalDegrees);
+            Assert.AreEqual(180.0, angle.ToDegrees());
 
             angle = Angle.FromRadians(Math.PI * 2.0);
-            Assert.AreEqual(360.0, angle.TotalDegrees);
+            Assert.AreEqual(360.0, angle.ToDegrees());
 
             angle = Angle.FromRadians(double.NaN);
-            Assert.AreEqual(double.NaN, angle.TotalDegrees);
+            Assert.AreEqual(double.NaN, angle.ToDegrees());
         }
 
+        [TestMethod]
+        public void FromDegreesMinutesConvertsToRadiansCorrectly()
+        {
+            var angle = Angle.FromDegrees(0, 0.0);
+            Assert.AreEqual(0.0, angle.ToRadians());
+
+            angle = Angle.FromDegrees(40, 30.0);
+            Assert.AreEqual(0.706858347, angle.ToRadians(), 0.000000001);
+
+            angle = Angle.FromDegrees(-40, 30.0);
+            Assert.AreEqual(-0.706858347, angle.ToRadians(), 0.000000001);
+        }
+
+        [TestMethod]
+        public void ToDegreesMinutesConvertsFromRadiansCorrectly()
+        {
+            int degrees;
+            double minutes;
+
+            var angle = Angle.FromRadians(0.0);
+            angle.ToDegrees(out degrees, out minutes);
+            Assert.AreEqual(0, degrees);
+            Assert.AreEqual(0.0, minutes, 0.000001);
+
+            angle = Angle.FromRadians(0.706858347);
+            angle.ToDegrees(out degrees, out minutes);
+            Assert.AreEqual(40, degrees);
+            Assert.AreEqual(30.0, minutes, 0.000001);
+
+            angle = Angle.FromRadians(-0.706858347);
+            angle.ToDegrees(out degrees, out minutes);
+            Assert.AreEqual(-40, degrees);
+            Assert.AreEqual(30.0, minutes, 0.000001);
+        }
+
+        [TestMethod]
+        public void FromDegreesMinutesSecondsConvertsToRadiansCorrectly()
+        {
+            var angle = Angle.FromDegrees(0, 0, 0.0);
+            Assert.AreEqual(0.0, angle.ToRadians());
+
+            angle = Angle.FromDegrees(40, 30, 30.0);
+            Assert.AreEqual(0.707003791, angle.ToRadians(), 0.000000001);
+
+            angle = Angle.FromDegrees(-40, 30, 30.0);
+            Assert.AreEqual(-0.707003791, angle.ToRadians(), 0.000000001);
+        }
+
+        [TestMethod]
+        public void ToDegreesMinutesSecondsConvertsFromRadiansCorrectly()
+        {
+            int degrees;
+            int minutes;
+            double seconds;
+
+            var angle = Angle.FromRadians(0.0);
+            angle.ToDegrees(out degrees, out minutes, out seconds);
+            Assert.AreEqual(0, degrees);
+            Assert.AreEqual(0, minutes);
+            Assert.AreEqual(0.0, seconds, 0.001);
+
+            angle = Angle.FromRadians(0.707003791);
+            angle.ToDegrees(out degrees, out minutes, out seconds);
+            Assert.AreEqual(40, degrees);
+            Assert.AreEqual(30, minutes);
+            Assert.AreEqual(30.0, seconds, 0.001);
+
+            angle = Angle.FromRadians(-0.707003791);
+            angle.ToDegrees(out degrees, out minutes, out seconds);
+            Assert.AreEqual(-40, degrees);
+            Assert.AreEqual(30, minutes);
+            Assert.AreEqual(30.0, seconds, 0.001);
+        }
 
         [TestMethod]
         public void FromGradiansConvertsToRadiansCorrectly()
         {
             var angle = Angle.FromGradians(0.0);
-            Assert.AreEqual(0.0, angle.TotalRadians);
+            Assert.AreEqual(0.0, angle.ToRadians());
 
             angle = Angle.FromGradians(50.0);
-            Assert.AreEqual(Math.PI / 4.0, angle.TotalRadians);
+            Assert.AreEqual(Math.PI / 4.0, angle.ToRadians());
 
             angle = Angle.FromGradians(100.0);
-            Assert.AreEqual(Math.PI / 2.0, angle.TotalRadians);
+            Assert.AreEqual(Math.PI / 2.0, angle.ToRadians());
 
             angle = Angle.FromGradians(200.0);
-            Assert.AreEqual(Math.PI, angle.TotalRadians);
+            Assert.AreEqual(Math.PI, angle.ToRadians());
 
             angle = Angle.FromGradians(400.0);
-            Assert.AreEqual(Math.PI * 2.0, angle.TotalRadians);
+            Assert.AreEqual(Math.PI * 2.0, angle.ToRadians());
 
             angle = Angle.FromGradians(double.NaN);
-            Assert.AreEqual(double.NaN, angle.TotalRadians);
+            Assert.AreEqual(double.NaN, angle.ToRadians());
         }
 
         [TestMethod]
-        public void TotalGradiansConvertsFromRadiansCorrectly()
+        public void ToGradiansConvertsFromRadiansCorrectly()
         {
             var angle = Angle.FromRadians(0.0);
-            Assert.AreEqual(0.0, angle.TotalGradians);
+            Assert.AreEqual(0.0, angle.ToGradians());
 
             angle = Angle.FromRadians(Math.PI / 4.0);
-            Assert.AreEqual(50.0, angle.TotalGradians);
+            Assert.AreEqual(50.0, angle.ToGradians());
 
             angle = Angle.FromRadians(Math.PI / 2.0);
-            Assert.AreEqual(100.0, angle.TotalGradians);
+            Assert.AreEqual(100.0, angle.ToGradians());
 
             angle = Angle.FromRadians(Math.PI);
-            Assert.AreEqual(200.0, angle.TotalGradians);
+            Assert.AreEqual(200.0, angle.ToGradians());
 
             angle = Angle.FromRadians(Math.PI * 2.0);
-            Assert.AreEqual(400.0, angle.TotalGradians);
+            Assert.AreEqual(400.0, angle.ToGradians());
 
             angle = Angle.FromRadians(double.NaN);
-            Assert.AreEqual(double.NaN, angle.TotalGradians);
+            Assert.AreEqual(double.NaN, angle.ToGradians());
         }
 
         [TestMethod]
         public void ZeroAngleIsDefinedCorrectly()
         {
             var angle = Angle.Zero;
-            Assert.AreEqual(0.0, angle.TotalGradians);
-            Assert.AreEqual(0.0, angle.TotalDegrees);
-            Assert.AreEqual(0.0, angle.TotalGradians);
+            Assert.AreEqual(0.0, angle.ToGradians());
+            Assert.AreEqual(0.0, angle.ToDegrees());
+            Assert.AreEqual(0.0, angle.ToGradians());
         }
 
         [TestMethod]
         public void RightAngleIsDefinedCorrectly()
         {
             var angle = Angle.Right;
-            Assert.AreEqual(Math.PI / 2.0, angle.TotalRadians);
-            Assert.AreEqual(90.0, angle.TotalDegrees);
-            Assert.AreEqual(100.0, angle.TotalGradians);
+            Assert.AreEqual(Math.PI / 2.0, angle.ToRadians());
+            Assert.AreEqual(90.0, angle.ToDegrees());
+            Assert.AreEqual(100.0, angle.ToGradians());
         }
 
         [TestMethod]
         public void StraightAngleIsDefinedCorrectly()
         {
             var angle = Angle.Straight;
-            Assert.AreEqual(Math.PI, angle.TotalRadians);
-            Assert.AreEqual(180.0, angle.TotalDegrees);
-            Assert.AreEqual(200.0, angle.TotalGradians);
+            Assert.AreEqual(Math.PI, angle.ToRadians());
+            Assert.AreEqual(180.0, angle.ToDegrees());
+            Assert.AreEqual(200.0, angle.ToGradians());
         }
 
         [TestMethod]
         public void FullAngleIsDefinedCorrectly()
         {
             var angle = Angle.Full;
-            Assert.AreEqual(Math.PI * 2.0, angle.TotalRadians);
-            Assert.AreEqual(360.0, angle.TotalDegrees);
-            Assert.AreEqual(400.0, angle.TotalGradians);
+            Assert.AreEqual(Math.PI * 2.0, angle.ToRadians());
+            Assert.AreEqual(360.0, angle.ToDegrees());
+            Assert.AreEqual(400.0, angle.ToGradians());
         }
 
         [TestMethod]

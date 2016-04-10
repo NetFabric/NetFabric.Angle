@@ -197,6 +197,28 @@ namespace NetFabric
             return Math.Sign(angle.radians);
         }
 
+        /// <summary>
+        /// Returns the smaller of two angles.
+        /// </summary>
+        /// <param name="left">The first of two angles to compare.</param>
+        /// <param name="right">The second of two angles to compare.</param>
+        /// <returns></returns>
+        public static Angle Min(Angle left, Angle right)
+        {
+            return left.radians < right.radians ? left : right;
+        }
+
+        /// <summary>
+        /// Returns the largest of two angles.
+        /// </summary>
+        /// <param name="left">The first of two angles to compare.</param>
+        /// <param name="right">The second of two angles to compare.</param>
+        /// <returns></returns>
+        public static Angle Max(Angle left, Angle right)
+        {
+            return left.radians > right.radians ? left : right;
+        }
+
         #region trigonometric functions
 
         /// <summary>

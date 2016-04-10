@@ -1,7 +1,7 @@
 NetFabric.Angle
 ===============
 
-An immutable angle implementation inspired by System.TimeSpan. The angle is represented internaly in radians but can be created and read in radians, degrees and gradians.
+The angle is represented internaly in radians but can be created and read in radians, degrees and gradians.
 
 # Usage:
 
@@ -17,8 +17,16 @@ An immutable angle implementation inspired by System.TimeSpan. The angle is repr
 
 ### Reading the angle:
 
-    var radians = angle0.TotalRadians;
-    var degrees = angle0.TotalDegrees;
-    var gradians = angle0.TotalGradians;
-
+    var radians = angle0.ToRadians();
+    var degrees = angle0.ToDegrees();
+    var gradians = angle0.ToGradians();
+    
+    int degrees0;
+    double minute0;
+    angle0.ToDegrees(out degrees0, out minutes0);
+    
+    int degrees1;
+    int minute1;
+    double seconds1;
+    angle0.ToDegrees(out degrees1, out minutes1, out seconds1);
 

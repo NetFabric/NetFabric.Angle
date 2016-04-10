@@ -316,6 +316,46 @@ namespace NetFabric.UnitTests
             Assert.IsTrue(Angle.Straight >= Angle.Right);
         }
 
+        [TestMethod]
+        public void ReduceIsDefinedCorrectly()
+        {
+            var delta = Angle.FromRadians(0.0000001);
+
+            Assert.AreEqual(Angle.Zero, Angle.Reduce(Angle.Zero));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reduce(Angle.FromDegrees(45)));
+            Assert.AreEqual(Angle.Right, Angle.Reduce(Angle.Right));
+            Assert.AreEqual(Angle.FromDegrees(135), Angle.Reduce(Angle.FromDegrees(135)));
+            Assert.AreEqual(Angle.Straight, Angle.Reduce(Angle.Straight));
+
+            Assert.AreEqual(Angle.Zero, Angle.Reduce(Angle.Full));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reduce(Angle.FromDegrees(45) + Angle.Full));
+            Assert.AreEqual(Angle.Right, Angle.Reduce(Angle.Right + Angle.Full));
+            Assert.AreEqual(Angle.FromDegrees(135).ToRadians(), Angle.Reduce(Angle.FromDegrees(135) + Angle.Full).ToRadians(), 0.000001);
+            Assert.AreEqual(Angle.Straight, Angle.Reduce(Angle.Straight + Angle.Full));
+
+        }
+
+        [TestMethod]
+        public void ReferenceIsDefinedCorrectly()
+        {
+            var delta = Angle.FromRadians(0.0000001);
+
+            Assert.AreEqual(Angle.Zero, Angle.Reference(Angle.Zero));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(45)));
+            Assert.AreEqual(Angle.Right, Angle.Reference(Angle.Right));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(135)));
+            Assert.AreEqual(Angle.Zero, Angle.Reference(Angle.Straight));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(225)));
+            Assert.AreEqual(Angle.Right, Angle.Reference(Angle.FromDegrees(270)));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(315)));
+            Assert.AreEqual(Angle.Zero, Angle.Reference(Angle.Full));
+
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(45) + Angle.Full));
+            Assert.AreEqual(Angle.Right, Angle.Reference(Angle.Right + Angle.Full));
+            Assert.AreEqual(Angle.FromDegrees(45).ToRadians(), Angle.Reference(Angle.FromDegrees(135) + Angle.Full).ToRadians(), 0.000001);
+
+        }
+
 
 
 

@@ -219,6 +219,50 @@ namespace NetFabric
             return left.radians > right.radians ? left : right;
         }
 
+        #region reduce
+
+        private static double Reduce(double d)
+        {
+            var reduced = d % FullAngle;
+            return reduced >= 0 ? reduced : reduced + FullAngle;
+        }
+
+        /// <summary>
+        /// Reduce an angle between 0 and 2π.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static Angle Reduce(Angle angle)
+        {
+            Contract.Ensures(Contract.Result<Angle>() >= Angle.Zero);
+            Contract.Ensures(Contract.Result<Angle>() < Angle.Full);
+
+            var reduced = Reduce(angle.radians);
+            return new Angle(reduced);
+        }
+
+        /// <summary>
+        /// The reference angle.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static Angle Reference(Angle angle)
+        {
+            Contract.Ensures(Contract.Result<Angle>() >= Angle.Zero);
+            Contract.Ensures(Contract.Result<Angle>() <= Angle.Right);
+
+            var reduced = Reduce(angle.radians);
+            if (reduced <= RightAngle) // first quadrant
+                return new Angle(reduced);
+            if (reduced <= StraightAngle) // second quadrant
+                return new Angle(StraightAngle - reduced);
+            if (reduced <= StraightAngle + RightAngle) // third quadrant
+                return new Angle(reduced - StraightAngle);
+            return new Angle(FullAngle - reduced); //fourth quadrant
+        }
+
+        #endregion
+
         #region trigonometric functions
 
         /// <summary>
@@ -661,6 +705,15 @@ namespace NetFabric
         public override int GetHashCode()
         {
             return radians.GetHashCode();
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            return radians.ToString();
         }
 
         #endregion

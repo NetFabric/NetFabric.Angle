@@ -401,6 +401,189 @@ namespace NetFabric
 
         #endregion
 
+        #region negation
+
+        /// <summary>
+        /// Negates an angle.
+        /// </summary>
+        /// <param name="angle">Source angle.</param>
+        /// <returns>Result of the negation.</returns>
+        public static Angle operator -(Angle angle)
+        {
+            return new Angle(-angle.radians);
+        }
+
+        /// <summary>
+        /// Negates an angle.
+        /// </summary>
+        /// <param name="angle">Source angle.</param>
+        /// <param name="result"></param>
+        public static void Negate(ref Angle angle, out Angle result)
+        {
+            result = new Angle(-angle.radians);
+        }
+
+        /// <summary>
+        /// Negates an angle.
+        /// </summary>
+        /// <param name="angle">Source angle.</param>
+        /// <returns>Result of the negation.</returns>
+        public static Angle Negate(Angle angle)
+        {
+            return new Angle(-angle.radians);
+        }
+
+
+        #endregion
+
+        #region addition
+
+        /// <summary>
+        /// Adds two vectors. 
+        /// </summary>
+        /// <param name="left">Source angle.</param>
+        /// <param name="right">Source angle.</param>
+        /// <returns>Result of the addition.</returns>
+        public static Angle operator +(Angle left, Angle right)
+        {
+            return new Angle(left.radians + right.radians);
+        }
+
+        /// <summary>
+        /// Adds two vectors. 
+        /// </summary>
+        /// <param name="left">Source angle.</param>
+        /// <param name="right">Source angle.</param>
+        /// <param name="result">Result of the addition.</param>
+        public static void Add(ref Angle left, ref Angle right, out Angle result)
+        {
+            result = new Angle(left.radians + right.radians);
+        }
+
+        /// <summary>
+        /// Adds two vectors. 
+        /// </summary>
+        /// <param name="left">Source angle.</param>
+        /// <param name="right">Source angle.</param>
+        /// <returns>Result of the addition.</returns>
+        public static Angle Add(Angle left, Angle right)
+        {
+            return new Angle(left.radians + right.radians);
+        }
+
+        #endregion
+
+        #region subtraction
+
+        /// <summary>
+        /// Subtracts a angle from a angle.  
+        /// </summary>
+        /// <param name="left">Source angle.</param>
+        /// <param name="right">Source angle.</param>
+        /// <returns>Result of the subtraction.</returns>
+        public static Angle operator -(Angle left, Angle right)
+        {
+            return new Angle(left.radians - right.radians);
+        }
+
+        /// <summary>
+        /// Subtracts a angle from a angle.  
+        /// </summary>
+        /// <param name="left">Source angle.</param>
+        /// <param name="right">Source angle.</param>
+        /// <param name="result">Result of the subtraction.</param>
+        public static void Subtract(ref Angle left, ref Angle right, out Angle result)
+        {
+            result = new Angle(left.radians - right.radians);
+        }
+
+        /// <summary>
+        /// Subtracts a angle from a angle.  
+        /// </summary>
+        /// <param name="left">Source angle.</param>
+        /// <param name="right">Source angle.</param>
+        /// <returns>Result of the subtraction.</returns>
+        public static Angle Subtract(Angle left, Angle right)
+        {
+            return new Angle(left.radians - right.radians);
+        }
+
+        #endregion
+
+        #region multiplication
+
+        /// <summary>
+        /// Multiplies a scalar by an angle value. 
+        /// </summary>
+        /// <param name="left">Scalar value.</param>
+        /// <param name="right">Source angle.</param>
+        /// <returns>Result of the multiplication.</returns>
+        public static Angle operator *(double left, Angle right)
+        {
+            return new Angle(left * right.radians);
+        }
+
+        /// <summary>
+        /// Multiplies a angle by a scalar value.
+        /// </summary>
+        /// <param name="left">Scalar value.</param>
+        /// <param name="right">Source angle.</param>
+        /// <param name="result">Result of the multiplication.</param>
+        public static void Multiply(ref double left, ref Angle right, out Angle result)
+        {
+            result = new Angle(left * right.radians);
+        }
+
+        /// <summary>
+        /// Multiplies a angle by a scalar value.
+        /// </summary>
+        /// <param name="left">Scalar value.</param>
+        /// <param name="right">Source angle.</param>
+        /// <returns>Result of the multiplication.</returns>
+        public static Angle Multiply(double left, Angle right)
+        {
+            return new Angle(left * right.radians);
+        }
+
+        #endregion
+
+        #region division
+
+        /// <summary>
+        /// Divides a angle by a scalar value. 
+        /// </summary>
+        /// <param name="left">Source angle.</param>
+        /// <param name="right">Scalar value.</param>
+        /// <returns>Result of the division.</returns>
+        public static Angle operator /(Angle left, double right)
+        {
+            return new Angle(left.radians / right);
+        }
+
+        /// <summary>
+        /// Divides a angle by a scalar value.
+        /// </summary>
+        /// <param name="left">Source angle.</param>
+        /// <param name="right">Scalar value.</param>
+        /// <param name="result">Result of the division.</param>
+        public static void Divide(ref Angle left, ref double right, out Angle result)
+        {
+            result = new Angle(left.radians / right);
+        }
+
+        /// <summary>
+        /// Divides a angle by a scalar value.
+        /// </summary>
+        /// <param name="left">Source angle.</param>
+        /// <param name="right">Scalar value.</param>
+        /// <returns>Result of the division.</returns>
+        public static Angle Divide(Angle left, double right)
+        {
+            return new Angle(left.radians / right);
+        }
+
+        #endregion
+
         #region object overrides
 
         /// <summary>

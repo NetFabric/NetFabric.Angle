@@ -285,6 +285,28 @@ namespace NetFabric.UnitTests
         }
 
         [TestMethod]
+        public void CompareTwoAngles()
+        {
+            Assert.AreEqual(-1, Angle.Compare(Angle.Right, Angle.Straight));
+            Assert.AreEqual(0, Angle.Compare(Angle.Right, Angle.Right));
+            Assert.AreEqual(1, Angle.Compare(Angle.Right, Angle.Zero));
+            Assert.AreNotEqual(-1, Angle.Compare(Angle.Right + Angle.Full, Angle.Straight));
+            Assert.AreNotEqual(0, Angle.Compare(Angle.Right, Angle.Right + Angle.Full));
+            Assert.AreNotEqual(1, Angle.Compare(Angle.Right, Angle.Zero + Angle.Full));
+        }
+
+        [TestMethod]
+        public void CompareReducedTwoAngles()
+        {
+            Assert.AreEqual(-1, Angle.CompareReduced(Angle.Right, Angle.Straight));
+            Assert.AreEqual(0, Angle.CompareReduced(Angle.Right, Angle.Right));
+            Assert.AreEqual(1, Angle.CompareReduced(Angle.Right, Angle.Zero));
+            Assert.AreEqual(-1, Angle.CompareReduced(Angle.Right + Angle.Full, Angle.Straight));
+            Assert.AreEqual(0, Angle.CompareReduced(Angle.Right, Angle.Right + Angle.Full));
+            Assert.AreEqual(1, Angle.CompareReduced(Angle.Right, Angle.Zero + Angle.Full));
+        }
+
+        [TestMethod]
         public void LessThanOperator()
         {
             Assert.IsTrue(Angle.Zero < Angle.Right);

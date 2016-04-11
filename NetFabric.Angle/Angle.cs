@@ -511,6 +511,17 @@ namespace NetFabric
         }
 
         /// <summary>
+        /// Compares two Angle values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <returns></returns>
+        public static int CompareReduced(Angle a1, Angle a2)
+        {
+            return Reduce(a1.radians).CompareTo(Reduce(a2.radians));
+        }
+
+        /// <summary>
         /// Compares this instance to a specified Angle object and returns an integer that indicates whether this instance is shorter than, equal to, or longer than the Angle object.
         /// </summary>
         /// <param name="value">An object to compare to this instance.</param>

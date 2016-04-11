@@ -10,6 +10,14 @@ namespace NetFabric
         , IComparable
         , IComparable<Angle>
     {
+        public enum Quadrant
+        {
+            First,
+            Second,
+            Third,
+            Fourth
+        }
+
         double radians;
 
         const double RightAngle = System.Math.PI * 0.5;
@@ -221,10 +229,21 @@ namespace NetFabric
 
         #region reduce
 
-        private static double Reduce(double d)
+        static double Reduce(double radians)
         {
-            var reduced = d % FullAngle;
+            var reduced = radians % FullAngle;
             return reduced >= 0 ? reduced : reduced + FullAngle;
+        }
+
+        static Quadrant GetQuadrant(double radians)
+        {
+            if (radians < RightAngle)
+                return Quadrant.First;
+            if (radians < StraightAngle)
+                return Quadrant.Second;
+            if (radians < StraightAngle + RightAngle)
+                return Quadrant.Third;
+            return Quadrant.Fourth;
         }
 
         /// <summary>
@@ -242,23 +261,39 @@ namespace NetFabric
         }
 
         /// <summary>
-        /// The reference angle.
+        /// Returns the quadrant the angle is in.
         /// </summary>
         /// <param name="angle"></param>
-        /// <returns></returns>
-        public static Angle Reference(Angle angle)
+        /// <returns>The quadrant the angle is in.</returns>
+        public static Quadrant GetQuadrant(Angle angle)
+        {
+            return GetQuadrant(Reduce(angle.radians));
+        }
+
+        /// <summary>
+        /// Returns the reference angle.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>The reference angle.</returns>
+        public static Angle GetReference(Angle angle)
         {
             Contract.Ensures(Contract.Result<Angle>() >= Angle.Zero);
             Contract.Ensures(Contract.Result<Angle>() <= Angle.Right);
 
             var reduced = Reduce(angle.radians);
-            if (reduced <= RightAngle) // first quadrant
-                return new Angle(reduced);
-            if (reduced <= StraightAngle) // second quadrant
-                return new Angle(StraightAngle - reduced);
-            if (reduced <= StraightAngle + RightAngle) // third quadrant
-                return new Angle(reduced - StraightAngle);
-            return new Angle(FullAngle - reduced); //fourth quadrant
+            switch(GetQuadrant(reduced))
+            {
+                case Quadrant.First:
+                    return new Angle(reduced);
+                case Quadrant.Second:
+                    return new Angle(StraightAngle - reduced);
+                case Quadrant.Third:
+                    return new Angle(reduced - StraightAngle);
+                case Quadrant.Fourth:
+                    return new Angle(FullAngle - reduced);
+                default:
+                    throw new InvalidOperationException();
+            }
         }
 
         #endregion

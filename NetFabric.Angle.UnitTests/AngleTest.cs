@@ -336,23 +336,48 @@ namespace NetFabric.UnitTests
         }
 
         [TestMethod]
+        public void GetQuadrantIsDefinedCorrectly()
+        {
+            var delta = Angle.FromRadians(0.0000001);
+
+            Assert.AreEqual(Angle.Quadrant.First, Angle.GetQuadrant(Angle.Zero));
+            Assert.AreEqual(Angle.Quadrant.First, Angle.GetQuadrant(Angle.FromDegrees(45)));
+            Assert.AreEqual(Angle.Quadrant.Second, Angle.GetQuadrant(Angle.Right));
+            Assert.AreEqual(Angle.Quadrant.Second, Angle.GetQuadrant(Angle.FromDegrees(135)));
+            Assert.AreEqual(Angle.Quadrant.Third, Angle.GetQuadrant(Angle.Straight));
+            Assert.AreEqual(Angle.Quadrant.Third, Angle.GetQuadrant(Angle.FromDegrees(225)));
+            Assert.AreEqual(Angle.Quadrant.Fourth, Angle.GetQuadrant(Angle.FromDegrees(270)));
+            Assert.AreEqual(Angle.Quadrant.Fourth, Angle.GetQuadrant(Angle.FromDegrees(315)));
+
+            Assert.AreEqual(Angle.Quadrant.First, Angle.GetQuadrant(Angle.Full));
+            Assert.AreEqual(Angle.Quadrant.First, Angle.GetQuadrant(Angle.FromDegrees(45) + Angle.Full));
+            Assert.AreEqual(Angle.Quadrant.Second, Angle.GetQuadrant(Angle.Right + Angle.Full));
+            Assert.AreEqual(Angle.Quadrant.Second, Angle.GetQuadrant(Angle.FromDegrees(135) + Angle.Full));
+            Assert.AreEqual(Angle.Quadrant.Third, Angle.GetQuadrant(Angle.Straight + Angle.Full));
+            Assert.AreEqual(Angle.Quadrant.Third, Angle.GetQuadrant(Angle.FromDegrees(225) + Angle.Full));
+            Assert.AreEqual(Angle.Quadrant.Fourth, Angle.GetQuadrant(Angle.FromDegrees(270) + Angle.Full));
+            Assert.AreEqual(Angle.Quadrant.Fourth, Angle.GetQuadrant(Angle.FromDegrees(315) + Angle.Full));
+
+        }
+
+        [TestMethod]
         public void ReferenceIsDefinedCorrectly()
         {
             var delta = Angle.FromRadians(0.0000001);
 
-            Assert.AreEqual(Angle.Zero, Angle.Reference(Angle.Zero));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(45)));
-            Assert.AreEqual(Angle.Right, Angle.Reference(Angle.Right));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(135)));
-            Assert.AreEqual(Angle.Zero, Angle.Reference(Angle.Straight));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(225)));
-            Assert.AreEqual(Angle.Right, Angle.Reference(Angle.FromDegrees(270)));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(315)));
-            Assert.AreEqual(Angle.Zero, Angle.Reference(Angle.Full));
+            Assert.AreEqual(Angle.Zero, Angle.GetReference(Angle.Zero));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(45)));
+            Assert.AreEqual(Angle.Right, Angle.GetReference(Angle.Right));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(135)));
+            Assert.AreEqual(Angle.Zero, Angle.GetReference(Angle.Straight));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(225)));
+            Assert.AreEqual(Angle.Right, Angle.GetReference(Angle.FromDegrees(270)));
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(315)));
+            Assert.AreEqual(Angle.Zero, Angle.GetReference(Angle.Full));
 
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reference(Angle.FromDegrees(45) + Angle.Full));
-            Assert.AreEqual(Angle.Right, Angle.Reference(Angle.Right + Angle.Full));
-            Assert.AreEqual(Angle.FromDegrees(45).ToRadians(), Angle.Reference(Angle.FromDegrees(135) + Angle.Full).ToRadians(), 0.000001);
+            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(45) + Angle.Full));
+            Assert.AreEqual(Angle.Right, Angle.GetReference(Angle.Right + Angle.Full));
+            Assert.AreEqual(Angle.FromDegrees(45).ToRadians(), Angle.GetReference(Angle.FromDegrees(135) + Angle.Full).ToRadians(), 0.000001);
 
         }
 

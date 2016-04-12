@@ -128,7 +128,8 @@ namespace NetFabric
 
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional radians.
-        /// </summary>
+        /// </summary
+        [Pure]
         public double ToRadians()
         {
             return radians;
@@ -137,6 +138,7 @@ namespace NetFabric
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional degrees.
         /// </summary>
+        [Pure]
         public double ToDegrees()
         {
             return radians * DegreesByRadians;
@@ -147,6 +149,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="degress"></param>
         /// <param name="minutes"></param>
+        [Pure]
         public void ToDegrees(out int degress, out double minutes)
         {
             Contract.Ensures(Contract.ValueAtReturn(out minutes) >= 0 && Contract.ValueAtReturn(out minutes) < 60);
@@ -161,6 +164,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="degress"></param>
         /// <param name="minutes"></param>
+        [Pure]
         public void ToDegrees(out int degress, out int minutes, out double seconds)
         {
             Contract.Ensures(Contract.ValueAtReturn(out minutes) >= 0 && Contract.ValueAtReturn(out minutes) < 60);
@@ -176,6 +180,7 @@ namespace NetFabric
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional gradians.
         /// </summary>
+        [Pure]
         public double ToGradians()
         {
             return radians * GradiansByRadians;

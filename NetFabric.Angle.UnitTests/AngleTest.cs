@@ -355,6 +355,12 @@ namespace NetFabric.UnitTests
             Assert.AreEqual(Angle.FromDegrees(135).ToRadians(), Angle.Reduce(Angle.FromDegrees(135) + Angle.Full).ToRadians(), 0.000001);
             Assert.AreEqual(Angle.Straight, Angle.Reduce(Angle.Straight + Angle.Full));
 
+            Assert.AreEqual(Angle.Zero, Angle.Reduce(-Angle.Full));
+            Assert.AreEqual(Angle.FromDegrees(315), Angle.Reduce(-Angle.FromDegrees(45)));
+            Assert.AreEqual(Angle.FromDegrees(270), Angle.Reduce(-Angle.Right));
+            Assert.AreEqual(Angle.Straight, Angle.Reduce(-Angle.Straight));
+            Assert.AreEqual(Angle.Right, Angle.Reduce(-Angle.FromDegrees(270)));
+
         }
 
         [TestMethod]

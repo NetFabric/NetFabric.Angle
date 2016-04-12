@@ -234,28 +234,53 @@ namespace NetFabric
 
         #region types of angles
 
+        /// <summary>
+        /// Indicates whether the specified angle is acute.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>true if the reduction of the absolute angle is greater than zero and less than 90 degrees; otherwise false.</returns>
         public static bool IsAcute(Angle angle)
         {
             var reduced = Reduce(Math.Abs(angle.radians));
             return reduced > 0.0 && reduced < RightAngle;
         }
 
+        /// <summary>
+        /// Indicates whether the specified angle is right.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>true if the reduction of the absolute angle is 90 degrees; otherwise false.</returns>
         public static bool IsRight(Angle angle)
         {
             return Reduce(Math.Abs(angle.radians)) == RightAngle;
         }
 
+        /// <summary>
+        /// Indicates whether the specified angle is obtuse.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>true if the reduction of the absolute angle is greater than 90 degrees and less than 180 degrees; otherwise false.</returns>
         public static bool IsObtuse(Angle angle)
         {
             var reduced = Reduce(Math.Abs(angle.radians));
             return reduced > RightAngle && reduced < StraightAngle;
         }
 
+        /// <summary>
+        /// Indicates whether the specified angle is straight.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
         public static bool IsStraight(Angle angle)
         {
             return Reduce(Math.Abs(angle.radians)) == StraightAngle;
         }
 
+        /// <summary>
+        /// Indicates whether the specified angle is reflex.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>true if the reduction of the absolute angle is greater than 180 degrees and less than 360 degrees; otherwise false.</returns>
         public static bool IsReflex(Angle angle)
         {
             return Reduce(Math.Abs(angle.radians)) > StraightAngle;

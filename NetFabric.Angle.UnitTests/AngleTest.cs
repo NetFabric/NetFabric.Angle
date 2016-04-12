@@ -409,10 +409,100 @@ namespace NetFabric.UnitTests
 
         }
 
+        [TestMethod]
+        public void IsAcuteIsDefinedCorrectly()
+        {
+            Assert.IsFalse(Angle.IsAcute(Angle.Zero));
+            Assert.IsTrue(Angle.IsAcute(Angle.FromDegrees(45)));
+            Assert.IsFalse(Angle.IsAcute(Angle.Right));
+            Assert.IsFalse(Angle.IsAcute(Angle.FromDegrees(135)));
+            Assert.IsFalse(Angle.IsAcute(Angle.Straight));
+            Assert.IsFalse(Angle.IsAcute(Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsAcute(Angle.Full));
 
+            Assert.IsTrue(Angle.IsAcute(-Angle.FromDegrees(45)));
+            Assert.IsFalse(Angle.IsAcute(-Angle.Right));
+            Assert.IsFalse(Angle.IsAcute(-Angle.FromDegrees(135)));
+            Assert.IsFalse(Angle.IsAcute(-Angle.Straight));
+            Assert.IsFalse(Angle.IsAcute(-Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsAcute(-Angle.Full));
+        }
 
+        [TestMethod]
+        public void IsRightIsDefinedCorrectly()
+        {
+            Assert.IsFalse(Angle.IsRight(Angle.Zero));
+            Assert.IsFalse(Angle.IsRight(Angle.FromDegrees(45)));
+            Assert.IsTrue(Angle.IsRight(Angle.Right));
+            Assert.IsFalse(Angle.IsRight(Angle.FromDegrees(135)));
+            Assert.IsFalse(Angle.IsRight(Angle.Straight));
+            Assert.IsFalse(Angle.IsRight(Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsRight(Angle.Full));
 
+            Assert.IsFalse(Angle.IsRight(-Angle.FromDegrees(45)));
+            Assert.IsTrue(Angle.IsRight(-Angle.Right));
+            Assert.IsFalse(Angle.IsRight(-Angle.FromDegrees(135)));
+            Assert.IsFalse(Angle.IsRight(-Angle.Straight));
+            Assert.IsFalse(Angle.IsRight(-Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsRight(-Angle.Full));
+        }
 
+        [TestMethod]
+        public void IsObtuseIsDefinedCorrectly()
+        {
+            Assert.IsFalse(Angle.IsObtuse(Angle.Zero));
+            Assert.IsFalse(Angle.IsObtuse(Angle.FromDegrees(45)));
+            Assert.IsFalse(Angle.IsObtuse(Angle.Right));
+            Assert.IsTrue(Angle.IsObtuse(Angle.FromDegrees(135)));
+            Assert.IsFalse(Angle.IsObtuse(Angle.Straight));
+            Assert.IsFalse(Angle.IsObtuse(Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsObtuse(Angle.Full));
+
+            Assert.IsFalse(Angle.IsObtuse(-Angle.FromDegrees(45)));
+            Assert.IsFalse(Angle.IsObtuse(-Angle.Right));
+            Assert.IsTrue(Angle.IsObtuse(-Angle.FromDegrees(135)));
+            Assert.IsFalse(Angle.IsObtuse(-Angle.Straight));
+            Assert.IsFalse(Angle.IsObtuse(-Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsObtuse(-Angle.Full));
+        }
+
+        [TestMethod]
+        public void IsStraightIsDefinedCorrectly()
+        {
+            Assert.IsFalse(Angle.IsStraight(Angle.Zero));
+            Assert.IsFalse(Angle.IsStraight(Angle.FromDegrees(45)));
+            Assert.IsFalse(Angle.IsStraight(Angle.Right));
+            Assert.IsFalse(Angle.IsStraight(Angle.FromDegrees(135)));
+            Assert.IsTrue(Angle.IsStraight(Angle.Straight));
+            Assert.IsFalse(Angle.IsStraight(Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsStraight(Angle.Full));
+
+            Assert.IsFalse(Angle.IsStraight(-Angle.FromDegrees(45)));
+            Assert.IsFalse(Angle.IsStraight(-Angle.Right));
+            Assert.IsFalse(Angle.IsStraight(-Angle.FromDegrees(135)));
+            Assert.IsTrue(Angle.IsStraight(-Angle.Straight));
+            Assert.IsFalse(Angle.IsStraight(-Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsStraight(-Angle.Full));
+        }
+
+        [TestMethod]
+        public void IsReflexIsDefinedCorrectly()
+        {
+            Assert.IsFalse(Angle.IsReflex(Angle.Zero));
+            Assert.IsFalse(Angle.IsReflex(Angle.FromDegrees(45)));
+            Assert.IsFalse(Angle.IsReflex(Angle.Right));
+            Assert.IsFalse(Angle.IsReflex(Angle.FromDegrees(135)));
+            Assert.IsFalse(Angle.IsReflex(Angle.Straight));
+            Assert.IsTrue(Angle.IsReflex(Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsReflex(Angle.Full));
+
+            Assert.IsFalse(Angle.IsReflex(-Angle.FromDegrees(45)));
+            Assert.IsFalse(Angle.IsReflex(-Angle.Right));
+            Assert.IsFalse(Angle.IsReflex(-Angle.FromDegrees(135)));
+            Assert.IsFalse(Angle.IsReflex(-Angle.Straight));
+            Assert.IsTrue(Angle.IsReflex(-Angle.FromDegrees(270)));
+            Assert.IsFalse(Angle.IsReflex(-Angle.Full));
+        }
 
     }
 }

@@ -232,6 +232,37 @@ namespace NetFabric
             return left.radians > right.radians ? left : right;
         }
 
+        #region types of angles
+
+        public static bool IsAcute(Angle angle)
+        {
+            var reduced = Reduce(Math.Abs(angle.radians));
+            return reduced > 0.0 && reduced < RightAngle;
+        }
+
+        public static bool IsRight(Angle angle)
+        {
+            return Reduce(Math.Abs(angle.radians)) == RightAngle;
+        }
+
+        public static bool IsObtuse(Angle angle)
+        {
+            var reduced = Reduce(Math.Abs(angle.radians));
+            return reduced > RightAngle && reduced < StraightAngle;
+        }
+
+        public static bool IsStraight(Angle angle)
+        {
+            return Reduce(Math.Abs(angle.radians)) == StraightAngle;
+        }
+
+        public static bool IsReflex(Angle angle)
+        {
+            return Reduce(Math.Abs(angle.radians)) > StraightAngle;
+        }
+
+        #endregion
+
         #region reduce
 
         static double Reduce(double radians)

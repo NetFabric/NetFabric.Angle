@@ -1,6 +1,8 @@
 NetFabric.Angle
 ===============
 
+[![Build status](https://ci.appveyor.com/api/projects/status/6lfc5ymh0wip5msi?svg=true)](https://ci.appveyor.com/project/AntaoAlmada/netfabric-angle/)
+
 The angle is represented internaly in radians but can be created and read in radians, degrees and gradians.
 
 # Usage:

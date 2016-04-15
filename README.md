@@ -1,6 +1,8 @@
 NetFabric.Angle
 ===============
 
+[![Join the chat at https://gitter.im/aalmada/NetFabric.Angle](https://badges.gitter.im/aalmada/NetFabric.Angle.svg)](https://gitter.im/aalmada/NetFabric.Angle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build status](https://ci.appveyor.com/api/projects/status/6lfc5ymh0wip5msi?svg=true)](https://ci.appveyor.com/project/AntaoAlmada/netfabric-angle/) [![Nuget Badge](https://buildstats.info/nuget/NetFabric.Angle)](https://www.nuget.org/packages/NetFabric.Angle/)
 
 Implements a structure representing an angle.

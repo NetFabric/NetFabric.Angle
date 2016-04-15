@@ -13,6 +13,12 @@ Includes reduction, reference angle, comparison, classification and trigonometry
 
 # Usage:
 
+### Adding to your project
+
+NetFabric.Angle is [published as a NuGet package](https://www.nuget.org/packages/NetFabric.Angle/). Use the NuGet Package Manager in Visual Studio or in Xamarin Studio to easily add it to you project.
+
+The package contains a portable library that can be added to almost any type of .NET project (.NET 4.5, ASP.NET Core 1.0, Windows 8, Xamarin.Android, Xamarin.iOS, Windows Phone 8.1).
+
 ### Creation of the angle:
 
 Use the methods for the units you are working with:

@@ -1,9 +1,7 @@
 NetFabric.Angle
 ===============
 
-[![Join the chat at https://gitter.im/aalmada/NetFabric.Angle](https://badges.gitter.im/aalmada/NetFabric.Angle.svg)](https://gitter.im/aalmada/NetFabric.Angle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![Build status](https://ci.appveyor.com/api/projects/status/6lfc5ymh0wip5msi?svg=true)](https://ci.appveyor.com/project/AntaoAlmada/netfabric-angle/) [![Nuget Badge](https://buildstats.info/nuget/NetFabric.Angle)](https://www.nuget.org/packages/NetFabric.Angle/)
+[![Join the chat at https://gitter.im/aalmada/NetFabric.Angle](https://badges.gitter.im/aalmada/NetFabric.Angle.svg)](https://gitter.im/aalmada/NetFabric.Angle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build status](https://ci.appveyor.com/api/projects/status/6lfc5ymh0wip5msi?svg=true)](https://ci.appveyor.com/project/AntaoAlmada/netfabric-angle/) [![Nuget Badge](https://buildstats.info/nuget/NetFabric.Angle)](https://www.nuget.org/packages/NetFabric.Angle/)
 
 Implements a structure representing an angle.
 
@@ -25,21 +23,21 @@ The package contains a portable library that can be added to almost any type of 
 
 Use the methods for the units you are working with:
     
-    var angle0 = Angle.FromRadian(Math.PI / 2.0);
-    var angle1 = Angle.FromDegrees(90.0);
-    var angle4 = Angle.FromGradian(50.0);
+    var right0 = Angle.FromRadian(Math.PI / 2.0);
+    var right1 = Angle.FromDegrees(90.0);
+    var right2 = Angle.FromGradian(50.0);
 
-Arcminutes and arcseconds have to be values in the range [0.0, 60.0[
+Arcminutes and arcseconds have to be values in the interval [0.0, 60.0[
 
-    var angle2 = Angle.FromDegrees(90, 0.0); // degrees and arcminutes
-    var angle3 = Angle.FromDegrees(-90, 0, 0.0); // degrees, arcminutes and arcseconds
+    var right3 = Angle.FromDegrees(90, 0.0); // degrees and arcminutes
+    var right4 = Angle.FromDegrees(-90, 0, 0.0); // degrees, arcminutes and arcseconds
 
 You can use the predefined angles:
 
-    var angle3 = Angle.Zero;     // 0 degrees
-    var angle4 = Angle.Right;    // 90 degrees
-    var angle5 = Angle.Straight; // 180 degrees
-    var angle6 = Angle.Full;     // 360 degrees
+    var zero = Angle.Zero;     // 0 degrees
+    var right = Angle.Right;    // 90 degrees
+    var straight = Angle.Straight; // 180 degrees
+    var full = Angle.Full;     // 360 degrees
 
 ### Reading the angle:
 
@@ -51,22 +49,22 @@ Retrieving arcminutes and arcseconds uses a different sintax:
     
     int degrees0;
     double minute0;
-    angle0.ToDegrees(out degrees0, out minutes0);
+    angle.ToDegrees(out degrees0, out minutes0);
     
     int degrees1;
     int minute1;
     double seconds1;
-    angle0.ToDegrees(out degrees1, out minutes1, out seconds1);
+    angle.ToDegrees(out degrees1, out minutes1, out seconds1);
 
 ### Reduction and reference
 
 The angle can be reduced to a coterminal angle in the range [0.0, 360.0[ degrees:
     
-    var angle = Math.Reduce(Angle.Right + Angle.Full); // result is Angle.Right
+    var angle = Angle.Reduce(Angle.Right + Angle.Full); // result is Angle.Right
     
 Getting the reference angle:
 
-    var angle = Math.GetReference(Angle.Right + Angle.FromDegrees(45.0)); // result is an angle with 45 degrees
+    var angle = Angle.GetReference(Angle.Right + Angle.FromDegrees(45.0)); // result is an angle with 45 degrees
     
 ### Math operations
 
@@ -98,21 +96,21 @@ For languages that do not support operators use the static Compare() method:
         ...
     }
     
-For performance reasons, the values compared are not reduced. You have to explicitly reduce both angles before comparing:
+For performance reasons, the values compared are not reduced. You'll have to explicitly reduce both angles before comparing:
     
-    if(Math.Reduce(angle0) > Math.Reduce(angle1)) {
+    if(Angle.Reduce(angle0) > Angle.Reduce(angle1)) {
         ...
     }
     
 or use the static CompareReduced() method:
 
-    if(Math.CompareReduced(angle0, angle1) > 0) {
+    if(Angle.CompareReduced(angle0, angle1) > 0) {
         ...
     }
 
 ### Trigonometry
 
-The usual trigonometry sin, cos, tan, asin, acos, atan, sinh, cosh,  operations are available:
+The usual trigonometry operations (sin, cos, tan, asin, acos, atan, sinh and cosh) are available as static methods:
 
     var value = Angle.Sin(angle);
     var angle = Angle.Asin(value);
@@ -121,17 +119,18 @@ The usual trigonometry sin, cos, tan, asin, acos, atan, sinh, cosh,  operations 
 
 You can get the quadrante of the angle
 
-    var quad0 = Angle.GetQuadrant(Angle.FromDegrees(45.0)); // Quadrant.First
-    var quad1 = Angle.GetQuadrant(Angle.FromDegrees(22.0)); // Quadrant.Third
-    var quad2 = Angle.GetQuadrant(Angle.FromDegrees(-45.0)); // Quadrant.Fourth
+    var quad0 = Angle.GetQuadrant(Angle.FromDegrees(45.0)); // Angle.Quadrant.First
+    var quad1 = Angle.GetQuadrant(Angle.FromDegrees(22.0)); // Angle.Quadrant.Third
+    var quad2 = Angle.GetQuadrant(Angle.FromDegrees(-45.0)); // Angle.Quadrant.Fourth
 
 and can check if an angle is acute, right, obtuse, straight or reflex:
 
-    var acute = Angle.IsAcute(Angle.Right); // false
-    var acute = Angle.IsAcute(Angle.FromDegrees(45.0)); // true
-    var right = Angle.IsRight(Angle.Right); // true
+    var isAcute = Angle.IsAcute(Angle.Right); // false
+    var isAcute = Angle.IsAcute(Angle.FromDegrees(45.0)); // true
+    var isRight = Angle.IsRight(Angle.Right); // true
     
 Classification considers the reduced positive equivalent of the angle so:
 
-    var acute = Angle.IsAcute(Angle.FromDegrees(-45.0)); // true
-    var acute = Angle.IsAcute(Angle.FromDegrees(315.0)); // false
+    var isAcute = Angle.IsAcute(Angle.FromDegrees(45.0)); // true
+    var isAcute = Angle.IsAcute(Angle.FromDegrees(-45.0)); // true
+    var isAcute = Angle.IsAcute(Angle.FromDegrees(315.0)); // false

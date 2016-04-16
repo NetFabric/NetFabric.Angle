@@ -4,7 +4,6 @@ using System.Diagnostics.Contracts;
 
 namespace NetFabric
 {
-    [DebuggerDisplay("Degrees = {TotalDegrees}")]
     public struct Angle
         : IEquatable<Angle>
         , IComparable

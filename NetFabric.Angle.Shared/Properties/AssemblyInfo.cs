@@ -14,7 +14,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Antao Almada  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+#if !NET_MF
 [assembly: NeutralResourcesLanguage("en")]
+#endif
 
 // Version information for an assembly consists of the following four values:
 //

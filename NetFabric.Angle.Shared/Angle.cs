@@ -4,9 +4,11 @@ using System.Diagnostics;
 namespace NetFabric
 {
     public struct Angle
+#if !NET_MF
         : IEquatable<Angle>
         , IComparable
         , IComparable<Angle>
+#endif
     {
         public enum Quadrant
         {
@@ -89,7 +91,7 @@ namespace NetFabric
         public static Angle FromDegrees(int degrees, double minutes)
         {
             if (minutes < 0.0 || minutes >= 60.0)
-                throw new ArgumentOutOfRangeException("minutes", minutes, "Argument must be positive and less than 60.");
+                ThrowArgumentOutOfRange("minutes", minutes, "Argument must be positive and less than 60.");
 
             if (Math.Sign(degrees) < 0)
                 return new Angle((degrees - minutes / 60.0) / DegreesByRadians);
@@ -107,9 +109,9 @@ namespace NetFabric
         public static Angle FromDegrees(int degrees, int minutes, double seconds)
         {
             if (minutes < 0.0 || minutes >= 60.0)
-                throw new ArgumentOutOfRangeException("minutes", minutes, "Argument must be positive and less than 60.");
+                ThrowArgumentOutOfRange("minutes", minutes, "Argument must be positive and less than 60.");
             if (seconds < 0.0 || seconds >= 60.0)
-                throw new ArgumentOutOfRangeException("seconds", seconds, "Argument must be positive and less than 60.");
+                ThrowArgumentOutOfRange("seconds", seconds, "Argument must be positive and less than 60.");
 
             if (Math.Sign(degrees) < 0)
                 return new Angle((degrees - minutes / 60.0 - seconds / 3600.0) / DegreesByRadians);
@@ -372,7 +374,7 @@ namespace NetFabric
         public static Angle Asin(double value)
         {
             if (value < -1.0 || value > 1.0)
-                throw new ArgumentOutOfRangeException("value", value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
+                ThrowArgumentOutOfRange("value", value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
 
             return new Angle(System.Math.Asin(value));
         }
@@ -405,7 +407,7 @@ namespace NetFabric
         public static Angle Acos(double value)
         {
             if (value < -1.0 || value > 1.0)
-                throw new ArgumentOutOfRangeException("value", value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
+                ThrowArgumentOutOfRange("value", value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
 
             return new Angle(System.Math.Acos(value));
         }
@@ -545,7 +547,11 @@ namespace NetFabric
         /// <returns></returns>
         public static int Compare(Angle a1, Angle a2)
         {
+#if NET_MF
+            return double.CompareTo(a1.radians, a2.radians);
+#else
             return a1.radians.CompareTo(a2.radians);
+#endif
         }
 
         /// <summary>
@@ -556,8 +562,14 @@ namespace NetFabric
         /// <returns></returns>
         public static int CompareReduced(Angle a1, Angle a2)
         {
+#if NET_MF
+            return double.CompareTo(Reduce(a1.radians), Reduce(a2.radians));
+#else
             return Reduce(a1.radians).CompareTo(Reduce(a2.radians));
+#endif
         }
+
+#if !NET_MF
 
         /// <summary>
         /// Compares this instance to a specified Angle object and returns an integer that indicates whether this instance is shorter than, equal to, or longer than the Angle object.
@@ -582,6 +594,8 @@ namespace NetFabric
                 throw new ArgumentException("Argument has to be an Angle.", "value");
             return this.CompareTo((Angle)obj);
         }
+
+#endif
 
 #endregion
 
@@ -801,5 +815,15 @@ namespace NetFabric
         }
 
 #endregion
+
+        static void ThrowArgumentOutOfRange(string paramName, object paramValue, string message)
+        {
+            throw new ArgumentOutOfRangeException(
+                paramName,
+#if !NET_MF
+                paramValue,
+#endif
+                message);
+        }
     }
 }

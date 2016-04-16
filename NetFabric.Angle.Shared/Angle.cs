@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 
 namespace NetFabric
 {
@@ -89,7 +88,8 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         public static Angle FromDegrees(int degrees, double minutes)
         {
-            Contract.Requires(minutes >= 0.0 && minutes < 60.0);
+            if (minutes < 0.0 || minutes >= 60.0)
+                throw new ArgumentOutOfRangeException("minutes", minutes, "Argument must be positive and less than 60.");
 
             if (Math.Sign(degrees) < 0)
                 return new Angle((degrees - minutes / 60.0) / DegreesByRadians);
@@ -106,10 +106,12 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         public static Angle FromDegrees(int degrees, int minutes, double seconds)
         {
-            Contract.Requires(minutes >= 0 && minutes < 60);
-            Contract.Requires(seconds >= 0.0 && seconds < 60.0);
+            if (minutes < 0.0 || minutes >= 60.0)
+                throw new ArgumentOutOfRangeException("minutes", minutes, "Argument must be positive and less than 60.");
+            if (seconds < 0.0 || seconds >= 60.0)
+                throw new ArgumentOutOfRangeException("seconds", seconds, "Argument must be positive and less than 60.");
 
-            if(Math.Sign(degrees) < 0)
+            if (Math.Sign(degrees) < 0)
                 return new Angle((degrees - minutes / 60.0 - seconds / 3600.0) / DegreesByRadians);
             else
                 return new Angle((degrees + minutes / 60.0 + seconds / 3600.0) / DegreesByRadians);
@@ -128,7 +130,6 @@ namespace NetFabric
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional radians.
         /// </summary
-        [Pure]
         public double ToRadians()
         {
             return radians;
@@ -137,7 +138,6 @@ namespace NetFabric
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional degrees.
         /// </summary>
-        [Pure]
         public double ToDegrees()
         {
             return radians * DegreesByRadians;
@@ -148,11 +148,8 @@ namespace NetFabric
         /// </summary>
         /// <param name="degress"></param>
         /// <param name="minutes"></param>
-        [Pure]
         public void ToDegrees(out int degress, out double minutes)
         {
-            Contract.Ensures(Contract.ValueAtReturn(out minutes) >= 0 && Contract.ValueAtReturn(out minutes) < 60);
-
             var decimalDegrees = radians * DegreesByRadians;
             degress = (int)decimalDegrees;
             minutes = Math.Abs(decimalDegrees - degress) * 60.0;
@@ -163,12 +160,8 @@ namespace NetFabric
         /// </summary>
         /// <param name="degress"></param>
         /// <param name="minutes"></param>
-        [Pure]
         public void ToDegrees(out int degress, out int minutes, out double seconds)
         {
-            Contract.Ensures(Contract.ValueAtReturn(out minutes) >= 0 && Contract.ValueAtReturn(out minutes) < 60);
-            Contract.Ensures(Contract.ValueAtReturn(out seconds) >= 0.0 && Contract.ValueAtReturn(out seconds) < 60.0);
-
             var decimalDegrees = radians * DegreesByRadians;
             degress = (int)decimalDegrees;
             var decimalMinutes = Math.Abs(decimalDegrees - degress) * 60.0;
@@ -179,7 +172,6 @@ namespace NetFabric
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional gradians.
         /// </summary>
-        [Pure]
         public double ToGradians()
         {
             return radians * GradiansByRadians;
@@ -194,8 +186,6 @@ namespace NetFabric
         /// </returns>
         public static Angle Abs(Angle angle)
         {
-            Contract.Ensures(Contract.Result<Angle>().ToRadians() >= 0.0);
-
             return new Angle(Math.Abs(angle.radians));
         }
 
@@ -231,7 +221,7 @@ namespace NetFabric
             return left.radians > right.radians ? left : right;
         }
 
-        #region types of angles
+#region types of angles
 
         /// <summary>
         /// Indicates whether the specified angle is acute.
@@ -285,9 +275,9 @@ namespace NetFabric
             return Reduce(Math.Abs(angle.radians)) > StraightAngle;
         }
 
-        #endregion
+#endregion
 
-        #region reduce
+#region reduce
 
         static double Reduce(double radians)
         {
@@ -313,9 +303,6 @@ namespace NetFabric
         /// <returns></returns>
         public static Angle Reduce(Angle angle)
         {
-            Contract.Ensures(Contract.Result<Angle>() >= Angle.Zero);
-            Contract.Ensures(Contract.Result<Angle>() < Angle.Full);
-
             var reduced = Reduce(angle.radians);
             return new Angle(reduced);
         }
@@ -337,9 +324,6 @@ namespace NetFabric
         /// <returns>The reference angle.</returns>
         public static Angle GetReference(Angle angle)
         {
-            Contract.Ensures(Contract.Result<Angle>() >= Angle.Zero);
-            Contract.Ensures(Contract.Result<Angle>() <= Angle.Right);
-
             var reduced = Reduce(angle.radians);
             switch(GetQuadrant(reduced))
             {
@@ -356,9 +340,9 @@ namespace NetFabric
             }
         }
 
-        #endregion
+#endregion
 
-        #region trigonometric functions
+#region trigonometric functions
 
         /// <summary>
         /// Return the sine of the specified angle.
@@ -367,9 +351,6 @@ namespace NetFabric
         /// <returns>The sine of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</returns>
         public static double Sin(Angle angle)
         {
-            Contract.Ensures(Contract.Result<double>() >= -1.0);
-            Contract.Ensures(Contract.Result<double>() <= 1.0);
-
             return System.Math.Sin(angle.radians);
         }
 
@@ -390,8 +371,8 @@ namespace NetFabric
         /// <returns>The angle whose sine is the specified number.</returns>
         public static Angle Asin(double value)
         {
-            Contract.Requires(value >= -1.0);
-            Contract.Requires(value <= 1.0);
+            if (value < -1.0 || value > 1.0)
+                throw new ArgumentOutOfRangeException("value", value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
 
             return new Angle(System.Math.Asin(value));
         }
@@ -403,9 +384,6 @@ namespace NetFabric
         /// <returns>The cosine of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</returns>
         public static double Cos(Angle angle)
         {
-            Contract.Ensures(Contract.Result<double>() >= -1.0);
-            Contract.Ensures(Contract.Result<double>() <= 1.0);
-
             return System.Math.Cos(angle.radians);
         }
 
@@ -426,8 +404,8 @@ namespace NetFabric
         /// <returns>The angle whose cosine is the specified number.</returns>
         public static Angle Acos(double value)
         {
-            Contract.Requires(value >= -1.0);
-            Contract.Requires(value <= 1.0);
+            if (value < -1.0 || value > 1.0)
+                throw new ArgumentOutOfRangeException("value", value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
 
             return new Angle(System.Math.Acos(value));
         }
@@ -463,9 +441,9 @@ namespace NetFabric
             return new Angle(System.Math.Atan2(y, x));
         }
 
-        #endregion
+#endregion
 
-        #region equality implementation
+#region equality implementation
 
         /// <summary>
         /// Indicates whether two Angle instances are equal.
@@ -511,9 +489,9 @@ namespace NetFabric
             return radians == obj.radians;
         }
 
-        #endregion
+#endregion
 
-        #region comparison implementation
+#region comparison implementation
 
         /// <summary>
         /// Indicates whether a specified Angle is less than another specified Angle.
@@ -605,9 +583,9 @@ namespace NetFabric
             return this.CompareTo((Angle)obj);
         }
 
-        #endregion
+#endregion
 
-        #region negation
+#region negation
 
         /// <summary>
         /// Negates an angle.
@@ -640,9 +618,9 @@ namespace NetFabric
         }
 
 
-        #endregion
+#endregion
 
-        #region addition
+#region addition
 
         /// <summary>
         /// Adds two vectors. 
@@ -677,9 +655,9 @@ namespace NetFabric
             return new Angle(left.radians + right.radians);
         }
 
-        #endregion
+#endregion
 
-        #region subtraction
+#region subtraction
 
         /// <summary>
         /// Subtracts a angle from a angle.  
@@ -714,9 +692,9 @@ namespace NetFabric
             return new Angle(left.radians - right.radians);
         }
 
-        #endregion
+#endregion
 
-        #region multiplication
+#region multiplication
 
         /// <summary>
         /// Multiplies a scalar by an angle value. 
@@ -751,9 +729,9 @@ namespace NetFabric
             return new Angle(left * right.radians);
         }
 
-        #endregion
+#endregion
 
-        #region division
+#region division
 
         /// <summary>
         /// Divides a angle by a scalar value. 
@@ -788,9 +766,9 @@ namespace NetFabric
             return new Angle(left.radians / right);
         }
 
-        #endregion
+#endregion
 
-        #region object overrides
+#region object overrides
 
         /// <summary>
         /// Returns a value indicating whether this instance is equal to a specified object.
@@ -822,6 +800,6 @@ namespace NetFabric
             return radians.ToString();
         }
 
-        #endregion
+#endregion
     }
 }

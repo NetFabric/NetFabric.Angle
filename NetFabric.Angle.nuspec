@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>NetFabric.Angle</id>
-		<version>$version$</version>
+		<version>1.0.0</version>
         <authors>Antão Almada</authors>
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
         <projectUrl>https://github.com/aalmada/NetFabric.Angle</projectUrl>

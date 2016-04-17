@@ -20,11 +20,11 @@ Includes reduction, reference angle, comparison, classification and trigonometry
         <tags>math, trigonometry, netmf</tags>
     </metadata>
     <files>
-        <file src="NetFabric.Angle\bin\$configuration$\NetFabric.Angle.dll" target="lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NetFabric.Angle.dll" />
-        <file src="NetFabric.Angle\bin\$configuration$\NetFabric.Angle.xml" target="lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NetFabric.Angle.xml" />
-        <file src="NetFabric.Angle.Net35\bin\$configuration$\NetFabric.Angle.dll" target="lib\net35\NetFabric.Angle.dll" />
-        <file src="NetFabric.Angle.Net35\bin\$configuration$\NetFabric.Angle.xml" target="lib\net35\NetFabric.Angle.xml" />
-        <file src="NetFabric.Angle.NetMF44\bin\$configuration$\NetFabric.Angle.dll" target="lib\netmf44\NetFabric.Angle.dll" />
-        <file src="NetFabric.Angle.NetMF44\bin\$configuration$\NetFabric.Angle.xml" target="lib\netmf44\NetFabric.Angle.xml" />
+        <file src="NetFabric.Angle\bin\Release\NetFabric.Angle.dll" target="lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle\bin\Release\NetFabric.Angle.xml" target="lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NetFabric.Angle.xml" />
+        <file src="NetFabric.Angle.Net35\bin\Release\NetFabric.Angle.dll" target="lib\net35\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.Net35\bin\Release\NetFabric.Angle.xml" target="lib\net35\NetFabric.Angle.xml" />
+        <file src="NetFabric.Angle.NetMF44\bin\Release\NetFabric.Angle.dll" target="lib\netmf44\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF44\bin\Release\NetFabric.Angle.xml" target="lib\netmf44\NetFabric.Angle.xml" />
     </files>
 </package>

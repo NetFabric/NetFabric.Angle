@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>NetFabric.Angle</id>
+        <authors>Antão Almada</authors>
+        <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+        <projectUrl>https://github.com/aalmada/NetFabric.Angle</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<summary>An angle implementation that support radians, degrees and gradians.</summary>
+        <description>
+		Implements a structure representing an angle. 
+		The angle is represented internaly in radians but can be created and read in radians, degrees and gradians. Also supports arcminutes and arcseconds, useful for GPS coordinates.
+		The explicit declaration of the units in creation and reading methods reduces the tipical confusion when dealing with angles.
+		Includes reduction, reference angle, comparison, classification and trigonometry operations.
+		</description>
+        <copyright>2016 Antão Almada</copyright>
+        <language>en-US</language>
+        <tags>math, trigonometry, netmf</tags>
+    </metadata>
+    <files>
+        <file src="NetFabric.Angle\bin\Release\NetFabric.Angle.dll" target="lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle\bin\Release\NetFabric.Angle.xml" target="lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NetFabric.Angle.xml" />
+        <file src="NetFabric.Angle.Net35\bin\Release\NetFabric.Angle.dll" target="lib\net35\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.Net35\bin\Release\NetFabric.Angle.xml" target="lib\net35\NetFabric.Angle.xml" />
+        <file src="NetFabric.Angle.NetMF44\bin\Release\NetFabric.Angle.dll" target="lib\netmf44\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF44\bin\Release\NetFabric.Angle.xml" target="lib\netmf44\NetFabric.Angle.xml" />
+    </files>
+</package>

@@ -3,6 +3,9 @@ using System.Diagnostics;
 
 namespace NetFabric
 {
+    /// <summary>
+    /// Represents an angle. 
+    /// </summary>
     public struct Angle
 #if !NET_MF
         : IEquatable<Angle>
@@ -10,11 +13,26 @@ namespace NetFabric
         , IComparable<Angle>
 #endif
     {
+        /// <summary>
+        /// The four regions divided by the x and y axis.
+        /// </summary>
         public enum Quadrant
         {
+            /// <summary>
+            /// The region where x and y are positive.
+            /// </summary>
             First,
+            /// <summary>
+            /// The region where x is negative and y is positive.
+            /// </summary>
             Second,
+            /// <summary>
+            /// The region where x and y are negative.
+            /// </summary>
             Third,
+            /// <summary>
+            /// The region where x is positive and y is negative.
+            /// </summary>
             Fourth
         }
 
@@ -131,7 +149,7 @@ namespace NetFabric
 
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional radians.
-        /// </summary
+        /// </summary>
         public double ToRadians()
         {
             return radians;
@@ -148,8 +166,8 @@ namespace NetFabric
         /// <summary>
         /// Gets the value of the current Angle structure expressed in degrees and minutes.
         /// </summary>
-        /// <param name="degress"></param>
-        /// <param name="minutes"></param>
+        /// <param name="degress">The degrees component.</param>
+        /// <param name="minutes">The arcminutes component.</param>
         public void ToDegrees(out int degress, out double minutes)
         {
             var decimalDegrees = radians * DegreesByRadians;
@@ -160,8 +178,9 @@ namespace NetFabric
         /// <summary>
         /// Gets the value of the current Angle structure expressed in degrees, minutes and seconds.
         /// </summary>
-        /// <param name="degress"></param>
-        /// <param name="minutes"></param>
+        /// <param name="degress">The degrees component.</param>
+        /// <param name="minutes">The arcminutes component.</param>
+        /// <param name="seconds">The arcseconds component.</param>
         public void ToDegrees(out int degress, out int minutes, out double seconds)
         {
             var decimalDegrees = radians * DegreesByRadians;
@@ -184,7 +203,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>
-        /// An Angle, x, such that Angle.Zero <= x <= Angle.MaxValue.
+        /// An Angle, x, such that Angle.Zero &lt;= x &lt;= Angle.MaxValue.
         /// </returns>
         public static Angle Abs(Angle angle)
         {
@@ -310,10 +329,10 @@ namespace NetFabric
         }
 
         /// <summary>
-        /// Returns the quadrant the angle is in.
+        /// Returns the quadrant where the terminal side of the angle is in when in the standard position.
         /// </summary>
         /// <param name="angle"></param>
-        /// <returns>The quadrant the angle is in.</returns>
+        /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
         public static Quadrant GetQuadrant(Angle angle)
         {
             return GetQuadrant(Reduce(angle.radians));
@@ -485,7 +504,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="obj">An Angle to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
-        /// <remarks>This method implements the <see cref="System.IEquatable<T>"/> interface, and performs slightly better than <see cref="Angle.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
+        /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="Angle.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
         public bool Equals(Angle obj)
         {
             return radians == obj.radians;
@@ -576,7 +595,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="value">An object to compare to this instance.</param>
         /// <returns>-1 if a1 is smaller than a2; 0 if a1 equals to a2; 1 if a1 is larger than a2.</returns>
-        /// <remarks>This method implements the <see cref="System.IComparable<T>"/> interface, and performs slightly better than <see cref="Angle.CompareTo(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
+        /// <remarks>This method implements the System.IComparable&lt;T&gt; interface, and performs slightly better than <see cref="Angle.CompareTo(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
         public int CompareTo(Angle value)
         {
             return radians.CompareTo(value.radians);
@@ -585,7 +604,7 @@ namespace NetFabric
         /// <summary>
         /// Compares this instance to a specified Angle object and returns an integer that indicates whether this instance is shorter than, equal to, or longer than the Angle object.
         /// </summary>
-        /// <param name="value">An object to compare to this instance.</param>
+        /// <param name="obj">An object to compare to this instance.</param>
         /// <returns>-1 if a1 is smaller than a2; 0 if a1 equals to a2; 1 if a1 is larger than a2.</returns>
         /// <exception cref="ArgumentException">value is not an Angle.</exception>
         public int CompareTo(object obj)

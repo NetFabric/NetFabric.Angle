@@ -243,15 +243,15 @@ namespace NetFabric.UnitTests
         [TestMethod]
         public void OperatorEquality()
         {
-            Assert.IsFalse(Angle.Zero == Angle.Right);
-            Assert.IsTrue(Angle.Right == Angle.Right);
+            Assert.IsFalse(Angle.FromDegrees(0) == Angle.FromDegrees(90));
+            Assert.IsTrue(Angle.FromDegrees(90) == Angle.FromDegrees(90));
         }
 
         [TestMethod]
         public void OperatorInequality()
         {
-            Assert.IsTrue(Angle.Zero != Angle.Right);
-            Assert.IsFalse(Angle.Right != Angle.Right);
+            Assert.IsTrue(Angle.FromDegrees(0) != Angle.FromDegrees(90));
+            Assert.IsFalse(Angle.FromDegrees(90) != Angle.FromDegrees(90));
         }
 
         [TestMethod]
@@ -309,33 +309,33 @@ namespace NetFabric.UnitTests
         [TestMethod]
         public void LessThanOperator()
         {
-            Assert.IsTrue(Angle.Zero < Angle.Right);
-            Assert.IsFalse(Angle.Right < Angle.Right);
-            Assert.IsFalse(Angle.Straight < Angle.Right);
+            Assert.IsTrue(Angle.Zero < Angle.FromDegrees(90));
+            Assert.IsFalse(Angle.FromDegrees(90) < Angle.FromDegrees(90));
+            Assert.IsFalse(Angle.FromDegrees(180) < Angle.FromDegrees(90));
         }
 
         [TestMethod]
         public void LessThanOrEqualToOperator()
         {
-            Assert.IsTrue(Angle.Zero <= Angle.Right);
-            Assert.IsTrue(Angle.Right <= Angle.Right);
-            Assert.IsFalse(Angle.Straight <= Angle.Right);
+            Assert.IsTrue(Angle.FromDegrees(0) <= Angle.FromDegrees(90));
+            Assert.IsTrue(Angle.FromDegrees(90) <= Angle.FromDegrees(90));
+            Assert.IsFalse(Angle.FromDegrees(180) <= Angle.FromDegrees(90));
         }
 
         [TestMethod]
         public void GreaterThanOperator()
         {
-            Assert.IsFalse(Angle.Zero > Angle.Right);
-            Assert.IsFalse(Angle.Right > Angle.Right);
-            Assert.IsTrue(Angle.Straight > Angle.Right);
+            Assert.IsFalse(Angle.FromDegrees(0) > Angle.FromDegrees(90));
+            Assert.IsFalse(Angle.FromDegrees(90) > Angle.FromDegrees(90));
+            Assert.IsTrue(Angle.FromDegrees(180) > Angle.FromDegrees(90));
         }
 
         [TestMethod]
         public void GreaterThanOrEqualToOperator()
         {
-            Assert.IsFalse(Angle.Zero >= Angle.Right);
-            Assert.IsTrue(Angle.Right >= Angle.Right);
-            Assert.IsTrue(Angle.Straight >= Angle.Right);
+            Assert.IsFalse(Angle.FromDegrees(0) >= Angle.FromDegrees(90));
+            Assert.IsTrue(Angle.FromDegrees(90) >= Angle.FromDegrees(90));
+            Assert.IsTrue(Angle.FromDegrees(180) >= Angle.FromDegrees(90));
         }
 
         [TestMethod]

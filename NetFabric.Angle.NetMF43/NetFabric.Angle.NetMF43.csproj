@@ -28,6 +28,7 @@
     <DefineConstants>TRACE,MF_FRAMEWORK_VERSION_V4_3</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\NetFabric.Angle.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\NetFabric.Angle.Shared\Angle.cs">

@@ -16,8 +16,8 @@ The explicit declaration of the units in creation and reading methods reduces th
 Includes reduction, reference angle, comparison, classification and trigonometry operations.
 		</description>
 		<releaseNotes>
-+ Added support for Unity (.NET 3.5) and .NET Micro Framework 4.4
-+ Improved documentation
++ Added support for .NET Micro Framework 4.2 and 4.3
++ Fixed missing files for .NET Micro Framework 4.4
 		</releaseNotes>
         <copyright>2016 Antão Almada</copyright>
         <language>en-US</language>
@@ -28,7 +28,23 @@ Includes reduction, reference angle, comparison, classification and trigonometry
         <file src="NetFabric.Angle\bin\Release\NetFabric.Angle.xml" target="lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NetFabric.Angle.xml" />
         <file src="NetFabric.Angle.Net35\bin\Release\NetFabric.Angle.dll" target="lib\net35\NetFabric.Angle.dll" />
         <file src="NetFabric.Angle.Net35\bin\Release\NetFabric.Angle.xml" target="lib\net35\NetFabric.Angle.xml" />
+        <file src="NetFabric.Angle.NetMF42\bin\Release\NetFabric.Angle.dll" target="lib\netmf42\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF42\bin\Release\NetFabric.Angle.xml" target="lib\netmf42\NetFabric.Angle.xml" />
+        <file src="NetFabric.Angle.NetMF42\bin\Release\be\NetFabric.Angle.dll" target="lib\netmf42\be\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF42\bin\Release\be\NetFabric.Angle.pe" target="lib\netmf42\be\NetFabric.Angle.pe" />
+        <file src="NetFabric.Angle.NetMF42\bin\Release\le\NetFabric.Angle.dll" target="lib\netmf42\le\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF42\bin\Release\le\NetFabric.Angle.pe" target="lib\netmf42\le\NetFabric.Angle.pe" />
+        <file src="NetFabric.Angle.NetMF43\bin\Release\NetFabric.Angle.dll" target="lib\netmf43\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF43\bin\Release\NetFabric.Angle.xml" target="lib\netmf43\NetFabric.Angle.xml" />
+        <file src="NetFabric.Angle.NetMF43\bin\Release\be\NetFabric.Angle.dll" target="lib\netmf43\be\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF43\bin\Release\be\NetFabric.Angle.pe" target="lib\netmf43\be\NetFabric.Angle.pe" />
+        <file src="NetFabric.Angle.NetMF43\bin\Release\le\NetFabric.Angle.dll" target="lib\netmf43\le\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF43\bin\Release\le\NetFabric.Angle.pe" target="lib\netmf43\le\NetFabric.Angle.pe" />
         <file src="NetFabric.Angle.NetMF44\bin\Release\NetFabric.Angle.dll" target="lib\netmf44\NetFabric.Angle.dll" />
         <file src="NetFabric.Angle.NetMF44\bin\Release\NetFabric.Angle.xml" target="lib\netmf44\NetFabric.Angle.xml" />
+        <file src="NetFabric.Angle.NetMF44\bin\Release\be\NetFabric.Angle.dll" target="lib\netmf44\be\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF44\bin\Release\be\NetFabric.Angle.pe" target="lib\netmf44\be\NetFabric.Angle.pe" />
+        <file src="NetFabric.Angle.NetMF44\bin\Release\le\NetFabric.Angle.dll" target="lib\netmf44\le\NetFabric.Angle.dll" />
+        <file src="NetFabric.Angle.NetMF44\bin\Release\le\NetFabric.Angle.pe" target="lib\netmf44\le\NetFabric.Angle.pe" />
     </files>
 </package>

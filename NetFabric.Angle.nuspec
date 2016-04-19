@@ -6,7 +6,7 @@
         <authors>Antão Almada</authors>
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
         <projectUrl>https://github.com/aalmada/NetFabric.Angle</projectUrl>
-		<iconUrl>https://iobservableblog.files.wordpress.com/2016/04/netfabric_64x64.png</iconUrl>
+		<iconUrl>https://iobservableblog.files.wordpress.com/2016/04/netfabric-angle-64x64.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<summary>An angle implementation that support radians, degrees and gradians.</summary>
         <description>

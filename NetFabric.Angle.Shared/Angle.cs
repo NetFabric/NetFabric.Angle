@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace NetFabric
 {
     /// <summary>
     /// Represents an angle. 
     /// </summary>
-    public struct Angle
-#if !NET_MF
-        : IEquatable<Angle>
-        , IComparable
-        , IComparable<Angle>
-#endif
+    public partial struct Angle
     {
         /// <summary>
         /// The four regions divided by the x and y axis.
@@ -566,11 +560,7 @@ namespace NetFabric
         /// <returns></returns>
         public static int Compare(Angle a1, Angle a2)
         {
-#if NET_MF
-            return double.CompareTo(a1.radians, a2.radians);
-#else
-            return a1.radians.CompareTo(a2.radians);
-#endif
+            return Compare(a1.radians, a2.radians);
         }
 
         /// <summary>
@@ -581,40 +571,8 @@ namespace NetFabric
         /// <returns></returns>
         public static int CompareReduced(Angle a1, Angle a2)
         {
-#if NET_MF
-            return double.CompareTo(Reduce(a1.radians), Reduce(a2.radians));
-#else
-            return Reduce(a1.radians).CompareTo(Reduce(a2.radians));
-#endif
+            return Compare(Reduce(a1.radians), Reduce(a2.radians));
         }
-
-#if !NET_MF
-
-        /// <summary>
-        /// Compares this instance to a specified Angle object and returns an integer that indicates whether this instance is shorter than, equal to, or longer than the Angle object.
-        /// </summary>
-        /// <param name="value">An object to compare to this instance.</param>
-        /// <returns>-1 if a1 is smaller than a2; 0 if a1 equals to a2; 1 if a1 is larger than a2.</returns>
-        /// <remarks>This method implements the System.IComparable&lt;T&gt; interface, and performs slightly better than <see cref="Angle.CompareTo(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
-        public int CompareTo(Angle value)
-        {
-            return radians.CompareTo(value.radians);
-        }
-
-        /// <summary>
-        /// Compares this instance to a specified Angle object and returns an integer that indicates whether this instance is shorter than, equal to, or longer than the Angle object.
-        /// </summary>
-        /// <param name="obj">An object to compare to this instance.</param>
-        /// <returns>-1 if a1 is smaller than a2; 0 if a1 equals to a2; 1 if a1 is larger than a2.</returns>
-        /// <exception cref="ArgumentException">value is not an Angle.</exception>
-        public int CompareTo(object obj)
-        {
-            if (!(obj is Angle))
-                throw new ArgumentException("Argument has to be an Angle.", "value");
-            return this.CompareTo((Angle)obj);
-        }
-
-#endif
 
 #endregion
 
@@ -835,14 +793,5 @@ namespace NetFabric
 
 #endregion
 
-        static void ThrowArgumentOutOfRange(string paramName, object paramValue, string message)
-        {
-            throw new ArgumentOutOfRangeException(
-                paramName,
-#if !NET_MF
-                paramValue,
-#endif
-                message);
-        }
     }
 }

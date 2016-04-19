@@ -16,7 +16,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE,NET_MF,MF_FRAMEWORK_VERSION_V_</DefineConstants>
+    <DefineConstants>DEBUG;TRACE,MF_FRAMEWORK_VERSION_V_,MF_FRAMEWORK_VERSION_V_</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -24,7 +24,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE,NET_MF,MF_FRAMEWORK_VERSION_V_</DefineConstants>
+    <DefineConstants>TRACE,MF_FRAMEWORK_VERSION_V_,MF_FRAMEWORK_VERSION_V_</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\NetFabric.Angle.xml</DocumentationFile>
@@ -35,6 +35,9 @@
   <ItemGroup>
     <Compile Include="..\NetFabric.Angle.Shared\Angle.cs">
       <Link>Angle.cs</Link>
+    </Compile>
+    <Compile Include="..\NetFabric.Angle.Shared\Angle.NetMF.cs">
+      <Link>Angle.NetMF.cs</Link>
     </Compile>
     <Compile Include="..\NetFabric.Angle.Shared\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>

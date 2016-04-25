@@ -16,8 +16,7 @@ The explicit declaration of the units in creation and reading methods reduces th
 Includes reduction, reference angle, comparison, classification and trigonometry operations.
 		</description>
 		<releaseNotes>
-+ Added support for .NET Micro Framework 4.2 and 4.3
-+ Fixed missing files for .NET Micro Framework 4.4
++ Added SerializableAttribute when on .NET 3.5
 		</releaseNotes>
         <copyright>2016 Antão Almada</copyright>
         <language>en-US</language>

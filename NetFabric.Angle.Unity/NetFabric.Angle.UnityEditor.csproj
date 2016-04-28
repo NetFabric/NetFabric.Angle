@@ -7,8 +7,8 @@
     <ProjectGuid>{AD9788A4-FE55-4AD3-B320-30F77FE9E95A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NetFabric.Angle.Unity</RootNamespace>
-    <AssemblyName>NetFabric.Angle.Unity</AssemblyName>
+    <RootNamespace>NetFabric</RootNamespace>
+    <AssemblyName>NetFabric.Angle.UnityEditor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,7 +40,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AngleEditor.cs" />
+    <Compile Include="AngleDrawer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializedPropertyExtensions.cs" />
   </ItemGroup>

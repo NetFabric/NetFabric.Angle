@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.NetMF42", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.Net35.UnitTests", "NetFabric.Angle.Net35.UnitTests\NetFabric.Angle.Net35.UnitTests.csproj", "{22FE7FDD-14AA-4097-B99D-73922B93EC92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.Unity", "NetFabric.Angle.Unity\NetFabric.Angle.Unity.csproj", "{AD9788A4-FE55-4AD3-B320-30F77FE9E95A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.UnityEditor", "NetFabric.Angle.Unity\NetFabric.Angle.UnityEditor.csproj", "{AD9788A4-FE55-4AD3-B320-30F77FE9E95A}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

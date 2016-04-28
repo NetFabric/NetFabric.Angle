@@ -5,8 +5,6 @@
 //   
 //   Johannes Deml
 //   send@johannesdeml.com
-//
-//   GetCustomAttributes extension by Antao Almada
 // </author>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -61,28 +59,6 @@ namespace Supyrb
         }
 
         /// <summary>
-        /// Get the custom attributes of a field of the property.
-        /// </summary>
-        /// <typeparam name="T">The type of the attribute.</typeparam>
-        /// <param name="property">The serialized property.</param>
-        /// <param name="inherit"></param>
-        /// <returns>Returns the custom attributes.</returns>
-        public static IEnumerable<T> GetCustomAttributes<T>(this SerializedProperty property, bool inherit = false)
-            where T : Attribute
-        {
-            object obj = GetSerializedPropertyRootComponent(property);
-            //Iterate to parent object of the value, necessary if it is a nested object
-            string[] fieldStructure = property.propertyPath.Split('.');
-            for (int i = 0; i < fieldStructure.Length - 1; i++)
-            {
-                obj = GetFieldOrPropertyValue<object>(fieldStructure[i], obj);
-            }
-            string fieldName = fieldStructure.Last();
-
-            return GetFieldOrPropertyCustomAttributes<T>(fieldName, obj, inherit);
-        }
-
-        /// <summary>
         /// Get the component of a serialized property
         /// </summary>
         /// <param name="property">The property that is part of the component</param>
@@ -131,30 +107,6 @@ namespace Supyrb
             }
 
             return default(T);
-        }
-
-        public static IEnumerable<T> GetFieldOrPropertyCustomAttributes<T>(string fieldName, object obj, bool inherit = false, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
-            where T : Attribute
-        {
-            FieldInfo field = obj.GetType().GetField(fieldName, bindings);
-            if (field != null) return field.GetCustomAttributes(typeof(T), inherit).Cast<T>();
-
-            PropertyInfo property = obj.GetType().GetProperty(fieldName, bindings);
-            if (property != null) return property.GetCustomAttributes(typeof(T), inherit).Cast<T>();
-
-            if (includeAllBases)
-            {
-                foreach (Type type in GetBaseClassesAndInterfaces(obj.GetType()))
-                {
-                    field = type.GetField(fieldName, bindings);
-                    if (field != null) return field.GetCustomAttributes(typeof(T), inherit).Cast<T>();
-
-                    property = type.GetProperty(fieldName, bindings);
-                    if (property != null) return property.GetCustomAttributes(typeof(T), inherit).Cast<T>();
-                }
-            }
-
-            return null;
         }
 
         public static bool SetFieldOrPropertyValue(string fieldName, object obj, object value, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)

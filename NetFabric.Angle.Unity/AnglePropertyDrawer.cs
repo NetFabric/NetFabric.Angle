@@ -6,7 +6,7 @@ using UnityEngine;
 namespace NetFabric
 {
     [CustomPropertyDrawer(typeof(Angle))]
-    public class AngleDrawer
+    public class AnglePropertyDrawer
         : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

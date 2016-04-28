@@ -37,6 +37,9 @@
     <Compile Include="..\NetFabric.Angle.Shared\Angle.NetMF.cs">
       <Link>Angle.NetMF.cs</Link>
     </Compile>
+    <Compile Include="..\NetFabric.Angle.Shared\AngleRangeAttribute.cs">
+      <Link>AngleRangeAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\NetFabric.Angle.Shared\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>

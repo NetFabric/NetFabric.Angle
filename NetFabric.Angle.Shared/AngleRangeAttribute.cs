@@ -1,10 +1,9 @@
 ﻿using System;
-using UnityEngine;
 
 namespace NetFabric
 {
     public abstract class AngleRangeAttribute
-        : PropertyAttribute
+        : Attribute
     {
         public abstract Angle Min { get; }
 

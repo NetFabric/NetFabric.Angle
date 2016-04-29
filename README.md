@@ -7,19 +7,19 @@ Implements a structure representing an angle.
 
 The angle is represented internaly in radians but can be created and read in radians, degrees and gradians. Also supports arcminutes and arcseconds, useful for GPS coordinates.
 
-The explicit declaration of the units in creation and reading methods reduces the tipical confusion when dealing with angles.
+The explicit declaration of the units in creation and reading methods reduces the usual units confusion when dealing with angles.
 
-Includes reduction, reference angle, comparison, classification and trigonometry operations. 
+Includes lerp, reduction, reference angle, comparison, classification and trigonometry operations. 
 
 # Usage:
 
 ### Adding to your project
 
-NetFabric.Angle is available as a [published as a NuGet package](https://www.nuget.org/packages/NetFabric.Angle/). Use the NuGet Package Manager in Visual Studio or in Xamarin Studio to easily add it to you project.
+NetFabric.Angle is available as a [NuGet package](https://www.nuget.org/packages/NetFabric.Angle/). Use the NuGet Package Manager in Visual Studio or in Xamarin Studio to easily add it to you project.
 
 The package contains a portable library that can be added to almost any type of .NET project (.NET 3.5, .NET 4.5, ASP.NET Core 1.0, Windows 8, Xamarin.Android, Xamarin.iOS, Windows Phone 8.1 and .NET Micro Framework 4.4).
 
-For Unity, download the .dll from [latest release](https://github.com/aalmada/NetFabric.Angle/releases) and drop it into the Assets folder of your project.
+For Unity, download the .unitypackage from [latest release](https://github.com/aalmada/NetFabric.Angle/releases) and import it into your project.
 
 ### Creation of the angle:
 

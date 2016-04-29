@@ -8,7 +8,7 @@
         <projectUrl>https://github.com/aalmada/NetFabric.Angle</projectUrl>
 		<iconUrl>https://iobservableblog.files.wordpress.com/2016/04/netfabric-angle-64x64.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<summary>An angle implementation that support radians, degrees and gradians. Available for .NET 3.5+, UWP, Windows Phone, Android, iOS and .NET Micro Framework 4.2+.</summary>
+		<summary>Immutable double-precision angle that support radians, degrees and gradians. Available for .NET 3.5+, UWP, Windows Phone, Android, iOS and .NET Micro Framework 4.2+.</summary>
         <description>
 Implements a structure representing an angle. 
 The angle is represented internaly in radians but can be created and read in radians, degrees and gradians. Also supports arcminutes and arcseconds, useful for GPS coordinates.
@@ -16,8 +16,9 @@ The explicit declaration of the units in creation and reading methods reduces th
 Includes reduction, reference angle, comparison, classification and trigonometry operations.
 		</description>
 		<releaseNotes>
++ Added Lerp 
 + Added SerializableAttribute when on .NET 3.5
-+ Added AngleRange attribute
++ Added AngleRangeAttribute
 		</releaseNotes>
         <copyright>2016 Antão Almada</copyright>
         <language>en-US</language>

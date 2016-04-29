@@ -504,5 +504,27 @@ namespace NetFabric.UnitTests
             Assert.IsFalse(Angle.IsReflex(-Angle.Full));
         }
 
+        [TestMethod]
+        public void LerpIsDefinedCorrectly()
+        {
+            Assert.AreEqual(Angle.FromDegrees(0.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), -0.5));
+            Assert.AreEqual(Angle.FromDegrees(45.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 0.0));
+            Assert.AreEqual(Angle.FromDegrees(90.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 0.5));
+            Assert.AreEqual(Angle.FromDegrees(135.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 1.0));
+            Assert.AreEqual(Angle.FromDegrees(180.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 1.5));
+
+            Assert.AreEqual(Angle.FromDegrees(0.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), -0.5));
+            Assert.AreEqual(Angle.FromDegrees(-45.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 0.0));
+            Assert.AreEqual(Angle.FromDegrees(-90.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 0.5));
+            Assert.AreEqual(Angle.FromDegrees(-135.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 1.0));
+            Assert.AreEqual(Angle.FromDegrees(-180.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 1.5));
+
+            Assert.AreEqual(Angle.FromDegrees(180.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), -0.5));
+            Assert.AreEqual(Angle.FromDegrees(135.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 0.0));
+            Assert.AreEqual(Angle.FromDegrees(90.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 0.5));
+            Assert.AreEqual(Angle.FromDegrees(45.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 1.0));
+            Assert.AreEqual(Angle.FromDegrees(0.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 1.5));
+        }
+
     }
 }

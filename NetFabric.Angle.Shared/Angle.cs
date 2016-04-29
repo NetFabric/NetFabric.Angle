@@ -236,7 +236,20 @@ namespace NetFabric
             return left.radians > right.radians ? left : right;
         }
 
-#region types of angles
+        /// <summary>
+        /// Performs a linear interpolation.
+        /// </summary>
+        /// <param name="a1">The first angle.</param>
+        /// <param name="a2">The second angle.</param>
+        /// <param name="t">A value that linearly interpolates between the a1 parameter and the a2 parameter.</param>
+        /// <returns>The result of the linear interpolation.</returns>
+        public static Angle Lerp(Angle a1, Angle a2, double t)
+        {
+            return (1 - t) * a1 + t * a2;
+        }
+
+
+        #region types of angles
 
         /// <summary>
         /// Indicates whether the specified angle is acute.

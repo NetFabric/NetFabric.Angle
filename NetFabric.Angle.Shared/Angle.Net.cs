@@ -6,6 +6,7 @@ namespace NetFabric
         : IEquatable<Angle>
         , IComparable
         , IComparable<Angle>
+        , IFormattable
     {
 
         /// <summary>
@@ -32,6 +33,46 @@ namespace NetFabric
             return this.CompareTo((Angle)obj);
         }
 
+        #region string format
+
+        /// <summary>
+        /// Converts the value of the current Angle object to its equivalent string representation, using a specified format.
+        /// </summary>
+        /// <param name="format">A string that specifies the format to be used for the returned string.</param>
+        /// <returns>A string representation of the value of the current Angle object, in the specified format.</returns>
+        public string ToString(string format)
+        {
+            return ToString(format, null);
+        }
+
+        /// <summary>
+        /// Converts the value of the current Angle object to its equivalent string representation using the specified format and culture-specific format information.
+        /// </summary>
+        /// <param name="format">A standard or custom date and time format string.</param>
+        /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>A string representation of value of the current Angle object as specified by format and provider.</returns>
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            if (format == null || format.Length == 0)
+                format = formatDegrees;
+
+            format = format.Trim().ToUpperInvariant(); 
+
+            switch (format)
+            {
+                case formatRadians:
+                    return ToRadians().ToString("G", formatProvider);
+                case formatDegrees:
+                    return ToDegrees().ToString("G", formatProvider);
+                case formatGradians:
+                    return ToGradians().ToString("G", formatProvider);
+                default:
+                    throw new FormatException(String.Format("The '{0}' format string is not supported.", format));
+            }
+        }
+
+        #endregion
+
         static int Compare(double d1, double d2)
         {
             return d1.CompareTo(d2);
@@ -43,6 +84,11 @@ namespace NetFabric
                 paramName,
                 paramValue,
                 message);
+        }
+
+        static void ThrowFormatException(string format)
+        {
+            throw new FormatException(String.Format("The '{0}' format string is not supported.", format));
         }
     }
 }

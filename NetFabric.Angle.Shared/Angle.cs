@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace NetFabric
 {
@@ -38,6 +39,10 @@ namespace NetFabric
 
         const double DegreesByRadians = 360.0 / FullAngle;
         const double GradiansByRadians = 400.0 / FullAngle;
+
+        const string formatRadians = "R";
+        const string formatDegrees = "D";
+        const string formatGradians = "G";
 
         /// <summary>
         /// Represents the zero Angle value (0 degrees). This field is read-only.
@@ -770,9 +775,9 @@ namespace NetFabric
             return new Angle(left.radians / right);
         }
 
-#endregion
+        #endregion
 
-#region object overrides
+        #region object overrides
 
         /// <summary>
         /// Returns a value indicating whether this instance is equal to a specified object.
@@ -801,10 +806,10 @@ namespace NetFabric
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return radians.ToString();
+            return ToString(formatRadians);
         }
 
-#endregion
+        #endregion
 
     }
 }

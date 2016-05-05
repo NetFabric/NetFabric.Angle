@@ -14,7 +14,7 @@ namespace NetFabric
         public string ToString(string format)
         {
             if (format == null || format.Length == 0)
-                format = formatDegrees;
+                format = formatDefault;
 
             format = format.Trim().ToUpper(); 
 

@@ -534,14 +534,20 @@ namespace NetFabric.UnitTests
 
             Assert.AreEqual("3.14159265358979", Angle.Straight.ToString("R"));
             Assert.AreEqual("180", Angle.Straight.ToString("D"));
+            Assert.AreEqual("12° 34.56'", Angle.FromDegrees(12, 34.56).ToString("M"));
+            Assert.AreEqual("12° 34' 56.7800000000018\"", Angle.FromDegrees(12, 34, 56.78).ToString("S"));
             Assert.AreEqual("200", Angle.Straight.ToString("G"));
 
             Assert.AreEqual("3,14159265358979", Angle.Straight.ToString("R", new CultureInfo("pt-PT")));
             Assert.AreEqual("180", Angle.Straight.ToString("D", new CultureInfo("pt-PT")));
+            Assert.AreEqual("12° 34,56'", Angle.FromDegrees(12, 34.56).ToString("M", new CultureInfo("pt-PT")));
+            Assert.AreEqual("12° 34' 56,7800000000018\"", Angle.FromDegrees(12, 34, 56.78).ToString("S", new CultureInfo("pt-PT")));
             Assert.AreEqual("200", Angle.Straight.ToString("G", new CultureInfo("pt-PT")));
 
             Assert.AreEqual("Radians: 3.14159265358979", String.Format("Radians: {0:R}", Angle.Straight));
             Assert.AreEqual("Degrees: 180", String.Format("Degrees: {0:D}", Angle.Straight));
+            Assert.AreEqual("Degrees: 12° 34.56'", String.Format("Degrees: {0:M}", Angle.FromDegrees(12, 34.56)));
+            Assert.AreEqual("Degrees: 12° 34' 56.7800000000018\"", String.Format("Degrees: {0:S}", Angle.FromDegrees(12, 34, 56.78)));
             Assert.AreEqual("Gradians: 200", String.Format("Gradians: {0:G}", Angle.Straight));
 
         }

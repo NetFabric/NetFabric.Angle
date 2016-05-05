@@ -42,7 +42,10 @@ namespace NetFabric
 
         const string formatRadians = "R";
         const string formatDegrees = "D";
+        const string formatDegreesMinutes = "M";
+        const string formatDegreesMinutesSeconds = "S";
         const string formatGradians = "G";
+        const string formatDefault = formatRadians;
 
         /// <summary>
         /// Represents the zero Angle value (0 degrees). This field is read-only.

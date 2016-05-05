@@ -54,7 +54,7 @@ namespace NetFabric
         public string ToString(string format, IFormatProvider formatProvider)
         {
             if (format == null || format.Length == 0)
-                format = formatDegrees;
+                format = formatDefault;
 
             format = format.Trim().ToUpperInvariant(); 
 
@@ -64,6 +64,21 @@ namespace NetFabric
                     return ToRadians().ToString("G", formatProvider);
                 case formatDegrees:
                     return ToDegrees().ToString("G", formatProvider);
+                case formatDegreesMinutes:
+                    {
+                        int degrees;
+                        double minutes;
+                        ToDegrees(out degrees, out minutes);
+                        return String.Format(formatProvider, "{0:G}° {1:G}'", degrees, minutes);
+                    }
+                case formatDegreesMinutesSeconds:
+                    {
+                        int degrees;
+                        int minutes;
+                        double seconds;
+                        ToDegrees(out degrees, out minutes, out seconds);
+                        return String.Format(formatProvider, "{0:G}° {1:G}' {2:G}\"", degrees, minutes, seconds);
+                    }
                 case formatGradians:
                     return ToGradians().ToString("G", formatProvider);
                 default:

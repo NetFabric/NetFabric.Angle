@@ -780,6 +780,60 @@ namespace NetFabric
 
         #endregion
 
+        #region string format
+
+        /// <summary>
+        /// Converts the value of the current Angle object to its equivalent string representation, using a specified format.
+        /// </summary>
+        /// <param name="format">A string that specifies the format to be used for the returned string.</param>
+        /// <returns>A string representation of the value of the current Angle object, in the specified format.</returns>
+        public string ToString(string format)
+        {
+            return FormatString(format, null);
+        }
+
+        string FormatString(string format, IFormatProvider formatProvider)
+        {
+            if (format == null || format.Length == 0)
+                format = formatDefault;
+
+            format = format.Trim().ToUpper();
+
+            switch (format)
+            {
+                case formatRadians:
+                    return FormatString(ToRadians(), "G", formatProvider);
+                case formatDegrees:
+                    return FormatString(ToDegrees(), "G", formatProvider);
+                case formatDegreesMinutes:
+                    {
+                        int degrees;
+                        double minutes;
+                        ToDegrees(out degrees, out minutes);
+                        return FormatString(degrees, "G", formatProvider) + "° " +
+                            FormatString(minutes, "G", formatProvider) + "'";
+                    }
+                case formatDegreesMinutesSeconds:
+                    {
+                        int degrees;
+                        int minutes;
+                        double seconds;
+                        ToDegrees(out degrees, out minutes, out seconds);
+                        return FormatString(degrees, "G", formatProvider) + "° " +
+                            FormatString(minutes, "G", formatProvider) + "' " +
+                            FormatString(seconds, "G", formatProvider) + "\"";
+                    }
+                case formatGradians:
+                    return FormatString(ToGradians(), "G", formatProvider);
+                default:
+                    ThrowFormatException("The '" + format + "' format string is not supported.");
+                    break;
+            }
+            throw new InvalidOperationException();
+        }
+
+        #endregion
+
         #region object overrides
 
         /// <summary>

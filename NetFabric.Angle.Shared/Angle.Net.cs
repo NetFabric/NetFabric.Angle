@@ -33,18 +33,6 @@ namespace NetFabric
             return this.CompareTo((Angle)obj);
         }
 
-        #region string format
-
-        /// <summary>
-        /// Converts the value of the current Angle object to its equivalent string representation, using a specified format.
-        /// </summary>
-        /// <param name="format">A string that specifies the format to be used for the returned string.</param>
-        /// <returns>A string representation of the value of the current Angle object, in the specified format.</returns>
-        public string ToString(string format)
-        {
-            return ToString(format, null);
-        }
-
         /// <summary>
         /// Converts the value of the current Angle object to its equivalent string representation using the specified format and culture-specific format information.
         /// </summary>
@@ -53,44 +41,22 @@ namespace NetFabric
         /// <returns>A string representation of value of the current Angle object as specified by format and provider.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            if (format == null || format.Length == 0)
-                format = formatDefault;
-
-            format = format.Trim().ToUpperInvariant(); 
-
-            switch (format)
-            {
-                case formatRadians:
-                    return ToRadians().ToString("G", formatProvider);
-                case formatDegrees:
-                    return ToDegrees().ToString("G", formatProvider);
-                case formatDegreesMinutes:
-                    {
-                        int degrees;
-                        double minutes;
-                        ToDegrees(out degrees, out minutes);
-                        return String.Format(formatProvider, "{0:G}° {1:G}'", degrees, minutes);
-                    }
-                case formatDegreesMinutesSeconds:
-                    {
-                        int degrees;
-                        int minutes;
-                        double seconds;
-                        ToDegrees(out degrees, out minutes, out seconds);
-                        return String.Format(formatProvider, "{0:G}° {1:G}' {2:G}\"", degrees, minutes, seconds);
-                    }
-                case formatGradians:
-                    return ToGradians().ToString("G", formatProvider);
-                default:
-                    throw new FormatException(String.Format("The '{0}' format string is not supported.", format));
-            }
+            return FormatString(format, formatProvider);
         }
-
-        #endregion
 
         static int Compare(double d1, double d2)
         {
             return d1.CompareTo(d2);
+        }
+
+        string FormatString(int value, string format, IFormatProvider formatProvider)
+        {
+            return value.ToString(format, formatProvider);
+        }
+
+        string FormatString(double value, string format, IFormatProvider formatProvider)
+        {
+            return value.ToString(format, formatProvider);
         }
 
         static void ThrowArgumentOutOfRange(string paramName, object paramValue, string message)

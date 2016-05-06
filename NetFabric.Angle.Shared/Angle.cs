@@ -860,7 +860,7 @@ namespace NetFabric
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return ToString("R");
+            return ToString(null);
         }
 
         #endregion

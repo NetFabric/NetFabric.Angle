@@ -9,11 +9,26 @@ namespace NetFabric
             return double.CompareTo(d1, d2);
         }
 
+        string FormatString(int value, string format, IFormatProvider formatProvider)
+        {
+            return value.ToString(format);
+        }
+
+        string FormatString(double value, string format, IFormatProvider formatProvider)
+        {
+            return value.ToString(format);
+        }
+
         static void ThrowArgumentOutOfRange(string paramName, object paramValue, string message)
         {
             throw new ArgumentOutOfRangeException(
                 paramName,
                 message);
+        }
+
+        static void ThrowFormatException(string format)
+        {
+            throw new Exception("The '" + format + "' format string is not supported.");
         }
     }
 }

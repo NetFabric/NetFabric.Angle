@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Globalization;
 
 namespace NetFabric.UnitTests
 {
@@ -524,6 +525,49 @@ namespace NetFabric.UnitTests
             Assert.AreEqual(Angle.FromDegrees(90.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 0.5));
             Assert.AreEqual(Angle.FromDegrees(45.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 1.0));
             Assert.AreEqual(Angle.FromDegrees(0.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 1.5));
+        }
+
+        [TestMethod]
+        public void ToStringIsDefinedCorrectly()
+        {
+            Assert.AreEqual("3.14159265358979", Angle.Straight.ToString());
+
+            Assert.AreEqual("3.14159265358979", Angle.Straight.ToString("R"));
+            Assert.AreEqual("180", Angle.Straight.ToString("D"));
+            Assert.AreEqual("12° 34.56'", Angle.FromDegrees(12, 34.56).ToString("M"));
+            Assert.AreEqual("12° 34' 56.7800000000018\"", Angle.FromDegrees(12, 34, 56.78).ToString("S"));
+            Assert.AreEqual("200", Angle.Straight.ToString("G"));
+
+            Assert.AreEqual("3,14159265358979", Angle.Straight.ToString("R", new CultureInfo("pt-PT")));
+            Assert.AreEqual("180", Angle.Straight.ToString("D", new CultureInfo("pt-PT")));
+            Assert.AreEqual("12° 34,56'", Angle.FromDegrees(12, 34.56).ToString("M", new CultureInfo("pt-PT")));
+            Assert.AreEqual("12° 34' 56,7800000000018\"", Angle.FromDegrees(12, 34, 56.78).ToString("S", new CultureInfo("pt-PT")));
+            Assert.AreEqual("200", Angle.Straight.ToString("G", new CultureInfo("pt-PT")));
+
+            Assert.AreEqual("Radians: 3.14159265358979", String.Format("Radians: {0:R}", Angle.Straight));
+            Assert.AreEqual("Degrees: 180", String.Format("Degrees: {0:D}", Angle.Straight));
+            Assert.AreEqual("Degrees: 12° 34.56'", String.Format("Degrees: {0:M}", Angle.FromDegrees(12, 34.56)));
+            Assert.AreEqual("Degrees: 12° 34' 56.7800000000018\"", String.Format("Degrees: {0:S}", Angle.FromDegrees(12, 34, 56.78)));
+            Assert.AreEqual("Gradians: 200", String.Format("Gradians: {0:G}", Angle.Straight));
+
+            Assert.AreEqual("3.14", Angle.Straight.ToString("R2"));
+            Assert.AreEqual("180.00", Angle.Straight.ToString("D2"));
+            Assert.AreEqual("12° 34.56'", Angle.FromDegrees(12, 34.56).ToString("M2"));
+            Assert.AreEqual("12° 34' 56.78\"", Angle.FromDegrees(12, 34, 56.78).ToString("S2"));
+            Assert.AreEqual("200.00", Angle.Straight.ToString("G2"));
+
+            Assert.AreEqual("3,14", Angle.Straight.ToString("R2", new CultureInfo("pt-PT")));
+            Assert.AreEqual("180,00", Angle.Straight.ToString("D2", new CultureInfo("pt-PT")));
+            Assert.AreEqual("12° 34,56'", Angle.FromDegrees(12, 34.56).ToString("M2", new CultureInfo("pt-PT")));
+            Assert.AreEqual("12° 34' 56,78\"", Angle.FromDegrees(12, 34, 56.78).ToString("S2", new CultureInfo("pt-PT")));
+            Assert.AreEqual("200,00", Angle.Straight.ToString("G2", new CultureInfo("pt-PT")));
+
+            Assert.AreEqual("Radians: 3.14", String.Format("Radians: {0:R2}", Angle.Straight));
+            Assert.AreEqual("Degrees: 180.00", String.Format("Degrees: {0:D2}", Angle.Straight));
+            Assert.AreEqual("Degrees: 12° 34.56'", String.Format("Degrees: {0:M2}", Angle.FromDegrees(12, 34.56)));
+            Assert.AreEqual("Degrees: 12° 34' 56.78\"", String.Format("Degrees: {0:S2}", Angle.FromDegrees(12, 34, 56.78)));
+            Assert.AreEqual("Gradians: 200.00", String.Format("Gradians: {0:G2}", Angle.Straight));
+
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace NetFabric
 {
@@ -770,9 +771,67 @@ namespace NetFabric
             return new Angle(left.radians / right);
         }
 
-#endregion
+        #endregion
 
-#region object overrides
+        #region string format
+
+        /// <summary>
+        /// Converts the value of the current Angle object to its equivalent string representation, using a specified format.
+        /// </summary>
+        /// <param name="format">A string that specifies the format to be used for the returned string.</param>
+        /// <returns>A string representation of the value of the current Angle object, in the specified format.</returns>
+        public string ToString(string format)
+        {
+            return FormatString(format, null);
+        }
+
+        string FormatString(string format, IFormatProvider formatProvider)
+        {
+            if (format == null || format.Length == 0)
+                format = "R";
+
+            format = format.Trim().ToUpper();
+
+            var doubleFormat = "G";
+            if (format.Length > 1)
+                doubleFormat = "N" + format.Substring(1);
+
+            switch (format[0])
+            {
+                case 'R':
+                    return FormatString(ToRadians(), doubleFormat, formatProvider);
+                case 'D':
+                    return FormatString(ToDegrees(), doubleFormat, formatProvider);
+                case 'M':
+                    {
+                        int degrees;
+                        double minutes;
+                        ToDegrees(out degrees, out minutes);
+                        return FormatString(degrees, "G", formatProvider) + "° " +
+                            FormatString(minutes, doubleFormat, formatProvider) + "'";
+                    }
+                case 'S':
+                    {
+                        int degrees;
+                        int minutes;
+                        double seconds;
+                        ToDegrees(out degrees, out minutes, out seconds);
+                        return FormatString(degrees, "G", formatProvider) + "° " +
+                            FormatString(minutes, "G", formatProvider) + "' " +
+                            FormatString(seconds, doubleFormat, formatProvider) + "\"";
+                    }
+                case 'G':
+                    return FormatString(ToGradians(), doubleFormat, formatProvider);
+                default:
+                    ThrowFormatException("The '" + format + "' format string is not supported.");
+                    break;
+            }
+            throw new InvalidOperationException();
+        }
+
+        #endregion
+
+        #region object overrides
 
         /// <summary>
         /// Returns a value indicating whether this instance is equal to a specified object.
@@ -801,10 +860,10 @@ namespace NetFabric
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return radians.ToString();
+            return ToString(null);
         }
 
-#endregion
+        #endregion
 
     }
 }

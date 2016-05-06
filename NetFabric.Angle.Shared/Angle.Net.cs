@@ -6,6 +6,7 @@ namespace NetFabric
         : IEquatable<Angle>
         , IComparable
         , IComparable<Angle>
+        , IFormattable
     {
 
         /// <summary>
@@ -32,9 +33,30 @@ namespace NetFabric
             return this.CompareTo((Angle)obj);
         }
 
+        /// <summary>
+        /// Converts the value of the current Angle object to its equivalent string representation using the specified format and culture-specific format information.
+        /// </summary>
+        /// <param name="format">A standard or custom date and time format string.</param>
+        /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>A string representation of value of the current Angle object as specified by format and provider.</returns>
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return FormatString(format, formatProvider);
+        }
+
         static int Compare(double d1, double d2)
         {
             return d1.CompareTo(d2);
+        }
+
+        string FormatString(int value, string format, IFormatProvider formatProvider)
+        {
+            return value.ToString(format, formatProvider);
+        }
+
+        string FormatString(double value, string format, IFormatProvider formatProvider)
+        {
+            return value.ToString(format, formatProvider);
         }
 
         static void ThrowArgumentOutOfRange(string paramName, object paramValue, string message)
@@ -43,6 +65,11 @@ namespace NetFabric
                 paramName,
                 paramValue,
                 message);
+        }
+
+        static void ThrowFormatException(string format)
+        {
+            throw new FormatException(String.Format("The '{0}' format string is not supported.", format));
         }
     }
 }

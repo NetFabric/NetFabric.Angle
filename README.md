@@ -170,3 +170,45 @@ var isAcute = Angle.IsAcute(Angle.FromDegrees(45.0)); // true
 var isAcute = Angle.IsAcute(Angle.FromDegrees(-45.0)); // true
 var isAcute = Angle.IsAcute(Angle.FromDegrees(315.0)); // false
 ```
+
+### String format
+
+The ToString() method supports the following formats:
+
+```csharp
+Angle.FromDegrees(45.0).ToString(); // 0.785398163397448
+Angle.FromDegrees(45.0).ToString("R"); // 0.785398163397448
+Angle.FromDegrees(45.0).ToString("D"); // 45
+Angle.FromDegrees(45.0).ToString("M"); // 45° 0'
+Angle.FromDegrees(45.0).ToString("S"); // 45° 0' 0"
+Angle.FromDegrees(45.0).ToString("G"); // 50
+```
+
+Supports the number of decimal places:
+
+```csharp
+Angle.FromDegrees(45.0).ToString("R3"); // 0.785
+Angle.FromDegrees(45.0).ToString("D3"); // 45.000
+Angle.FromDegrees(45.0).ToString("M3"); // 45° 0.000'
+Angle.FromDegrees(45.0).ToString("S3"); // 45° 0' 0.000"
+Angle.FromDegrees(45.0).ToString("G3"); // 50.000
+```
+
+Supports culture (except for .NET Micro Framework):
+
+```csharp
+Angle.FromDegrees(45.0).ToString("R3", new CultureInfo("pt-PT")); // 0,785
+Angle.FromDegrees(45.0).ToString("D3", new CultureInfo("pt-PT")); // 45,000
+Angle.FromDegrees(45.0).ToString("M3", new CultureInfo("pt-PT")); // 45° 0,000'
+Angle.FromDegrees(45.0).ToString("S3", new CultureInfo("pt-PT")); // 45° 0' 0,000"
+Angle.FromDegrees(45.0).ToString("G3", new CultureInfo("pt-PT")); // 50,000
+```
+
+These formats can also be used in String.Format():
+
+```csharp
+String.Format("Radians: {0:R3}", Angle.FromDegrees(45.0)); // Radians: 0.785
+String.Format("Degrees: {0:S3}", Angle.FromDegrees(45.0)); // Degrees: 45° 0' 0.000"
+String.Format(new CultureInfo("pt-PT"), "Degrees: {0:S3}", Angle.FromDegrees(45.0)); // Degrees: 45° 0' 0,000"
+```
+

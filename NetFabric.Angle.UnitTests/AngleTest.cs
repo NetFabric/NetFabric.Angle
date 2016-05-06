@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
+using System.Threading;
 
 namespace NetFabric.UnitTests
 {
@@ -530,6 +531,8 @@ namespace NetFabric.UnitTests
         [TestMethod]
         public void ToStringIsDefinedCorrectly()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
             Assert.AreEqual("3.14159265358979", Angle.Straight.ToString());
 
             Assert.AreEqual("3.14159265358979", Angle.Straight.ToString("R"));
@@ -562,11 +565,11 @@ namespace NetFabric.UnitTests
             Assert.AreEqual("12° 34' 56,78\"", Angle.FromDegrees(12, 34, 56.78).ToString("S2", new CultureInfo("pt-PT")));
             Assert.AreEqual("200,00", Angle.Straight.ToString("G2", new CultureInfo("pt-PT")));
 
-            Assert.AreEqual("Radians: 3.14", String.Format("Radians: {0:R2}", Angle.Straight));
-            Assert.AreEqual("Degrees: 180.00", String.Format("Degrees: {0:D2}", Angle.Straight));
-            Assert.AreEqual("Degrees: 12° 34.56'", String.Format("Degrees: {0:M2}", Angle.FromDegrees(12, 34.56)));
-            Assert.AreEqual("Degrees: 12° 34' 56.78\"", String.Format("Degrees: {0:S2}", Angle.FromDegrees(12, 34, 56.78)));
-            Assert.AreEqual("Gradians: 200.00", String.Format("Gradians: {0:G2}", Angle.Straight));
+            Assert.AreEqual("Radians: 3,14", String.Format(new CultureInfo("pt-PT"), "Radians: {0:R2}", Angle.Straight));
+            Assert.AreEqual("Degrees: 180,00", String.Format(new CultureInfo("pt-PT"), "Degrees: {0:D2}", Angle.Straight));
+            Assert.AreEqual("Degrees: 12° 34,56'", String.Format(new CultureInfo("pt-PT"), "Degrees: {0:M2}", Angle.FromDegrees(12, 34.56)));
+            Assert.AreEqual("Degrees: 12° 34' 56,78\"", String.Format(new CultureInfo("pt-PT"), "Degrees: {0:S2}", Angle.FromDegrees(12, 34, 56.78)));
+            Assert.AreEqual("Gradians: 200,00", String.Format(new CultureInfo("pt-PT"), "Gradians: {0:G2}", Angle.Straight));
 
         }
 

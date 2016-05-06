@@ -13,12 +13,10 @@
 Implements a structure representing an angle. 
 The angle is represented internaly in radians but can be created and read in radians, degrees and gradians. Also supports arcminutes and arcseconds, useful for GPS coordinates.
 The explicit declaration of the units in creation and reading methods reduces the tipical confusion when dealing with angles.
-Includes reduction, reference angle, comparison, classification and trigonometry operations.
+Includes linear interpolation, reduction, reference angle, comparison, classification and trigonometry operations.
 		</description>
 		<releaseNotes>
-+ Added Lerp 
-+ Added SerializableAttribute when on .NET 3.5
-+ Added AngleRangeAttribute
++ Added string format 
 		</releaseNotes>
         <copyright>2016 Antão Almada</copyright>
         <language>en-US</language>

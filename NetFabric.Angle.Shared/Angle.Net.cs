@@ -49,12 +49,12 @@ namespace NetFabric
             return d1.CompareTo(d2);
         }
 
-        string FormatString(int value, string format, IFormatProvider formatProvider)
+        static string FormatString(int value, string format, IFormatProvider formatProvider)
         {
             return value.ToString(format, formatProvider);
         }
 
-        string FormatString(double value, string format, IFormatProvider formatProvider)
+        static string FormatString(double value, string format, IFormatProvider formatProvider)
         {
             return value.ToString(format, formatProvider);
         }

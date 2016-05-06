@@ -9,12 +9,12 @@ namespace NetFabric
             return double.CompareTo(d1, d2);
         }
 
-        string FormatString(int value, string format, IFormatProvider formatProvider)
+        static string FormatString(int value, string format, IFormatProvider formatProvider)
         {
             return value.ToString(format);
         }
 
-        string FormatString(double value, string format, IFormatProvider formatProvider)
+        static string FormatString(double value, string format, IFormatProvider formatProvider)
         {
             return value.ToString(format);
         }

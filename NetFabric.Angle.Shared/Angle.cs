@@ -40,6 +40,13 @@ namespace NetFabric
         const double DegreesByRadians = 360.0 / FullAngle;
         const double GradiansByRadians = 400.0 / FullAngle;
 
+        const string formatRadians = "R";
+        const string formatDegrees = "D";
+        const string formatDegreesMinutes = "M";
+        const string formatDegreesMinutesSeconds = "S";
+        const string formatGradians = "G";
+        const string formatDefault = formatRadians;
+
         /// <summary>
         /// Represents the zero Angle value (0 degrees). This field is read-only.
         /// </summary>
@@ -788,29 +795,25 @@ namespace NetFabric
         string FormatString(string format, IFormatProvider formatProvider)
         {
             if (format == null || format.Length == 0)
-                format = "R";
+                format = formatDefault;
 
             format = format.Trim().ToUpper();
 
-            var doubleFormat = "G";
-            if (format.Length > 1)
-                doubleFormat = "N" + format.Substring(1);
-
-            switch (format[0])
+            switch (format)
             {
-                case 'R':
-                    return FormatString(ToRadians(), doubleFormat, formatProvider);
-                case 'D':
-                    return FormatString(ToDegrees(), doubleFormat, formatProvider);
-                case 'M':
+                case formatRadians:
+                    return FormatString(ToRadians(), "G", formatProvider);
+                case formatDegrees:
+                    return FormatString(ToDegrees(), "G", formatProvider);
+                case formatDegreesMinutes:
                     {
                         int degrees;
                         double minutes;
                         ToDegrees(out degrees, out minutes);
                         return FormatString(degrees, "G", formatProvider) + "° " +
-                            FormatString(minutes, doubleFormat, formatProvider) + "'";
+                            FormatString(minutes, "G", formatProvider) + "'";
                     }
-                case 'S':
+                case formatDegreesMinutesSeconds:
                     {
                         int degrees;
                         int minutes;
@@ -818,10 +821,10 @@ namespace NetFabric
                         ToDegrees(out degrees, out minutes, out seconds);
                         return FormatString(degrees, "G", formatProvider) + "° " +
                             FormatString(minutes, "G", formatProvider) + "' " +
-                            FormatString(seconds, doubleFormat, formatProvider) + "\"";
+                            FormatString(seconds, "G", formatProvider) + "\"";
                     }
-                case 'G':
-                    return FormatString(ToGradians(), doubleFormat, formatProvider);
+                case formatGradians:
+                    return FormatString(ToGradians(), "G", formatProvider);
                 default:
                     ThrowFormatException("The '" + format + "' format string is not supported.");
                     break;
@@ -860,7 +863,7 @@ namespace NetFabric
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return ToString("R");
+            return ToString(formatRadians);
         }
 
         #endregion

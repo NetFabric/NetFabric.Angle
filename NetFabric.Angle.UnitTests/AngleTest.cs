@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
+using System.Threading;
 
 namespace NetFabric.UnitTests
 {
@@ -530,6 +531,8 @@ namespace NetFabric.UnitTests
         [TestMethod]
         public void ToStringIsDefinedCorrectly()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
             Assert.AreEqual("3.14159265358979", Angle.Straight.ToString());
 
             Assert.AreEqual("3.14159265358979", Angle.Straight.ToString("R"));

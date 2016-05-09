@@ -36,10 +36,31 @@
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AngleDebuggerVisualizer.cs" />
+    <Compile Include="AngleVisualizerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AngleVisualizerForm.Designer.cs">
+      <DependentUpon>AngleVisualizerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetFabric.Angle\NetFabric.Angle.csproj">
+      <Project>{fcd2e42d-ccb1-41fb-bd17-94f595879c63}</Project>
+      <Name>NetFabric.Angle</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AngleVisualizerForm.resx">
+      <DependentUpon>AngleVisualizerForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

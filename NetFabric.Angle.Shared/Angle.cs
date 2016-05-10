@@ -801,7 +801,7 @@ namespace NetFabric
                 case 'R':
                     return FormatString(ToRadians(), doubleFormat, formatProvider);
                 case 'D':
-                    return FormatString(ToDegrees(), doubleFormat, formatProvider);
+                    return FormatString(ToDegrees(), doubleFormat, formatProvider) + "°";
                 case 'M':
                     {
                         int degrees;

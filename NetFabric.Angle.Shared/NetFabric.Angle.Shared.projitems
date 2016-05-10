@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Angle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Angle.Net.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AngleDebugView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AngleRangeAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.Net.cs" />

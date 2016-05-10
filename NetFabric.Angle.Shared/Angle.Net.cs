@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace NetFabric
 {
+    [DebuggerDisplay("{ToDegrees()}°")]
+    [DebuggerTypeProxy(typeof(AngleDebugView))]
     public partial struct Angle
         : IEquatable<Angle>
         , IComparable

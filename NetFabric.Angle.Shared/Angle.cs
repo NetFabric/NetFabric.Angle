@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Globalization;
+using System.Diagnostics;
 
 namespace NetFabric
 {
     /// <summary>
     /// Represents an angle. 
     /// </summary>
+    [DebuggerDisplay("{ToDegrees()}°")]
     public partial struct Angle
     {
         /// <summary>
@@ -801,7 +802,7 @@ namespace NetFabric
                 case 'R':
                     return FormatString(ToRadians(), doubleFormat, formatProvider);
                 case 'D':
-                    return FormatString(ToDegrees(), doubleFormat, formatProvider);
+                    return FormatString(ToDegrees(), doubleFormat, formatProvider) + "°";
                 case 'M':
                     {
                         int degrees;

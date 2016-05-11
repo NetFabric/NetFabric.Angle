@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace NetFabric
 {
+    [DebuggerTypeProxy(typeof(AngleDebugView))]
     public partial struct Angle
         : IEquatable<Angle>
         , IComparable

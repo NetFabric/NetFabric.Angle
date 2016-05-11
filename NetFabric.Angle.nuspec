@@ -16,7 +16,7 @@ The explicit declaration of the units in creation and reading methods reduces th
 Includes linear interpolation, reduction, reference angle, comparison, classification and trigonometry operations.
 		</description>
 		<releaseNotes>
-+ Added string format 
++ Added debug visualization 
 		</releaseNotes>
         <copyright>2016 Antão Almada</copyright>
         <language>en-US</language>

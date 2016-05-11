@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Globalization;
+using System.Diagnostics;
 
 namespace NetFabric
 {
     /// <summary>
     /// Represents an angle. 
     /// </summary>
+    [DebuggerDisplay("{ToDegrees()}°")]
     public partial struct Angle
     {
         /// <summary>

@@ -23,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.UnityEditor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.Unity", "NetFabric.Angle.Unity\NetFabric.Angle.Unity.csproj", "{BD72D18F-3489-4BDD-85F4-A9785262F754}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.VisualStudio", "NetFabric.Angle.VisualStudio\NetFabric.Angle.VisualStudio.csproj", "{9A835F21-B35A-4372-A526-FFB951AD4341}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		NetFabric.Angle.Shared\NetFabric.Angle.Shared.projitems*{fcd2e42d-ccb1-41fb-bd17-94f595879c63}*SharedItemsImports = 4
@@ -68,10 +66,6 @@ Global
 		{AD9788A4-FE55-4AD3-B320-30F77FE9E95A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD72D18F-3489-4BDD-85F4-A9785262F754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD72D18F-3489-4BDD-85F4-A9785262F754}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A835F21-B35A-4372-A526-FFB951AD4341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A835F21-B35A-4372-A526-FFB951AD4341}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A835F21-B35A-4372-A526-FFB951AD4341}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A835F21-B35A-4372-A526-FFB951AD4341}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

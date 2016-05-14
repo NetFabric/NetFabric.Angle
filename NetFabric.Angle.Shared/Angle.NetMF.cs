@@ -4,6 +4,8 @@ namespace NetFabric
 {
     public partial struct Angle
     {
+        double radians;
+
         static int Compare(double d1, double d2)
         {
             return double.CompareTo(d1, d2);

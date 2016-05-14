@@ -2,72 +2,65 @@
 
 namespace NetFabric
 {
+    [AttributeUsageAttribute(AttributeTargets.Field | AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
     public abstract class AngleRangeAttribute
         : Attribute
     {
-        public abstract Angle Min { get; }
+        readonly Angle min;
+        readonly Angle max;
 
-        public abstract Angle Max { get; }
+        protected AngleRangeAttribute(Angle min, Angle max)
+        {
+            if (min > max)
+                throw new ArgumentException("min must be less or equal to max.");
+
+            this.min = min;
+            this.max = max;
+        }
+
+        public Angle Min { get { return min; } }
+
+        public Angle Max { get { return max; } }
     }
 
     public class AngleRadiansRangeAttribute 
         : AngleRangeAttribute
     {
-        readonly double min;
-        readonly double max;
-
         public AngleRadiansRangeAttribute(double min, double max)
-        {
-            if (min > max)
-                throw new ArgumentException("min must be less or equal to max.");
-
-            this.min = min;
-            this.max = max;
-        }
-
-        public override Angle Min { get { return Angle.FromRadians(min); } }
-
-        public override Angle Max { get { return Angle.FromRadians(max); } }
+            : base (Angle.FromRadians(min), Angle.FromRadians(max))
+        { }
     }
 
     public class AngleDegreesRangeAttribute
         : AngleRangeAttribute
     {
-        readonly double min;
-        readonly double max;
-
         public AngleDegreesRangeAttribute(double min, double max)
-        {
-            if (min > max)
-                throw new ArgumentException("min must be less or equal to max.");
+            : base(Angle.FromDegrees(min), Angle.FromDegrees(max))
+        { }
 
-            this.min = min;
-            this.max = max;
-        }
+        public AngleDegreesRangeAttribute(
+            int minDegrees, double minMinutes,
+            int maxDegrees, double maxMinutes)
+            : base(
+                  Angle.FromDegrees(minDegrees, minMinutes),
+                  Angle.FromDegrees(maxDegrees, maxMinutes))
+        { }
 
-        public override Angle Min { get { return Angle.FromDegrees(min); } }
-
-        public override Angle Max { get { return Angle.FromDegrees(max); } }
+        public AngleDegreesRangeAttribute(
+            int minDegrees, int minMinutes, double minSeconds,
+            int maxDegrees, int maxMinutes, double maxSeconds)
+            : base(
+                  Angle.FromDegrees(minDegrees, minMinutes, minSeconds), 
+                  Angle.FromDegrees(maxDegrees, maxMinutes, maxSeconds))
+        { }
     }
 
     public class AngleGradiansRangeAttribute
         : AngleRangeAttribute
     {
-        readonly double min;
-        readonly double max;
-
         public AngleGradiansRangeAttribute(double min, double max)
-        {
-            if (min > max)
-                throw new ArgumentException("min must be less or equal to max.");
-
-            this.min = min;
-            this.max = max;
-        }
-
-        public override Angle Min { get { return Angle.FromGradians(min); } }
-
-        public override Angle Max { get { return Angle.FromGradians(max); } }
+            : base(Angle.FromGradians(min), Angle.FromGradians(max))
+        { }
     }
 
 }

@@ -32,8 +32,6 @@ namespace NetFabric
             Fourth
         }
 
-        double radians;
-
         const double RightAngle = System.Math.PI * 0.5;
         const double StraightAngle = System.Math.PI;
         const double FullAngle = System.Math.PI * 2.0;

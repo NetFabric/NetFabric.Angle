@@ -2,7 +2,6 @@
 
 namespace NetFabric
 {
-    [Serializable]
     public partial struct Angle
     {
         double radians;

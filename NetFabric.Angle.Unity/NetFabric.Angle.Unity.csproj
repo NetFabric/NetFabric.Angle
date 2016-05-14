@@ -37,18 +37,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Angle.Unity.cs" />
     <Compile Include="QuaternionExtensions.cs" />
     <Compile Include="TransformExtensions.cs" />
     <Compile Include="Vector2Extensions.cs" />
     <Compile Include="Vector3Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NetFabric.Angle.Net35\NetFabric.Angle.Net35.csproj">
-      <Project>{b4eeacf2-437a-4167-9a7a-4b6b4d557669}</Project>
-      <Name>NetFabric.Angle.Net35</Name>
-    </ProjectReference>
+    <Folder Include="Properties\" />
   </ItemGroup>
+  <Import Project="..\NetFabric.Angle.Shared\NetFabric.Angle.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

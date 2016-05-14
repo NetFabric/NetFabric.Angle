@@ -47,9 +47,9 @@
     <Compile Include="SerializedPropertyExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NetFabric.Angle.Net35\NetFabric.Angle.Net35.csproj">
-      <Project>{b4eeacf2-437a-4167-9a7a-4b6b4d557669}</Project>
-      <Name>NetFabric.Angle.Net35</Name>
+    <ProjectReference Include="..\NetFabric.Angle.Unity\NetFabric.Angle.Unity.csproj">
+      <Project>{bd72d18f-3489-4bdd-85f4-a9785262f754}</Project>
+      <Name>NetFabric.Angle.Unity</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

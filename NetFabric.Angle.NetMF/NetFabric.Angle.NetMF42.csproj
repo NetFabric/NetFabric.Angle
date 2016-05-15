@@ -17,6 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\NetMF42\</OutputPath>
+	<IntermediateOutputPath>obj\Debug\NetMF42\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE,MF_FRAMEWORK,MF_FRAMEWORK_VERSION_V4_2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,6 +26,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\NetMF42\</OutputPath>
+	<IntermediateOutputPath>obj\Release\NetMF42\</IntermediateOutputPath>
     <DefineConstants>TRACE,MF_FRAMEWORK,MF_FRAMEWORK_VERSION_V4_2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\NetMF42\</OutputPath>
     <DefineConstants>DEBUG;TRACE,MF_FRAMEWORK,MF_FRAMEWORK_VERSION_V4_2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,7 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\Release\NetMF42\</OutputPath>
     <DefineConstants>TRACE,MF_FRAMEWORK,MF_FRAMEWORK_VERSION_V4_2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,15 +37,13 @@
     <Compile Include="..\NetFabric.Angle.Shared\Angle.cs">
       <Link>Angle.cs</Link>
     </Compile>
-    <Compile Include="..\NetFabric.Angle.Shared\Angle.NetMF.cs">
-      <Link>Angle.NetMF.cs</Link>
-    </Compile>
     <Compile Include="..\NetFabric.Angle.Shared\AngleRangeAttribute.cs">
       <Link>AngleRangeAttribute.cs</Link>
     </Compile>
     <Compile Include="..\NetFabric.Angle.Shared\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Angle.NetMF.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Condition="EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />

@@ -243,6 +243,14 @@ namespace NetFabric.UnitTests
         }
 
         [TestMethod]
+        public void AproximatelyEquals()
+        {
+            Assert.IsFalse(Angle.Equals(Angle.Right, Angle.FromDegrees(90.00001), Angle.Zero));
+            Assert.IsTrue(Angle.Equals(Angle.Right, Angle.FromDegrees(90.00001), Angle.FromDegrees(0.001)));
+            Assert.IsTrue(Angle.Equals(Angle.Right, Angle.FromDegrees(89.99999), Angle.FromDegrees(0.001)));
+        }
+
+        [TestMethod]
         public void OperatorEquality()
         {
             Assert.IsFalse(Angle.FromDegrees(0) == Angle.FromDegrees(90));
@@ -450,6 +458,14 @@ namespace NetFabric.UnitTests
         }
 
         [TestMethod]
+        public void IsAproximatelyRightIsDefinedCorrectly()
+        {
+            Assert.IsFalse(Angle.IsRight(Angle.FromDegrees(90.00001), Angle.Zero));
+            Assert.IsTrue(Angle.IsRight(Angle.FromDegrees(90.00001), Angle.FromDegrees(0.001)));
+            Assert.IsTrue(Angle.IsRight(Angle.FromDegrees(89.99999), Angle.FromDegrees(0.001)));
+        }
+
+        [TestMethod]
         public void IsObtuseIsDefinedCorrectly()
         {
             Assert.IsFalse(Angle.IsObtuse(Angle.Zero));
@@ -485,6 +501,14 @@ namespace NetFabric.UnitTests
             Assert.IsTrue(Angle.IsStraight(-Angle.Straight));
             Assert.IsFalse(Angle.IsStraight(-Angle.FromDegrees(270)));
             Assert.IsFalse(Angle.IsStraight(-Angle.Full));
+        }
+
+        [TestMethod]
+        public void IsAproximatelyStraightIsDefinedCorrectly()
+        {
+            Assert.IsFalse(Angle.IsStraight(Angle.FromDegrees(180.00001), Angle.Zero));
+            Assert.IsTrue(Angle.IsStraight(Angle.FromDegrees(180.00001), Angle.FromDegrees(0.001)));
+            Assert.IsTrue(Angle.IsStraight(Angle.FromDegrees(179.99999), Angle.FromDegrees(0.001)));
         }
 
         [TestMethod]

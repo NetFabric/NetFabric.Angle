@@ -273,6 +273,17 @@ namespace NetFabric
         }
 
         /// <summary>
+        /// Indicates whether the specified angle is right within a certain variance.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <param name="acceptableVariance">The acceptable variance.</param>
+        /// <returns>true if the reduction of the absolute angle is approximately 90 degrees; otherwise false.</returns>
+        public static bool IsRight(Angle angle, Angle acceptableVariance)
+        {
+            return AproximatelyEquals(Reduce(Math.Abs(angle.radians)), RightAngle, acceptableVariance.radians);
+        }
+
+        /// <summary>
         /// Indicates whether the specified angle is obtuse.
         /// </summary>
         /// <param name="angle"></param>
@@ -291,6 +302,17 @@ namespace NetFabric
         public static bool IsStraight(Angle angle)
         {
             return Reduce(Math.Abs(angle.radians)) == StraightAngle;
+        }
+
+        /// <summary>
+        /// Indicates whether the specified angle is straight within a certain variance.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <param name="acceptableVariance">The acceptable variance.</param>
+        /// <returns>true if the reduction of the absolute angle is approximately 180 degrees; otherwise false.</returns>
+        public static bool IsStraight(Angle angle, Angle acceptableVariance)
+        {
+            return AproximatelyEquals(Reduce(Math.Abs(angle.radians)), StraightAngle, acceptableVariance.radians);
         }
 
         /// <summary>
@@ -504,6 +526,18 @@ namespace NetFabric
         public static bool Equals(Angle a1, Angle a2)
         {
             return a1.radians == a2.radians;
+        }
+
+        /// <summary>
+        /// Indicates whether two Angle instances are approximately equal.
+        /// </summary>
+        /// <param name="a1">The first angle to compare.</param>
+        /// <param name="a2">The second angle to compare.</param>
+        /// <param name="acceptableVariance">The acceptable variance.</param>
+        /// <returns>true if the difference between a1 and a2 is less than acceptableVariance; otherwise, false.</returns>
+        public static bool Equals(Angle a1, Angle a2, Angle acceptableVariance)
+        {
+            return AproximatelyEquals(a1.radians, a2.radians, acceptableVariance.radians);
         }
 
         /// <summary>
@@ -863,6 +897,11 @@ namespace NetFabric
         }
 
         #endregion
+
+        static bool AproximatelyEquals(double x, double y, double acceptableVariance)
+        {
+            return Math.Abs(x - y) < acceptableVariance;
+        }
 
     }
 }

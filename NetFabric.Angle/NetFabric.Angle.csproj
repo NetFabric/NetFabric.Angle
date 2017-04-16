@@ -1,59 +1,40 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FCD2E42D-CCB1-41FB-BD17-94F595879C63}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NetFabric</RootNamespace>
-    <AssemblyName>NetFabric.Angle</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <Title>NetFabric.Angle</Title>
+    <TargetFrameworks>netstandard1.0;net35</TargetFrameworks>
+    <Summary>Implements a structure representing an angle.</Summary>
+    <Description>The angle is represented internaly in radians but can be created and read in radians, degrees and gradians. Also supports arcminutes and arcseconds, useful for GPS coordinates. The explicit declaration of the units in creation and reading methods reduces the tipical confusion when dealing with angles. Includes linear interpolation, reduction, reference angle, comparison, classification and trigonometry operations.
+</Description>
+    <Version>2.0.1</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
+    <Copyright>Copyright © Antão Almada 2016-2017</Copyright>
+    <Authors>Antão Almada</Authors>
+    <Company>NetFabric</Company>
+    <PackageLicenseUrl>https://github.com/NetFabric/NetFabric.Angle/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/NetFabric/NetFabric.Angle</PackageProjectUrl>
+    <PackageIconUrl>https://iobservableblog.files.wordpress.com/2016/04/netfabric-angle-64x64.png</PackageIconUrl>
+    <PackageTags>math, numerics, trigonometry, uwp, xamarin, netmf, unity</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/NetFabric/NetFabric.Angle</RepositoryUrl>
+    <PackageReleaseNotes>+ Added support for .NET Standard 1.0
++ Dropped support for .NET MF
+
+</PackageReleaseNotes>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <DocumentationFile>
-    </DocumentationFile>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\NetFabric.Angle.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard1.0\NetFabric.Angle.xml</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.0'">
+    <PackageReference Include="System.ValueTuple" Version="4.3.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Angle.Portable.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="project.json" />
-  </ItemGroup>
-  <Import Project="..\NetFabric.Angle.Shared\NetFabric.Angle.Shared.projitems" Label="Shared" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

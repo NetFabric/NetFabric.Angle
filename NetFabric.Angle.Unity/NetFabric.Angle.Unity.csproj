@@ -46,7 +46,12 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-  <Import Project="..\NetFabric.Angle.Shared\NetFabric.Angle.Shared.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\NetFabric.Angle\NetFabric.Angle.csproj">
+      <Project>{fcd2e42d-ccb1-41fb-bd17-94f595879c63}</Project>
+      <Name>NetFabric.Angle</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

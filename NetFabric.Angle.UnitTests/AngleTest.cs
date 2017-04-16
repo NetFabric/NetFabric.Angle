@@ -1,599 +1,586 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
 using System.Globalization;
 using System.Threading;
 
 namespace NetFabric.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class AngleTests
     {
-        [TestMethod]
+        [Test]
         public void FromRadiansCreatesAngleCorrectly()
         {
             var angle = Angle.FromRadians(0.0);
-            Assert.AreEqual(0.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.Zero);
 
             angle = Angle.FromRadians(Math.PI);
-            Assert.AreEqual(Math.PI, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI));
 
             angle = Angle.FromRadians(double.NaN);
-            Assert.AreEqual(double.NaN, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(double.NaN));
         }
 
-        [TestMethod]
+        [Test]
         public void FromDegreesConvertsToRadiansCorrectly()
         {
             var angle = Angle.FromDegrees(0.0);
-            Assert.AreEqual(0.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.Zero);
 
             angle = Angle.FromDegrees(45.0);
-            Assert.AreEqual(Math.PI / 4.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI / 4.0));
 
             angle = Angle.FromDegrees(90.0);
-            Assert.AreEqual(Math.PI / 2.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI / 2.0));
 
             angle = Angle.FromDegrees(180.0);
-            Assert.AreEqual(Math.PI, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI));
 
             angle = Angle.FromDegrees(360.0);
-            Assert.AreEqual(Math.PI * 2.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI * 2.0));
 
             angle = Angle.FromDegrees(double.NaN);
-            Assert.AreEqual(double.NaN, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.NaN);
         }
 
-        [TestMethod]
+        [Test]
         public void ToDegreesConvertsFromRadiansCorrectly()
         {
             var angle = Angle.FromRadians(0.0);
-            Assert.AreEqual(0.0, angle.ToDegrees());
+            Assert.That(angle.ToDegrees(), Is.Zero);
 
             angle = Angle.FromRadians(Math.PI / 4.0);
-            Assert.AreEqual(45.0, angle.ToDegrees());
+            Assert.That(angle.ToDegrees(), Is.EqualTo(45.0));
 
             angle = Angle.FromRadians(Math.PI / 2.0);
-            Assert.AreEqual(90.0, angle.ToDegrees());
+            Assert.That(angle.ToDegrees(), Is.EqualTo(90.0));
 
             angle = Angle.FromRadians(Math.PI);
-            Assert.AreEqual(180.0, angle.ToDegrees());
+            Assert.That(angle.ToDegrees(), Is.EqualTo(180.0));
 
             angle = Angle.FromRadians(Math.PI * 2.0);
-            Assert.AreEqual(360.0, angle.ToDegrees());
+            Assert.That(angle.ToDegrees(), Is.EqualTo(360.0));
 
             angle = Angle.FromRadians(double.NaN);
-            Assert.AreEqual(double.NaN, angle.ToDegrees());
+            Assert.That(angle.ToDegrees(), Is.NaN);
         }
 
-        [TestMethod]
+        [Test]
         public void FromDegreesMinutesConvertsToRadiansCorrectly()
         {
             var angle = Angle.FromDegrees(0, 0.0);
-            Assert.AreEqual(0.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.Zero);
 
             angle = Angle.FromDegrees(40, 30.0);
-            Assert.AreEqual(0.706858347, angle.ToRadians(), 0.000000001);
+            Assert.That(angle.ToRadians(), Is.EqualTo(0.706858347).Within(0.000000001));
 
             angle = Angle.FromDegrees(-40, 30.0);
-            Assert.AreEqual(-0.706858347, angle.ToRadians(), 0.000000001);
+            Assert.That(angle.ToRadians(), Is.EqualTo(-0.706858347).Within(0.000000001));
         }
 
-        [TestMethod]
+        [Test]
         public void ToDegreesMinutesConvertsFromRadiansCorrectly()
         {
-            int degrees;
-            double minutes;
 
             var angle = Angle.FromRadians(0.0);
-            angle.ToDegrees(out degrees, out minutes);
-            Assert.AreEqual(0, degrees);
-            Assert.AreEqual(0.0, minutes, 0.000001);
+            angle.ToDegrees(out int degrees, out double minutes);
+            Assert.That(degrees, Is.Zero);
+            Assert.That(minutes, Is.Zero.Within(0.000001));
 
             angle = Angle.FromRadians(0.706858347);
             angle.ToDegrees(out degrees, out minutes);
-            Assert.AreEqual(40, degrees);
-            Assert.AreEqual(30.0, minutes, 0.000001);
+            Assert.That(degrees, Is.EqualTo(40));
+            Assert.That(minutes, Is.EqualTo(30.0).Within(0.000001));
 
             angle = Angle.FromRadians(-0.706858347);
             angle.ToDegrees(out degrees, out minutes);
-            Assert.AreEqual(-40, degrees);
-            Assert.AreEqual(30.0, minutes, 0.000001);
+            Assert.That(degrees, Is.EqualTo(-40));
+            Assert.That(minutes, Is.EqualTo(30.0).Within(0.000001));
         }
 
-        [TestMethod]
+        [Test]
         public void FromDegreesMinutesSecondsConvertsToRadiansCorrectly()
         {
             var angle = Angle.FromDegrees(0, 0, 0.0);
-            Assert.AreEqual(0.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.Zero);
 
             angle = Angle.FromDegrees(40, 30, 30.0);
-            Assert.AreEqual(0.707003791, angle.ToRadians(), 0.000000001);
+            Assert.That(angle.ToRadians(), Is.EqualTo(0.707003791).Within(0.000000001));
 
             angle = Angle.FromDegrees(-40, 30, 30.0);
-            Assert.AreEqual(-0.707003791, angle.ToRadians(), 0.000000001);
+            Assert.That(angle.ToRadians(), Is.EqualTo(-0.707003791).Within(0.000000001));
         }
 
-        [TestMethod]
+        [Test]
         public void ToDegreesMinutesSecondsConvertsFromRadiansCorrectly()
         {
-            int degrees;
-            int minutes;
-            double seconds;
 
             var angle = Angle.FromRadians(0.0);
-            angle.ToDegrees(out degrees, out minutes, out seconds);
-            Assert.AreEqual(0, degrees);
-            Assert.AreEqual(0, minutes);
-            Assert.AreEqual(0.0, seconds, 0.001);
+            angle.ToDegrees(out int degrees, out int minutes, out double seconds);
+            Assert.That(degrees, Is.Zero);
+            Assert.That(minutes, Is.Zero);
+            Assert.That(seconds, Is.Zero.Within(0.001));
 
             angle = Angle.FromRadians(0.707003791);
             angle.ToDegrees(out degrees, out minutes, out seconds);
-            Assert.AreEqual(40, degrees);
-            Assert.AreEqual(30, minutes);
-            Assert.AreEqual(30.0, seconds, 0.001);
+            Assert.That(degrees, Is.EqualTo(40));
+            Assert.That(minutes, Is.EqualTo(30));
+            Assert.That(seconds, Is.EqualTo(30.0).Within(0.001));
 
             angle = Angle.FromRadians(-0.707003791);
             angle.ToDegrees(out degrees, out minutes, out seconds);
-            Assert.AreEqual(-40, degrees);
-            Assert.AreEqual(30, minutes);
-            Assert.AreEqual(30.0, seconds, 0.001);
+            Assert.That(degrees, Is.EqualTo(-40));
+            Assert.That(minutes, Is.EqualTo(30));
+            Assert.That(seconds, Is.EqualTo(30.0).Within(0.001));
         }
 
-        [TestMethod]
+        [Test]
         public void FromGradiansConvertsToRadiansCorrectly()
         {
             var angle = Angle.FromGradians(0.0);
-            Assert.AreEqual(0.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.Zero);
 
             angle = Angle.FromGradians(50.0);
-            Assert.AreEqual(Math.PI / 4.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI / 4.0));
 
             angle = Angle.FromGradians(100.0);
-            Assert.AreEqual(Math.PI / 2.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI / 2.0));
 
             angle = Angle.FromGradians(200.0);
-            Assert.AreEqual(Math.PI, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI));
 
             angle = Angle.FromGradians(400.0);
-            Assert.AreEqual(Math.PI * 2.0, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI * 2.0));
 
             angle = Angle.FromGradians(double.NaN);
-            Assert.AreEqual(double.NaN, angle.ToRadians());
+            Assert.That(angle.ToRadians(), Is.NaN);
         }
 
-        [TestMethod]
+        [Test]
         public void ToGradiansConvertsFromRadiansCorrectly()
         {
             var angle = Angle.FromRadians(0.0);
-            Assert.AreEqual(0.0, angle.ToGradians());
+            Assert.That(angle.ToGradians(), Is.Zero);
 
             angle = Angle.FromRadians(Math.PI / 4.0);
-            Assert.AreEqual(50.0, angle.ToGradians());
+            Assert.That(angle.ToGradians(), Is.EqualTo(50.0));
 
             angle = Angle.FromRadians(Math.PI / 2.0);
-            Assert.AreEqual(100.0, angle.ToGradians());
+            Assert.That(angle.ToGradians(), Is.EqualTo(100.0));
 
             angle = Angle.FromRadians(Math.PI);
-            Assert.AreEqual(200.0, angle.ToGradians());
+            Assert.That(angle.ToGradians(), Is.EqualTo(200.0));
 
             angle = Angle.FromRadians(Math.PI * 2.0);
-            Assert.AreEqual(400.0, angle.ToGradians());
+            Assert.That(angle.ToGradians(), Is.EqualTo(400.0));
 
             angle = Angle.FromRadians(double.NaN);
-            Assert.AreEqual(double.NaN, angle.ToGradians());
+            Assert.That(angle.ToGradians(), Is.NaN);
         }
 
-        [TestMethod]
+        [Test]
         public void ZeroAngleIsDefinedCorrectly()
         {
             var angle = Angle.Zero;
-            Assert.AreEqual(0.0, angle.ToGradians());
-            Assert.AreEqual(0.0, angle.ToDegrees());
-            Assert.AreEqual(0.0, angle.ToGradians());
+            Assert.That(angle.ToGradians(), Is.Zero);
+            Assert.That(angle.ToDegrees(), Is.Zero);
+            Assert.That(angle.ToGradians(), Is.Zero);
         }
 
-        [TestMethod]
+        [Test]
         public void RightAngleIsDefinedCorrectly()
         {
             var angle = Angle.Right;
-            Assert.AreEqual(Math.PI / 2.0, angle.ToRadians());
-            Assert.AreEqual(90.0, angle.ToDegrees());
-            Assert.AreEqual(100.0, angle.ToGradians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI / 2.0));
+            Assert.That(angle.ToDegrees(), Is.EqualTo(90.0));
+            Assert.That(angle.ToGradians(), Is.EqualTo(100.0));
         }
 
-        [TestMethod]
+        [Test]
         public void StraightAngleIsDefinedCorrectly()
         {
             var angle = Angle.Straight;
-            Assert.AreEqual(Math.PI, angle.ToRadians());
-            Assert.AreEqual(180.0, angle.ToDegrees());
-            Assert.AreEqual(200.0, angle.ToGradians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI));
+            Assert.That(angle.ToDegrees(), Is.EqualTo(180.0));
+            Assert.That(angle.ToGradians(), Is.EqualTo(200.0));
         }
 
-        [TestMethod]
+        [Test]
         public void FullAngleIsDefinedCorrectly()
         {
             var angle = Angle.Full;
-            Assert.AreEqual(Math.PI * 2.0, angle.ToRadians());
-            Assert.AreEqual(360.0, angle.ToDegrees());
-            Assert.AreEqual(400.0, angle.ToGradians());
+            Assert.That(angle.ToRadians(), Is.EqualTo(Math.PI * 2.0));
+            Assert.That(angle.ToDegrees(), Is.EqualTo(360.0));
+            Assert.That(angle.ToGradians(), Is.EqualTo(400.0));
         }
 
-        [TestMethod]
+        [Test]
         public void ObjectEquals()
         {
-            Assert.IsFalse(Angle.Right.Equals(null));
-            Assert.IsFalse(Angle.Right.Equals(90.0));
-            Assert.IsFalse(Angle.Zero.Equals((object)Angle.Right));
-            Assert.IsTrue(Angle.Right.Equals((object)Angle.Right));
+            Assert.That(Angle.Right.Equals(null), Is.False);
+            Assert.That(Angle.Right.Equals(90.0), Is.False);
+            Assert.That(Angle.Zero.Equals((object)Angle.Right), Is.False);
+            Assert.That(Angle.Right.Equals((object)Angle.Right), Is.True);
         }
 
-        [TestMethod]
+        [Test]
         public void ObjectGetHashCode()
         {
-            Assert.AreNotEqual(Angle.Zero.GetHashCode(), Angle.Right.GetHashCode());
-            Assert.AreEqual(Angle.Right.GetHashCode(), Angle.Right.GetHashCode());
+            Assert.That(Angle.Zero.GetHashCode(), Is.Not.EqualTo(Angle.Right.GetHashCode()));
+            Assert.That(Angle.Right.GetHashCode(), Is.EqualTo(Angle.Right.GetHashCode()));
         }
 
-        [TestMethod]
+        [Test]
         public void EquatableEquals()
         {
-            Assert.IsFalse(Angle.Zero.Equals(Angle.Right));
-            Assert.IsTrue(Angle.Right.Equals(Angle.Right));
+            Assert.That(Angle.Zero.Equals(Angle.Right), Is.False);
+            Assert.That(Angle.Right.Equals(Angle.Right), Is.True);
         }
 
-        [TestMethod]
+        [Test]
         public void AproximatelyEquals()
         {
-            Assert.IsFalse(Angle.Equals(Angle.Right, Angle.FromDegrees(90.00001), Angle.Zero));
-            Assert.IsTrue(Angle.Equals(Angle.Right, Angle.FromDegrees(90.00001), Angle.FromDegrees(0.001)));
-            Assert.IsTrue(Angle.Equals(Angle.Right, Angle.FromDegrees(89.99999), Angle.FromDegrees(0.001)));
+            Assert.That(Angle.Equals(Angle.Right, Angle.FromDegrees(90.00001), Angle.Zero), Is.False);
+            Assert.That(Angle.Equals(Angle.Right, Angle.FromDegrees(90.00001), Angle.FromDegrees(0.001)), Is.True);
+            Assert.That(Angle.Equals(Angle.Right, Angle.FromDegrees(89.99999), Angle.FromDegrees(0.001)), Is.True);
         }
 
-        [TestMethod]
+        [Test]
         public void OperatorEquality()
         {
-            Assert.IsFalse(Angle.FromDegrees(0) == Angle.FromDegrees(90));
-            Assert.IsTrue(Angle.FromDegrees(90) == Angle.FromDegrees(90));
+            Assert.That(Angle.FromDegrees(0) == Angle.FromDegrees(90), Is.False);
+            Assert.That(Angle.FromDegrees(90) == Angle.FromDegrees(90), Is.True);
         }
 
-        [TestMethod]
+        [Test]
         public void OperatorInequality()
         {
-            Assert.IsTrue(Angle.FromDegrees(0) != Angle.FromDegrees(90));
-            Assert.IsFalse(Angle.FromDegrees(90) != Angle.FromDegrees(90));
+            Assert.That(Angle.FromDegrees(0) != Angle.FromDegrees(90), Is.True);
+            Assert.That(Angle.FromDegrees(90) != Angle.FromDegrees(90), Is.False);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Test]
         public void ComparableCompareToObjectThrowsExcetionOnNull()
         {
-            Angle.Right.CompareTo(null);
+            Assert.That(() => Angle.Right.CompareTo(null), Throws.ArgumentException);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Test]
         public void ComparableCompareToObjectThrowsExcetionOnOtherType()
         {
-            Angle.Right.CompareTo(90.0);
+            Assert.That(() => Angle.Right.CompareTo(90.0), Throws.ArgumentException);
         }
 
-        [TestMethod]
+        [Test]
         public void ComparableCompareToObject()
         {
-            Assert.AreEqual(-1, Angle.Right.CompareTo((object)Angle.Straight));
-            Assert.AreEqual(0, Angle.Right.CompareTo((object)Angle.Right));
-            Assert.AreEqual(1, Angle.Right.CompareTo((object)Angle.Zero));
+            Assert.That(Angle.Right.CompareTo((object)Angle.Straight), Is.LessThan(0));
+            Assert.That(Angle.Right.CompareTo((object)Angle.Right), Is.Zero);
+            Assert.That(Angle.Right.CompareTo((object)Angle.Zero), Is.GreaterThan(0));
         }
 
-        [TestMethod]
+        [Test]
         public void ComparableCompareToAngle()
         {
-            Assert.AreEqual(-1, Angle.Right.CompareTo(Angle.Straight));
-            Assert.AreEqual(0, Angle.Right.CompareTo(Angle.Right));
-            Assert.AreEqual(1, Angle.Right.CompareTo(Angle.Zero));
+            Assert.That(Angle.Right.CompareTo(Angle.Straight), Is.LessThan(0));
+            Assert.That(Angle.Right.CompareTo(Angle.Right), Is.Zero);
+            Assert.That(Angle.Right.CompareTo(Angle.Zero), Is.GreaterThan(0));
         }
 
-        [TestMethod]
+        [Test]
         public void CompareTwoAngles()
         {
-            Assert.AreEqual(-1, Angle.Compare(Angle.Right, Angle.Straight));
-            Assert.AreEqual(0, Angle.Compare(Angle.Right, Angle.Right));
-            Assert.AreEqual(1, Angle.Compare(Angle.Right, Angle.Zero));
-            Assert.AreNotEqual(-1, Angle.Compare(Angle.Right + Angle.Full, Angle.Straight));
-            Assert.AreNotEqual(0, Angle.Compare(Angle.Right, Angle.Right + Angle.Full));
+            Assert.That(Angle.Compare(Angle.Right, Angle.Straight), Is.LessThan(0));
+            Assert.That(Angle.Compare(Angle.Right, Angle.Right), Is.Zero);
+            Assert.That(Angle.Compare(Angle.Right, Angle.Zero), Is.GreaterThan(0));
+            Assert.AreNotEqual(Angle.Compare(Angle.Right + Angle.Full, Angle.Straight), Is.LessThan(0));
+            Assert.AreNotEqual(Angle.Compare(Angle.Right, Angle.Right + Angle.Full), Is.Zero);
             Assert.AreNotEqual(1, Angle.Compare(Angle.Right, Angle.Zero + Angle.Full));
         }
 
-        [TestMethod]
+        [Test]
         public void CompareReducedTwoAngles()
         {
-            Assert.AreEqual(-1, Angle.CompareReduced(Angle.Right, Angle.Straight));
-            Assert.AreEqual(0, Angle.CompareReduced(Angle.Right, Angle.Right));
-            Assert.AreEqual(1, Angle.CompareReduced(Angle.Right, Angle.Zero));
-            Assert.AreEqual(-1, Angle.CompareReduced(Angle.Right + Angle.Full, Angle.Straight));
-            Assert.AreEqual(0, Angle.CompareReduced(Angle.Right, Angle.Right + Angle.Full));
-            Assert.AreEqual(1, Angle.CompareReduced(Angle.Right, Angle.Zero + Angle.Full));
+            Assert.That(Angle.CompareReduced(Angle.Right, Angle.Straight), Is.LessThan(0));
+            Assert.That(Angle.CompareReduced(Angle.Right, Angle.Right), Is.Zero);
+            Assert.That(Angle.CompareReduced(Angle.Right, Angle.Zero), Is.GreaterThan(0));
+            Assert.That(Angle.CompareReduced(Angle.Right + Angle.Full, Angle.Straight), Is.LessThan(0));
+            Assert.That(Angle.CompareReduced(Angle.Right, Angle.Right + Angle.Full), Is.Zero);
+            Assert.That(Angle.CompareReduced(Angle.Right, Angle.Zero + Angle.Full), Is.GreaterThan(0));
         }
 
-        [TestMethod]
+        [Test]
         public void LessThanOperator()
         {
-            Assert.IsTrue(Angle.Zero < Angle.FromDegrees(90));
-            Assert.IsFalse(Angle.FromDegrees(90) < Angle.FromDegrees(90));
-            Assert.IsFalse(Angle.FromDegrees(180) < Angle.FromDegrees(90));
+            Assert.That(Angle.Zero < Angle.FromDegrees(90), Is.True);
+            Assert.That(Angle.FromDegrees(90) < Angle.FromDegrees(90), Is.False);
+            Assert.That(Angle.FromDegrees(180) < Angle.FromDegrees(90), Is.False);
         }
 
-        [TestMethod]
+        [Test]
         public void LessThanOrEqualToOperator()
         {
-            Assert.IsTrue(Angle.FromDegrees(0) <= Angle.FromDegrees(90));
-            Assert.IsTrue(Angle.FromDegrees(90) <= Angle.FromDegrees(90));
-            Assert.IsFalse(Angle.FromDegrees(180) <= Angle.FromDegrees(90));
+            Assert.That(Angle.FromDegrees(0) <= Angle.FromDegrees(90), Is.True);
+            Assert.That(Angle.FromDegrees(90) <= Angle.FromDegrees(90), Is.True);
+            Assert.That(Angle.FromDegrees(180) <= Angle.FromDegrees(90), Is.False);
         }
 
-        [TestMethod]
+        [Test]
         public void GreaterThanOperator()
         {
-            Assert.IsFalse(Angle.FromDegrees(0) > Angle.FromDegrees(90));
-            Assert.IsFalse(Angle.FromDegrees(90) > Angle.FromDegrees(90));
-            Assert.IsTrue(Angle.FromDegrees(180) > Angle.FromDegrees(90));
+            Assert.That(Angle.FromDegrees(0) > Angle.FromDegrees(90), Is.False);
+            Assert.That(Angle.FromDegrees(90) > Angle.FromDegrees(90), Is.False);
+            Assert.That(Angle.FromDegrees(180) > Angle.FromDegrees(90));
         }
 
-        [TestMethod]
+        [Test]
         public void GreaterThanOrEqualToOperator()
         {
-            Assert.IsFalse(Angle.FromDegrees(0) >= Angle.FromDegrees(90));
-            Assert.IsTrue(Angle.FromDegrees(90) >= Angle.FromDegrees(90));
-            Assert.IsTrue(Angle.FromDegrees(180) >= Angle.FromDegrees(90));
+            Assert.That(Angle.FromDegrees(0) >= Angle.FromDegrees(90), Is.False);
+            Assert.That(Angle.FromDegrees(90) >= Angle.FromDegrees(90), Is.True);
+            Assert.That(Angle.FromDegrees(180) >= Angle.FromDegrees(90), Is.True);
         }
 
-        [TestMethod]
+        [Test]
         public void ReduceIsDefinedCorrectly()
         {
-            var delta = Angle.FromRadians(0.0000001);
+            Assert.That(Angle.Reduce(Angle.Zero), Is.EqualTo(Angle.Zero));
+            Assert.That(Angle.Reduce(Angle.FromDegrees(45)), Is.EqualTo(Angle.FromDegrees(45)));
+            Assert.That(Angle.Reduce(Angle.Right), Is.EqualTo(Angle.Right));
+            Assert.That(Angle.Reduce(Angle.FromDegrees(135)), Is.EqualTo(Angle.FromDegrees(135)));
+            Assert.That(Angle.Reduce(Angle.Straight), Is.EqualTo(Angle.Straight));
 
-            Assert.AreEqual(Angle.Zero, Angle.Reduce(Angle.Zero));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reduce(Angle.FromDegrees(45)));
-            Assert.AreEqual(Angle.Right, Angle.Reduce(Angle.Right));
-            Assert.AreEqual(Angle.FromDegrees(135), Angle.Reduce(Angle.FromDegrees(135)));
-            Assert.AreEqual(Angle.Straight, Angle.Reduce(Angle.Straight));
+            Assert.That(Angle.Reduce(Angle.Full), Is.EqualTo(Angle.Zero));
+            Assert.That(Angle.Reduce(Angle.FromDegrees(45) + Angle.Full), Is.EqualTo(Angle.FromDegrees(45)));
+            Assert.That(Angle.Reduce(Angle.Right + Angle.Full), Is.EqualTo(Angle.Right));
+            Assert.That(Angle.Reduce(Angle.FromDegrees(135) + Angle.Full).ToRadians(), Is.EqualTo(Angle.FromDegrees(135).ToRadians()).Within(0.000001));
+            Assert.That(Angle.Reduce(Angle.Straight + Angle.Full), Is.EqualTo(Angle.Straight));
 
-            Assert.AreEqual(Angle.Zero, Angle.Reduce(Angle.Full));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.Reduce(Angle.FromDegrees(45) + Angle.Full));
-            Assert.AreEqual(Angle.Right, Angle.Reduce(Angle.Right + Angle.Full));
-            Assert.AreEqual(Angle.FromDegrees(135).ToRadians(), Angle.Reduce(Angle.FromDegrees(135) + Angle.Full).ToRadians(), 0.000001);
-            Assert.AreEqual(Angle.Straight, Angle.Reduce(Angle.Straight + Angle.Full));
-
-            Assert.AreEqual(Angle.Zero, Angle.Reduce(-Angle.Full));
-            Assert.AreEqual(Angle.FromDegrees(315), Angle.Reduce(-Angle.FromDegrees(45)));
-            Assert.AreEqual(Angle.FromDegrees(270), Angle.Reduce(-Angle.Right));
-            Assert.AreEqual(Angle.Straight, Angle.Reduce(-Angle.Straight));
-            Assert.AreEqual(Angle.Right, Angle.Reduce(-Angle.FromDegrees(270)));
+            Assert.That(Angle.Reduce(-Angle.Full), Is.EqualTo(Angle.Zero));
+            Assert.That(Angle.Reduce(-Angle.FromDegrees(45)), Is.EqualTo(Angle.FromDegrees(315)));
+            Assert.That(Angle.Reduce(-Angle.Right), Is.EqualTo(Angle.FromDegrees(270)));
+            Assert.That(Angle.Reduce(-Angle.Straight), Is.EqualTo(Angle.Straight));
+            Assert.That(Angle.Reduce(-Angle.FromDegrees(270)), Is.EqualTo(Angle.Right));
 
         }
 
-        [TestMethod]
+        [Test]
         public void GetQuadrantIsDefinedCorrectly()
         {
-            var delta = Angle.FromRadians(0.0000001);
+            Assert.That(Angle.GetQuadrant(Angle.Zero), Is.EqualTo(Angle.Quadrant.First));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(45)), Is.EqualTo(Angle.Quadrant.First));
+            Assert.That(Angle.GetQuadrant(Angle.Right), Is.EqualTo(Angle.Quadrant.Second));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(135)), Is.EqualTo(Angle.Quadrant.Second));
+            Assert.That(Angle.GetQuadrant(Angle.Straight), Is.EqualTo(Angle.Quadrant.Third));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(225)), Is.EqualTo(Angle.Quadrant.Third));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(270)), Is.EqualTo(Angle.Quadrant.Fourth));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(315)), Is.EqualTo(Angle.Quadrant.Fourth));
 
-            Assert.AreEqual(Angle.Quadrant.First, Angle.GetQuadrant(Angle.Zero));
-            Assert.AreEqual(Angle.Quadrant.First, Angle.GetQuadrant(Angle.FromDegrees(45)));
-            Assert.AreEqual(Angle.Quadrant.Second, Angle.GetQuadrant(Angle.Right));
-            Assert.AreEqual(Angle.Quadrant.Second, Angle.GetQuadrant(Angle.FromDegrees(135)));
-            Assert.AreEqual(Angle.Quadrant.Third, Angle.GetQuadrant(Angle.Straight));
-            Assert.AreEqual(Angle.Quadrant.Third, Angle.GetQuadrant(Angle.FromDegrees(225)));
-            Assert.AreEqual(Angle.Quadrant.Fourth, Angle.GetQuadrant(Angle.FromDegrees(270)));
-            Assert.AreEqual(Angle.Quadrant.Fourth, Angle.GetQuadrant(Angle.FromDegrees(315)));
-
-            Assert.AreEqual(Angle.Quadrant.First, Angle.GetQuadrant(Angle.Full));
-            Assert.AreEqual(Angle.Quadrant.First, Angle.GetQuadrant(Angle.FromDegrees(45) + Angle.Full));
-            Assert.AreEqual(Angle.Quadrant.Second, Angle.GetQuadrant(Angle.Right + Angle.Full));
-            Assert.AreEqual(Angle.Quadrant.Second, Angle.GetQuadrant(Angle.FromDegrees(135) + Angle.Full));
-            Assert.AreEqual(Angle.Quadrant.Third, Angle.GetQuadrant(Angle.Straight + Angle.Full));
-            Assert.AreEqual(Angle.Quadrant.Third, Angle.GetQuadrant(Angle.FromDegrees(225) + Angle.Full));
-            Assert.AreEqual(Angle.Quadrant.Fourth, Angle.GetQuadrant(Angle.FromDegrees(270) + Angle.Full));
-            Assert.AreEqual(Angle.Quadrant.Fourth, Angle.GetQuadrant(Angle.FromDegrees(315) + Angle.Full));
+            Assert.That(Angle.GetQuadrant(Angle.Full), Is.EqualTo(Angle.Quadrant.First));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(45) + Angle.Full), Is.EqualTo(Angle.Quadrant.First));
+            Assert.That(Angle.GetQuadrant(Angle.Right + Angle.Full), Is.EqualTo(Angle.Quadrant.Second));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(135) + Angle.Full), Is.EqualTo(Angle.Quadrant.Second));
+            Assert.That(Angle.GetQuadrant(Angle.Straight + Angle.Full), Is.EqualTo(Angle.Quadrant.Third));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(225) + Angle.Full), Is.EqualTo(Angle.Quadrant.Third));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(270) + Angle.Full), Is.EqualTo(Angle.Quadrant.Fourth));
+            Assert.That(Angle.GetQuadrant(Angle.FromDegrees(315) + Angle.Full), Is.EqualTo(Angle.Quadrant.Fourth));
 
         }
 
-        [TestMethod]
+        [Test]
         public void ReferenceIsDefinedCorrectly()
         {
-            var delta = Angle.FromRadians(0.0000001);
+            Assert.That(Angle.GetReference(Angle.Zero), Is.EqualTo(Angle.Zero));
+            Assert.That(Angle.GetReference(Angle.FromDegrees(45)), Is.EqualTo(Angle.FromDegrees(45)));
+            Assert.That(Angle.GetReference(Angle.Right), Is.EqualTo(Angle.Right));
+            Assert.That(Angle.GetReference(Angle.FromDegrees(135)), Is.EqualTo(Angle.FromDegrees(45)));
+            Assert.That(Angle.GetReference(Angle.Straight), Is.EqualTo(Angle.Zero));
+            Assert.That(Angle.GetReference(Angle.FromDegrees(225)), Is.EqualTo(Angle.FromDegrees(45)));
+            Assert.That(Angle.GetReference(Angle.FromDegrees(270)), Is.EqualTo(Angle.Right));
+            Assert.That(Angle.GetReference(Angle.FromDegrees(315)), Is.EqualTo(Angle.FromDegrees(45)));
+            Assert.That(Angle.GetReference(Angle.Full), Is.EqualTo(Angle.Zero));
 
-            Assert.AreEqual(Angle.Zero, Angle.GetReference(Angle.Zero));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(45)));
-            Assert.AreEqual(Angle.Right, Angle.GetReference(Angle.Right));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(135)));
-            Assert.AreEqual(Angle.Zero, Angle.GetReference(Angle.Straight));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(225)));
-            Assert.AreEqual(Angle.Right, Angle.GetReference(Angle.FromDegrees(270)));
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(315)));
-            Assert.AreEqual(Angle.Zero, Angle.GetReference(Angle.Full));
-
-            Assert.AreEqual(Angle.FromDegrees(45), Angle.GetReference(Angle.FromDegrees(45) + Angle.Full));
-            Assert.AreEqual(Angle.Right, Angle.GetReference(Angle.Right + Angle.Full));
-            Assert.AreEqual(Angle.FromDegrees(45).ToRadians(), Angle.GetReference(Angle.FromDegrees(135) + Angle.Full).ToRadians(), 0.000001);
+            Assert.That(Angle.GetReference(Angle.FromDegrees(45) + Angle.Full), Is.EqualTo(Angle.FromDegrees(45)));
+            Assert.That(Angle.GetReference(Angle.Right + Angle.Full), Is.EqualTo(Angle.Right));
+            Assert.That(Angle.GetReference(Angle.FromDegrees(135) + Angle.Full).ToRadians(), Is.EqualTo(Angle.FromDegrees(45).ToRadians()).Within(0.000001));
 
         }
 
-        [TestMethod]
+        [Test]
         public void IsAcuteIsDefinedCorrectly()
         {
-            Assert.IsFalse(Angle.IsAcute(Angle.Zero));
-            Assert.IsTrue(Angle.IsAcute(Angle.FromDegrees(45)));
-            Assert.IsFalse(Angle.IsAcute(Angle.Right));
-            Assert.IsFalse(Angle.IsAcute(Angle.FromDegrees(135)));
-            Assert.IsFalse(Angle.IsAcute(Angle.Straight));
-            Assert.IsFalse(Angle.IsAcute(Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsAcute(Angle.Full));
+            Assert.That(Angle.IsAcute(Angle.Zero), Is.False);
+            Assert.That(Angle.IsAcute(Angle.FromDegrees(45)), Is.True);
+            Assert.That(Angle.IsAcute(Angle.Right), Is.False);
+            Assert.That(Angle.IsAcute(Angle.FromDegrees(135)), Is.False);
+            Assert.That(Angle.IsAcute(Angle.Straight), Is.False);
+            Assert.That(Angle.IsAcute(Angle.FromDegrees(270)), Is.False);
+            Assert.That(Angle.IsAcute(Angle.Full), Is.False);
 
-            Assert.IsTrue(Angle.IsAcute(-Angle.FromDegrees(45)));
-            Assert.IsFalse(Angle.IsAcute(-Angle.Right));
-            Assert.IsFalse(Angle.IsAcute(-Angle.FromDegrees(135)));
-            Assert.IsFalse(Angle.IsAcute(-Angle.Straight));
-            Assert.IsFalse(Angle.IsAcute(-Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsAcute(-Angle.Full));
+            Assert.That(Angle.IsAcute(-Angle.FromDegrees(45)), Is.True);
+            Assert.That(Angle.IsAcute(-Angle.Right), Is.False);
+            Assert.That(Angle.IsAcute(-Angle.FromDegrees(135)), Is.False);
+            Assert.That(Angle.IsAcute(-Angle.Straight), Is.False);
+            Assert.That(Angle.IsAcute(-Angle.FromDegrees(270)), Is.False);
+            Assert.That(Angle.IsAcute(-Angle.Full), Is.False);
         }
 
-        [TestMethod]
+        [Test]
         public void IsRightIsDefinedCorrectly()
         {
-            Assert.IsFalse(Angle.IsRight(Angle.Zero));
-            Assert.IsFalse(Angle.IsRight(Angle.FromDegrees(45)));
-            Assert.IsTrue(Angle.IsRight(Angle.Right));
-            Assert.IsFalse(Angle.IsRight(Angle.FromDegrees(135)));
-            Assert.IsFalse(Angle.IsRight(Angle.Straight));
-            Assert.IsFalse(Angle.IsRight(Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsRight(Angle.Full));
+            Assert.That(Angle.IsRight(Angle.Zero), Is.False);
+            Assert.That(Angle.IsRight(Angle.FromDegrees(45)), Is.False);
+            Assert.That(Angle.IsRight(Angle.Right), Is.True);
+            Assert.That(Angle.IsRight(Angle.FromDegrees(135)), Is.False);
+            Assert.That(Angle.IsRight(Angle.Straight), Is.False);
+            Assert.That(Angle.IsRight(Angle.FromDegrees(270)), Is.False);
+            Assert.That(Angle.IsRight(Angle.Full), Is.False);
 
-            Assert.IsFalse(Angle.IsRight(-Angle.FromDegrees(45)));
-            Assert.IsTrue(Angle.IsRight(-Angle.Right));
-            Assert.IsFalse(Angle.IsRight(-Angle.FromDegrees(135)));
-            Assert.IsFalse(Angle.IsRight(-Angle.Straight));
-            Assert.IsFalse(Angle.IsRight(-Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsRight(-Angle.Full));
+            Assert.That(Angle.IsRight(-Angle.FromDegrees(45)), Is.False);
+            Assert.That(Angle.IsRight(-Angle.Right), Is.True);
+            Assert.That(Angle.IsRight(-Angle.FromDegrees(135)), Is.False);
+            Assert.That(Angle.IsRight(-Angle.Straight), Is.False);
+            Assert.That(Angle.IsRight(-Angle.FromDegrees(270)), Is.False);
+            Assert.That(Angle.IsRight(-Angle.Full), Is.False);
         }
 
-        [TestMethod]
+        [Test]
         public void IsAproximatelyRightIsDefinedCorrectly()
         {
-            Assert.IsFalse(Angle.IsRight(Angle.FromDegrees(90.00001), Angle.Zero));
-            Assert.IsTrue(Angle.IsRight(Angle.FromDegrees(90.00001), Angle.FromDegrees(0.001)));
-            Assert.IsTrue(Angle.IsRight(Angle.FromDegrees(89.99999), Angle.FromDegrees(0.001)));
+            Assert.That(Angle.IsRight(Angle.FromDegrees(90.00001), Angle.Zero), Is.False);
+            Assert.That(Angle.IsRight(Angle.FromDegrees(90.00001), Angle.FromDegrees(0.001)), Is.True);
+            Assert.That(Angle.IsRight(Angle.FromDegrees(89.99999), Angle.FromDegrees(0.001)), Is.True);
         }
 
-        [TestMethod]
+        [Test]
         public void IsObtuseIsDefinedCorrectly()
         {
-            Assert.IsFalse(Angle.IsObtuse(Angle.Zero));
-            Assert.IsFalse(Angle.IsObtuse(Angle.FromDegrees(45)));
-            Assert.IsFalse(Angle.IsObtuse(Angle.Right));
-            Assert.IsTrue(Angle.IsObtuse(Angle.FromDegrees(135)));
-            Assert.IsFalse(Angle.IsObtuse(Angle.Straight));
-            Assert.IsFalse(Angle.IsObtuse(Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsObtuse(Angle.Full));
+            Assert.That(Angle.IsObtuse(Angle.Zero), Is.False);
+            Assert.That(Angle.IsObtuse(Angle.FromDegrees(45)), Is.False);
+            Assert.That(Angle.IsObtuse(Angle.Right), Is.False);
+            Assert.That(Angle.IsObtuse(Angle.FromDegrees(135)), Is.True);
+            Assert.That(Angle.IsObtuse(Angle.Straight), Is.False);
+            Assert.That(Angle.IsObtuse(Angle.FromDegrees(270)), Is.False);
+            Assert.That(Angle.IsObtuse(Angle.Full), Is.False);
 
-            Assert.IsFalse(Angle.IsObtuse(-Angle.FromDegrees(45)));
-            Assert.IsFalse(Angle.IsObtuse(-Angle.Right));
-            Assert.IsTrue(Angle.IsObtuse(-Angle.FromDegrees(135)));
-            Assert.IsFalse(Angle.IsObtuse(-Angle.Straight));
-            Assert.IsFalse(Angle.IsObtuse(-Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsObtuse(-Angle.Full));
+            Assert.That(Angle.IsObtuse(-Angle.FromDegrees(45)), Is.False);
+            Assert.That(Angle.IsObtuse(-Angle.Right), Is.False);
+            Assert.That(Angle.IsObtuse(-Angle.FromDegrees(135)), Is.True);
+            Assert.That(Angle.IsObtuse(-Angle.Straight), Is.False);
+            Assert.That(Angle.IsObtuse(-Angle.FromDegrees(270)), Is.False);
+            Assert.That(Angle.IsObtuse(-Angle.Full), Is.False);
         }
 
-        [TestMethod]
+        [Test]
         public void IsStraightIsDefinedCorrectly()
         {
-            Assert.IsFalse(Angle.IsStraight(Angle.Zero));
-            Assert.IsFalse(Angle.IsStraight(Angle.FromDegrees(45)));
-            Assert.IsFalse(Angle.IsStraight(Angle.Right));
-            Assert.IsFalse(Angle.IsStraight(Angle.FromDegrees(135)));
-            Assert.IsTrue(Angle.IsStraight(Angle.Straight));
-            Assert.IsFalse(Angle.IsStraight(Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsStraight(Angle.Full));
+            Assert.That(Angle.IsStraight(Angle.Zero), Is.False);
+            Assert.That(Angle.IsStraight(Angle.FromDegrees(45)), Is.False);
+            Assert.That(Angle.IsStraight(Angle.Right), Is.False);
+            Assert.That(Angle.IsStraight(Angle.FromDegrees(135)), Is.False);
+            Assert.That(Angle.IsStraight(Angle.Straight), Is.True);
+            Assert.That(Angle.IsStraight(Angle.FromDegrees(270)), Is.False);
+            Assert.That(Angle.IsStraight(Angle.Full), Is.False);
 
-            Assert.IsFalse(Angle.IsStraight(-Angle.FromDegrees(45)));
-            Assert.IsFalse(Angle.IsStraight(-Angle.Right));
-            Assert.IsFalse(Angle.IsStraight(-Angle.FromDegrees(135)));
-            Assert.IsTrue(Angle.IsStraight(-Angle.Straight));
-            Assert.IsFalse(Angle.IsStraight(-Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsStraight(-Angle.Full));
+            Assert.That(Angle.IsStraight(-Angle.FromDegrees(45)), Is.False);
+            Assert.That(Angle.IsStraight(-Angle.Right), Is.False);
+            Assert.That(Angle.IsStraight(-Angle.FromDegrees(135)), Is.False);
+            Assert.That(Angle.IsStraight(-Angle.Straight), Is.True);
+            Assert.That(Angle.IsStraight(-Angle.FromDegrees(270)), Is.False);
+            Assert.That(Angle.IsStraight(-Angle.Full), Is.False);
         }
 
-        [TestMethod]
+        [Test]
         public void IsAproximatelyStraightIsDefinedCorrectly()
         {
-            Assert.IsFalse(Angle.IsStraight(Angle.FromDegrees(180.00001), Angle.Zero));
-            Assert.IsTrue(Angle.IsStraight(Angle.FromDegrees(180.00001), Angle.FromDegrees(0.001)));
-            Assert.IsTrue(Angle.IsStraight(Angle.FromDegrees(179.99999), Angle.FromDegrees(0.001)));
+            Assert.That(Angle.IsStraight(Angle.FromDegrees(180.00001), Angle.Zero), Is.False);
+            Assert.That(Angle.IsStraight(Angle.FromDegrees(180.00001), Angle.FromDegrees(0.001)), Is.True);
+            Assert.That(Angle.IsStraight(Angle.FromDegrees(179.99999), Angle.FromDegrees(0.001)), Is.True);
         }
 
-        [TestMethod]
+        [Test]
         public void IsReflexIsDefinedCorrectly()
         {
-            Assert.IsFalse(Angle.IsReflex(Angle.Zero));
-            Assert.IsFalse(Angle.IsReflex(Angle.FromDegrees(45)));
-            Assert.IsFalse(Angle.IsReflex(Angle.Right));
-            Assert.IsFalse(Angle.IsReflex(Angle.FromDegrees(135)));
-            Assert.IsFalse(Angle.IsReflex(Angle.Straight));
-            Assert.IsTrue(Angle.IsReflex(Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsReflex(Angle.Full));
+            Assert.That(Angle.IsReflex(Angle.Zero), Is.False);
+            Assert.That(Angle.IsReflex(Angle.FromDegrees(45)), Is.False);
+            Assert.That(Angle.IsReflex(Angle.Right), Is.False);
+            Assert.That(Angle.IsReflex(Angle.FromDegrees(135)), Is.False);
+            Assert.That(Angle.IsReflex(Angle.Straight), Is.False);
+            Assert.That(Angle.IsReflex(Angle.FromDegrees(270)), Is.True);
+            Assert.That(Angle.IsReflex(Angle.Full), Is.False);
 
-            Assert.IsFalse(Angle.IsReflex(-Angle.FromDegrees(45)));
-            Assert.IsFalse(Angle.IsReflex(-Angle.Right));
-            Assert.IsFalse(Angle.IsReflex(-Angle.FromDegrees(135)));
-            Assert.IsFalse(Angle.IsReflex(-Angle.Straight));
-            Assert.IsTrue(Angle.IsReflex(-Angle.FromDegrees(270)));
-            Assert.IsFalse(Angle.IsReflex(-Angle.Full));
+            Assert.That(Angle.IsReflex(-Angle.FromDegrees(45)), Is.False);
+            Assert.That(Angle.IsReflex(-Angle.Right), Is.False);
+            Assert.That(Angle.IsReflex(-Angle.FromDegrees(135)), Is.False);
+            Assert.That(Angle.IsReflex(-Angle.Straight), Is.False);
+            Assert.That(Angle.IsReflex(-Angle.FromDegrees(270)), Is.True);
+            Assert.That(Angle.IsReflex(-Angle.Full), Is.False);
         }
 
-        [TestMethod]
+        [Test]
         public void LerpIsDefinedCorrectly()
         {
-            Assert.AreEqual(Angle.FromDegrees(0.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), -0.5));
-            Assert.AreEqual(Angle.FromDegrees(45.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 0.0));
-            Assert.AreEqual(Angle.FromDegrees(90.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 0.5));
-            Assert.AreEqual(Angle.FromDegrees(135.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 1.0));
-            Assert.AreEqual(Angle.FromDegrees(180.0), Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 1.5));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), -0.5), Is.EqualTo(Angle.FromDegrees(0.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 0.0), Is.EqualTo(Angle.FromDegrees(45.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 0.5), Is.EqualTo(Angle.FromDegrees(90.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 1.0), Is.EqualTo(Angle.FromDegrees(135.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(45.0), Angle.FromDegrees(135.0), 1.5), Is.EqualTo(Angle.FromDegrees(180.0)));
 
-            Assert.AreEqual(Angle.FromDegrees(0.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), -0.5));
-            Assert.AreEqual(Angle.FromDegrees(-45.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 0.0));
-            Assert.AreEqual(Angle.FromDegrees(-90.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 0.5));
-            Assert.AreEqual(Angle.FromDegrees(-135.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 1.0));
-            Assert.AreEqual(Angle.FromDegrees(-180.0), Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 1.5));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), -0.5), Is.EqualTo(Angle.FromDegrees(0.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 0.0), Is.EqualTo(Angle.FromDegrees(-45.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 0.5), Is.EqualTo(Angle.FromDegrees(-90.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 1.0), Is.EqualTo(Angle.FromDegrees(-135.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(-45.0), Angle.FromDegrees(-135.0), 1.5), Is.EqualTo(Angle.FromDegrees(-180.0)));
 
-            Assert.AreEqual(Angle.FromDegrees(180.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), -0.5));
-            Assert.AreEqual(Angle.FromDegrees(135.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 0.0));
-            Assert.AreEqual(Angle.FromDegrees(90.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 0.5));
-            Assert.AreEqual(Angle.FromDegrees(45.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 1.0));
-            Assert.AreEqual(Angle.FromDegrees(0.0), Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 1.5));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), -0.5), Is.EqualTo(Angle.FromDegrees(180.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 0.0), Is.EqualTo(Angle.FromDegrees(135.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 0.5), Is.EqualTo(Angle.FromDegrees(90.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 1.0), Is.EqualTo(Angle.FromDegrees(45.0)));
+            Assert.That(Angle.Lerp(Angle.FromDegrees(135.0), Angle.FromDegrees(45.0), 1.5), Is.EqualTo(Angle.FromDegrees(0.0)));
         }
 
-        [TestMethod]
+        [Test]
         public void ToStringIsDefinedCorrectly()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            
+            Assert.That(Angle.Straight.ToString(), Is.EqualTo("3.14159265358979"));
 
-            Assert.AreEqual("3.14159265358979", Angle.Straight.ToString());
+            Assert.That(Angle.Straight.ToString("R"), Is.EqualTo("3.14159265358979"));
+            Assert.That(Angle.Straight.ToString("D"), Is.EqualTo("180°"));
+            Assert.That(Angle.FromDegrees(12, 34.56).ToString("M"), Is.EqualTo("12° 34.56'"));
+            Assert.That(Angle.FromDegrees(12, 34, 56.78).ToString("S"), Is.EqualTo("12° 34' 56.7800000000018\""));
+            Assert.That(Angle.Straight.ToString("G"), Is.EqualTo("200"));
 
-            Assert.AreEqual("3.14159265358979", Angle.Straight.ToString("R"));
-            Assert.AreEqual("180°", Angle.Straight.ToString("D"));
-            Assert.AreEqual("12° 34.56'", Angle.FromDegrees(12, 34.56).ToString("M"));
-            Assert.AreEqual("12° 34' 56.7800000000018\"", Angle.FromDegrees(12, 34, 56.78).ToString("S"));
-            Assert.AreEqual("200", Angle.Straight.ToString("G"));
+            Assert.That(Angle.Straight.ToString("R", new CultureInfo("pt-PT")), Is.EqualTo("3,14159265358979"));
+            Assert.That(Angle.Straight.ToString("D", new CultureInfo("pt-PT")), Is.EqualTo("180°"));
+            Assert.That(Angle.FromDegrees(12, 34.56).ToString("M", new CultureInfo("pt-PT")), Is.EqualTo("12° 34,56'"));
+            Assert.That(Angle.FromDegrees(12, 34, 56.78).ToString("S", new CultureInfo("pt-PT")), Is.EqualTo("12° 34' 56,7800000000018\""));
+            Assert.That(Angle.Straight.ToString("G", new CultureInfo("pt-PT")), Is.EqualTo("200"));
 
-            Assert.AreEqual("3,14159265358979", Angle.Straight.ToString("R", new CultureInfo("pt-PT")));
-            Assert.AreEqual("180°", Angle.Straight.ToString("D", new CultureInfo("pt-PT")));
-            Assert.AreEqual("12° 34,56'", Angle.FromDegrees(12, 34.56).ToString("M", new CultureInfo("pt-PT")));
-            Assert.AreEqual("12° 34' 56,7800000000018\"", Angle.FromDegrees(12, 34, 56.78).ToString("S", new CultureInfo("pt-PT")));
-            Assert.AreEqual("200", Angle.Straight.ToString("G", new CultureInfo("pt-PT")));
+            Assert.That(String.Format("Radians: {0:R}", Angle.Straight), Is.EqualTo("Radians: 3.14159265358979"));
+            Assert.That(String.Format("Degrees: {0:D}", Angle.Straight), Is.EqualTo("Degrees: 180°"));
+            Assert.That(String.Format("Degrees: {0:M}", Angle.FromDegrees(12, 34.56)), Is.EqualTo("Degrees: 12° 34.56'"));
+            Assert.That(String.Format("Degrees: {0:S}", Angle.FromDegrees(12, 34, 56.78)), Is.EqualTo("Degrees: 12° 34' 56.7800000000018\""));
+            Assert.That(String.Format("Gradians: {0:G}", Angle.Straight), Is.EqualTo("Gradians: 200"));
 
-            Assert.AreEqual("Radians: 3.14159265358979", String.Format("Radians: {0:R}", Angle.Straight));
-            Assert.AreEqual("Degrees: 180°", String.Format("Degrees: {0:D}", Angle.Straight));
-            Assert.AreEqual("Degrees: 12° 34.56'", String.Format("Degrees: {0:M}", Angle.FromDegrees(12, 34.56)));
-            Assert.AreEqual("Degrees: 12° 34' 56.7800000000018\"", String.Format("Degrees: {0:S}", Angle.FromDegrees(12, 34, 56.78)));
-            Assert.AreEqual("Gradians: 200", String.Format("Gradians: {0:G}", Angle.Straight));
+            Assert.That(Angle.Straight.ToString("R2"), Is.EqualTo("3.14"));
+            Assert.That(Angle.Straight.ToString("D2"), Is.EqualTo("180.00°"));
+            Assert.That(Angle.FromDegrees(12, 34.56).ToString("M2"), Is.EqualTo("12° 34.56'"));
+            Assert.That(Angle.FromDegrees(12, 34, 56.78).ToString("S2"), Is.EqualTo("12° 34' 56.78\""));
+            Assert.That(Angle.Straight.ToString("G2"), Is.EqualTo("200.00"));
 
-            Assert.AreEqual("3.14", Angle.Straight.ToString("R2"));
-            Assert.AreEqual("180.00°", Angle.Straight.ToString("D2"));
-            Assert.AreEqual("12° 34.56'", Angle.FromDegrees(12, 34.56).ToString("M2"));
-            Assert.AreEqual("12° 34' 56.78\"", Angle.FromDegrees(12, 34, 56.78).ToString("S2"));
-            Assert.AreEqual("200.00", Angle.Straight.ToString("G2"));
+            Assert.That(Angle.Straight.ToString("R2", new CultureInfo("pt-PT")), Is.EqualTo("3,14"));
+            Assert.That(Angle.Straight.ToString("D2", new CultureInfo("pt-PT")), Is.EqualTo("180,00°"));
+            Assert.That(Angle.FromDegrees(12, 34.56).ToString("M2", new CultureInfo("pt-PT")), Is.EqualTo("12° 34,56'"));
+            Assert.That(Angle.FromDegrees(12, 34, 56.78).ToString("S2", new CultureInfo("pt-PT")), Is.EqualTo("12° 34' 56,78\""));
+            Assert.That(Angle.Straight.ToString("G2", new CultureInfo("pt-PT")), Is.EqualTo("200,00"));
 
-            Assert.AreEqual("3,14", Angle.Straight.ToString("R2", new CultureInfo("pt-PT")));
-            Assert.AreEqual("180,00°", Angle.Straight.ToString("D2", new CultureInfo("pt-PT")));
-            Assert.AreEqual("12° 34,56'", Angle.FromDegrees(12, 34.56).ToString("M2", new CultureInfo("pt-PT")));
-            Assert.AreEqual("12° 34' 56,78\"", Angle.FromDegrees(12, 34, 56.78).ToString("S2", new CultureInfo("pt-PT")));
-            Assert.AreEqual("200,00", Angle.Straight.ToString("G2", new CultureInfo("pt-PT")));
-
-            Assert.AreEqual("Radians: 3,14", String.Format(new CultureInfo("pt-PT"), "Radians: {0:R2}", Angle.Straight));
-            Assert.AreEqual("Degrees: 180,00°", String.Format(new CultureInfo("pt-PT"), "Degrees: {0:D2}", Angle.Straight));
-            Assert.AreEqual("Degrees: 12° 34,56'", String.Format(new CultureInfo("pt-PT"), "Degrees: {0:M2}", Angle.FromDegrees(12, 34.56)));
-            Assert.AreEqual("Degrees: 12° 34' 56,78\"", String.Format(new CultureInfo("pt-PT"), "Degrees: {0:S2}", Angle.FromDegrees(12, 34, 56.78)));
-            Assert.AreEqual("Gradians: 200,00", String.Format(new CultureInfo("pt-PT"), "Gradians: {0:G2}", Angle.Straight));
+            Assert.That(String.Format(new CultureInfo("pt-PT"), "Radians: {0:R2}", Angle.Straight), Is.EqualTo("Radians: 3,14"));
+            Assert.That(String.Format(new CultureInfo("pt-PT"), "Degrees: {0:D2}", Angle.Straight), Is.EqualTo("Degrees: 180,00°"));
+            Assert.That(String.Format(new CultureInfo("pt-PT"), "Degrees: {0:M2}", Angle.FromDegrees(12, 34.56)), Is.EqualTo("Degrees: 12° 34,56'"));
+            Assert.That(String.Format(new CultureInfo("pt-PT"), "Degrees: {0:S2}", Angle.FromDegrees(12, 34, 56.78)), Is.EqualTo("Degrees: 12° 34' 56,78\""));
+            Assert.That(String.Format(new CultureInfo("pt-PT"), "Gradians: {0:G2}", Angle.Straight), Is.EqualTo("Gradians: 200,00"));
 
         }
 

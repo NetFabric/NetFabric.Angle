@@ -6,21 +6,18 @@ namespace NetFabric
     public abstract class AngleRangeAttribute
         : Attribute
     {
-        readonly Angle min;
-        readonly Angle max;
-
         protected AngleRangeAttribute(Angle min, Angle max)
         {
             if (min > max)
-                throw new ArgumentException("min must be less or equal to max.");
+                throw new ArgumentException("max must be greater than or equal to min.", nameof(max));
 
-            this.min = min;
-            this.max = max;
+            Min = min;
+            Max = max;
         }
 
-        public Angle Min { get { return min; } }
+        public Angle Min { get; }
 
-        public Angle Max { get { return max; } }
+        public Angle Max { get; }
     }
 
     public class AngleRadiansRangeAttribute 

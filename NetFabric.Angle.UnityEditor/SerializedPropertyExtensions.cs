@@ -111,14 +111,14 @@ namespace Supyrb
 
         public static bool SetFieldOrPropertyValue(string fieldName, object obj, object value, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
         {
-            FieldInfo field = obj.GetType().GetField(fieldName, bindings);
+            var field = obj.GetType().GetField(fieldName, bindings);
             if (field != null)
             {
                 field.SetValue(obj, value);
                 return true;
             }
 
-            PropertyInfo property = obj.GetType().GetProperty(fieldName, bindings);
+            var property = obj.GetType().GetProperty(fieldName, bindings);
             if (property != null)
             {
                 property.SetValue(obj, value, null);
@@ -149,9 +149,10 @@ namespace Supyrb
 
         public static IEnumerable<Type> GetBaseClassesAndInterfaces(this Type type, bool includeSelf = false)
         {
-            List<Type> allTypes = new List<Type>();
+            var allTypes = new List<Type>();
 
-            if (includeSelf) allTypes.Add(type);
+            if (includeSelf)
+                allTypes.Add(type);
 
             if (type.BaseType == typeof(object))
             {

@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <Title>NetFabric.Angle</Title>
-    <TargetFrameworks>netstandard1.0;net35</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;net35;net45</TargetFrameworks>
     <Summary>Implements a structure representing an angle.</Summary>
     <Description>The angle is represented internaly in radians but can be created and read in radians, degrees and gradians. Also supports arcminutes and arcseconds, useful for GPS coordinates. The explicit declaration of the units in creation and reading methods reduces the tipical confusion when dealing with angles. Includes linear interpolation, reduction, reference angle, comparison, classification and trigonometry operations.
 </Description>
     <Version>2.0.1</Version>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.1.0</FileVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <Copyright>Copyright © Antão Almada 2016-2017</Copyright>
     <Authors>Antão Almada</Authors>
     <Company>NetFabric</Company>
@@ -20,20 +20,19 @@
     <RepositoryUrl>https://github.com/NetFabric/NetFabric.Angle</RepositoryUrl>
     <PackageReleaseNotes>+ Added support for .NET Standard 1.0
 + Dropped support for .NET MF
-
++ Added tuples for degrees
 </PackageReleaseNotes>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net35'">
+    <DefineConstants>NET35</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE</DefineConstants>
     <DocumentationFile>bin\Release\netstandard1.0\NetFabric.Angle.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.0'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net45' Or '$(TargetFramework)'=='netstandard1.0'">
     <PackageReference Include="System.ValueTuple" Version="4.3.0" />
   </ItemGroup>
 

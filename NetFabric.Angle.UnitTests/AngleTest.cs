@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Globalization;
-using System.Threading;
 
 namespace NetFabric.UnitTests
 {
@@ -542,7 +541,7 @@ namespace NetFabric.UnitTests
         [Test]
         public void ToStringIsDefinedCorrectly()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             
             Assert.That(Angle.Straight.ToString(), Is.EqualTo("3.14159265358979"));
 

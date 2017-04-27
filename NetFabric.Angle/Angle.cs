@@ -184,7 +184,7 @@ namespace NetFabric
             seconds = (decimalMinutes - minutes) * 60.0;
         }
 
-#if NETSTANDARD1_0
+#if !NET35
 
         /// <summary>
         /// Gets the value of the current Angle structure expressed in degrees and minutes.

@@ -2,15 +2,20 @@
 
   <PropertyGroup>
     <TargetFrameworks>net46</TargetFrameworks>
+    <OutputType>exe</OutputType>
+    <RootNamespace>NetFabric.Benchmarks</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.6.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.7.0" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.10.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NetFabric.Angle\NetFabric.Angle.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

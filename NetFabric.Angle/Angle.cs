@@ -6,9 +6,6 @@ namespace NetFabric
     /// <summary>
     /// Represents an angle. 
     /// </summary>
-#if !NETSTANDARD1_0
-    [Serializable]
-#endif
     [DebuggerDisplay("{ToDegrees()}°")]
     [DebuggerTypeProxy(typeof(AngleDebugView))]
     public partial struct Angle
@@ -183,36 +180,6 @@ namespace NetFabric
             minutes = (int)decimalMinutes;
             seconds = (decimalMinutes - minutes) * 60.0;
         }
-
-#if !NET35
-
-        /// <summary>
-        /// Gets the value of the current Angle structure expressed in degrees and minutes.
-        /// </summary>
-        /// <returns>The degrees and minutes components of the Angle.</returns>
-        public (int degress, double minutes) ToDegreesMinutes()
-        {
-            var decimalDegrees = radians * DegreesByRadians;
-            var degress = (int)decimalDegrees;
-            var minutes = Math.Abs(decimalDegrees - degress) * 60.0;
-            return (degress, minutes);
-        }
-
-        /// <summary>
-        /// Gets the value of the current Angle structure expressed in degrees, minutes and seconds.
-        /// </summary>
-        /// <returns>The degrees, minutes and seconds components of the Angle.</returns>
-        public (int degress, int minutes, double seconds) ToDegreesMinutesSeconds()
-        {
-            var decimalDegrees = radians * DegreesByRadians;
-            var degress = (int)decimalDegrees;
-            var decimalMinutes = Math.Abs(decimalDegrees - degress) * 60.0;
-            var minutes = (int)decimalMinutes;
-            var seconds = (decimalMinutes - minutes) * 60.0;
-            return (degress, minutes, seconds);
-        }
-
-#endif
 
         /// <summary>
         /// Gets the value of the current Angle structure expressed in whole and fractional gradians.
@@ -408,12 +375,32 @@ namespace NetFabric
             Math.Sin(angle.radians);
 
         /// <summary>
+        /// Return the sine of the specified angle.
+        /// </summary>
+        /// <param name="angle">An angle.</param>
+        /// <param name="result">The sine of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</param>
+        public static void Sin(ref Angle angle, out double result)
+        {
+            result = Math.Sin(angle.radians);
+        }
+
+        /// <summary>
         /// Returns the hyperbolic sine of the specified angle.
         /// </summary>
         /// <param name="angle">An angle.</param>
         /// <returns>The hyperbolic sine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an Angle equal to value.</returns>
         public static double Sinh(Angle angle) =>
              Math.Sinh(angle.radians);
+
+        /// <summary>
+        /// Returns the hyperbolic sine of the specified angle.
+        /// </summary>
+        /// <param name="angle">An angle.</param>
+        /// <param name="result">The hyperbolic sine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an Angle equal to value.</param>
+        public static void Sinh(ref Angle angle, out double result)
+        {
+            result = Math.Sinh(angle.radians);
+        }
 
         /// <summary>
         /// Returns the angle whose sine is the specified number.

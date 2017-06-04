@@ -15,9 +15,7 @@ Includes lerp, reduction, reference angle, comparison, classification and trigon
 
 ### Adding to your project
 
-NetFabric.Angle is available as a [NuGet package](https://www.nuget.org/packages/NetFabric.Angle/). Use the NuGet Package Manager in Visual Studio or in Xamarin Studio to easily add it to you project.
-
-The package contains a portable library that can be added to almost any type of .NET project (.NET 3.5, .NET 4.5, ASP.NET Core 1.0, Windows 8, Xamarin.Android, Xamarin.iOS, Windows Phone 8.1 and .NET Micro Framework 4.4).
+NetFabric.Angle is available as a [NuGet package](https://www.nuget.org/packages/NetFabric.Angle/). Use the NuGet Package Manager in Visual Studio or in Xamarin Studio to easily add it to you project. The package contains support for .NET 3.5, .NET 4.5, .NET 4.6, .NET 4.7 and .NET Standard 1.0.
 
 For Unity, download the .unitypackage from [latest release](https://github.com/aalmada/NetFabric.Angle/releases) and import it into your project.
 
@@ -54,9 +52,8 @@ var radians = angle0.ToRadians();
 var degrees = angle0.ToDegrees();
 var gradians = angle0.ToGradians();
 ```
-    
-Retrieving arcminutes and arcseconds uses a different sintax:
-    
+
+The angle can also be converted to DMS notation. This can be done using either *out* arguments:  
 ```csharp
 int degrees0;
 double minute0;
@@ -68,31 +65,45 @@ double seconds1;
 angle.ToDegrees(out degrees1, out minutes1, out seconds1);
 ```
 
+, *out* arguments with C# 7 syntax:
+
+```csharp
+angle.ToDegrees(out int degrees0, out double minutes0);
+angle.ToDegrees(out int degrees1, out int minutes1, out double seconds1);
+```
+
+or using Tuples:
+
+```csharp
+(int degrees0, double minutes0) = angle.ToDegreesMinutes();
+(int degrees1, int minutes1, double seconds1) = angle.ToDegreesMinutesSeconds();
+```
+
 ### Reduction and reference
 
 The angle can be reduced to a coterminal angle in the range [0.0, 360.0[ degrees:
-    
+​    
 ```csharp
 var angle = Angle.Reduce(Angle.Right + Angle.Full); // result is Angle.Right
 ```
-    
+
 Getting the reference angle:
 
 ```csharp
 var angle = Angle.GetReference(Angle.Right + Angle.FromDegrees(45.0)); // result is an angle with 45 degrees
 ```
-    
+
 ### Math operations
 
 Math operators are defined allowing calculations with angles. For performance reasons the results are not reduced.
-    
+​    
 ```csharp
 var angle0 = -Angle.Right; 
 var angle1 = Angle.Straight + Angle.FromDegrees(45.0);
 var angle2 = 2.0 * Angle.FromDegrees(30.0);
 var angle3 = Angle.FromDegrees(30.0) / 2.0;
 ```
-    
+
 Equivalent methods are also defined so they can be used for languages that do not support operators.
 
 ```csharp
@@ -101,33 +112,33 @@ var angle1 = Angle.Add(Angle.Straight, Angle.FromDegrees(45.0));
 var angle2 = Angle.Multiply(2.0, Angle.FromDegrees(30.0));
 var angle3 = Angle.Divide(Angle.FromDegrees(30.0), 2.0);
 ```
-    
+
 ### Comparison
 
 Comparison operatores can be used to compare two angles:
-    
+​    
 ```csharp
 if(angle0 > angle1 || angle0 == angle2) {
     ...
 }
 ```
-    
+
 For languages that do not support operators use the static Compare() method:
-    
+​    
 ```csharp
 if(Angle.Compare(angle0, angle1) <= 0) { // less or equal to
     ...
 }
 ```
-    
+
 For performance reasons, the values compared are not reduced. You'll have to explicitly reduce both angles before comparing:
-    
+​    
 ```csharp
 if(Angle.Reduce(angle0) > Angle.Reduce(angle1)) {
     ...
 }
 ```
-    
+
 or use the static CompareReduced() method:
 
 ```csharp
@@ -162,7 +173,7 @@ var isAcute = Angle.IsAcute(Angle.Right); // false
 var isAcute = Angle.IsAcute(Angle.FromDegrees(45.0)); // true
 var isRight = Angle.IsRight(Angle.Right); // true
 ```
-    
+
 Classification considers the reduced positive equivalent of the angle so:
 
 ```csharp

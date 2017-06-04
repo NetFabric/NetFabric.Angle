@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net46</TargetFrameworks>
+    <TargetFramework>net47</TargetFramework>
     <OutputType>exe</OutputType>
     <RootNamespace>NetFabric.Benchmarks</RootNamespace>
   </PropertyGroup>
@@ -12,10 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetFabric.Angle\NetFabric.Angle.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

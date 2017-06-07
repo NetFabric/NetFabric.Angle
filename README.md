@@ -26,7 +26,7 @@ Use the methods for the units you are working with:
 ```csharp
 var right0 = Angle.FromRadian(Math.PI / 2.0);
 var right1 = Angle.FromDegrees(90.0);
-var right2 = Angle.FromGradian(50.0);
+var right2 = Angle.FromGradian(100.0);
 ```
 
 Arcminutes and arcseconds have to be values in the interval [0.0, 60.0[
@@ -65,14 +65,14 @@ double seconds1;
 angle.ToDegrees(out degrees1, out minutes1, out seconds1);
 ```
 
-, *out* arguments with C# 7 syntax:
+*out* arguments with C# 7 syntax:
 
 ```csharp
 angle.ToDegrees(out int degrees0, out double minutes0);
 angle.ToDegrees(out int degrees1, out int minutes1, out double seconds1);
 ```
 
-or using Tuples:
+using Tuples (not supported in .NET 3.5):
 
 ```csharp
 (int degrees0, double minutes0) = angle.ToDegreesMinutes();
@@ -87,7 +87,7 @@ The angle can be reduced to a coterminal angle in the range [0.0, 360.0[ degrees
 var angle = Angle.Reduce(Angle.Right + Angle.Full); // result is Angle.Right
 ```
 
-Getting the reference angle:
+Getting the reference angle (the smallest angle with the x-axis):
 
 ```csharp
 var angle = Angle.GetReference(Angle.Right + Angle.FromDegrees(45.0)); // result is an angle with 45 degrees
@@ -95,7 +95,7 @@ var angle = Angle.GetReference(Angle.Right + Angle.FromDegrees(45.0)); // result
 
 ### Math operations
 
-Math operators are defined allowing calculations with angles. For performance reasons the results are not reduced.
+Math operators are defined allowing calculations with angles. (For performance reasons the results are not reduced)
 ​    
 ```csharp
 var angle0 = -Angle.Right; 
@@ -152,8 +152,8 @@ if(Angle.CompareReduced(angle0, angle1) > 0) {
 The usual trigonometry operations (sin, cos, tan, asin, acos, atan, sinh and cosh) are available as static methods:
 
 ```csharp
-var value = Angle.Sin(angle);
-var angle = Angle.Asin(value);
+double value = Angle.Sin(angle);
+Angle angle = Angle.Asin(value);
 ```
 
 ### Classification
@@ -162,7 +162,7 @@ You can get the quadrante of the angle
 
 ```csharp
 var quad0 = Angle.GetQuadrant(Angle.FromDegrees(45.0)); // Angle.Quadrant.First
-var quad1 = Angle.GetQuadrant(Angle.FromDegrees(22.0)); // Angle.Quadrant.Third
+var quad1 = Angle.GetQuadrant(Angle.FromDegrees(220.0)); // Angle.Quadrant.Third
 var quad2 = Angle.GetQuadrant(Angle.FromDegrees(-45.0)); // Angle.Quadrant.Fourth
 ```
 
@@ -205,7 +205,7 @@ Angle.FromDegrees(45.0).ToString("S3"); // 45° 0' 0.000"
 Angle.FromDegrees(45.0).ToString("G3"); // 50.000
 ```
 
-Supports culture (except for .NET Micro Framework):
+Supports culture:
 
 ```csharp
 Angle.FromDegrees(45.0).ToString("R3", new CultureInfo("pt-PT")); // 0,785

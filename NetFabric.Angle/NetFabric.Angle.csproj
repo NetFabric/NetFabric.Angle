@@ -19,6 +19,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/NetFabric/NetFabric.Angle</RepositoryUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <RootNamespace>NetFabric</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

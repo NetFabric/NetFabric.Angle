@@ -2,17 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>net35</TargetFramework>
+    <Copyright>Copyright © Antão Almada 2016-2017</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="UnityEditor">
-      <HintPath>..\Externals\UnityAssemblies\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\Externals\UnityAssemblies\UnityEngine.dll</HintPath>
-    </Reference>
+    <Reference Include="..\Externals\UnityAssemblies\UnityEditor.dll" />
+    <Reference Include="..\Externals\UnityAssemblies\UnityEngine.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NetFabric.Angle.Unity\NetFabric.Angle.Unity.csproj" />
     <ProjectReference Include="..\NetFabric.Angle\NetFabric.Angle.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

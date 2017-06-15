@@ -52,6 +52,11 @@ namespace NetFabric
         public static readonly Angle Zero = new Angle(0.0);
 
         /// <summary>
+        /// Represents the golden Angle value (~137.508 degrees). This field is read-only.
+        /// </summary>
+        public static readonly Angle Golden = new Angle(Math.PI * (3.0 - Math.Sqrt(5.0)));
+
+        /// <summary>
         /// Represents the smallest possible value of a Double. This field is read-only.
         /// </summary>
         public static readonly Angle MinValue = new Angle(double.MinValue);

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Title>NetFabric.Angle</Title>
-    <TargetFrameworks>net35;net45;net46;net47;netstandard1.0</TargetFrameworks>
+    <TargetFrameworks>net35;net45;netstandard1.0;uap10.0;Xamarin.iOS10;MonoAndroid70</TargetFrameworks>
     <Summary>Implements a structure representing an angle.</Summary>
     <Description>The angle is represented internaly in radians but can be created and read in radians, degrees and gradians. Supports arcminutes and arcseconds, useful for GPS coordinates. The explicit declaration of the units in creation and reading methods, reduces the tipical confusion when dealing with angles. Includes linear interpolation, reduction, reference angle, comparison, classification and trigonometry operations.
 </Description>
@@ -28,13 +28,51 @@
     <None Remove="Platforms\**" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net35' ">
+  <ItemGroup Condition="'$(TargetFramework)'!='net35'">
     <Compile Include="Platforms\Tuples\**" />
-    <PackageReference Condition=" '$(TargetFramework)' != 'net47'" Include="System.ValueTuple" Version="4.3.1" />
+    <PackageReference Condition="'$(TargetFramework)'!='net47'" Include="System.ValueTuple" Version="4.3.1" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard1.0' ">
+  <ItemGroup Condition="'$(TargetFramework)'!='netstandard1.0'">
     <Compile Include="Platforms\Serializable\**" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
+    <Reference Include="System" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' ">
+    <Reference Include="Mono.Android" />
+    <Reference Include="System" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+    <TargetFrameworkIdentifier>UAP</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>10.0.14393.0</TargetFrameworkVersion>
+    <TargetFrameworkMinVersion>10.0.10586.0</TargetFrameworkMinVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.3.3" />
+  </ItemGroup>
+  
 </Project>

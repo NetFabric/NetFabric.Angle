@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace NetFabric
 {
-    public static class IEnumerableExtensions
+    public static class SumExtensions
     {
         /// <summary>
         /// Computes the sum of a sequence of Angle values.

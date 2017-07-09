@@ -1,8 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net47</TargetFramework>
+    <TargetFrameworks>net35;net45;netstandard1.6</TargetFrameworks>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Platforms\**" />
+    <EmbeddedResource Remove="Platforms\**" />
+    <None Remove="Platforms\**" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net35' ">
+    <Compile Include="Platforms\Tuples\**" />
+    <PackageReference Condition=" '$(TargetFramework)' != 'net47'" Include="System.ValueTuple" Version="4.3.1" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.7.1" />

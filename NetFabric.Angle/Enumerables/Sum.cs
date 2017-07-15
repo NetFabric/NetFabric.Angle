@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NetFabric
 {
-    public static class SumExtensions
+    public static partial class EnumerableExtensions
     {
         /// <summary>
         /// Computes the sum of a sequence of Angle values.

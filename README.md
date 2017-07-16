@@ -223,3 +223,17 @@ String.Format("Degrees: {0:S3}", Angle.FromDegrees(45.0)); // Degrees: 45° 0' 0
 String.Format(new CultureInfo("pt-PT"), "Degrees: {0:S3}", Angle.FromDegrees(45.0)); // Degrees: 45° 0' 0,000"
 ```
 
+### IEnumerable extensions
+
+The library contains extensions to easily perform operations on sequences of Angle. It currently supports **Min**, **Max**, **Sum** and **Range**.
+
+```csharp
+new Angle[] { Angle.Zero, -Angle.Right, Angle.Full }.Min(); // -Angle.Right
+new Angle?[] { Angle.Zero, -Angle.Right, null, Angle.Full }.Min() // -Angle.Right
+```
+
+```csharp
+var range0 = new[] { Angle.Zero, -Angle.Full, Angle.Right }.Range(); // (-Angle.Full, Angle.Right)
+var range1 = new[] { Angle.Zero, Angle.Full, Angle.Right }.Range(); // (Angle.Zero, Angle.Full)
+var rangeOfRanges = new[] { range1, range0 }; // (-Angle.Full, Angle.Full)
+```

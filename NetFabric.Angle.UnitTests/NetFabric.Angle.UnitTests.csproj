@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Platforms\Tuples\AngleEnumerableRangeTests.cs" />
     <Compile Include="Platforms\Tuples\AngleTuplesTest.cs" />
   </ItemGroup>
 

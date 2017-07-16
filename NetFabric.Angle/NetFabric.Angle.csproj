@@ -75,5 +75,5 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.3.3" />
   </ItemGroup>
-  
+
 </Project>

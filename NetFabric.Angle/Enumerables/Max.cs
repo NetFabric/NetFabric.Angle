@@ -48,7 +48,7 @@ namespace NetFabric
 
             using (var enumerator = source.GetEnumerator())
             {
-                var max = (Angle?)null;
+                Angle? max = null;
                 do
                 {
                     if (!enumerator.MoveNext())

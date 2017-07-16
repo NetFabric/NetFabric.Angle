@@ -229,11 +229,15 @@ The library contains extensions to easily perform operations on sequences of Ang
 
 ```csharp
 new Angle[] { Angle.Zero, -Angle.Right, Angle.Full }.Min(); // -Angle.Right
+// supports nullables
 new Angle?[] { Angle.Zero, -Angle.Right, null, Angle.Full }.Min() // -Angle.Right
 ```
+
+Range() returns a tuple containing the minimum and maximum performing only one sequence iteration:
 
 ```csharp
 var range0 = new[] { Angle.Zero, -Angle.Full, Angle.Right }.Range(); // (-Angle.Full, Angle.Right)
 var range1 = new[] { Angle.Zero, Angle.Full, Angle.Right }.Range(); // (Angle.Zero, Angle.Full)
+// supports range of ranges
 var rangeOfRanges = new[] { range1, range0 }; // (-Angle.Full, Angle.Full)
 ```

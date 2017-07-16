@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net45;netstandard1.6</TargetFrameworks>
+    <!--<TargetFrameworks>net35;net45;netstandard1.6</TargetFrameworks>-->
+    <TargetFrameworks>netcoreapp1.1</TargetFrameworks>
   </PropertyGroup>
   
   <ItemGroup>
@@ -11,17 +12,26 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' != 'net35' ">
-    <Compile Include="Platforms\Tuples\**" />
     <PackageReference Condition=" '$(TargetFramework)' != 'net47'" Include="System.ValueTuple" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.7.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.7.0" />
+    <Compile Include="Platforms\Tuples\AngleTuplesTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="FluentAssertions" Version="4.19.3" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NetFabric.Angle\NetFabric.Angle.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
 
 </Project>

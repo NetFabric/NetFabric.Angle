@@ -27,7 +27,7 @@ namespace NetFabric
                 while(enumerator.MoveNext())
                 {
                     current = enumerator.Current;
-                    if (max < current)
+                    if (current > max)
                         max = current;
                 }
 
@@ -58,7 +58,7 @@ namespace NetFabric
                 }
                 while (!max.HasValue);
 
-                var minValue = max.GetValueOrDefault();
+                var maxValue = max.GetValueOrDefault();
                 while (enumerator.MoveNext())
                 {
                     var current = enumerator.Current;
@@ -66,9 +66,9 @@ namespace NetFabric
 
                     // Do not replace & with &&. The branch prediction cost outweighs the extra operation
                     // unless nulls either never happen or always happen.
-                    if (current.HasValue & currentValue < minValue)
+                    if (current.HasValue & currentValue > maxValue)
                     {
-                        minValue = currentValue;
+                        maxValue = currentValue;
                         max = current;
                     }
                 }

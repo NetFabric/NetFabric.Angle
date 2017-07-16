@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using System;
+﻿using FluentAssertions;
+using System.Linq;
+using Xunit;
 
 namespace NetFabric.UnitTests
 {
-    [TestFixture]
     public class AngleRangeAttributeTests
     {
     }

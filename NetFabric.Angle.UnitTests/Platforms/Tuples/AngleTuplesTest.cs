@@ -1,51 +1,51 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace NetFabric.UnitTests
 {
-    [TestFixture]
     public class AngleTuplesTests
     {
-        [Test]
+        [Fact]
         public void ToTupleDegreesMinutesConvertsFromRadiansCorrectly()
         {
 
             var angle = Angle.FromRadians(0.0);
             (int degrees, double minutes) = angle.ToDegreesMinutes();
-            Assert.That(degrees, Is.Zero);
-            Assert.That(minutes, Is.Zero.Within(0.000001));
+            degrees.Should().Be(0);
+            minutes.Should().BeApproximately(0.0, 0.000001);
 
             angle = Angle.FromRadians(0.706858347);
             (int degrees1, double minutes1) = angle.ToDegreesMinutes();
-            Assert.That(degrees1, Is.EqualTo(40));
-            Assert.That(minutes1, Is.EqualTo(30.0).Within(0.000001));
+            degrees1.Should().Be(40);
+            minutes1.Should().BeApproximately(30.0, 0.000001);
 
             angle = Angle.FromRadians(-0.706858347);
             (int degrees2, double minutes2) = angle.ToDegreesMinutes();
-            Assert.That(degrees2, Is.EqualTo(-40));
-            Assert.That(minutes2, Is.EqualTo(30.0).Within(0.000001));
+            degrees2.Should().Be(-40);
+            minutes2.Should().BeApproximately(30.0, 0.000001);
         }
 
-        [Test]
+        [Fact]
         public void ToTupleDegreesMinutesSecondsConvertsFromRadiansCorrectly()
         {
 
             var angle = Angle.FromRadians(0.0);
             (int degrees, int minutes, double seconds) = angle.ToDegreesMinutesSeconds();
-            Assert.That(degrees, Is.Zero);
-            Assert.That(minutes, Is.Zero);
-            Assert.That(seconds, Is.Zero.Within(0.001));
+            degrees.Should().Be(0);
+            minutes.Should().Be(0);
+            seconds.Should().BeApproximately(0, 0.001);
 
             angle = Angle.FromRadians(0.707003791);
             (int degrees1, int minutes1, double seconds1) = angle.ToDegreesMinutesSeconds();
-            Assert.That(degrees1, Is.EqualTo(40));
-            Assert.That(minutes1, Is.EqualTo(30));
-            Assert.That(seconds1, Is.EqualTo(30.0).Within(0.001));
+            degrees1.Should().Be(40);
+            minutes1.Should().Be(30);
+            seconds1.Should().BeApproximately(30.0, 0.001);
 
             angle = Angle.FromRadians(-0.707003791);
             (int degrees2, int minutes2, double seconds2) = angle.ToDegreesMinutesSeconds();
-            Assert.That(degrees2, Is.EqualTo(-40));
-            Assert.That(minutes2, Is.EqualTo(30));
-            Assert.That(seconds2, Is.EqualTo(30.0).Within(0.001));
+            degrees2.Should().Be(-40);
+            minutes2.Should().Be(30);
+            seconds2.Should().BeApproximately(30.0, 0.001);
         }
 
     }

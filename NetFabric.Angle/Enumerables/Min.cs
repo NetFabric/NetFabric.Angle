@@ -27,7 +27,7 @@ namespace NetFabric
                 while(enumerator.MoveNext())
                 {
                     current = enumerator.Current;
-                    if (min < current)
+                    if (current < min)
                         min = current;
                 }
 

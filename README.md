@@ -239,5 +239,5 @@ Range() returns a tuple containing the minimum and maximum performing only one s
 var range0 = new[] { Angle.Zero, -Angle.Full, Angle.Right }.Range(); // (-Angle.Full, Angle.Right)
 var range1 = new[] { Angle.Zero, Angle.Full, Angle.Right }.Range(); // (Angle.Zero, Angle.Full)
 // supports range of ranges
-var rangeOfRanges = new[] { range1, range0 }; // (-Angle.Full, Angle.Full)
+var rangeOfRanges = new[] { range1, range0 }.Range(); // (-Angle.Full, Angle.Full)
 ```

@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetFabric.Angle.Unity\NetFabric.Angle.Unity.csproj" />
     <ProjectReference Include="..\NetFabric.Angle\NetFabric.Angle.csproj" />
   </ItemGroup>
 

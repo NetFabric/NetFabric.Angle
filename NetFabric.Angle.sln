@@ -1,17 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26606.0
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle", "NetFabric.Angle\NetFabric.Angle.csproj", "{FCD2E42D-CCB1-41FB-BD17-94F595879C63}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.UnitTests", "NetFabric.Angle.UnitTests\NetFabric.Angle.UnitTests.csproj", "{35C09BA6-1CA5-4291-8828-ABCDAE9C2D83}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.UnityEditor", "NetFabric.Angle.UnityEditor\NetFabric.Angle.UnityEditor.csproj", "{AD9788A4-FE55-4AD3-B320-30F77FE9E95A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFabric.Angle.Unity", "NetFabric.Angle.Unity\NetFabric.Angle.Unity.csproj", "{BD72D18F-3489-4BDD-85F4-A9785262F754}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Angle.Benchmarks", "NetFabric.Angle.Benchmarks\NetFabric.Angle.Benchmarks.csproj", "{D8E43007-30B9-485E-B736-E01C32E0A665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Angle", "NetFabric.Angle\NetFabric.Angle.csproj", "{FCD2E42D-CCB1-41FB-BD17-94F595879C63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,22 +15,11 @@ Global
 		{FCD2E42D-CCB1-41FB-BD17-94F595879C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCD2E42D-CCB1-41FB-BD17-94F595879C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCD2E42D-CCB1-41FB-BD17-94F595879C63}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35C09BA6-1CA5-4291-8828-ABCDAE9C2D83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35C09BA6-1CA5-4291-8828-ABCDAE9C2D83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35C09BA6-1CA5-4291-8828-ABCDAE9C2D83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35C09BA6-1CA5-4291-8828-ABCDAE9C2D83}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD9788A4-FE55-4AD3-B320-30F77FE9E95A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD9788A4-FE55-4AD3-B320-30F77FE9E95A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD9788A4-FE55-4AD3-B320-30F77FE9E95A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD72D18F-3489-4BDD-85F4-A9785262F754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD72D18F-3489-4BDD-85F4-A9785262F754}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD72D18F-3489-4BDD-85F4-A9785262F754}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8E43007-30B9-485E-B736-E01C32E0A665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8E43007-30B9-485E-B736-E01C32E0A665}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8E43007-30B9-485E-B736-E01C32E0A665}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8E43007-30B9-485E-B736-E01C32E0A665}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5E8E304-E3C7-4ACB-B2F1-33C6A3DA4A14}
 	EndGlobalSection
 EndGlobal

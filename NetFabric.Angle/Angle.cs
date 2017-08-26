@@ -26,7 +26,7 @@ namespace NetFabric
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
         public static RadiansAngle InRadians(DegreesAngle angle) =>
-            new RadiansAngle(angle.Degrees * DegreesInRadians);
+            new RadiansAngle(angle.Degrees / DegreesInRadians);
 
         /// <summary>
         /// Returns an RadiansAngle that represents the equivalent to the GradiansAngle.
@@ -34,7 +34,7 @@ namespace NetFabric
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
         public static RadiansAngle InRadians(GradiansAngle angle) =>
-            new RadiansAngle(angle.Gradians * GradiansInRadians);
+            new RadiansAngle(angle.Gradians / GradiansInRadians);
 
         /// <summary>
         /// Returns an DegreessAngle that represents a specified number of degrees.
@@ -50,7 +50,7 @@ namespace NetFabric
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
         public static DegreesAngle InDegrees(RadiansAngle angle) =>
-            new DegreesAngle(angle.Radians / DegreesInRadians);
+            new DegreesAngle(angle.Radians * DegreesInRadians);
 
         /// <summary>
         /// Returns an DegreessAngle that represents the equivalent to the GradiansAngle.
@@ -58,7 +58,7 @@ namespace NetFabric
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
         public static DegreesAngle InDegrees(GradiansAngle angle) =>
-            new DegreesAngle(angle.Gradians * GradiansInDegrees);
+            new DegreesAngle(angle.Gradians / GradiansInDegrees);
 
         /// <summary>
         /// Returns an GradianssAngle that represents a specified number of gradians.
@@ -74,7 +74,7 @@ namespace NetFabric
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
         public static GradiansAngle InGradians(RadiansAngle angle) =>
-            new GradiansAngle(angle.Radians / GradiansInRadians);
+            new GradiansAngle(angle.Radians * GradiansInRadians);
 
         /// <summary>
         /// Returns an GradianssAngle that represents the equivalent to the DegreesAngle.
@@ -82,7 +82,7 @@ namespace NetFabric
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
         public static GradiansAngle InGradians(DegreesAngle angle) =>
-            new GradiansAngle(angle.Degrees / GradiansInDegrees);
+            new GradiansAngle(angle.Degrees * GradiansInDegrees);
 
         /// <summary>
         /// Returns an Angle that represents a specified number of degrees and minutes.

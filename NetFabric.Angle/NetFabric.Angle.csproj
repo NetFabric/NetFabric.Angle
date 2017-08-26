@@ -33,6 +33,10 @@
     <Compile Remove="DegreesMinutesAngle.cs" />
     <Compile Remove="DegreesMinutesSecondsAngle.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="6.3.0.2862" />
+  </ItemGroup>
   
   <!--
   

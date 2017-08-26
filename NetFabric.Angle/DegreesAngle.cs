@@ -85,11 +85,11 @@ namespace NetFabric
         /// <summary>
         /// Indicates whether whether this instance is equal to a specified DegreesAngle object.
         /// </summary>
-        /// <param name="obj">An DegreesAngle to compare with this instance.</param>
+        /// <param name="other">An DegreesAngle to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="DegreesAngle.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
-        public bool Equals(DegreesAngle obj) =>
-            Degrees == obj.Degrees;
+        public bool Equals(DegreesAngle other) =>
+            Degrees == other.Degrees;
 
         #endregion
 
@@ -131,8 +131,8 @@ namespace NetFabric
         public static bool operator >=(DegreesAngle a1, DegreesAngle a2) =>
             a1.Degrees >= a2.Degrees;
 
-        int IComparable<DegreesAngle>.CompareTo(DegreesAngle value) =>
-            Degrees.CompareTo(value.Degrees);
+        int IComparable<DegreesAngle>.CompareTo(DegreesAngle other) =>
+            Degrees.CompareTo(other.Degrees);
 
         int IComparable.CompareTo(object obj)
         {
@@ -392,6 +392,14 @@ namespace NetFabric
         #region types of angles
 
         /// <summary>
+        /// Indicates whether the specified angle is equal to Zero when reduced.
+        /// </summary>
+        /// <param name="angle">Source angle.</param>
+        /// <returns>true if the reduction of the absolute angle is zero; otherwise false.</returns>
+        public static bool IsZero(DegreesAngle angle) =>
+            angle.Degrees % DegreesAngle.FullAngle == 0.0;
+
+        /// <summary>
         /// Indicates whether the specified angle is acute.
         /// </summary>
         /// <param name="angle">Source angle.</param>
@@ -399,7 +407,7 @@ namespace NetFabric
         public static bool IsAcute(DegreesAngle angle)
         {
             var reduced = DegreesAngle.Reduce(Math.Abs(angle.Degrees));
-            return reduced < DegreesAngle.RightAngle;
+            return reduced > 0.0 && reduced < DegreesAngle.RightAngle;
         }
 
         /// <summary>
@@ -408,7 +416,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 90 degrees; otherwise false.</returns>
         public static bool IsRight(DegreesAngle angle) =>
-            DegreesAngle.Reduce(Math.Abs(angle.Degrees)) == DegreesAngle.FullAngle;
+            DegreesAngle.Reduce(Math.Abs(angle.Degrees)) == DegreesAngle.RightAngle;
 
         /// <summary>
         /// Indicates whether the specified angle is obtuse.

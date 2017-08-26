@@ -85,11 +85,11 @@ namespace NetFabric
         /// <summary>
         /// Indicates whether whether this instance is equal to a specified GradiansAngle object.
         /// </summary>
-        /// <param name="obj">An GradiansAngle to compare with this instance.</param>
+        /// <param name="other">An GradiansAngle to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="GradiansAngle.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
-        public bool Equals(GradiansAngle obj) =>
-            Gradians == obj.Gradians;
+        public bool Equals(GradiansAngle other) =>
+            Gradians == other.Gradians;
 
         #endregion
 
@@ -131,8 +131,8 @@ namespace NetFabric
         public static bool operator >=(GradiansAngle a1, GradiansAngle a2) =>
             a1.Gradians >= a2.Gradians;
 
-        int IComparable<GradiansAngle>.CompareTo(GradiansAngle value) =>
-            Gradians.CompareTo(value.Gradians);
+        int IComparable<GradiansAngle>.CompareTo(GradiansAngle other) =>
+            Gradians.CompareTo(other.Gradians);
 
         int IComparable.CompareTo(object obj)
         {
@@ -392,6 +392,14 @@ namespace NetFabric
         #region types of angles
 
         /// <summary>
+        /// Indicates whether the specified angle is equal to Zero when reduced.
+        /// </summary>
+        /// <param name="angle">Source angle.</param>
+        /// <returns>true if the reduction of the absolute angle is zero; otherwise false.</returns>
+        public static bool IsZero(GradiansAngle angle) =>
+            angle.Gradians % GradiansAngle.FullAngle == 0.0;
+
+        /// <summary>
         /// Indicates whether the specified angle is acute.
         /// </summary>
         /// <param name="angle">Source angle.</param>
@@ -399,7 +407,7 @@ namespace NetFabric
         public static bool IsAcute(GradiansAngle angle)
         {
             var reduced = GradiansAngle.Reduce(Math.Abs(angle.Gradians));
-            return reduced < GradiansAngle.RightAngle;
+            return reduced > 0.0 && reduced < GradiansAngle.RightAngle;
         }
 
         /// <summary>
@@ -408,7 +416,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 90 degrees; otherwise false.</returns>
         public static bool IsRight(GradiansAngle angle) =>
-            GradiansAngle.Reduce(Math.Abs(angle.Gradians)) == GradiansAngle.FullAngle;
+            GradiansAngle.Reduce(Math.Abs(angle.Gradians)) == GradiansAngle.RightAngle;
 
         /// <summary>
         /// Indicates whether the specified angle is obtuse.

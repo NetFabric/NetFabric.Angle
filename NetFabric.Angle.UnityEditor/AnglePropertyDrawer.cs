@@ -11,8 +11,8 @@ namespace NetFabric
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var min = Angle.Zero;
-            var max = Angle.Full;
+            var min = AngleDegrees.Zero;
+            var max = AngleDegrees.Full;
 
             var range = fieldInfo.GetCustomAttributes(typeof(AngleRangeAttribute), true).Cast<AngleRangeAttribute>().FirstOrDefault();
             if (range != null)

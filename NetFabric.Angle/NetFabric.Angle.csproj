@@ -2,78 +2,51 @@
 
   <PropertyGroup>
     <Title>NetFabric.Angle</Title>
-    <!--<TargetFrameworks>net35;net45;netstandard1.0;uap10.0;Xamarin.iOS10;MonoAndroid70</TargetFrameworks>-->
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <Summary>Implements a structure representing an angle.</Summary>
-    <Description>The angle is represented internaly in radians but can be created and read in radians, degrees and gradians. Supports arcminutes and arcseconds, useful for GPS coordinates. The explicit declaration of the units in creation and reading methods, reduces the tipical confusion when dealing with angles. Includes linear interpolation, reduction, reference angle, comparison, classification and trigonometry operations.
-</Description>
-    <Version>2.0.2</Version>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
-    <Copyright>Copyright © Antão Almada 2016-2017</Copyright>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+    <Summary>A strongly-typed representation for an angle.</Summary>
+    <Description>
+      The explicit declaration of the units in creation and reading methods, reduces the tipical confusion when dealing with angles. 
+      Includes linear interpolation, reduction, reference angle, comparison, classification and trigonometry operations.
+    </Description>
+    <Version>3.0.0</Version>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
+    <Copyright>Copyright © Antão Almada 2016-2019</Copyright>
     <Authors>Antão Almada</Authors>
     <Company>NetFabric</Company>
-    <PackageLicenseUrl>https://github.com/NetFabric/NetFabric.Angle/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/NetFabric/NetFabric.Angle</PackageProjectUrl>
-    <PackageIconUrl>https://iobservableblog.files.wordpress.com/2016/04/netfabric-angle-64x64.png</PackageIconUrl>
-    <PackageTags>math, numerics, trigonometry, uwp, xamarin, unity</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/NetFabric/NetFabric.Angle</RepositoryUrl>
-    <PackageReleaseNotes>Added Min, Max, Sum and Range for enumerables of Angle.</PackageReleaseNotes>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>math, numerics, trigonometry</PackageTags>
+    <PackageReleaseNotes>
+      New API with distinct angle representations for each unit type, reducing rounding issues.
+    </PackageReleaseNotes>
     <RootNamespace>NetFabric</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Platforms\**" />
-    <EmbeddedResource Remove="Platforms\**" />
-    <None Remove="Platforms\**" />
+    <None Include="..\Icon.png" Pack="true" PackagePath="" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'!='net35'">
-    <Compile Include="Platforms\Tuples\**" />
-    <PackageReference Condition="'$(TargetFramework)'!='net47'" Include="System.ValueTuple" Version="4.3.1" />
+  <ItemGroup>
+    <Compile Remove="Enumerables\**" />
+    <EmbeddedResource Remove="Enumerables\**" />
+    <None Remove="Enumerables\**" />
+    <Compile Remove="AngleRangeAttribute.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'!='netstandard1.0'">
-    <Compile Include="Platforms\Serializable\**" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19554-01" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
-    <Reference Include="System" />
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.Collections" />
-    <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="Xamarin.iOS" />
-  </ItemGroup>
-  
-  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' ">
-    <Reference Include="Mono.Android" />
-    <Reference Include="System" />
-    <Reference Include="System.Collections" />
-    <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
-    <TargetFrameworkIdentifier>UAP</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>10.0.14393.0</TargetFrameworkVersion>
-    <TargetFrameworkMinVersion>10.0.10586.0</TargetFrameworkMinVersion>
-  </PropertyGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.3.3" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

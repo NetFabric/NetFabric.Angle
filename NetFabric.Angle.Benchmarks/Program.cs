@@ -7,7 +7,9 @@ namespace NetFabric.Benchmarks
     {
         static void Main(string[] args)
         {
-            BenchmarkRunner.Run(typeof(Operators));
+            var switcher = new BenchmarkSwitcher(new Type[] {
+            });
+            switcher.Run(args);
         }
     }
 }

@@ -30,7 +30,6 @@
     <None Remove="Enumerables\**" />
     <None Remove="Platforms\**" />
     <Compile Remove="AngleRangeAttribute.cs" />
-    <Compile Remove="DegreesMinutesAngle.cs" />
     <Compile Remove="DegreesMinutesSecondsAngle.cs" />
   </ItemGroup>
 

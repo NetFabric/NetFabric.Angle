@@ -2,53 +2,53 @@
 
 namespace NetFabric
 {
-    public struct GradiansAngle
-        : IEquatable<GradiansAngle>
+    public readonly struct AngleGradians
+        : IEquatable<AngleGradians>
         , IComparable
-        , IComparable<GradiansAngle>
+        , IComparable<AngleGradians>
         , IFormattable
     {
         /// <summary>
         /// Represents the zero GradiansAngle value (0 degrees). This field is read-only.
         /// </summary>
-        public static readonly GradiansAngle Zero = new GradiansAngle(0.0);
+        public static readonly AngleGradians Zero = new AngleGradians(0.0);
 
         /// <summary>
         /// Represents the golden GradiansAngle value (~137.508 degrees). This field is read-only.
         /// </summary>
-        public static readonly GradiansAngle Golden = Angle.InGradians(RadiansAngle.Golden);
+        public static readonly AngleGradians Golden = Angle.ToGradians(AngleRadians.Golden);
 
         /// <summary>
         /// Represents the smallest possible value of a GradiansAngle. This field is read-only.
         /// </summary>
-        public static readonly GradiansAngle MinValue = new GradiansAngle(double.MinValue);
+        public static readonly AngleGradians MinValue = new AngleGradians(double.MinValue);
 
         /// <summary>
         /// Represents the largest possible value of a GradiansAngle. This field is read-only.
         /// </summary>
-        public static readonly GradiansAngle MaxValue = new GradiansAngle(double.MaxValue);
+        public static readonly AngleGradians MaxValue = new AngleGradians(double.MaxValue);
 
         /// <summary>
         /// Represents the right GradiansAngle value (90 degrees). This field is read-only.
         /// </summary>
-        public static readonly GradiansAngle Right = new GradiansAngle(RightAngle);
+        public static readonly AngleGradians Right = new AngleGradians(RightAngle);
 
         /// <summary>
         /// Represents the straight GradiansAngle value (180 degrees). This field is read-only.
         /// </summary>
-        public static readonly GradiansAngle Straight = new GradiansAngle(StraightAngle);
+        public static readonly AngleGradians Straight = new AngleGradians(StraightAngle);
 
         /// <summary>
         /// Represents the full GradiansAngle value (360 degrees). This field is read-only.
         /// </summary>
-        public static readonly GradiansAngle Full = new GradiansAngle(FullAngle);
+        public static readonly AngleGradians Full = new AngleGradians(FullAngle);
 
         /// <summary>
         /// Gets the amplitude of the angle in degrees. This field is read-only.
         /// </summary>
         public readonly double Gradians;
 
-        internal GradiansAngle(double degrees)
+        internal AngleGradians(double degrees)
         {
             Gradians = degrees;
         }
@@ -61,7 +61,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
-        public static bool operator ==(GradiansAngle a1, GradiansAngle a2) =>
+        public static bool operator ==(AngleGradians a1, AngleGradians a2) =>
             a1.Gradians == a2.Gradians;
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
-        public static bool operator !=(GradiansAngle a1, GradiansAngle a2) =>
+        public static bool operator !=(AngleGradians a1, AngleGradians a2) =>
             a1.Gradians != a2.Gradians;
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
-        public static bool Equals(GradiansAngle a1, GradiansAngle a2) =>
+        public static bool Equals(AngleGradians a1, AngleGradians a2) =>
             a1.Gradians == a2.Gradians;
 
         /// <summary>
@@ -87,8 +87,8 @@ namespace NetFabric
         /// </summary>
         /// <param name="other">An GradiansAngle to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
-        /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="GradiansAngle.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
-        public bool Equals(GradiansAngle other) =>
+        /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleGradians.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
+        public bool Equals(AngleGradians other) =>
             Gradians == other.Gradians;
 
         #endregion
@@ -101,7 +101,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than the value of a2; otherwise, false.</returns>
-        public static bool operator <(GradiansAngle a1, GradiansAngle a2) =>
+        public static bool operator <(AngleGradians a1, AngleGradians a2) =>
             a1.Gradians < a2.Gradians;
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than or equal to the value of a2; otherwise, false.</returns>
-        public static bool operator <=(GradiansAngle a1, GradiansAngle a2) =>
+        public static bool operator <=(AngleGradians a1, AngleGradians a2) =>
             a1.Gradians <= a2.Gradians;
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than the value of a2; otherwise, false.</returns>
-        public static bool operator >(GradiansAngle a1, GradiansAngle a2) =>
+        public static bool operator >(AngleGradians a1, AngleGradians a2) =>
             a1.Gradians > a2.Gradians;
 
         /// <summary>
@@ -128,17 +128,17 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than or equal to the value of a2; otherwise, false.</returns>
-        public static bool operator >=(GradiansAngle a1, GradiansAngle a2) =>
+        public static bool operator >=(AngleGradians a1, AngleGradians a2) =>
             a1.Gradians >= a2.Gradians;
 
-        int IComparable<GradiansAngle>.CompareTo(GradiansAngle other) =>
+        int IComparable<AngleGradians>.CompareTo(AngleGradians other) =>
             Gradians.CompareTo(other.Gradians);
 
         int IComparable.CompareTo(object obj)
         {
             switch (obj)
             {
-                case GradiansAngle angle:
+                case AngleGradians angle:
                     return Gradians.CompareTo(angle.Gradians);
                 default:
                     throw new ArgumentException("Argument has to be an GradiansAngle.", nameof(obj));
@@ -154,8 +154,8 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
-        public static GradiansAngle operator -(GradiansAngle angle) =>
-            new GradiansAngle(-angle.Gradians);
+        public static AngleGradians operator -(AngleGradians angle) =>
+            new AngleGradians(-angle.Gradians);
 
         /// <summary>
         /// Adds two vectors. 
@@ -163,8 +163,8 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the addition.</returns>
-        public static GradiansAngle operator +(GradiansAngle left, GradiansAngle right) =>
-            new GradiansAngle(left.Gradians + right.Gradians);
+        public static AngleGradians operator +(AngleGradians left, AngleGradians right) =>
+            new AngleGradians(left.Gradians + right.Gradians);
 
         /// <summary>
         /// Subtracts a angle from a angle.  
@@ -172,8 +172,8 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the subtraction.</returns>
-        public static GradiansAngle operator -(GradiansAngle left, GradiansAngle right) =>
-            new GradiansAngle(left.Gradians - right.Gradians);
+        public static AngleGradians operator -(AngleGradians left, AngleGradians right) =>
+            new AngleGradians(left.Gradians - right.Gradians);
 
         /// <summary>
         /// Multiplies a scalar by an angle value. 
@@ -181,8 +181,8 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
-        public static GradiansAngle operator *(double left, GradiansAngle right) =>
-            new GradiansAngle(left * right.Gradians);
+        public static AngleGradians operator *(double left, AngleGradians right) =>
+            new AngleGradians(left * right.Gradians);
 
         /// <summary>
         /// Divides a angle by a scalar value. 
@@ -190,8 +190,8 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Scalar value.</param>
         /// <returns>Result of the division.</returns>
-        public static GradiansAngle operator /(GradiansAngle left, double right) =>
-            new GradiansAngle(left.Gradians / right);
+        public static AngleGradians operator /(AngleGradians left, double right) =>
+            new AngleGradians(left.Gradians / right);
 
         #endregion
 
@@ -227,7 +227,7 @@ namespace NetFabric
         {
             switch (obj)
             {
-                case GradiansAngle angle:
+                case AngleGradians angle:
                     return Equals(angle);
                 default:
                     return false;
@@ -268,21 +268,29 @@ namespace NetFabric
     public static partial class Angle
     {
         /// <summary>
+        /// Returns an GradianssAngle that represents a specified number of gradians.
+        /// </summary>
+        /// <param name="value">A number of gradians.</param>
+        /// <returns>An object that represents value.</returns>
+        public static AngleGradians FromGradians(double value) =>
+            new AngleGradians(value);
+
+        /// <summary>
         /// Returns the absolute value of the GradiansAngle.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>
         /// An GradiansAngle, x, such that GradiansAngle.Zero &lt;= x &lt;= GradiansAngle.MaxValue.
         /// </returns>
-        public static GradiansAngle Abs(GradiansAngle angle) =>
-            new GradiansAngle(Math.Abs(angle.Gradians));
+        public static AngleGradians Abs(AngleGradians angle) =>
+            new AngleGradians(Math.Abs(angle.Gradians));
 
         /// <summary>
         /// Returns a value indicating the sign of an angle.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
-        public static int Sign(GradiansAngle angle) =>
+        public static int Sign(AngleGradians angle) =>
             Math.Sign(angle.Gradians);
 
         #region min
@@ -292,22 +300,13 @@ namespace NetFabric
         /// </summary>
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
-        /// <returns>Parameter left or right, whichever is smaller.</returns>
-        public static GradiansAngle Min(GradiansAngle left, GradiansAngle right) =>
-            left.Gradians < right.Gradians ? left : right;
-
-        /// <summary>
-        /// Returns the smaller of two angles.
-        /// </summary>
-        /// <param name="left">The first of two angles to compare.</param>
-        /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is smaller.</returns>
-        public static ref GradiansAngle Min(ref GradiansAngle left, ref GradiansAngle right)
+        public static ref readonly AngleGradians Min(in AngleGradians left, in AngleGradians right)
         {
             if (left.Gradians < right.Gradians)
                 return ref left;
-            else
-                return ref right;
+
+            return ref right;
         }
 
         #endregion
@@ -319,22 +318,13 @@ namespace NetFabric
         /// </summary>
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
-        /// <returns>Parameter left or right, whichever is larger.</returns>
-        public static GradiansAngle Max(GradiansAngle left, GradiansAngle right) =>
-            left.Gradians > right.Gradians ? left : right;
-
-        /// <summary>
-        /// Returns the largest of two angles.
-        /// </summary>
-        /// <param name="left">The first of two angles to compare.</param>
-        /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
-        public static ref GradiansAngle Max(ref GradiansAngle left, ref GradiansAngle right)
+        public static ref readonly AngleGradians Max(in AngleGradians left, in AngleGradians right)
         {
             if (left.Gradians > right.Gradians)
                 return ref left;
-            else
-                return ref right;
+
+            return ref right;
         }
 
         #endregion
@@ -346,24 +336,24 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns></returns>
-        public static GradiansAngle Reduce(GradiansAngle angle) =>
-            new GradiansAngle(GradiansAngle.Reduce(angle.Gradians));
+        public static AngleGradians Reduce(AngleGradians angle) =>
+            new AngleGradians(AngleGradians.Reduce(angle.Gradians));
 
         /// <summary>
         /// Returns the quadrant where the terminal side of the angle is in when in the standard position.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
-        public static Quadrant GetQuadrant(GradiansAngle angle) =>
-            GradiansAngle.GetQuadrant(angle.Gradians);
+        public static Quadrant GetQuadrant(AngleGradians angle) =>
+            AngleGradians.GetQuadrant(angle.Gradians);
 
         /// <summary>
         /// Returns the reference angle.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The reference angle.</returns>
-        public static GradiansAngle GetReference(GradiansAngle angle) =>
-            new GradiansAngle(GradiansAngle.GetReference(angle.Gradians));
+        public static AngleGradians GetReference(AngleGradians angle) =>
+            new AngleGradians(AngleGradians.GetReference(angle.Gradians));
 
         #endregion
 
@@ -375,7 +365,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
-        public static int Compare(GradiansAngle a1, GradiansAngle a2) =>
+        public static int Compare(AngleGradians a1, AngleGradians a2) =>
             a1.Gradians.CompareTo(a2.Gradians);
 
         /// <summary>
@@ -384,8 +374,8 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
-        public static int CompareReduced(GradiansAngle a1, GradiansAngle a2) =>
-            GradiansAngle.Reduce(a1.Gradians).CompareTo(GradiansAngle.Reduce(a2.Gradians));
+        public static int CompareReduced(AngleGradians a1, AngleGradians a2) =>
+            AngleGradians.Reduce(a1.Gradians).CompareTo(AngleGradians.Reduce(a2.Gradians));
 
         #endregion
 
@@ -396,18 +386,18 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is zero; otherwise false.</returns>
-        public static bool IsZero(GradiansAngle angle) =>
-            angle.Gradians % GradiansAngle.FullAngle == 0.0;
+        public static bool IsZero(AngleGradians angle) =>
+            angle.Gradians % AngleGradians.FullAngle == 0.0;
 
         /// <summary>
         /// Indicates whether the specified angle is acute.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is greater than zero and less than 90 degrees; otherwise false.</returns>
-        public static bool IsAcute(GradiansAngle angle)
+        public static bool IsAcute(AngleGradians angle)
         {
-            var reduced = GradiansAngle.Reduce(Math.Abs(angle.Gradians));
-            return reduced > 0.0 && reduced < GradiansAngle.RightAngle;
+            var reduced = AngleGradians.Reduce(Math.Abs(angle.Gradians));
+            return reduced > 0.0 && reduced < AngleGradians.RightAngle;
         }
 
         /// <summary>
@@ -415,18 +405,18 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 90 degrees; otherwise false.</returns>
-        public static bool IsRight(GradiansAngle angle) =>
-            GradiansAngle.Reduce(Math.Abs(angle.Gradians)) == GradiansAngle.RightAngle;
+        public static bool IsRight(AngleGradians angle) =>
+            AngleGradians.Reduce(Math.Abs(angle.Gradians)) == AngleGradians.RightAngle;
 
         /// <summary>
         /// Indicates whether the specified angle is obtuse.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is greater than 90 degrees and less than 180 degrees; otherwise false.</returns>
-        public static bool IsObtuse(GradiansAngle angle)
+        public static bool IsObtuse(AngleGradians angle)
         {
-            var reduced = GradiansAngle.Reduce(Math.Abs(angle.Gradians));
-            return reduced > GradiansAngle.RightAngle && reduced < GradiansAngle.StraightAngle;
+            var reduced = AngleGradians.Reduce(Math.Abs(angle.Gradians));
+            return reduced > AngleGradians.RightAngle && reduced < AngleGradians.StraightAngle;
         }
 
         /// <summary>
@@ -434,24 +424,24 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
-        public static bool IsStraight(GradiansAngle angle) =>
-            GradiansAngle.Reduce(Math.Abs(angle.Gradians)) == GradiansAngle.StraightAngle;
+        public static bool IsStraight(AngleGradians angle) =>
+            AngleGradians.Reduce(Math.Abs(angle.Gradians)) == AngleGradians.StraightAngle;
 
         /// <summary>
         /// Indicates whether the specified angle is reflex.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is greater than 180 degrees and less than 360 degrees; otherwise false.</returns>
-        public static bool IsReflex(GradiansAngle angle) =>
-            GradiansAngle.Reduce(Math.Abs(angle.Gradians)) > GradiansAngle.StraightAngle;
+        public static bool IsReflex(AngleGradians angle) =>
+            AngleGradians.Reduce(Math.Abs(angle.Gradians)) > AngleGradians.StraightAngle;
 
         /// <summary>
         /// Indicates whether the specified angle is oblique.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the angle is not right or a multiple of a right angle; otherwise false.</returns>
-        public static bool IsOblique(GradiansAngle angle) =>
-            angle.Gradians % GradiansAngle.RightAngle != 0.0;
+        public static bool IsOblique(AngleGradians angle) =>
+            angle.Gradians % AngleGradians.RightAngle != 0.0;
 
         #endregion
 
@@ -464,8 +454,8 @@ namespace NetFabric
         /// <param name="a2">The second angle.</param>
         /// <param name="t">A value that linearly interpolates between the a1 parameter and the a2 parameter.</param>
         /// <returns>The result of the linear interpolation.</returns>
-        public static GradiansAngle Lerp(GradiansAngle a1, GradiansAngle a2, double t) =>
-            new GradiansAngle(Utils.Lerp(a1.Gradians, a2.Gradians, t));
+        public static AngleGradians Lerp(AngleGradians a1, AngleGradians a2, double t) =>
+            new AngleGradians(Utils.Lerp(a1.Gradians, a2.Gradians, t));
 
         #endregion
 
@@ -476,8 +466,8 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
-        public static GradiansAngle Negate(GradiansAngle angle) =>
-            new GradiansAngle(-angle.Gradians);
+        public static AngleGradians Negate(AngleGradians angle) =>
+            new AngleGradians(-angle.Gradians);
 
         #endregion
 
@@ -489,8 +479,8 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the addition.</returns>
-        public static GradiansAngle Add(GradiansAngle left, GradiansAngle right) =>
-            new GradiansAngle(left.Gradians + right.Gradians);
+        public static AngleGradians Add(AngleGradians left, AngleGradians right) =>
+            new AngleGradians(left.Gradians + right.Gradians);
 
         #endregion
 
@@ -502,8 +492,8 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the subtraction.</returns>
-        public static GradiansAngle Subtract(GradiansAngle left, GradiansAngle right) =>
-            new GradiansAngle(left.Gradians - right.Gradians);
+        public static AngleGradians Subtract(AngleGradians left, AngleGradians right) =>
+            new AngleGradians(left.Gradians - right.Gradians);
 
         #endregion
 
@@ -515,8 +505,8 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
-        public static GradiansAngle Multiply(double left, GradiansAngle right) =>
-            new GradiansAngle(left * right.Gradians);
+        public static AngleGradians Multiply(double left, AngleGradians right) =>
+            new AngleGradians(left * right.Gradians);
 
         #endregion
 
@@ -528,8 +518,8 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Scalar value.</param>
         /// <returns>Result of the division.</returns>
-        public static GradiansAngle Divide(GradiansAngle left, double right) =>
-            new GradiansAngle(left.Gradians / right);
+        public static AngleGradians Divide(AngleGradians left, double right) =>
+            new AngleGradians(left.Gradians / right);
 
         #endregion
 

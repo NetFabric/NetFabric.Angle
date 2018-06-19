@@ -7,347 +7,350 @@ namespace NetFabric.UnitTests
 {
     public class GradiansAngleTests
     {
-        readonly GradiansAngle AcuteAngle = GradiansAngle.Right / 2.0;
+        readonly AngleGradians AcuteAngle = AngleGradians.Right / 2.0;
 
         [Fact]
         public void ObjectEquals()
         {
-            GradiansAngle.Right.Equals(null).Should().BeFalse();
-            GradiansAngle.Right.Equals(90.0).Should().BeFalse();
-            GradiansAngle.Zero.Equals((object)GradiansAngle.Right).Should().BeFalse();
-            GradiansAngle.Right.Equals((object)GradiansAngle.Right).Should().BeTrue();
+            AngleGradians.Right.Equals(null).Should().BeFalse();
+            AngleGradians.Right.Equals(90.0).Should().BeFalse();
+            AngleGradians.Zero.Equals((object)AngleGradians.Right).Should().BeFalse();
+            AngleGradians.Right.Equals((object)AngleGradians.Right).Should().BeTrue();
         }
 
         [Fact]
         public void ObjectGetHashCode()
         {
-            GradiansAngle.Zero.GetHashCode().Should().NotBe(GradiansAngle.Right.GetHashCode());
-            GradiansAngle.Right.GetHashCode().Should().Be(GradiansAngle.Right.GetHashCode());
+            AngleGradians.Zero.GetHashCode().Should().NotBe(AngleGradians.Right.GetHashCode());
+            AngleGradians.Right.GetHashCode().Should().Be(AngleGradians.Right.GetHashCode());
         }
 
         [Fact]
         public void EquatableEquals()
         {
-            GradiansAngle.Zero.Equals(GradiansAngle.Right).Should().BeFalse();
-            GradiansAngle.Right.Equals(GradiansAngle.Right).Should().BeTrue();
+            AngleGradians.Zero.Equals(AngleGradians.Right).Should().BeFalse();
+            AngleGradians.Right.Equals(AngleGradians.Right).Should().BeTrue();
         }
 
         [Fact]
         public void OperatorEquality()
         {
-            (GradiansAngle.Zero == GradiansAngle.Right).Should().BeFalse();
-            (GradiansAngle.Right == GradiansAngle.Right).Should().BeTrue();
+            (AngleGradians.Zero == AngleGradians.Right).Should().BeFalse();
+            (AngleGradians.Right == AngleGradians.Right).Should().BeTrue();
         }
 
         [Fact]
         public void OperatorInequality()
         {
-            (GradiansAngle.Zero != GradiansAngle.Right).Should().BeTrue();
-            (GradiansAngle.Right != GradiansAngle.Right).Should().BeFalse();
+            (AngleGradians.Zero != AngleGradians.Right).Should().BeTrue();
+            (AngleGradians.Right != AngleGradians.Right).Should().BeFalse();
         }
 
         [Fact]
         public void ComparableCompareToObjectThrowsExcetionOnNull()
         {
-            Action act = () => ((IComparable)GradiansAngle.Right).CompareTo(null);
-            act.ShouldThrow<ArgumentException>()
+            Action act = () => ((IComparable)AngleGradians.Right).CompareTo(null);
+            act.Should()
+                .Throw<ArgumentException>()
                 .WithMessage("Argument has to be an GradiansAngle.\r\nParameter name: obj");
         }
 
         [Fact]
         public void ComparableCompareToObjectThrowsExcetionOnOtherType()
         {
-            Action act = () => ((IComparable)GradiansAngle.Right).CompareTo(90.0);
-            act.ShouldThrow<ArgumentException>()
+            Action act = () => ((IComparable)AngleGradians.Right).CompareTo(90.0);
+            act.Should()
+                .Throw<ArgumentException>()
                 .WithMessage("Argument has to be an GradiansAngle.\r\nParameter name: obj");
         }
 
         [Fact]
         public void ComparableCompareToObject()
         {
-            ((IComparable)GradiansAngle.Right).CompareTo((object)GradiansAngle.Straight).Should().BeNegative();
-            ((IComparable)GradiansAngle.Right).CompareTo((object)GradiansAngle.Right).Should().Be(0);
-            ((IComparable)GradiansAngle.Right).CompareTo((object)GradiansAngle.Zero).Should().BePositive();
+            ((IComparable)AngleGradians.Right).CompareTo((object)AngleGradians.Straight).Should().BeNegative();
+            ((IComparable)AngleGradians.Right).CompareTo((object)AngleGradians.Right).Should().Be(0);
+            ((IComparable)AngleGradians.Right).CompareTo((object)AngleGradians.Zero).Should().BePositive();
         }
 
         [Fact]
         public void ComparableCompareToAngle()
         {
-            ((IComparable)GradiansAngle.Right).CompareTo(GradiansAngle.Straight).Should().BeNegative();
-            ((IComparable)GradiansAngle.Right).CompareTo(GradiansAngle.Right).Should().Be(0);
-            ((IComparable)GradiansAngle.Right).CompareTo(GradiansAngle.Zero).Should().BePositive();
+            ((IComparable)AngleGradians.Right).CompareTo(AngleGradians.Straight).Should().BeNegative();
+            ((IComparable)AngleGradians.Right).CompareTo(AngleGradians.Right).Should().Be(0);
+            ((IComparable)AngleGradians.Right).CompareTo(AngleGradians.Zero).Should().BePositive();
         }
 
         [Fact]
         public void CompareTwoAngles()
         {
-            Angle.Compare(GradiansAngle.Right, GradiansAngle.Straight).Should().BeNegative();
-            Angle.Compare(GradiansAngle.Right, GradiansAngle.Right).Should().Be(0);
-            Angle.Compare(GradiansAngle.Right, GradiansAngle.Zero).Should().BePositive();
-            Angle.Compare(GradiansAngle.Right + GradiansAngle.Full, GradiansAngle.Straight).Should().BePositive();
-            Angle.Compare(GradiansAngle.Right, GradiansAngle.Right + GradiansAngle.Full).Should().BeNegative();
-            Angle.Compare(GradiansAngle.Right, GradiansAngle.Zero + GradiansAngle.Full).Should().BeNegative();
+            Angle.Compare(AngleGradians.Right, AngleGradians.Straight).Should().BeNegative();
+            Angle.Compare(AngleGradians.Right, AngleGradians.Right).Should().Be(0);
+            Angle.Compare(AngleGradians.Right, AngleGradians.Zero).Should().BePositive();
+            Angle.Compare(AngleGradians.Right + AngleGradians.Full, AngleGradians.Straight).Should().BePositive();
+            Angle.Compare(AngleGradians.Right, AngleGradians.Right + AngleGradians.Full).Should().BeNegative();
+            Angle.Compare(AngleGradians.Right, AngleGradians.Zero + AngleGradians.Full).Should().BeNegative();
         }
 
         [Fact]
         public void CompareReducedTwoAngles()
         {
-            Angle.CompareReduced(GradiansAngle.Right, GradiansAngle.Straight).Should().BeNegative();
-            Angle.CompareReduced(GradiansAngle.Right, GradiansAngle.Right).Should().Be(0);
-            Angle.CompareReduced(GradiansAngle.Right, GradiansAngle.Zero).Should().BePositive();
-            Angle.CompareReduced(GradiansAngle.Right + GradiansAngle.Full, GradiansAngle.Straight).Should().BeNegative();
-            Angle.CompareReduced(GradiansAngle.Right, GradiansAngle.Right + GradiansAngle.Full).Should().Be(0);
-            Angle.CompareReduced(GradiansAngle.Right, GradiansAngle.Zero + GradiansAngle.Full).Should().BePositive();
+            Angle.CompareReduced(AngleGradians.Right, AngleGradians.Straight).Should().BeNegative();
+            Angle.CompareReduced(AngleGradians.Right, AngleGradians.Right).Should().Be(0);
+            Angle.CompareReduced(AngleGradians.Right, AngleGradians.Zero).Should().BePositive();
+            Angle.CompareReduced(AngleGradians.Right + AngleGradians.Full, AngleGradians.Straight).Should().BeNegative();
+            Angle.CompareReduced(AngleGradians.Right, AngleGradians.Right + AngleGradians.Full).Should().Be(0);
+            Angle.CompareReduced(AngleGradians.Right, AngleGradians.Zero + AngleGradians.Full).Should().BePositive();
         }
 
         [Fact]
         public void LessThanOperator()
         {
-            (GradiansAngle.Zero < GradiansAngle.Right).Should().BeTrue();
-            (GradiansAngle.Right < GradiansAngle.Right).Should().BeFalse();
-            (Angle.InGradians(180) < GradiansAngle.Right).Should().BeFalse();
+            (AngleGradians.Zero < AngleGradians.Right).Should().BeTrue();
+            (AngleGradians.Right < AngleGradians.Right).Should().BeFalse();
+            (Angle.FromGradians(180) < AngleGradians.Right).Should().BeFalse();
         }
 
         [Fact]
         public void LessThanOrEqualToOperator()
         {
-            (GradiansAngle.Zero <= GradiansAngle.Right).Should().BeTrue();
-            (GradiansAngle.Right <= GradiansAngle.Right).Should().BeTrue();
-            (Angle.InGradians(180) <= GradiansAngle.Right).Should().BeFalse();
+            (AngleGradians.Zero <= AngleGradians.Right).Should().BeTrue();
+            (AngleGradians.Right <= AngleGradians.Right).Should().BeTrue();
+            (Angle.FromGradians(180) <= AngleGradians.Right).Should().BeFalse();
         }
 
         [Fact]
         public void GreaterThanOperator()
         {
-            (GradiansAngle.Zero > GradiansAngle.Right).Should().BeFalse();
-            (GradiansAngle.Right > GradiansAngle.Right).Should().BeFalse();
-            (Angle.InGradians(180) > GradiansAngle.Right).Should().BeTrue();
+            (AngleGradians.Zero > AngleGradians.Right).Should().BeFalse();
+            (AngleGradians.Right > AngleGradians.Right).Should().BeFalse();
+            (Angle.FromGradians(180) > AngleGradians.Right).Should().BeTrue();
         }
 
         [Fact]
         public void GreaterThanOrEqualToOperator()
         {
-            (GradiansAngle.Zero >= GradiansAngle.Right).Should().BeFalse();
-            (GradiansAngle.Right >= GradiansAngle.Right).Should().BeTrue();
-            (Angle.InGradians(180) >= GradiansAngle.Right).Should().BeTrue();
+            (AngleGradians.Zero >= AngleGradians.Right).Should().BeFalse();
+            (AngleGradians.Right >= AngleGradians.Right).Should().BeTrue();
+            (Angle.FromGradians(180) >= AngleGradians.Right).Should().BeTrue();
         }
 
         [Fact]
         public void ReduceIsDefinedCorrectly()
         {
-            Angle.Reduce(GradiansAngle.Zero).Should().Be(GradiansAngle.Zero);
+            Angle.Reduce(AngleGradians.Zero).Should().Be(AngleGradians.Zero);
             Angle.Reduce(AcuteAngle).Should().Be(AcuteAngle);
-            Angle.Reduce(GradiansAngle.Right).Should().Be(GradiansAngle.Right);
-            Angle.Reduce(GradiansAngle.Right + AcuteAngle).Should().Be(GradiansAngle.Right + AcuteAngle);
-            Angle.Reduce(GradiansAngle.Straight).Should().Be(GradiansAngle.Straight);
+            Angle.Reduce(AngleGradians.Right).Should().Be(AngleGradians.Right);
+            Angle.Reduce(AngleGradians.Right + AcuteAngle).Should().Be(AngleGradians.Right + AcuteAngle);
+            Angle.Reduce(AngleGradians.Straight).Should().Be(AngleGradians.Straight);
 
-            Angle.Reduce(GradiansAngle.Full).Should().Be(GradiansAngle.Zero);
-            Angle.Reduce(GradiansAngle.Full + AcuteAngle).Should().Be(AcuteAngle);
-            Angle.Reduce(GradiansAngle.Full + GradiansAngle.Right).Should().Be(GradiansAngle.Right);
-            Angle.Reduce(GradiansAngle.Full + GradiansAngle.Right + AcuteAngle).ShouldBeEquivalentTo(GradiansAngle.Right + AcuteAngle, options => options
+            Angle.Reduce(AngleGradians.Full).Should().Be(AngleGradians.Zero);
+            Angle.Reduce(AngleGradians.Full + AcuteAngle).Should().Be(AcuteAngle);
+            Angle.Reduce(AngleGradians.Full + AngleGradians.Right).Should().Be(AngleGradians.Right);
+            Angle.Reduce(AngleGradians.Full + AngleGradians.Right + AcuteAngle).Should()
+                .BeEquivalentTo(AngleGradians.Right + AcuteAngle, options => options
                 .Using<double>(ctx => ctx.Subject.Should().BeApproximately(ctx.Expectation, Math.Pow(10, -8)))
                 .When(info => info.SelectedMemberPath == "Gradians"));
 
-            Angle.Reduce(GradiansAngle.Full + GradiansAngle.Straight).Should().Be(GradiansAngle.Straight);
+            Angle.Reduce(AngleGradians.Full + AngleGradians.Straight).Should().Be(AngleGradians.Straight);
 
-            Angle.Reduce(-GradiansAngle.Full).Should().Be(GradiansAngle.Zero);
-            Angle.Reduce(-AcuteAngle).Should().Be(GradiansAngle.Full - AcuteAngle);
-            Angle.Reduce(-GradiansAngle.Right).Should().Be(GradiansAngle.Full - GradiansAngle.Right);
-            Angle.Reduce(-GradiansAngle.Straight).Should().Be(GradiansAngle.Straight);
-            Angle.Reduce(-GradiansAngle.Straight - GradiansAngle.Right).Should().Be(GradiansAngle.Right);
+            Angle.Reduce(-AngleGradians.Full).Should().Be(AngleGradians.Zero);
+            Angle.Reduce(-AcuteAngle).Should().Be(AngleGradians.Full - AcuteAngle);
+            Angle.Reduce(-AngleGradians.Right).Should().Be(AngleGradians.Full - AngleGradians.Right);
+            Angle.Reduce(-AngleGradians.Straight).Should().Be(AngleGradians.Straight);
+            Angle.Reduce(-AngleGradians.Straight - AngleGradians.Right).Should().Be(AngleGradians.Right);
         }
 
         [Fact]
         public void GetQuadrantIsDefinedCorrectly()
         {
-            var AcuteAngle = GradiansAngle.Right / 2.0;
+            var AcuteAngle = AngleGradians.Right / 2.0;
 
-            Angle.GetQuadrant(GradiansAngle.Zero).Should().Be(Quadrant.First);
+            Angle.GetQuadrant(AngleGradians.Zero).Should().Be(Quadrant.First);
             Angle.GetQuadrant(AcuteAngle).Should().Be(Quadrant.First);
-            Angle.GetQuadrant(GradiansAngle.Right).Should().Be(Quadrant.Second);
-            Angle.GetQuadrant(GradiansAngle.Right + AcuteAngle).Should().Be(Quadrant.Second);
-            Angle.GetQuadrant(GradiansAngle.Straight).Should().Be(Quadrant.Third);
-            Angle.GetQuadrant(GradiansAngle.Straight + AcuteAngle).Should().Be(Quadrant.Third);
-            Angle.GetQuadrant(GradiansAngle.Straight + GradiansAngle.Right).Should().Be(Quadrant.Fourth);
-            Angle.GetQuadrant(GradiansAngle.Straight + GradiansAngle.Right + AcuteAngle).Should().Be(Quadrant.Fourth);
+            Angle.GetQuadrant(AngleGradians.Right).Should().Be(Quadrant.Second);
+            Angle.GetQuadrant(AngleGradians.Right + AcuteAngle).Should().Be(Quadrant.Second);
+            Angle.GetQuadrant(AngleGradians.Straight).Should().Be(Quadrant.Third);
+            Angle.GetQuadrant(AngleGradians.Straight + AcuteAngle).Should().Be(Quadrant.Third);
+            Angle.GetQuadrant(AngleGradians.Straight + AngleGradians.Right).Should().Be(Quadrant.Fourth);
+            Angle.GetQuadrant(AngleGradians.Straight + AngleGradians.Right + AcuteAngle).Should().Be(Quadrant.Fourth);
 
-            Angle.GetQuadrant(GradiansAngle.Full).Should().Be(Quadrant.First);
-            Angle.GetQuadrant(GradiansAngle.Full + AcuteAngle).Should().Be(Quadrant.First);
-            Angle.GetQuadrant(GradiansAngle.Full + GradiansAngle.Right).Should().Be(Quadrant.Second);
-            Angle.GetQuadrant(GradiansAngle.Full + GradiansAngle.Right + AcuteAngle).Should().Be(Quadrant.Second);
-            Angle.GetQuadrant(GradiansAngle.Full + GradiansAngle.Straight).Should().Be(Quadrant.Third);
-            Angle.GetQuadrant(GradiansAngle.Full + GradiansAngle.Straight + AcuteAngle).Should().Be(Quadrant.Third);
-            Angle.GetQuadrant(GradiansAngle.Full + GradiansAngle.Straight + GradiansAngle.Right).Should().Be(Quadrant.Fourth);
-            Angle.GetQuadrant(GradiansAngle.Full + GradiansAngle.Straight + GradiansAngle.Right + AcuteAngle).Should().Be(Quadrant.Fourth);
+            Angle.GetQuadrant(AngleGradians.Full).Should().Be(Quadrant.First);
+            Angle.GetQuadrant(AngleGradians.Full + AcuteAngle).Should().Be(Quadrant.First);
+            Angle.GetQuadrant(AngleGradians.Full + AngleGradians.Right).Should().Be(Quadrant.Second);
+            Angle.GetQuadrant(AngleGradians.Full + AngleGradians.Right + AcuteAngle).Should().Be(Quadrant.Second);
+            Angle.GetQuadrant(AngleGradians.Full + AngleGradians.Straight).Should().Be(Quadrant.Third);
+            Angle.GetQuadrant(AngleGradians.Full + AngleGradians.Straight + AcuteAngle).Should().Be(Quadrant.Third);
+            Angle.GetQuadrant(AngleGradians.Full + AngleGradians.Straight + AngleGradians.Right).Should().Be(Quadrant.Fourth);
+            Angle.GetQuadrant(AngleGradians.Full + AngleGradians.Straight + AngleGradians.Right + AcuteAngle).Should().Be(Quadrant.Fourth);
         }
 
         [Fact]
         public void ReferenceIsDefinedCorrectly()
         {
-            Angle.GetReference(GradiansAngle.Zero).Should().Be(GradiansAngle.Zero);
+            Angle.GetReference(AngleGradians.Zero).Should().Be(AngleGradians.Zero);
             Angle.GetReference(AcuteAngle).Should().Be(AcuteAngle);
-            Angle.GetReference(GradiansAngle.Right).Should().Be(GradiansAngle.Right);
-            Angle.GetReference(GradiansAngle.Right + AcuteAngle).Should().Be(AcuteAngle);
-            Angle.GetReference(GradiansAngle.Straight).Should().Be(GradiansAngle.Zero);
-            Angle.GetReference(GradiansAngle.Straight + AcuteAngle).Should().Be(AcuteAngle);
-            Angle.GetReference(GradiansAngle.Straight + GradiansAngle.Right).Should().Be(GradiansAngle.Right);
-            Angle.GetReference(GradiansAngle.Straight + GradiansAngle.Right + AcuteAngle).Should().Be(AcuteAngle);
-            Angle.GetReference(GradiansAngle.Full).Should().Be(GradiansAngle.Zero);
+            Angle.GetReference(AngleGradians.Right).Should().Be(AngleGradians.Right);
+            Angle.GetReference(AngleGradians.Right + AcuteAngle).Should().Be(AcuteAngle);
+            Angle.GetReference(AngleGradians.Straight).Should().Be(AngleGradians.Zero);
+            Angle.GetReference(AngleGradians.Straight + AcuteAngle).Should().Be(AcuteAngle);
+            Angle.GetReference(AngleGradians.Straight + AngleGradians.Right).Should().Be(AngleGradians.Right);
+            Angle.GetReference(AngleGradians.Straight + AngleGradians.Right + AcuteAngle).Should().Be(AcuteAngle);
+            Angle.GetReference(AngleGradians.Full).Should().Be(AngleGradians.Zero);
         }
 
         [Fact]
         public void IsZeroIsDefinedCorrectly()
         {
-            Angle.IsZero(GradiansAngle.Zero).Should().BeTrue();
+            Angle.IsZero(AngleGradians.Zero).Should().BeTrue();
             Angle.IsZero(AcuteAngle).Should().BeFalse();
-            Angle.IsZero(GradiansAngle.Right).Should().BeFalse();
-            Angle.IsZero(GradiansAngle.Right + AcuteAngle).Should().BeFalse();
-            Angle.IsZero(GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsZero(GradiansAngle.Straight + GradiansAngle.Right).Should().BeFalse();
-            Angle.IsZero(GradiansAngle.Full).Should().BeTrue();
+            Angle.IsZero(AngleGradians.Right).Should().BeFalse();
+            Angle.IsZero(AngleGradians.Right + AcuteAngle).Should().BeFalse();
+            Angle.IsZero(AngleGradians.Straight).Should().BeFalse();
+            Angle.IsZero(AngleGradians.Straight + AngleGradians.Right).Should().BeFalse();
+            Angle.IsZero(AngleGradians.Full).Should().BeTrue();
 
             Angle.IsZero(-AcuteAngle).Should().BeFalse();
-            Angle.IsZero(-GradiansAngle.Right).Should().BeFalse();
-            Angle.IsZero(-GradiansAngle.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsZero(-GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsZero(-GradiansAngle.Straight - GradiansAngle.Right).Should().BeFalse();
-            Angle.IsZero(-GradiansAngle.Full).Should().BeTrue();
+            Angle.IsZero(-AngleGradians.Right).Should().BeFalse();
+            Angle.IsZero(-AngleGradians.Right - AcuteAngle).Should().BeFalse();
+            Angle.IsZero(-AngleGradians.Straight).Should().BeFalse();
+            Angle.IsZero(-AngleGradians.Straight - AngleGradians.Right).Should().BeFalse();
+            Angle.IsZero(-AngleGradians.Full).Should().BeTrue();
         }
 
         [Fact]
         public void IsAcuteIsDefinedCorrectly()
         {
-            Angle.IsAcute(GradiansAngle.Zero).Should().BeFalse();
+            Angle.IsAcute(AngleGradians.Zero).Should().BeFalse();
             Angle.IsAcute(AcuteAngle).Should().BeTrue();
-            Angle.IsAcute(GradiansAngle.Right).Should().BeFalse();
-            Angle.IsAcute(GradiansAngle.Right + AcuteAngle).Should().BeFalse();
-            Angle.IsAcute(GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsAcute(GradiansAngle.Straight + GradiansAngle.Right).Should().BeFalse();
-            Angle.IsAcute(GradiansAngle.Full).Should().BeFalse();
+            Angle.IsAcute(AngleGradians.Right).Should().BeFalse();
+            Angle.IsAcute(AngleGradians.Right + AcuteAngle).Should().BeFalse();
+            Angle.IsAcute(AngleGradians.Straight).Should().BeFalse();
+            Angle.IsAcute(AngleGradians.Straight + AngleGradians.Right).Should().BeFalse();
+            Angle.IsAcute(AngleGradians.Full).Should().BeFalse();
 
             Angle.IsAcute(-AcuteAngle).Should().BeTrue();
-            Angle.IsAcute(-GradiansAngle.Right).Should().BeFalse();
-            Angle.IsAcute(-GradiansAngle.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsAcute(-GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsAcute(-GradiansAngle.Straight - GradiansAngle.Right).Should().BeFalse();
-            Angle.IsAcute(-GradiansAngle.Full).Should().BeFalse();
+            Angle.IsAcute(-AngleGradians.Right).Should().BeFalse();
+            Angle.IsAcute(-AngleGradians.Right - AcuteAngle).Should().BeFalse();
+            Angle.IsAcute(-AngleGradians.Straight).Should().BeFalse();
+            Angle.IsAcute(-AngleGradians.Straight - AngleGradians.Right).Should().BeFalse();
+            Angle.IsAcute(-AngleGradians.Full).Should().BeFalse();
         }
 
         [Fact]
         public void IsRightIsDefinedCorrectly()
         {
-            Angle.IsRight(GradiansAngle.Zero).Should().BeFalse();
+            Angle.IsRight(AngleGradians.Zero).Should().BeFalse();
             Angle.IsRight(AcuteAngle).Should().BeFalse();
-            Angle.IsRight(GradiansAngle.Right).Should().BeTrue();
-            Angle.IsRight(GradiansAngle.Right + AcuteAngle).Should().BeFalse();
-            Angle.IsRight(GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsRight(GradiansAngle.Straight + GradiansAngle.Right).Should().BeFalse();
-            Angle.IsRight(GradiansAngle.Full).Should().BeFalse();
+            Angle.IsRight(AngleGradians.Right).Should().BeTrue();
+            Angle.IsRight(AngleGradians.Right + AcuteAngle).Should().BeFalse();
+            Angle.IsRight(AngleGradians.Straight).Should().BeFalse();
+            Angle.IsRight(AngleGradians.Straight + AngleGradians.Right).Should().BeFalse();
+            Angle.IsRight(AngleGradians.Full).Should().BeFalse();
 
             Angle.IsRight(-AcuteAngle).Should().BeFalse();
-            Angle.IsRight(-GradiansAngle.Right).Should().BeTrue();
-            Angle.IsRight(-GradiansAngle.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsRight(-GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsRight(-GradiansAngle.Straight - GradiansAngle.Right).Should().BeFalse();
-            Angle.IsRight(-GradiansAngle.Full).Should().BeFalse();
+            Angle.IsRight(-AngleGradians.Right).Should().BeTrue();
+            Angle.IsRight(-AngleGradians.Right - AcuteAngle).Should().BeFalse();
+            Angle.IsRight(-AngleGradians.Straight).Should().BeFalse();
+            Angle.IsRight(-AngleGradians.Straight - AngleGradians.Right).Should().BeFalse();
+            Angle.IsRight(-AngleGradians.Full).Should().BeFalse();
         }
 
         [Fact]
         public void IsObtuseIsDefinedCorrectly()
         {
-            Angle.IsObtuse(GradiansAngle.Zero).Should().BeFalse();
+            Angle.IsObtuse(AngleGradians.Zero).Should().BeFalse();
             Angle.IsObtuse(AcuteAngle).Should().BeFalse();
-            Angle.IsObtuse(GradiansAngle.Right).Should().BeFalse();
-            Angle.IsObtuse(GradiansAngle.Right + AcuteAngle).Should().BeTrue();
-            Angle.IsObtuse(GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsObtuse(GradiansAngle.Straight + GradiansAngle.Right).Should().BeFalse();
-            Angle.IsObtuse(GradiansAngle.Full).Should().BeFalse();
+            Angle.IsObtuse(AngleGradians.Right).Should().BeFalse();
+            Angle.IsObtuse(AngleGradians.Right + AcuteAngle).Should().BeTrue();
+            Angle.IsObtuse(AngleGradians.Straight).Should().BeFalse();
+            Angle.IsObtuse(AngleGradians.Straight + AngleGradians.Right).Should().BeFalse();
+            Angle.IsObtuse(AngleGradians.Full).Should().BeFalse();
 
             Angle.IsObtuse(-AcuteAngle).Should().BeFalse();
-            Angle.IsObtuse(-GradiansAngle.Right).Should().BeFalse();
-            Angle.IsObtuse(-GradiansAngle.Right - AcuteAngle).Should().BeTrue();
-            Angle.IsObtuse(-GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsObtuse(-GradiansAngle.Straight - GradiansAngle.Right).Should().BeFalse();
-            Angle.IsObtuse(-GradiansAngle.Full).Should().BeFalse();
+            Angle.IsObtuse(-AngleGradians.Right).Should().BeFalse();
+            Angle.IsObtuse(-AngleGradians.Right - AcuteAngle).Should().BeTrue();
+            Angle.IsObtuse(-AngleGradians.Straight).Should().BeFalse();
+            Angle.IsObtuse(-AngleGradians.Straight - AngleGradians.Right).Should().BeFalse();
+            Angle.IsObtuse(-AngleGradians.Full).Should().BeFalse();
         }
 
         [Fact]
         public void IsStraightIsDefinedCorrectly()
         {
-            Angle.IsStraight(GradiansAngle.Zero).Should().BeFalse();
+            Angle.IsStraight(AngleGradians.Zero).Should().BeFalse();
             Angle.IsStraight(AcuteAngle).Should().BeFalse();
-            Angle.IsStraight(GradiansAngle.Right).Should().BeFalse();
-            Angle.IsStraight(GradiansAngle.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsStraight(GradiansAngle.Straight).Should().BeTrue();
-            Angle.IsStraight(GradiansAngle.Straight - GradiansAngle.Right).Should().BeFalse();
-            Angle.IsStraight(GradiansAngle.Full).Should().BeFalse();
+            Angle.IsStraight(AngleGradians.Right).Should().BeFalse();
+            Angle.IsStraight(AngleGradians.Right - AcuteAngle).Should().BeFalse();
+            Angle.IsStraight(AngleGradians.Straight).Should().BeTrue();
+            Angle.IsStraight(AngleGradians.Straight - AngleGradians.Right).Should().BeFalse();
+            Angle.IsStraight(AngleGradians.Full).Should().BeFalse();
 
             Angle.IsStraight(-AcuteAngle).Should().BeFalse();
-            Angle.IsStraight(-GradiansAngle.Right).Should().BeFalse();
-            Angle.IsStraight(-GradiansAngle.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsStraight(-GradiansAngle.Straight).Should().BeTrue();
-            Angle.IsStraight(-GradiansAngle.Straight - GradiansAngle.Right).Should().BeFalse();
-            Angle.IsStraight(-GradiansAngle.Full).Should().BeFalse();
+            Angle.IsStraight(-AngleGradians.Right).Should().BeFalse();
+            Angle.IsStraight(-AngleGradians.Right - AcuteAngle).Should().BeFalse();
+            Angle.IsStraight(-AngleGradians.Straight).Should().BeTrue();
+            Angle.IsStraight(-AngleGradians.Straight - AngleGradians.Right).Should().BeFalse();
+            Angle.IsStraight(-AngleGradians.Full).Should().BeFalse();
         }
 
         [Fact]
         public void IsReflexIsDefinedCorrectly()
         {
-            Angle.IsReflex(GradiansAngle.Zero).Should().BeFalse();
+            Angle.IsReflex(AngleGradians.Zero).Should().BeFalse();
             Angle.IsReflex(AcuteAngle).Should().BeFalse();
-            Angle.IsReflex(GradiansAngle.Right).Should().BeFalse();
-            Angle.IsReflex(GradiansAngle.Right + AcuteAngle).Should().BeFalse();
-            Angle.IsReflex(GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsReflex(GradiansAngle.Straight + GradiansAngle.Right).Should().BeTrue();
-            Angle.IsReflex(GradiansAngle.Full).Should().BeFalse();
+            Angle.IsReflex(AngleGradians.Right).Should().BeFalse();
+            Angle.IsReflex(AngleGradians.Right + AcuteAngle).Should().BeFalse();
+            Angle.IsReflex(AngleGradians.Straight).Should().BeFalse();
+            Angle.IsReflex(AngleGradians.Straight + AngleGradians.Right).Should().BeTrue();
+            Angle.IsReflex(AngleGradians.Full).Should().BeFalse();
 
             Angle.IsReflex(-AcuteAngle).Should().BeFalse();
-            Angle.IsReflex(-GradiansAngle.Right).Should().BeFalse();
-            Angle.IsReflex(-GradiansAngle.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsReflex(-GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsReflex(-GradiansAngle.Straight - GradiansAngle.Right).Should().BeTrue();
-            Angle.IsReflex(-GradiansAngle.Full).Should().BeFalse();
+            Angle.IsReflex(-AngleGradians.Right).Should().BeFalse();
+            Angle.IsReflex(-AngleGradians.Right - AcuteAngle).Should().BeFalse();
+            Angle.IsReflex(-AngleGradians.Straight).Should().BeFalse();
+            Angle.IsReflex(-AngleGradians.Straight - AngleGradians.Right).Should().BeTrue();
+            Angle.IsReflex(-AngleGradians.Full).Should().BeFalse();
         }
 
         [Fact]
         public void IsObliqueIsDefinedCorrectly()
         {
-            Angle.IsOblique(GradiansAngle.Zero).Should().BeFalse();
+            Angle.IsOblique(AngleGradians.Zero).Should().BeFalse();
             Angle.IsOblique(AcuteAngle).Should().BeTrue();
-            Angle.IsOblique(GradiansAngle.Right).Should().BeFalse();
-            Angle.IsOblique(GradiansAngle.Right + AcuteAngle).Should().BeTrue();
-            Angle.IsOblique(GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsOblique(GradiansAngle.Straight + GradiansAngle.Right).Should().BeFalse();
-            Angle.IsOblique(GradiansAngle.Full).Should().BeFalse();
+            Angle.IsOblique(AngleGradians.Right).Should().BeFalse();
+            Angle.IsOblique(AngleGradians.Right + AcuteAngle).Should().BeTrue();
+            Angle.IsOblique(AngleGradians.Straight).Should().BeFalse();
+            Angle.IsOblique(AngleGradians.Straight + AngleGradians.Right).Should().BeFalse();
+            Angle.IsOblique(AngleGradians.Full).Should().BeFalse();
 
             Angle.IsOblique(-AcuteAngle).Should().BeTrue();
-            Angle.IsOblique(-GradiansAngle.Right).Should().BeFalse();
-            Angle.IsOblique(-GradiansAngle.Right - AcuteAngle).Should().BeTrue();
-            Angle.IsOblique(-GradiansAngle.Straight).Should().BeFalse();
-            Angle.IsOblique(-GradiansAngle.Straight - GradiansAngle.Right).Should().BeFalse();
-            Angle.IsOblique(-GradiansAngle.Full).Should().BeFalse();
+            Angle.IsOblique(-AngleGradians.Right).Should().BeFalse();
+            Angle.IsOblique(-AngleGradians.Right - AcuteAngle).Should().BeTrue();
+            Angle.IsOblique(-AngleGradians.Straight).Should().BeFalse();
+            Angle.IsOblique(-AngleGradians.Straight - AngleGradians.Right).Should().BeFalse();
+            Angle.IsOblique(-AngleGradians.Full).Should().BeFalse();
         }
 
         [Fact]
         public void LerpIsDefinedCorrectly()
         {
-            Angle.Lerp(AcuteAngle, GradiansAngle.Right + AcuteAngle, -0.5).Should().Be(GradiansAngle.Zero);
-            Angle.Lerp(AcuteAngle, GradiansAngle.Right + AcuteAngle, 0.0).Should().Be(AcuteAngle);
-            Angle.Lerp(AcuteAngle, GradiansAngle.Right + AcuteAngle, 0.5).Should().Be(GradiansAngle.Right);
-            Angle.Lerp(AcuteAngle, GradiansAngle.Right + AcuteAngle, 1.0).Should().Be(GradiansAngle.Right + AcuteAngle);
-            Angle.Lerp(AcuteAngle, GradiansAngle.Right + AcuteAngle, 1.5).Should().Be(GradiansAngle.Straight);
+            Angle.Lerp(AcuteAngle, AngleGradians.Right + AcuteAngle, -0.5).Should().Be(AngleGradians.Zero);
+            Angle.Lerp(AcuteAngle, AngleGradians.Right + AcuteAngle, 0.0).Should().Be(AcuteAngle);
+            Angle.Lerp(AcuteAngle, AngleGradians.Right + AcuteAngle, 0.5).Should().Be(AngleGradians.Right);
+            Angle.Lerp(AcuteAngle, AngleGradians.Right + AcuteAngle, 1.0).Should().Be(AngleGradians.Right + AcuteAngle);
+            Angle.Lerp(AcuteAngle, AngleGradians.Right + AcuteAngle, 1.5).Should().Be(AngleGradians.Straight);
 
-            Angle.Lerp(-AcuteAngle, -GradiansAngle.Right - AcuteAngle, -0.5).Should().Be(GradiansAngle.Zero);
-            Angle.Lerp(-AcuteAngle, -GradiansAngle.Right - AcuteAngle, 0.0).Should().Be(-AcuteAngle);
-            Angle.Lerp(-AcuteAngle, -GradiansAngle.Right - AcuteAngle, 0.5).Should().Be(-GradiansAngle.Right);
-            Angle.Lerp(-AcuteAngle, -GradiansAngle.Right - AcuteAngle, 1.0).Should().Be(-GradiansAngle.Right - AcuteAngle);
-            Angle.Lerp(-AcuteAngle, -GradiansAngle.Right - AcuteAngle, 1.5).Should().Be(-GradiansAngle.Straight);
+            Angle.Lerp(-AcuteAngle, -AngleGradians.Right - AcuteAngle, -0.5).Should().Be(AngleGradians.Zero);
+            Angle.Lerp(-AcuteAngle, -AngleGradians.Right - AcuteAngle, 0.0).Should().Be(-AcuteAngle);
+            Angle.Lerp(-AcuteAngle, -AngleGradians.Right - AcuteAngle, 0.5).Should().Be(-AngleGradians.Right);
+            Angle.Lerp(-AcuteAngle, -AngleGradians.Right - AcuteAngle, 1.0).Should().Be(-AngleGradians.Right - AcuteAngle);
+            Angle.Lerp(-AcuteAngle, -AngleGradians.Right - AcuteAngle, 1.5).Should().Be(-AngleGradians.Straight);
 
-            Angle.Lerp(GradiansAngle.Right + AcuteAngle, AcuteAngle, -0.5).Should().Be(GradiansAngle.Straight);
-            Angle.Lerp(GradiansAngle.Right + AcuteAngle, AcuteAngle, 0.0).Should().Be(GradiansAngle.Right + AcuteAngle);
-            Angle.Lerp(GradiansAngle.Right + AcuteAngle, AcuteAngle, 0.5).Should().Be(GradiansAngle.Right);
-            Angle.Lerp(GradiansAngle.Right + AcuteAngle, AcuteAngle, 1.0).Should().Be(AcuteAngle);
-            Angle.Lerp(GradiansAngle.Right + AcuteAngle, AcuteAngle, 1.5).Should().Be(GradiansAngle.Zero);
+            Angle.Lerp(AngleGradians.Right + AcuteAngle, AcuteAngle, -0.5).Should().Be(AngleGradians.Straight);
+            Angle.Lerp(AngleGradians.Right + AcuteAngle, AcuteAngle, 0.0).Should().Be(AngleGradians.Right + AcuteAngle);
+            Angle.Lerp(AngleGradians.Right + AcuteAngle, AcuteAngle, 0.5).Should().Be(AngleGradians.Right);
+            Angle.Lerp(AngleGradians.Right + AcuteAngle, AcuteAngle, 1.0).Should().Be(AcuteAngle);
+            Angle.Lerp(AngleGradians.Right + AcuteAngle, AcuteAngle, 1.5).Should().Be(AngleGradians.Zero);
         }
 
         [Fact]
@@ -359,9 +362,9 @@ namespace NetFabric.UnitTests
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 #endif
 
-            GradiansAngle.Straight.ToString().Should().Be("200");
-            GradiansAngle.Straight.ToString("0.00").Should().Be("200.00");
-            GradiansAngle.Straight.ToString("0.00", new CultureInfo("pt-PT")).Should().Be("200,00");
+            AngleGradians.Straight.ToString().Should().Be("200");
+            AngleGradians.Straight.ToString("0.00").Should().Be("200.00");
+            AngleGradians.Straight.ToString("0.00", new CultureInfo("pt-PT")).Should().Be("200,00");
         }
     }
 }

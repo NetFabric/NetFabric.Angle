@@ -1,45 +1,67 @@
 ﻿using FluentAssertions;
 using System;
-using System.Globalization;
 using Xunit;
 
 namespace NetFabric.UnitTests
 {
     public class AngleTests
     {
-        [Fact]
-        public void InRadiansCreatesAngleCorrectly()
+        public static TheoryData<double> DoubleData = new TheoryData<double>
         {
-            Angle.InRadians(0.0).Radians.Should().Be(0.0);
-            Angle.InRadians(Math.PI).Radians.Should().Be(Math.PI);
-            Angle.InRadians(double.NaN).Radians.Should().Be(double.NaN);
-            Angle.InRadians(DegreesAngle.Right).Should().Be(RadiansAngle.Right);
-            Angle.InRadians(GradiansAngle.Right).Should().Be(RadiansAngle.Right);
+            0.0,
+            Math.PI,
+            double.NaN,
+            double.MinValue,
+            double.MaxValue,
+            double.PositiveInfinity,
+            double.NegativeInfinity,
+        };
+
+        [Theory]
+        [MemberData(nameof(DoubleData))]
+        public void FromRadians_Should_Succeed(double value)
+        {
+            // arrange
+
+            // act
+            var angle = Angle.FromRadians(value);
+
+            // assert
+            angle.Should().BeOfType<AngleRadians>();
+            angle.Radians.Should().Be(value);
         }
 
-        [Fact]
-        public void InDegreesCreatesAngleCorrectly()
+        [Theory]
+        [MemberData(nameof(DoubleData))]
+        public void FromDegrees_Should_Succeed(double value)
         {
-            Angle.InDegrees(0.0).Degrees.Should().Be(0.0);
-            Angle.InDegrees(90.0).Degrees.Should().Be(90.0);
-            Angle.InDegrees(double.NaN).Degrees.Should().Be(double.NaN);
-            Angle.InDegrees(RadiansAngle.Right).Should().Be(DegreesAngle.Right);
-            Angle.InDegrees(GradiansAngle.Right).Should().Be(DegreesAngle.Right);
+            // arrange
+
+            // act
+            var angle = Angle.FromDegrees(value);
+
+            // assert
+            angle.Should().BeOfType<AngleDegrees>();
+            angle.Degrees.Should().Be(value);
         }
 
-        [Fact]
-        public void InGradiansCreatesAngleCorrectly()
+        [Theory]
+        [MemberData(nameof(DoubleData))]
+        public void FromGradians_Should_Succeed(double value)
         {
-            Angle.InGradians(0.0).Gradians.Should().Be(0.0);
-            Angle.InGradians(Math.PI).Gradians.Should().Be(Math.PI);
-            Angle.InGradians(double.NaN).Gradians.Should().Be(double.NaN);
-            Angle.InGradians(RadiansAngle.Right).Should().Be(GradiansAngle.Right);
-            Angle.InGradians(DegreesAngle.Right).Should().Be(GradiansAngle.Right);
+            // arrange
+
+            // act
+            var angle = Angle.FromGradians(value);
+
+            // assert
+            angle.Should().BeOfType<AngleGradians>();
+            angle.Gradians.Should().Be(value);
         }
 
         /*
         [Fact]
-        public void ToStringIsDefinedCorrectly()
+        public void ToString_Should_Succeed()
         {
 #if NET35
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;

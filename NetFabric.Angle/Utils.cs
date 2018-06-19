@@ -20,7 +20,8 @@ namespace NetFabric
         public static double GetReference(double angle, double rightAngle, double straightAngle, double fullAngle)
         {
             var reduced = Reduce(angle, fullAngle);
-            switch (GetQuadrant(reduced, rightAngle, straightAngle))
+            var quadrant = GetQuadrant(reduced, rightAngle, straightAngle);
+            switch (quadrant)
             {
                 case Quadrant.First:
                     return reduced;
@@ -42,10 +43,13 @@ namespace NetFabric
         {
             if (angle < rightAngle)
                 return Quadrant.First;
+
             if (angle < straightAngle)
                 return Quadrant.Second;
+
             if (angle < straightAngle + rightAngle)
                 return Quadrant.Third;
+
             return Quadrant.Fourth;
         }
 

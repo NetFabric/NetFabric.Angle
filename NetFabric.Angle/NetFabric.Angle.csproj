@@ -34,6 +34,10 @@
     <Compile Remove="AngleRangeAttribute.cs" />
     <Compile Remove="DegreesMinutesSecondsAngle.cs" />
   </ItemGroup>
+
+  <ItemGroup  Condition=" '$(TargetFramework)' == 'net35' ">
+    <Compile Include="Platforms\Serializable\AngleSerializable.cs" />
+  </ItemGroup>
   
   <!--
   

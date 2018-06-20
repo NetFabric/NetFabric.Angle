@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace NetFabric
 {
-    public readonly struct AngleRadians
+    public readonly partial struct AngleRadians
         : IEquatable<AngleRadians>
         , IComparable
         , IComparable<AngleRadians>

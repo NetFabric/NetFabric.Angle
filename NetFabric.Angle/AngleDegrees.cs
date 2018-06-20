@@ -2,7 +2,7 @@
 
 namespace NetFabric
 {
-    public readonly struct AngleDegrees
+    public readonly partial struct AngleDegrees
         : IEquatable<AngleDegrees>
         , IComparable
         , IComparable<AngleDegrees>

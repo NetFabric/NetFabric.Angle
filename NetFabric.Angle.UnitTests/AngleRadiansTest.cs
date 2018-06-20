@@ -9,13 +9,13 @@ namespace NetFabric.UnitTests
     {
         static readonly AngleRadians AcuteAngle = AngleRadians.Right / 2.0;
 
-        public static TheoryData<AngleRadians, object, bool, bool, bool> CompareInvalidData = new TheoryData<AngleRadians, object, bool, bool, bool>
+        public static TheoryData<AngleRadians, object, bool, bool, bool> CompareInvalidData => new TheoryData<AngleRadians, object, bool, bool, bool>
         {
             { AngleRadians.Right, null, false, false, false },
             { AngleRadians.Right, 90.0, false, false, false },
         };
 
-        public static TheoryData<AngleRadians, AngleRadians, bool, bool, bool> CompareData = new TheoryData<AngleRadians, AngleRadians, bool, bool, bool>
+        public static TheoryData<AngleRadians, AngleRadians, bool, bool, bool> CompareData => new TheoryData<AngleRadians, AngleRadians, bool, bool, bool>
         {
             { AngleRadians.Zero, AngleRadians.Right - AngleRadians.Full, false, false, true },
             { AngleRadians.Right, AngleRadians.Right - AngleRadians.Full, false, false, true },
@@ -30,7 +30,7 @@ namespace NetFabric.UnitTests
             { AngleRadians.Straight, AngleRadians.Right + AngleRadians.Full, true, false, false },
         };
 
-        public static TheoryData<AngleRadians, AngleRadians, bool, bool, bool> CompareReducedData = new TheoryData<AngleRadians, AngleRadians, bool, bool, bool>
+        public static TheoryData<AngleRadians, AngleRadians, bool, bool, bool> CompareReducedData => new TheoryData<AngleRadians, AngleRadians, bool, bool, bool>
         {
             { AngleRadians.Zero, AngleRadians.Right - AngleRadians.Full, true, false, false },
             { AngleRadians.Right, AngleRadians.Right - AngleRadians.Full, false, true, false },
@@ -264,180 +264,279 @@ namespace NetFabric.UnitTests
             // act
             var result = Angle.Reduce(angle);
 
-            // asseret
+            // assert
             result.Radians.Should().BeApproximately(expected.Radians, Math.Pow(10, 8));
         }
 
-        [Fact]
-        public void GetQuadrant_Should_Succeed()
-        {
-            Angle.GetQuadrant(AngleRadians.Zero).Should().Be(Quadrant.First);
-            Angle.GetQuadrant(AcuteAngle).Should().Be(Quadrant.First);
-            Angle.GetQuadrant(AngleRadians.Right).Should().Be(Quadrant.Second);
-            Angle.GetQuadrant(AngleRadians.Right + AcuteAngle).Should().Be(Quadrant.Second);
-            Angle.GetQuadrant(AngleRadians.Straight).Should().Be(Quadrant.Third);
-            Angle.GetQuadrant(AngleRadians.Straight + AcuteAngle).Should().Be(Quadrant.Third);
-            Angle.GetQuadrant(AngleRadians.Straight + AngleRadians.Right).Should().Be(Quadrant.Fourth);
-            Angle.GetQuadrant(AngleRadians.Straight + AngleRadians.Right + AcuteAngle).Should().Be(Quadrant.Fourth);
+        public static TheoryData<AngleRadians, Quadrant> QuadrantData => new TheoryData<AngleRadians, Quadrant> {
+            {AngleRadians.Zero, Quadrant.First},
+            {AcuteAngle, Quadrant.First},
+            {AngleRadians.Right, Quadrant.Second},
+            {AngleRadians.Right + AcuteAngle, Quadrant.Second},
+            {AngleRadians.Straight, Quadrant.Third},
+            {AngleRadians.Straight + AcuteAngle, Quadrant.Third},
+            {AngleRadians.Straight + AngleRadians.Right, Quadrant.Fourth},
+            {AngleRadians.Straight + AngleRadians.Right + AcuteAngle, Quadrant.Fourth},
+            
+            {AngleRadians.Full, Quadrant.First},
+            {AngleRadians.Full + AcuteAngle, Quadrant.First},
+            {AngleRadians.Full + AngleRadians.Right, Quadrant.Second},
+            {AngleRadians.Full + AngleRadians.Right + AcuteAngle, Quadrant.Second},
+            {AngleRadians.Full + AngleRadians.Straight, Quadrant.Third},
+            {AngleRadians.Full + AngleRadians.Straight + AcuteAngle, Quadrant.Third},
+            {AngleRadians.Full + AngleRadians.Straight + AngleRadians.Right, Quadrant.Fourth},
+            {AngleRadians.Full + AngleRadians.Straight + AngleRadians.Right + AcuteAngle, Quadrant.Fourth},
+        };
 
-            Angle.GetQuadrant(AngleRadians.Full).Should().Be(Quadrant.First);
-            Angle.GetQuadrant(AngleRadians.Full + AcuteAngle).Should().Be(Quadrant.First);
-            Angle.GetQuadrant(AngleRadians.Full + AngleRadians.Right).Should().Be(Quadrant.Second);
-            Angle.GetQuadrant(AngleRadians.Full + AngleRadians.Right + AcuteAngle).Should().Be(Quadrant.Second);
-            Angle.GetQuadrant(AngleRadians.Full + AngleRadians.Straight).Should().Be(Quadrant.Third);
-            Angle.GetQuadrant(AngleRadians.Full + AngleRadians.Straight + AcuteAngle).Should().Be(Quadrant.Third);
-            Angle.GetQuadrant(AngleRadians.Full + AngleRadians.Straight + AngleRadians.Right).Should().Be(Quadrant.Fourth);
-            Angle.GetQuadrant(AngleRadians.Full + AngleRadians.Straight + AngleRadians.Right + AcuteAngle).Should().Be(Quadrant.Fourth);
+        [Theory]
+        [MemberData(nameof(QuadrantData))]
+        public void GetQuadrant_Should_Succeed(AngleRadians angle, Quadrant expected)
+        {
+            // arrange
+
+            // act
+            var result = Angle.GetQuadrant(angle);
+
+            // assert
+            result.Should().Be(expected);
         }
 
-        [Fact]
-        public void Reference_Should_Succeed()
+        public static TheoryData<AngleRadians, AngleRadians> ReferencetData => new TheoryData<AngleRadians, AngleRadians> {
+            {AngleRadians.Zero, AngleRadians.Zero},
+            {AcuteAngle, AcuteAngle},
+            {AngleRadians.Right ,AngleRadians.Right},
+            {AngleRadians.Right + AcuteAngle, AcuteAngle},
+            {AngleRadians.Straight, AngleRadians.Zero},
+            {AngleRadians.Straight + AcuteAngle, AcuteAngle},
+            {AngleRadians.Straight + AngleRadians.Right, AngleRadians.Right},
+            {AngleRadians.Straight + AngleRadians.Right + AcuteAngle, AcuteAngle},
+            {AngleRadians.Full, AngleRadians.Zero},
+        };
+
+        [Theory]
+        [MemberData(nameof(ReferencetData))]
+        public void Reference_Should_Succeed(AngleRadians angle, AngleRadians expected)
         {
-            Angle.GetReference(AngleRadians.Zero).Should().Be(AngleRadians.Zero);
-            Angle.GetReference(AcuteAngle).Should().Be(AcuteAngle);
-            Angle.GetReference(AngleRadians.Right).Should().Be(AngleRadians.Right);
-            Angle.GetReference(AngleRadians.Right + AcuteAngle).Should().Be(AcuteAngle);
-            Angle.GetReference(AngleRadians.Straight).Should().Be(AngleRadians.Zero);
-            Angle.GetReference(AngleRadians.Straight + AcuteAngle).Should().Be(AcuteAngle);
-            Angle.GetReference(AngleRadians.Straight + AngleRadians.Right).Should().Be(AngleRadians.Right);
-            Angle.GetReference(AngleRadians.Straight + AngleRadians.Right + AcuteAngle).Should().Be(AcuteAngle);
-            Angle.GetReference(AngleRadians.Full).Should().Be(AngleRadians.Zero);
+            // arrange
+
+            // act
+            var result = Angle.GetReference(angle);
+
+            // assert
+            result.Should().Be(expected);
         }
 
-        [Fact]
-        public void IsZero_Should_Succeed()
-        {
-            Angle.IsZero(AngleRadians.Zero).Should().BeTrue();
-            Angle.IsZero(AcuteAngle).Should().BeFalse();
-            Angle.IsZero(AngleRadians.Right).Should().BeFalse();
-            Angle.IsZero(AngleRadians.Right + AcuteAngle).Should().BeFalse();
-            Angle.IsZero(AngleRadians.Straight).Should().BeFalse();
-            Angle.IsZero(AngleRadians.Straight + AngleRadians.Right).Should().BeFalse();
-            Angle.IsZero(AngleRadians.Full).Should().BeTrue();
+        public static TheoryData<AngleRadians, bool> IsZeroData => new TheoryData<AngleRadians, bool> {
+            {AngleRadians.Zero, true},
+            {AcuteAngle, false},
+            {AngleRadians.Right, false},
+            {AngleRadians.Right + AcuteAngle, false},
+            {AngleRadians.Straight, false},
+            {AngleRadians.Straight + AngleRadians.Right, false},
+            {AngleRadians.Full, true},
+            
+            {-AcuteAngle, false},
+            {-AngleRadians.Right, false},
+            {-AngleRadians.Right - AcuteAngle, false},
+            {-AngleRadians.Straight, false},
+            {-AngleRadians.Straight - AngleRadians.Right, false},
+            {-AngleRadians.Full, true},
+        };
 
-            Angle.IsZero(-AcuteAngle).Should().BeFalse();
-            Angle.IsZero(-AngleRadians.Right).Should().BeFalse();
-            Angle.IsZero(-AngleRadians.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsZero(-AngleRadians.Straight).Should().BeFalse();
-            Angle.IsZero(-AngleRadians.Straight - AngleRadians.Right).Should().BeFalse();
-            Angle.IsZero(-AngleRadians.Full).Should().BeTrue();
+        [Theory]
+        [MemberData(nameof(IsZeroData))]
+        public void IsZero_Should_Succeed(AngleRadians angle, bool expected)
+        {
+            // arrange
+
+            // act
+            var result = Angle.IsZero(angle);
+
+            // assert
+            result.Should().Be(expected);
         }
 
-        [Fact]
-        public void IsAcute_Should_Succeed()
-        {
-            Angle.IsAcute(AngleRadians.Zero).Should().BeFalse();
-            Angle.IsAcute(AcuteAngle).Should().BeTrue();
-            Angle.IsAcute(AngleRadians.Right).Should().BeFalse();
-            Angle.IsAcute(AngleRadians.Right + AcuteAngle).Should().BeFalse();
-            Angle.IsAcute(AngleRadians.Straight).Should().BeFalse();
-            Angle.IsAcute(AngleRadians.Straight + AngleRadians.Right).Should().BeFalse();
-            Angle.IsAcute(AngleRadians.Full).Should().BeFalse();
+        public static TheoryData<AngleRadians, bool> IsAcuteData => new TheoryData<AngleRadians, bool> {
+            {AngleRadians.Zero, false},
+            {AcuteAngle, true},
+            {AngleRadians.Right, false},
+            {AngleRadians.Right + AcuteAngle, false},
+            {AngleRadians.Straight, false},
+            {AngleRadians.Straight + AngleRadians.Right, false},
+            {AngleRadians.Full, false},
+            
+            {-AcuteAngle, true},
+            {-AngleRadians.Right, false},
+            {-AngleRadians.Right - AcuteAngle, false},
+            {-AngleRadians.Straight, false},
+            {-AngleRadians.Straight - AngleRadians.Right, false},
+            {-AngleRadians.Full, false},
+        };
 
-            Angle.IsAcute(-AcuteAngle).Should().BeTrue();
-            Angle.IsAcute(-AngleRadians.Right).Should().BeFalse();
-            Angle.IsAcute(-AngleRadians.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsAcute(-AngleRadians.Straight).Should().BeFalse();
-            Angle.IsAcute(-AngleRadians.Straight - AngleRadians.Right).Should().BeFalse();
-            Angle.IsAcute(-AngleRadians.Full).Should().BeFalse();
+        [Theory]
+        [MemberData(nameof(IsAcuteData))]
+        public void IsAcute_Should_Succeed(AngleRadians angle, bool expected)
+        {
+            // arrange
+
+            // act
+            var result = Angle.IsAcute(angle);
+
+            // assert
+            result.Should().Be(expected);
         }
 
-        [Fact]
-        public void IsRight_Should_Succeed()
-        {
-            Angle.IsRight(AngleRadians.Zero).Should().BeFalse();
-            Angle.IsRight(AcuteAngle).Should().BeFalse();
-            Angle.IsRight(AngleRadians.Right).Should().BeTrue();
-            Angle.IsRight(AngleRadians.Right + AcuteAngle).Should().BeFalse();
-            Angle.IsRight(AngleRadians.Straight).Should().BeFalse();
-            Angle.IsRight(AngleRadians.Straight + AngleRadians.Right).Should().BeFalse();
-            Angle.IsRight(AngleRadians.Full).Should().BeFalse();
+        public static TheoryData<AngleRadians, bool> IsRightData => new TheoryData<AngleRadians, bool> {
+            {AngleRadians.Zero, false},
+            {AcuteAngle, false},
+            {AngleRadians.Right, true},
+            {AngleRadians.Right + AcuteAngle, false},
+            {AngleRadians.Straight, false},
+            {AngleRadians.Straight + AngleRadians.Right, false},
+            {AngleRadians.Full, false},
+            
+            {-AcuteAngle, false},
+            {-AngleRadians.Right, true},
+            {-AngleRadians.Right - AcuteAngle, false},
+            {-AngleRadians.Straight, false},
+            {-AngleRadians.Straight - AngleRadians.Right, false},
+            {-AngleRadians.Full, false},
+        };
 
-            Angle.IsRight(-AcuteAngle).Should().BeFalse();
-            Angle.IsRight(-AngleRadians.Right).Should().BeTrue();
-            Angle.IsRight(-AngleRadians.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsRight(-AngleRadians.Straight).Should().BeFalse();
-            Angle.IsRight(-AngleRadians.Straight - AngleRadians.Right).Should().BeFalse();
-            Angle.IsRight(-AngleRadians.Full).Should().BeFalse();
+        [Theory]
+        [MemberData(nameof(IsRightData))]
+        public void IsRight_Should_Succeed(AngleRadians angle, bool expected)
+        {
+            // arrange
+
+            // act
+            var result = Angle.IsRight(angle);
+
+            // assert
+            result.Should().Be(expected);
         }
 
-        [Fact]
-        public void IsObtuse_Should_Succeed()
-        {
-            Angle.IsObtuse(AngleRadians.Zero).Should().BeFalse();
-            Angle.IsObtuse(AcuteAngle).Should().BeFalse();
-            Angle.IsObtuse(AngleRadians.Right).Should().BeFalse();
-            Angle.IsObtuse(AngleRadians.Right + AcuteAngle).Should().BeTrue();
-            Angle.IsObtuse(AngleRadians.Straight).Should().BeFalse();
-            Angle.IsObtuse(AngleRadians.Straight + AngleRadians.Right).Should().BeFalse();
-            Angle.IsObtuse(AngleRadians.Full).Should().BeFalse();
+        public static TheoryData<AngleRadians, bool> IsObtuseData => new TheoryData<AngleRadians, bool> {
+            {AngleRadians.Zero, false},
+            {AcuteAngle, false},
+            {AngleRadians.Right, false},
+            {AngleRadians.Right + AcuteAngle, true},
+            {AngleRadians.Straight, false},
+            {AngleRadians.Straight + AngleRadians.Right, false},
+            {AngleRadians.Full, false},
+            
+            {-AcuteAngle, false},
+            {-AngleRadians.Right, false},
+            {-AngleRadians.Right - AcuteAngle, true},
+            {-AngleRadians.Straight, false},
+            {-AngleRadians.Straight - AngleRadians.Right, false},
+            {-AngleRadians.Full, false},
+        };
 
-            Angle.IsObtuse(-AcuteAngle).Should().BeFalse();
-            Angle.IsObtuse(-AngleRadians.Right).Should().BeFalse();
-            Angle.IsObtuse(-AngleRadians.Right - AcuteAngle).Should().BeTrue();
-            Angle.IsObtuse(-AngleRadians.Straight).Should().BeFalse();
-            Angle.IsObtuse(-AngleRadians.Straight - AngleRadians.Right).Should().BeFalse();
-            Angle.IsObtuse(-AngleRadians.Full).Should().BeFalse();
+        [Theory]
+        [MemberData(nameof(IsObtuseData))]
+        public void IsObtuse_Should_Succeed(AngleRadians angle, bool expected)
+        {
+            // arrange
+
+            // act
+            var result = Angle.IsObtuse(angle);
+
+            // assert
+            result.Should().Be(expected);
         }
 
-        [Fact]
-        public void IsStraight_Should_Succeed()
-        {
-            Angle.IsStraight(AngleRadians.Zero).Should().BeFalse();
-            Angle.IsStraight(AcuteAngle).Should().BeFalse();
-            Angle.IsStraight(AngleRadians.Right).Should().BeFalse();
-            Angle.IsStraight(AngleRadians.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsStraight(AngleRadians.Straight).Should().BeTrue();
-            Angle.IsStraight(AngleRadians.Straight - AngleRadians.Right).Should().BeFalse();
-            Angle.IsStraight(AngleRadians.Full).Should().BeFalse();
+        public static TheoryData<AngleRadians, bool> IsStraightData => new TheoryData<AngleRadians, bool> {
+            {AngleRadians.Zero, false},
+            {AcuteAngle, false},
+            {AngleRadians.Right, false},
+            {AngleRadians.Right - AcuteAngle, false},
+            {AngleRadians.Straight, true},
+            {AngleRadians.Straight - AngleRadians.Right, false},
+            {AngleRadians.Full, false},
+            
+            {-AcuteAngle, false},
+            {-AngleRadians.Right, false},
+            {-AngleRadians.Right - AcuteAngle, false},
+            {-AngleRadians.Straight, true},
+            {-AngleRadians.Straight - AngleRadians.Right, false},
+            {-AngleRadians.Full, false},
+        };
 
-            Angle.IsStraight(-AcuteAngle).Should().BeFalse();
-            Angle.IsStraight(-AngleRadians.Right).Should().BeFalse();
-            Angle.IsStraight(-AngleRadians.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsStraight(-AngleRadians.Straight).Should().BeTrue();
-            Angle.IsStraight(-AngleRadians.Straight - AngleRadians.Right).Should().BeFalse();
-            Angle.IsStraight(-AngleRadians.Full).Should().BeFalse();
+        [Theory]
+        [MemberData(nameof(IsStraightData))]
+        public void IsStraight_Should_Succeed(AngleRadians angle, bool expected)
+        {
+            // arrange
+
+            // act
+            var result = Angle.IsStraight(angle);
+
+            // assert
+            result.Should().Be(expected);
         }
 
-        [Fact]
-        public void IsReflex_Should_Succeed()
-        {
-            Angle.IsReflex(AngleRadians.Zero).Should().BeFalse();
-            Angle.IsReflex(AcuteAngle).Should().BeFalse();
-            Angle.IsReflex(AngleRadians.Right).Should().BeFalse();
-            Angle.IsReflex(AngleRadians.Right + AcuteAngle).Should().BeFalse();
-            Angle.IsReflex(AngleRadians.Straight).Should().BeFalse();
-            Angle.IsReflex(AngleRadians.Straight + AngleRadians.Right).Should().BeTrue();
-            Angle.IsReflex(AngleRadians.Full).Should().BeFalse();
+        public static TheoryData<AngleRadians, bool> IsReflexData => new TheoryData<AngleRadians, bool> {
+            {AngleRadians.Zero, false},
+            {AcuteAngle, false},
+            {AngleRadians.Right, false},
+            {AngleRadians.Right + AcuteAngle, false},
+            {AngleRadians.Straight, false},
+            {AngleRadians.Straight + AngleRadians.Right, true},
+            {AngleRadians.Full, false},
+            
+            {-AcuteAngle, false},
+            {-AngleRadians.Right, false},
+            {-AngleRadians.Right - AcuteAngle, false},
+            {-AngleRadians.Straight, false},
+            {-AngleRadians.Straight - AngleRadians.Right, true},
+            {-AngleRadians.Full, false},
+        };
 
-            Angle.IsReflex(-AcuteAngle).Should().BeFalse();
-            Angle.IsReflex(-AngleRadians.Right).Should().BeFalse();
-            Angle.IsReflex(-AngleRadians.Right - AcuteAngle).Should().BeFalse();
-            Angle.IsReflex(-AngleRadians.Straight).Should().BeFalse();
-            Angle.IsReflex(-AngleRadians.Straight - AngleRadians.Right).Should().BeTrue();
-            Angle.IsReflex(-AngleRadians.Full).Should().BeFalse();
+        [Theory]
+        [MemberData(nameof(IsReflexData))]
+        public void IsReflex_Should_Succeed(AngleRadians angle, bool expected)
+        {
+            // arrange
+
+            // act
+            var result = Angle.IsReflex(angle);
+
+            // assert
+            result.Should().Be(expected);
         }
 
-        [Fact]
-        public void IsOblique_Should_Succeed()
-        {
-            Angle.IsOblique(AngleRadians.Zero).Should().BeFalse();
-            Angle.IsOblique(AcuteAngle).Should().BeTrue();
-            Angle.IsOblique(AngleRadians.Right).Should().BeFalse();
-            Angle.IsOblique(AngleRadians.Right + AcuteAngle).Should().BeTrue();
-            Angle.IsOblique(AngleRadians.Straight).Should().BeFalse();
-            Angle.IsOblique(AngleRadians.Straight + AngleRadians.Right).Should().BeFalse();
-            Angle.IsOblique(AngleRadians.Full).Should().BeFalse();
+        public static TheoryData<AngleRadians, bool> IsObliqueData => new TheoryData<AngleRadians, bool> {
+            {AngleRadians.Zero, false},
+            {AcuteAngle, true},
+            {AngleRadians.Right, false},
+            {AngleRadians.Right + AcuteAngle, true},
+            {AngleRadians.Straight, false},
+            {AngleRadians.Straight + AngleRadians.Right, false},
+            {AngleRadians.Full, false},
+            
+            {-AcuteAngle, true},
+            {-AngleRadians.Right, false},
+            {-AngleRadians.Right - AcuteAngle, true},
+            {-AngleRadians.Straight, false},
+            {-AngleRadians.Straight - AngleRadians.Right, false},
+            {-AngleRadians.Full, false},
+        };
 
-            Angle.IsOblique(-AcuteAngle).Should().BeTrue();
-            Angle.IsOblique(-AngleRadians.Right).Should().BeFalse();
-            Angle.IsOblique(-AngleRadians.Right - AcuteAngle).Should().BeTrue();
-            Angle.IsOblique(-AngleRadians.Straight).Should().BeFalse();
-            Angle.IsOblique(-AngleRadians.Straight - AngleRadians.Right).Should().BeFalse();
-            Angle.IsOblique(-AngleRadians.Full).Should().BeFalse();
+        [Theory]
+        [MemberData(nameof(IsObliqueData))]
+        public void IsOblique_Should_Succeed(AngleRadians angle, bool expected)
+        {
+            // arrange
+
+            // act
+            var result = Angle.IsOblique(angle);
+
+            // assert
+            result.Should().Be(expected);
         }
 
-        public static TheoryData<AngleRadians, AngleRadians, double, AngleRadians> LerpData = new TheoryData<AngleRadians, AngleRadians, double, AngleRadians>
+        public static TheoryData<AngleRadians, AngleRadians, double, AngleRadians> LerpData => new TheoryData<AngleRadians, AngleRadians, double, AngleRadians>
         {
             {AcuteAngle, AngleRadians.Right + AcuteAngle, -0.5, AngleRadians.Zero},
             {AcuteAngle, AngleRadians.Right + AcuteAngle, 0.0, AcuteAngle},
@@ -471,7 +570,7 @@ namespace NetFabric.UnitTests
             result.Should().Be(expected);
         }
 
-        public static TheoryData<AngleRadians, string> ToStringData = new TheoryData<AngleRadians, string>
+        public static TheoryData<AngleRadians, string> ToStringData => new TheoryData<AngleRadians, string>
         {
             {AngleRadians.Straight, "3.14159265358979"},
         };
@@ -494,7 +593,7 @@ namespace NetFabric.UnitTests
             result.Should().Be(expected);
         }
 
-        public static TheoryData<AngleRadians, string, string> ToStringFormatData = new TheoryData<AngleRadians, string, string>
+        public static TheoryData<AngleRadians, string, string> ToStringFormatData => new TheoryData<AngleRadians, string, string>
         {
             {AngleRadians.Straight, "0.00", "3.14"},
         };
@@ -517,7 +616,7 @@ namespace NetFabric.UnitTests
             result.Should().Be(expected);
         }
 
-        public static TheoryData<AngleRadians, string, CultureInfo, string> ToStringFormatCultureData = new TheoryData<AngleRadians, string, CultureInfo, string>
+        public static TheoryData<AngleRadians, string, CultureInfo, string> ToStringFormatCultureData => new TheoryData<AngleRadians, string, CultureInfo, string>
         {
             {AngleRadians.Straight, "0.00", new CultureInfo("pt-PT"), "3,14"},
         };

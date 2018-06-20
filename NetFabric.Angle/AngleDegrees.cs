@@ -136,7 +136,7 @@ namespace NetFabric
                 case AngleDegrees angle:
                     return Degrees.CompareTo(angle.Degrees);
                 default:
-                    throw new ArgumentException("Argument has to be an DegreesAngle.", nameof(obj));
+                    throw new ArgumentException($"Argument has to be an {nameof(AngleDegrees)}.", nameof(obj));
             }
         }
 

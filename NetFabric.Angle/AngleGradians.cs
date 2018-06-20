@@ -141,7 +141,7 @@ namespace NetFabric
                 case AngleGradians angle:
                     return Gradians.CompareTo(angle.Gradians);
                 default:
-                    throw new ArgumentException("Argument has to be an GradiansAngle.", nameof(obj));
+                    throw new ArgumentException($"Argument has to be an {nameof(AngleGradians)}.", nameof(obj));
             }
         }
 

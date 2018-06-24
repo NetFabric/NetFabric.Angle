@@ -9,6 +9,54 @@ namespace NetFabric.UnitTests
     {
         static readonly AngleGradians AcuteAngle = AngleGradians.Right / 2.0;
 
+        public static TheoryData<AngleRadians, AngleGradians> AngleRadiansData = new TheoryData<AngleRadians, AngleGradians>
+        {
+            { -AngleRadians.Full, -AngleGradians.Full },
+            { -AngleRadians.Straight, -AngleGradians.Straight },
+            { -AngleRadians.Right, -AngleGradians.Right },
+            { AngleRadians.Zero, AngleGradians.Zero },
+            { AngleRadians.Right, AngleGradians.Right },
+            { AngleRadians.Straight, AngleGradians.Straight },
+            { AngleRadians.Full, AngleGradians.Full },
+        };
+
+        [Theory]
+        [MemberData(nameof(AngleRadiansData))]
+        public void ToGradians_When_AngleRadians_Should_Succeed(AngleRadians value, AngleGradians expected)
+        {
+            // arrange
+
+            // act
+            var angle = Angle.ToGradians(value);
+
+            // assert
+            angle.Should().BeOfType<AngleGradians>().And.Be(expected);
+        }
+
+        public static TheoryData<AngleDegrees, AngleGradians> AngleDegreesData = new TheoryData<AngleDegrees, AngleGradians>
+        {
+            { -AngleDegrees.Full, -AngleGradians.Full },
+            { -AngleDegrees.Straight, -AngleGradians.Straight },
+            { -AngleDegrees.Right, -AngleGradians.Right },
+            { AngleDegrees.Zero, AngleGradians.Zero },
+            { AngleDegrees.Right, AngleGradians.Right },
+            { AngleDegrees.Straight, AngleGradians.Straight },
+            { AngleDegrees.Full, AngleGradians.Full },
+        };
+
+        [Theory]
+        [MemberData(nameof(AngleDegreesData))]
+        public void ToGradians_When_AngleDegrees_Should_Succeed(AngleDegrees value, AngleGradians expected)
+        {
+            // arrange
+
+            // act
+            var angle = Angle.ToGradians(value);
+
+            // assert
+            angle.Should().BeOfType<AngleGradians>().And.Be(expected);
+        }
+
         public static TheoryData<AngleGradians, object, bool, bool, bool> CompareInvalidData => new TheoryData<AngleGradians, object, bool, bool, bool>
         {
             { AngleGradians.Right, null, false, false, false },

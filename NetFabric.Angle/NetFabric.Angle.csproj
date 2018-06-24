@@ -30,12 +30,11 @@
     <EmbeddedResource Remove="Platforms\**" />
     <None Remove="Enumerables\**" />
     <None Remove="Platforms\**" />
-    <Compile Remove="AngleDegreesMinutes.cs" />
     <Compile Remove="AngleRangeAttribute.cs" />
     <Compile Remove="DegreesMinutesSecondsAngle.cs" />
   </ItemGroup>
 
-  <ItemGroup  Condition=" '$(TargetFramework)' == 'net35' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
     <Compile Include="Platforms\Serializable\AngleSerializable.cs" />
   </ItemGroup>
   

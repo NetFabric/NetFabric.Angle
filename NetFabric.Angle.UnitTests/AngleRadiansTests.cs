@@ -57,6 +57,30 @@ namespace NetFabric.UnitTests
             angle.Should().BeOfType<AngleRadians>().And.Be(expected);
         }
 
+        public static TheoryData<AngleDegreesMinutes, AngleRadians> AngleDegreesMinutesData = new TheoryData<AngleDegreesMinutes, AngleRadians>
+        {
+            { -AngleDegreesMinutes.Full, -AngleRadians.Full },
+            { -AngleDegreesMinutes.Straight, -AngleRadians.Straight },
+            { -AngleDegreesMinutes.Right, -AngleRadians.Right },
+            { AngleDegreesMinutes.Zero, AngleRadians.Zero },
+            { AngleDegreesMinutes.Right, AngleRadians.Right },
+            { AngleDegreesMinutes.Straight, AngleRadians.Straight },
+            { AngleDegreesMinutes.Full, AngleRadians.Full },
+        };
+
+        [Theory]
+        [MemberData(nameof(AngleDegreesMinutesData))]
+        public void ToRadians_When_AngleDegreesMinutes_Should_Succeed(AngleDegreesMinutes value, AngleRadians expected)
+        {
+            // arrange
+
+            // act
+            var angle = Angle.ToRadians(value);
+
+            // assert
+            angle.Should().BeOfType<AngleRadians>().And.Be(expected);
+        }
+
         public static TheoryData<AngleRadians, object, bool, bool, bool> CompareInvalidData => new TheoryData<AngleRadians, object, bool, bool, bool>
         {
             { AngleRadians.Right, null, false, false, false },
@@ -297,8 +321,8 @@ namespace NetFabric.UnitTests
             { AngleRadians.Full + AngleRadians.Straight, AngleRadians.Straight },
 
             { -AngleRadians.Full, AngleRadians.Zero },
-            {- AcuteAngle, AcuteAngle },
-            { -AngleRadians.Right, AngleRadians.Right },
+            { -AcuteAngle, AngleRadians.Full - AcuteAngle },
+            { -AngleRadians.Right, AngleRadians.Full - AngleRadians.Right },
             { -AngleRadians.Straight, AngleRadians.Straight },
             { -AngleRadians.Straight - AngleRadians.Right, AngleRadians.Right },
         };

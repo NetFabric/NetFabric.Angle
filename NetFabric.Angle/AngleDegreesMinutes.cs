@@ -50,7 +50,7 @@ namespace NetFabric
 
         internal AngleDegreesMinutes(double degrees)
         {
-            Degrees = (int)degrees;
+            Degrees = (int)Math.Floor(degrees);
             Minutes = Math.Abs(degrees - Degrees) * 60.0;
         }
 
@@ -148,7 +148,7 @@ namespace NetFabric
                 case AngleDegreesMinutes angle:
                     return Angle.Compare(this, angle);
                 default:
-                    throw new ArgumentException("Argument has to be of type DegreesMinutesAngle.", nameof(obj));
+                    throw new ArgumentException($"Argument has to be an {nameof(AngleDegreesMinutes)}.", nameof(obj));
             }
         }
 
@@ -170,8 +170,11 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the addition.</returns>
-        public static AngleDegreesMinutes operator +(AngleDegreesMinutes left, AngleDegreesMinutes right) =>
-            new AngleDegreesMinutes(left.DegreesMinutes + right.DegreesMinutes);
+        public static AngleDegreesMinutes operator +(AngleDegreesMinutes left, AngleDegreesMinutes right)
+        {
+            var totalMinutes = left.Minutes + right.Minutes;
+            return new AngleDegreesMinutes(left.Degrees + right.Degrees + (int)Math.Floor(totalMinutes / 60.0), totalMinutes % 60.0);
+        }
 
         /// <summary>
         /// Subtracts a angle from a angle.  
@@ -179,8 +182,11 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the subtraction.</returns>
-        public static AngleDegreesMinutes operator -(AngleDegreesMinutes left, AngleDegreesMinutes right) =>
-            new AngleDegreesMinutes(left.DegreesMinutes - right.DegreesMinutes);
+        public static AngleDegreesMinutes operator -(AngleDegreesMinutes left, AngleDegreesMinutes right)
+        {
+            var totalMinutes = left.Minutes - right.Minutes;
+            return new AngleDegreesMinutes(left.Degrees - right.Degrees + (int)Math.Floor(totalMinutes / 60.0), totalMinutes % 60.0);
+        }
 
         /// <summary>
         /// Multiplies a scalar by an angle value. 
@@ -188,8 +194,11 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
-        public static AngleDegreesMinutes operator *(double left, AngleDegreesMinutes right) =>
-            new AngleDegreesMinutes(left * right.DegreesMinutes);
+        public static AngleDegreesMinutes operator *(double left, AngleDegreesMinutes right)
+        {
+            var totalMinutes = left * right.Minutes;
+            return new AngleDegreesMinutes((int)Math.Floor(left * right.Degrees + totalMinutes / 60.0), totalMinutes % 60.0);
+        }
 
         /// <summary>
         /// Divides a angle by a scalar value. 
@@ -197,8 +206,11 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Scalar value.</param>
         /// <returns>Result of the division.</returns>
-        public static AngleDegreesMinutes operator /(AngleDegreesMinutes left, double right) =>
-            new AngleDegreesMinutes(left.DegreesMinutes / right);
+        public static AngleDegreesMinutes operator /(AngleDegreesMinutes left, double right)
+        {
+            var totalMinutes = left.Minutes / right;
+            return new AngleDegreesMinutes((int)Math.Floor(left.Degrees / right + totalMinutes / 60.0), totalMinutes % 60.0);
+        }
 
         #endregion
 
@@ -210,7 +222,7 @@ namespace NetFabric
         /// <param name="format">A string that specifies the format to be used for the returned string.</param>
         /// <returns>A string representation of the value of the current DegreesMinutesAngle object, in the specified format.</returns>
         public string ToString(string format) =>
-            DegreesMinutes.ToString(format);
+            $"{Degrees}° {Minutes.ToString(format)}'";
 
         /// <summary>
         /// Converts the value of the current DegreesMinutesAngle object to its equivalent string representation using the specified format and culture-specific format information.
@@ -219,7 +231,7 @@ namespace NetFabric
         /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>A string representation of value of the current DegreesMinutesAngle object as specified by format and provider.</returns>
         public string ToString(string format, IFormatProvider formatProvider) =>
-            DegreesMinutes.ToString(format, formatProvider);
+            $"{Degrees}° {Minutes.ToString(format, formatProvider)}'";
 
         #endregion
 
@@ -273,7 +285,7 @@ namespace NetFabric
         internal const int FullAngle = 360;
 
         internal static double Reduce(int degrees, double minutes) =>
-            Utils.Reduce(degrees, FullAngle);
+            Utils.Reduce(GetDegreesAngle(degrees, minutes), FullAngle);
 
         internal static Quadrant GetQuadrant(int degrees, double minutes) =>
             Utils.GetQuadrant(degrees, RightAngle, StraightAngle, FullAngle);
@@ -382,7 +394,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns></returns>
         public static AngleDegreesMinutes Reduce(AngleDegreesMinutes angle) =>
-            new AngleDegreesMinutes(AngleDegreesMinutes.Reduce(angle.DegreesMinutes));
+            new AngleDegreesMinutes(AngleDegreesMinutes.Reduce(angle.Degrees, angle.Minutes));
 
         /// <summary>
         /// Returns the quadrant where the terminal side of the angle is in when in the standard position.
@@ -390,7 +402,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
         public static Quadrant GetQuadrant(AngleDegreesMinutes angle) =>
-            AngleDegreesMinutes.GetQuadrant(angle.DegreesMinutes);
+            AngleDegreesMinutes.GetQuadrant(angle.Degrees, angle.Minutes);
 
         /// <summary>
         /// Returns the reference angle.
@@ -398,7 +410,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>The reference angle.</returns>
         public static AngleDegreesMinutes GetReference(AngleDegreesMinutes angle) =>
-            new AngleDegreesMinutes(AngleDegreesMinutes.GetReference(angle.DegreesMinutes));
+            new AngleDegreesMinutes(AngleDegreesMinutes.GetReference(angle.Degrees, angle.Minutes));
 
         #endregion
 
@@ -444,7 +456,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
         public static int CompareReduced(AngleDegreesMinutes a1, AngleDegreesMinutes a2) =>
-            AngleDegreesMinutes.Reduce(a1.DegreesMinutes).CompareTo(AngleDegreesMinutes.Reduce(a2.DegreesMinutes));
+            AngleDegreesMinutes.Reduce(a1.Degrees, a1.Minutes).CompareTo(AngleDegreesMinutes.Reduce(a2.Degrees, a2.Minutes));
 
         #endregion
 
@@ -465,7 +477,7 @@ namespace NetFabric
         /// <returns>true if the reduction of the absolute angle is greater than zero and less than 90 degrees; otherwise false.</returns>
         public static bool IsAcute(AngleDegreesMinutes angle)
         {
-            var reduced = AngleDegreesMinutes.Reduce(Math.Abs(angle.DegreesMinutes));
+            var reduced = AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees), angle.Minutes);
             return reduced > 0.0 && reduced < AngleDegreesMinutes.RightAngle;
         }
 
@@ -475,7 +487,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 90 degrees; otherwise false.</returns>
         public static bool IsRight(AngleDegreesMinutes angle) =>
-            AngleDegreesMinutes.Reduce(Math.Abs(angle.DegreesMinutes)) == AngleDegreesMinutes.RightAngle;
+            AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees), angle.Minutes) == AngleDegreesMinutes.RightAngle;
 
         /// <summary>
         /// Indicates whether the specified angle is obtuse.
@@ -484,7 +496,7 @@ namespace NetFabric
         /// <returns>true if the reduction of the absolute angle is greater than 90 degrees and less than 180 degrees; otherwise false.</returns>
         public static bool IsObtuse(AngleDegreesMinutes angle)
         {
-            var reduced = AngleDegreesMinutes.Reduce(Math.Abs(angle.DegreesMinutes));
+            var reduced = AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees), angle.Minutes);
             return reduced > AngleDegreesMinutes.RightAngle && reduced < AngleDegreesMinutes.StraightAngle;
         }
 
@@ -494,7 +506,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
         public static bool IsStraight(AngleDegreesMinutes angle) =>
-            AngleDegreesMinutes.Reduce(Math.Abs(angle.DegreesMinutes)) == AngleDegreesMinutes.StraightAngle;
+            AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees), angle.Minutes) == AngleDegreesMinutes.StraightAngle;
 
         /// <summary>
         /// Indicates whether the specified angle is reflex.
@@ -502,7 +514,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is greater than 180 degrees and less than 360 degrees; otherwise false.</returns>
         public static bool IsReflex(AngleDegreesMinutes angle) =>
-            AngleDegreesMinutes.Reduce(Math.Abs(angle.DegreesMinutes)) > AngleDegreesMinutes.StraightAngle;
+            AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees), angle.Minutes) > AngleDegreesMinutes.StraightAngle;
 
         /// <summary>
         /// Indicates whether the specified angle is oblique.
@@ -510,7 +522,21 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the angle is not right or a multiple of a right angle; otherwise false.</returns>
         public static bool IsOblique(AngleDegreesMinutes angle) =>
-            angle.DegreesMinutes % AngleDegreesMinutes.RightAngle != 0.0;
+            angle.Degrees % AngleDegreesMinutes.RightAngle != 0.0;
+
+        #endregion
+
+        #region lerp
+
+        /// <summary>
+        /// Performs a linear interpolation.
+        /// </summary>
+        /// <param name="a1">The first angle.</param>
+        /// <param name="a2">The second angle.</param>
+        /// <param name="t">A value that linearly interpolates between the a1 parameter and the a2 parameter.</param>
+        /// <returns>The result of the linear interpolation.</returns>
+        public static AngleDegreesMinutes Lerp(AngleDegreesMinutes a1, AngleDegreesMinutes a2, double t) =>
+            new AngleDegreesMinutes(Utils.Lerp(AngleDegreesMinutes.GetDegreesAngle(a1.Degrees, a1.Minutes), AngleDegreesMinutes.GetDegreesAngle(a2.Degrees, a2.Minutes), t));
 
         #endregion
 
@@ -534,8 +560,11 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the addition.</returns>
-        public static AngleDegreesMinutes Add(AngleDegreesMinutes left, AngleDegreesMinutes right) =>
-            new AngleDegreesMinutes(left.DegreesMinutes + right.DegreesMinutes);
+        public static AngleDegreesMinutes Add(AngleDegreesMinutes left, AngleDegreesMinutes right)
+        {
+            var totalMinutes = left.Minutes + right.Minutes;
+            return new AngleDegreesMinutes(left.Degrees + right.Degrees + (int)Math.Floor(totalMinutes / 60.0), totalMinutes % 60.0);
+        }
 
         #endregion
 
@@ -547,8 +576,11 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the subtraction.</returns>
-        public static AngleDegreesMinutes Subtract(AngleDegreesMinutes left, AngleDegreesMinutes right) =>
-            new AngleDegreesMinutes(left.DegreesMinutes - right.DegreesMinutes);
+        public static AngleDegreesMinutes Subtract(AngleDegreesMinutes left, AngleDegreesMinutes right)
+        {
+            var totalMinutes = left.Minutes - right.Minutes;
+            return new AngleDegreesMinutes(left.Degrees - right.Degrees + (int)Math.Floor(totalMinutes / 60.0), totalMinutes % 60.0);
+        }
 
         #endregion
 
@@ -560,8 +592,11 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
-        public static AngleDegreesMinutes Multiply(double left, AngleDegreesMinutes right) =>
-            new AngleDegreesMinutes(left * right.DegreesMinutes);
+        public static AngleDegreesMinutes Multiply(double left, AngleDegreesMinutes right)
+        {
+            var totalMinutes = left * right.Minutes;
+            return new AngleDegreesMinutes((int)Math.Floor(left * right.Degrees + totalMinutes / 60.0), totalMinutes % 60.0);
+        }
 
         #endregion
 
@@ -573,8 +608,11 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Scalar value.</param>
         /// <returns>Result of the division.</returns>
-        public static AngleDegreesMinutes Divide(AngleDegreesMinutes left, double right) =>
-            new AngleDegreesMinutes(left.DegreesMinutes / right);
+        public static AngleDegreesMinutes Divide(AngleDegreesMinutes left, double right)
+        {
+            var totalMinutes = left.Minutes / right;
+            return new AngleDegreesMinutes((int)Math.Floor(left.Degrees / right + totalMinutes / 60.0), totalMinutes % 60.0);
+        }
 
         #endregion
 

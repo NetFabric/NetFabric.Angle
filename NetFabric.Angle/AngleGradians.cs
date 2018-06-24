@@ -14,11 +14,6 @@ namespace NetFabric
         public static readonly AngleGradians Zero = new AngleGradians(0.0);
 
         /// <summary>
-        /// Represents the golden GradiansAngle value (~137.508 degrees). This field is read-only.
-        /// </summary>
-        public static readonly AngleGradians Golden = Angle.ToGradians(AngleRadians.Golden);
-
-        /// <summary>
         /// Represents the smallest possible value of a GradiansAngle. This field is read-only.
         /// </summary>
         public static readonly AngleGradians MinValue = new AngleGradians(double.MinValue);

@@ -26,7 +26,7 @@ namespace NetFabric
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleRadians ToRadians(AngleDegreesMinutes angle) =>
-            new AngleRadians(AngleDegreesMinutes.GetDegreesAngle(angle.Degrees, angle.Minutes) / DegreesInRadians);
+            new AngleRadians(AngleDegreesMinutes.GetDegreesAngle(angle) / DegreesInRadians);
 
         /// <summary>
         /// Returns an RadiansAngle that represents the equivalent to the GradiansAngle.
@@ -50,7 +50,7 @@ namespace NetFabric
         /// <param name = "angle" > An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleDegrees ToDegrees(AngleDegreesMinutes angle) =>
-            new AngleDegrees(AngleDegreesMinutes.GetDegreesAngle(angle.Degrees, angle.Minutes));
+            new AngleDegrees(AngleDegreesMinutes.GetDegreesAngle(angle));
 
         /// <summary>
         /// Returns an DegreessAngle that represents the equivalent to the GradiansAngle.
@@ -82,7 +82,7 @@ namespace NetFabric
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleGradians ToGradians(AngleDegreesMinutes angle) =>
-            new AngleGradians(AngleDegreesMinutes.GetDegreesAngle(angle.Degrees, angle.Minutes) * GradiansInDegrees);
+            new AngleGradians(AngleDegreesMinutes.GetDegreesAngle(angle) * GradiansInDegrees);
 
         /// <summary>
         /// Returns an DegreesMinutesAngle that represents the equivalent to the RadiansAngle.

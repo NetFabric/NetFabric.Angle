@@ -290,11 +290,17 @@ namespace NetFabric
         internal static Quadrant GetQuadrant(int degrees) =>
             Utils.GetQuadrant(degrees, RightAngle, StraightAngle, FullAngle);
 
-        internal static double GetReference(int degrees, double minutes) =>
-            Utils.GetReference(GetDegreesAngle(degrees, minutes), RightAngle, StraightAngle, FullAngle);
+        internal static double GetReference(in AngleDegreesMinutes angle) =>
+            Utils.GetReference(GetDegreesAngle(angle), RightAngle, StraightAngle, FullAngle);
 
-        internal static double GetDegreesAngle(int degrees, double minutes) =>
-            Math.Sign(degrees) < 0 ? degrees - minutes / 60.0 : degrees + minutes / 60.0;
+        internal static double GetDegreesAngle(in AngleDegreesMinutes angle) =>
+            Math.Sign(angle.Degrees) < 0 ? angle.Degrees - angle.Minutes / 60.0 : angle.Degrees + angle.Minutes / 60.0;
+
+        internal static bool InRangeReduced(in AngleDegreesMinutes angle, in AngleDegreesMinutes min, in AngleDegreesMinutes max)
+        {
+            var reduced = Math.Abs(AngleDegreesMinutes.Reduce(angle.Degrees));
+            return (reduced > min.Degrees || reduced == min.Degrees && angle.Minutes > 0.0) && reduced < max.Degrees;
+        }
     }
 
     public static partial class Angle
@@ -475,11 +481,8 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is greater than zero and less than 90 degrees; otherwise false.</returns>
-        public static bool IsAcute(AngleDegreesMinutes angle)
-        {
-            var reduced = AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees));
-            return reduced > 0.0 && reduced < AngleDegreesMinutes.RightAngle;
-        }
+        public static bool IsAcute(AngleDegreesMinutes angle) =>
+            AngleDegreesMinutes.InRangeReduced(angle, AngleDegreesMinutes.Zero, AngleDegreesMinutes.RightAngle);
 
         /// <summary>
         /// Indicates whether the specified angle is right.
@@ -496,8 +499,8 @@ namespace NetFabric
         /// <returns>true if the reduction of the absolute angle is greater than 90 degrees and less than 180 degrees; otherwise false.</returns>
         public static bool IsObtuse(AngleDegreesMinutes angle)
         {
-            var reduced = AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees), angle.Minutes);
-            return reduced > AngleDegreesMinutes.RightAngle && reduced < AngleDegreesMinutes.StraightAngle;
+            var reduced = Math.Abs(AngleDegreesMinutes.Reduce(angle.Degrees));
+            return (reduced > AngleDegreesMinutes.RightAngle || reduced == AngleDegreesMinutes.RightAngle && angle.Minutes > 0.0) && reduced < AngleDegreesMinutes.StraightAngle;
         }
 
         /// <summary>

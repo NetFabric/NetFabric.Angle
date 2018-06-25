@@ -284,14 +284,14 @@ namespace NetFabric
         internal const int StraightAngle = 180;
         internal const int FullAngle = 360;
 
-        internal static double Reduce(int degrees, double minutes) =>
-            Utils.Reduce(GetDegreesAngle(degrees, minutes), FullAngle);
+        internal static int Reduce(int degrees) =>
+            Utils.Reduce(degrees, FullAngle);
 
-        internal static Quadrant GetQuadrant(int degrees, double minutes) =>
+        internal static Quadrant GetQuadrant(int degrees) =>
             Utils.GetQuadrant(degrees, RightAngle, StraightAngle, FullAngle);
 
         internal static double GetReference(int degrees, double minutes) =>
-            Utils.GetReference(degrees, RightAngle, StraightAngle, FullAngle);
+            Utils.GetReference(GetDegreesAngle(degrees, minutes), RightAngle, StraightAngle, FullAngle);
 
         internal static double GetDegreesAngle(int degrees, double minutes) =>
             Math.Sign(degrees) < 0 ? degrees - minutes / 60.0 : degrees + minutes / 60.0;
@@ -394,7 +394,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns></returns>
         public static AngleDegreesMinutes Reduce(AngleDegreesMinutes angle) =>
-            new AngleDegreesMinutes(AngleDegreesMinutes.Reduce(angle.Degrees, angle.Minutes));
+            new AngleDegreesMinutes(AngleDegreesMinutes.Reduce(angle.Degrees), angle.Minutes);
 
         /// <summary>
         /// Returns the quadrant where the terminal side of the angle is in when in the standard position.
@@ -402,7 +402,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
         public static Quadrant GetQuadrant(AngleDegreesMinutes angle) =>
-            AngleDegreesMinutes.GetQuadrant(angle.Degrees, angle.Minutes);
+            AngleDegreesMinutes.GetQuadrant(angle.Degrees);
 
         /// <summary>
         /// Returns the reference angle.
@@ -456,7 +456,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
         public static int CompareReduced(AngleDegreesMinutes a1, AngleDegreesMinutes a2) =>
-            AngleDegreesMinutes.Reduce(a1.Degrees, a1.Minutes).CompareTo(AngleDegreesMinutes.Reduce(a2.Degrees, a2.Minutes));
+            Compare(Reduce(a1), Reduce(a2));
 
         #endregion
 
@@ -477,7 +477,7 @@ namespace NetFabric
         /// <returns>true if the reduction of the absolute angle is greater than zero and less than 90 degrees; otherwise false.</returns>
         public static bool IsAcute(AngleDegreesMinutes angle)
         {
-            var reduced = AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees), angle.Minutes);
+            var reduced = AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees));
             return reduced > 0.0 && reduced < AngleDegreesMinutes.RightAngle;
         }
 
@@ -487,7 +487,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 90 degrees; otherwise false.</returns>
         public static bool IsRight(AngleDegreesMinutes angle) =>
-            AngleDegreesMinutes.Reduce(Math.Abs(angle.Degrees), angle.Minutes) == AngleDegreesMinutes.RightAngle;
+            Math.Abs(AngleDegreesMinutes.Reduce(angle.Degrees)) == AngleDegreesMinutes.RightAngle && angle.Minutes == 0.0;
 
         /// <summary>
         /// Indicates whether the specified angle is obtuse.

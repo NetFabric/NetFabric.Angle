@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
     static class Utils
     {
+        public static int Reduce(int angle, int fullAngle)
+        {
+            var reduced = angle % fullAngle;
+            return reduced >= 0 ? reduced : reduced + fullAngle;
+        }
+
         public static double Reduce(double angle, double fullAngle)
         {
             var reduced = angle % fullAngle;

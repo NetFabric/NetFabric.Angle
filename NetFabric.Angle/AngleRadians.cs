@@ -450,7 +450,7 @@ namespace NetFabric
 
         #endregion
 
-        #region trigonometric functions
+        #region trigonometry functions
 
         /// <summary>
         /// Return the sine of the specified angle.
@@ -461,16 +461,6 @@ namespace NetFabric
             Math.Sin(angle.Radians);
 
         /// <summary>
-        /// Return the sine of the specified angle.
-        /// </summary>
-        /// <param name="angle">An angle.</param>
-        /// <param name="result">The sine of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</param>
-        public static void Sin(ref AngleRadians angle, out double result)
-        {
-            result = Math.Sin(angle.Radians);
-        }
-
-        /// <summary>
         /// Returns the hyperbolic sine of the specified angle.
         /// </summary>
         /// <param name="angle">An angle.</param>
@@ -479,27 +469,14 @@ namespace NetFabric
              Math.Sinh(angle.Radians);
 
         /// <summary>
-        /// Returns the hyperbolic sine of the specified angle.
-        /// </summary>
-        /// <param name="angle">An angle.</param>
-        /// <param name="result">The hyperbolic sine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an RadiansAngle equal to value.</param>
-        public static void Sinh(ref AngleRadians angle, out double result)
-        {
-            result = Math.Sinh(angle.Radians);
-        }
-
-        /// <summary>
         /// Returns the angle whose sine is the specified number.
         /// </summary>
         /// <param name="value">A number representing a sine, where value must be greater than or equal to -1, but less than or equal to 1.</param>
         /// <returns>The angle whose sine is the specified number.</returns>
-        public static AngleRadians Asin(double value)
-        {
-            if (value < -1.0 || value > 1.0)
+        public static AngleRadians Asin(double value) => 
+            value >= -1.0 && value <= 1.0 ?
+                new AngleRadians(Math.Asin(value)) :
                 throw new ArgumentOutOfRangeException(nameof(value), value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
-
-            return new AngleRadians(Math.Asin(value));
-        }
 
         /// <summary>
         /// Return the cosine of the specified angle.
@@ -522,13 +499,10 @@ namespace NetFabric
         /// </summary>
         /// <param name="value">A number representing a cosine, where value must be greater than or equal to -1, but less than or equal to 1.</param>
         /// <returns>The angle whose cosine is the specified number.</returns>
-        public static AngleRadians Acos(double value)
-        {
-            if (value < -1.0 || value > 1.0)
+        public static AngleRadians Acos(double value) =>
+            value >= -1.0 && value <= 1.0 ?
+                new AngleRadians(Math.Acos(value)) :
                 throw new ArgumentOutOfRangeException(nameof(value), value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
-
-            return new AngleRadians(Math.Acos(value));
-        }
 
         /// <summary>
         /// Returns the tangent of the specified angle.

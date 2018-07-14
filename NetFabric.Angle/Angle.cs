@@ -25,7 +25,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
-        public static AngleRadians ToRadians(AngleDegreesMinutes angle) =>
+        public static AngleRadians ToRadians(in AngleDegreesMinutes angle) =>
             new AngleRadians(AngleDegreesMinutes.GetDegreesAngle(angle) / DegreesInRadians);
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace NetFabric
         /// </summary>
         /// <param name = "angle" > An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
-        public static AngleDegrees ToDegrees(AngleDegreesMinutes angle) =>
+        public static AngleDegrees ToDegrees(in AngleDegreesMinutes angle) =>
             new AngleDegrees(AngleDegreesMinutes.GetDegreesAngle(angle));
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
-        public static AngleGradians ToGradians(AngleDegreesMinutes angle) =>
+        public static AngleGradians ToGradians(in AngleDegreesMinutes angle) =>
             new AngleGradians(AngleDegreesMinutes.GetDegreesAngle(angle) * GradiansInDegrees);
 
         /// <summary>

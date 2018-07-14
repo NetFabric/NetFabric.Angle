@@ -83,7 +83,7 @@ namespace NetFabric
         /// <param name="other">An DegreesAngle to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleDegrees.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
-        public bool Equals(AngleDegrees other) =>
+        bool IEquatable<AngleDegrees>.Equals(AngleDegrees other) =>
             Degrees == other.Degrees;
 
         #endregion
@@ -296,13 +296,8 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is smaller.</returns>
-        public static ref readonly AngleDegrees Min(in AngleDegrees left, in AngleDegrees right)
-        {
-            if (left.Degrees < right.Degrees)
-                return ref left;
-
-            return ref right;
-        }
+        public static AngleDegrees Min(AngleDegrees left, AngleDegrees right) =>
+            left.Degrees < right.Degrees ? left: right;
 
         #endregion
 
@@ -314,13 +309,8 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
-        public static ref readonly AngleDegrees Max(in AngleDegrees left, in AngleDegrees right)
-        {
-            if (left.Degrees > right.Degrees)
-                return ref left;
-
-            return ref right;
-        }
+        public static AngleDegrees Max(AngleDegrees left, AngleDegrees right) =>
+            left.Degrees > right.Degrees ? left: right;
 
         #endregion
 

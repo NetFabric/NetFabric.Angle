@@ -296,13 +296,8 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is smaller.</returns>
-        public static ref readonly AngleGradians Min(in AngleGradians left, in AngleGradians right)
-        {
-            if (left.Gradians < right.Gradians)
-                return ref left;
-
-            return ref right;
-        }
+        public static AngleGradians Min(AngleGradians left, AngleGradians right) =>
+            left.Gradians < right.Gradians ? left : right;
 
         #endregion
 
@@ -314,13 +309,9 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
-        public static ref readonly AngleGradians Max(in AngleGradians left, in AngleGradians right)
-        {
-            if (left.Gradians > right.Gradians)
-                return ref left;
+        public static AngleGradians Max(AngleGradians left, AngleGradians right) =>
+            left.Gradians > right.Gradians ? left : right;
 
-            return ref right;
-        }
 
         #endregion
 

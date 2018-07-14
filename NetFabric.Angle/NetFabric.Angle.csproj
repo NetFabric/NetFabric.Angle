@@ -37,6 +37,11 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
     <Compile Include="Platforms\Serializable\AngleSerializable.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ErrorProne.NET.Structs" Version="0.1.0" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.3.0.5690" />
+  </ItemGroup>
   
   <!--
   

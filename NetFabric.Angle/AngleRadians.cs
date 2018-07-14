@@ -89,7 +89,7 @@ namespace NetFabric
         /// <param name="other">An RadiansAngle to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleRadians.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
-        bool IEquatable<AngleRadians>.Equals(AngleRadians other) =>
+        public bool Equals(AngleRadians other) =>
             Radians == other.Radians;
 
         #endregion

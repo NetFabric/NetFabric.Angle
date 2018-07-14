@@ -13,7 +13,7 @@ namespace NetFabric
         const double GradiansInDegrees = AngleGradians.FullAngle / AngleDegrees.FullAngle;
 
         /// <summary>
-        /// Returns an RadiansAngle that represents the equivalent to the DegreesAngle.
+        /// Returns an AngleRadians that represents the equivalent to the AngleDegrees.
         /// </summary>
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
@@ -21,23 +21,31 @@ namespace NetFabric
             new AngleRadians(angle.Degrees / DegreesInRadians);
 
         /// <summary>
-        /// Returns an RadiansAngle that represents the equivalent to the DegreesAngle.
+        /// Returns an AngleRadians that represents the equivalent to the AngleDegreesMinutes.
         /// </summary>
-        /// <param name="angle">An angle in degrees.</param>
+        /// <param name="angle">An angle in degrees and minutes.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleRadians ToRadians(in AngleDegreesMinutes angle) =>
             new AngleRadians(AngleDegreesMinutes.GetDegreesAngle(angle) / DegreesInRadians);
 
         /// <summary>
-        /// Returns an RadiansAngle that represents the equivalent to the GradiansAngle.
+        /// Returns an AngleRadians that represents the equivalent to the AngleDegreesMinutesSeconds.
         /// </summary>
-        /// <param name="angle">An angle in degrees.</param>
+        /// <param name="angle">An angle in degrees, minutes and seconds.</param>
+        /// <returns>An object that represents value.</returns>
+        public static AngleRadians ToRadians(in AngleDegreesMinutesSeconds angle) =>
+            new AngleRadians(AngleDegreesMinutesSeconds.GetDegreesAngle(angle) / DegreesInRadians);
+
+        /// <summary>
+        /// Returns an AngleRadians that represents the equivalent to the AngleGradians.
+        /// </summary>
+        /// <param name="angle">An angle in gradinas.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleRadians ToRadians(AngleGradians angle) =>
             new AngleRadians(angle.Gradians / GradiansInRadians);
 
         /// <summary>
-        /// Returns an DegreessAngle that represents the equivalent to the RadiansAngle.
+        /// Returns an AngleDegrees that represents the equivalent to the AngleRadians.
         /// </summary>
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
@@ -45,23 +53,31 @@ namespace NetFabric
             new AngleDegrees(angle.Radians * DegreesInRadians);
 
         /// <summary>
-        /// Returns an DegreesAngle that represents the equivalent to the DegreesMinutesAngle.
+        /// Returns an AngleDegrees that represents the equivalent to the AngleDegreesMinutes.
         /// </summary>
-        /// <param name = "angle" > An angle in degrees.</param>
+        /// <param name = "angle" > An angle in degrees and minutes.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleDegrees ToDegrees(in AngleDegreesMinutes angle) =>
             new AngleDegrees(AngleDegreesMinutes.GetDegreesAngle(angle));
 
         /// <summary>
-        /// Returns an DegreessAngle that represents the equivalent to the GradiansAngle.
+        /// Returns an AngleDegrees that represents the equivalent to the AngleDegreesMinutesSeconds.
         /// </summary>
-        /// <param name="angle">An angle in radians.</param>
+        /// <param name = "angle" > An angle in degrees, minutes and seconds.</param>
+        /// <returns>An object that represents value.</returns>
+        public static AngleDegrees ToDegrees(in AngleDegreesMinutesSeconds angle) =>
+            new AngleDegrees(AngleDegreesMinutesSeconds.GetDegreesAngle(angle));
+
+        /// <summary>
+        /// Returns an AngleDegrees that represents the equivalent to the AngleGradians.
+        /// </summary>
+        /// <param name="angle">An angle in gradians.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleDegrees ToDegrees(AngleGradians angle) =>
             new AngleDegrees(angle.Gradians / GradiansInDegrees);
 
         /// <summary>
-        /// Returns an GradianssAngle that represents the equivalent to the RadiansAngle.
+        /// Returns an AngleGradians that represents the equivalent to the AngleRadians.
         /// </summary>
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
@@ -69,66 +85,91 @@ namespace NetFabric
             new AngleGradians(angle.Radians * GradiansInRadians);
 
         /// <summary>
-        /// Returns an GradianssAngle that represents the equivalent to the DegreesAngle.
+        /// Returns an AngleGradians that represents the equivalent to the AngleDegrees.
         /// </summary>
-        /// <param name="angle">An angle in radians.</param>
+        /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleGradians ToGradians(AngleDegrees angle) =>
             new AngleGradians(angle.Degrees * GradiansInDegrees);
 
         /// <summary>
-        /// Returns an GradiansAngle that represents the equivalent to the DegreesMinutesAngle.
+        /// Returns an AngleGradians that represents the equivalent to the AngleDegreesMinutes.
         /// </summary>
-        /// <param name="angle">An angle in degrees.</param>
+        /// <param name="angle">An angle in degrees and minutes.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleGradians ToGradians(in AngleDegreesMinutes angle) =>
             new AngleGradians(AngleDegreesMinutes.GetDegreesAngle(angle) * GradiansInDegrees);
 
         /// <summary>
-        /// Returns an DegreesMinutesAngle that represents the equivalent to the RadiansAngle.
+        /// Returns an AngleGradians that represents the equivalent to the AngleDegreesMinutesSeconds.
         /// </summary>
-        /// <param name="value">A number of gradians.</param>
+        /// <param name="angle">An angle in degrees, minutes and seconds.</param>
         /// <returns>An object that represents value.</returns>
-        public static AngleDegreesMinutes ToDegreesMinutes(AngleRadians angle)
-        {
-            return new AngleDegreesMinutes(angle.Radians * DegreesInRadians);
-        }
+        public static AngleGradians ToGradians(in AngleDegreesMinutesSeconds angle) =>
+            new AngleGradians(AngleDegreesMinutesSeconds.GetDegreesAngle(angle) * GradiansInDegrees);
 
         /// <summary>
-        /// Returns an DegreesMinutesAngle that represents the equivalent to the DegreesAngle.
+        /// Returns an AngleDegreesMinutes that represents the equivalent to the AngleRadians.
         /// </summary>
-        /// <param name="value">A number of gradians.</param>
+        /// <param name="value">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
-        public static AngleDegreesMinutes ToDegreesMinutes(AngleDegrees angle)
-        {
-            return new AngleDegreesMinutes(angle.Degrees);
-        }
+        public static AngleDegreesMinutes ToDegreesMinutes(AngleRadians angle) => 
+            new AngleDegreesMinutes(angle.Radians * DegreesInRadians);
 
         /// <summary>
-        /// Returns an DegreesMinutesAngle that represents the equivalent to the GradiansAngle.
+        /// Returns an AngleDegreesMinutes that represents the equivalent to the AngleDegrees.
         /// </summary>
-        /// <param name="value">A number of gradians.</param>
+        /// <param name="value">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
-        public static AngleDegreesMinutes ToDegreesMinutes(AngleGradians angle)
-        {
-            return new AngleDegreesMinutes(angle.Gradians / GradiansInDegrees);
-        }
+        public static AngleDegreesMinutes ToDegreesMinutes(AngleDegrees angle) => 
+            new AngleDegreesMinutes(angle.Degrees);
 
         /// <summary>
-        /// Gets the value of the current Angle structure expressed in degrees, minutes and seconds.
+        /// Returns an AngleDegreesMinutes that represents the equivalent to the AngleGradians.
         /// </summary>
-        /// <param name="degress">The degrees component.</param>
-        /// <param name="minutes">The arcminutes component.</param>
-        /// <param name="seconds">The arcseconds component.</param>
-        //public void ToDegrees(out int degress, out byte minutes, out double seconds)
-        //{
-        //    var decimalDegrees = radians * DegreesByRadians;
-        //    degress = (int)decimalDegrees;
-        //    var decimalMinutes = Math.Abs(decimalDegrees - degress) * 60.0;
-        //    minutes = (int)decimalMinutes;
-        //    seconds = (decimalMinutes - minutes) * 60.0;
-        //}
+        /// <param name="value">An angle in gradians.</param>
+        /// <returns>An object that represents value.</returns>
+        public static AngleDegreesMinutes ToDegreesMinutes(AngleGradians angle) => 
+            new AngleDegreesMinutes(angle.Gradians / GradiansInDegrees);
 
+        /// <summary>
+        /// Returns an AngleDegreesMinutes that represents the equivalent to the AngleDegreesMinutesSeconds.
+        /// </summary>
+        /// <param name="value">An angle in degrees, minutes and seconds.</param>
+        /// <returns>An object that represents value.</returns>
+        public static AngleDegreesMinutes ToDegreesMinutes(in AngleDegreesMinutesSeconds angle) => 
+            new AngleDegreesMinutes(AngleDegreesMinutesSeconds.GetDegreesAngle(angle));
 
+        /// <summary>
+        /// Returns an AngleDegreesMinutesSeconds that represents the equivalent to the AngleRadians.
+        /// </summary>
+        /// <param name="value">An angle in radians.</param>
+        /// <returns>An object that represents value.</returns>
+        public static AngleDegreesMinutesSeconds ToDegreesMinutesSeconds(AngleRadians angle) => 
+            new AngleDegreesMinutesSeconds(angle.Radians * DegreesInRadians);
+
+        /// <summary>
+        /// Returns an AngleDegreesMinutesSeconds that represents the equivalent to the AngleDegrees.
+        /// </summary>
+        /// <param name="value">An angle in degrees.</param>
+        /// <returns>An object that represents value.</returns>
+        public static AngleDegreesMinutesSeconds ToDegreesMinutesSeconds(AngleDegrees angle) => 
+            new AngleDegreesMinutesSeconds(angle.Degrees);
+
+        /// <summary>
+        /// Returns an AngleDegreesMinutesSeconds that represents the equivalent to the AngleGradians.
+        /// </summary>
+        /// <param name="value">An angle in gradians.</param>
+        /// <returns>An object that represents value.</returns>
+        public static AngleDegreesMinutesSeconds ToDegreesMinutesSeconds(AngleGradians angle) => 
+            new AngleDegreesMinutesSeconds(angle.Gradians / GradiansInDegrees);
+
+        /// <summary>
+        /// Returns an AngleDegreesMinutesSeconds that represents the equivalent to the AngleGradians.
+        /// </summary>
+        /// <param name="value">An angle in degrees and minutes.</param>
+        /// <returns>An object that represents value.</returns>
+        public static AngleDegreesMinutesSeconds ToDegreesMinutesSeconds(in AngleDegreesMinutes angle) => 
+            new AngleDegreesMinutesSeconds(angle.Degrees, (int)Math.Floor(angle.Minutes / 60.0), angle.Minutes % 60.0);
     }
 }

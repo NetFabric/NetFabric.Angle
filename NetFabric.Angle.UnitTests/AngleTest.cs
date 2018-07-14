@@ -59,6 +59,75 @@ namespace NetFabric.UnitTests
             angle.Gradians.Should().Be(value);
         }
 
+        public static TheoryData<int, double> DegreesMinutes_InvalidMinutes_Data = new TheoryData<int, double>
+        {
+            { 0, -90.0 },
+            { 0, 90.0 },
+        };
+
+        [Theory]
+        [MemberData(nameof(DegreesMinutes_InvalidMinutes_Data))]
+        public void FromDegreesMinutes_With_InvalidMinutes_Should_Throw(int degrees, double minutes)
+        {
+            // arrange
+
+            // act
+            Action action = () => Angle.FromDegrees(degrees, minutes);
+
+            // assert
+            action.Should()
+                .Throw<ArgumentOutOfRangeException>()
+                .WithMessage($"Argument must be positive and less than 60.{Environment.NewLine}Parameter name: {nameof(minutes)}{Environment.NewLine}Actual value was {minutes}.")
+                .Where(ex => ex.ParamName == nameof(minutes))
+                .Where(ex => (double)ex.ActualValue == minutes);
+        }
+
+        public static TheoryData<int, int, double> DegreesMinutesSeconds_InvalidMinutes_Data = new TheoryData<int, int, double>
+        {
+            { 0, -90, 0 },
+            { 0, 90, 0 },
+        };
+
+        [Theory]
+        [MemberData(nameof(DegreesMinutesSeconds_InvalidMinutes_Data))]
+        public void FromDegreesMinutesSeconds_With_InvalidMinutes_Should_Throw(int degrees, int minutes, double seconds)
+        {
+            // arrange
+
+            // act
+            Action action = () => Angle.FromDegrees(degrees, minutes, seconds);
+
+            // assert
+            action.Should()
+                .Throw<ArgumentOutOfRangeException>()
+                .WithMessage($"Argument must be positive and less than 60.{Environment.NewLine}Parameter name: {nameof(minutes)}{Environment.NewLine}Actual value was {minutes}.")
+                .Where(ex => ex.ParamName == "minutes")
+                .Where(ex => (int)ex.ActualValue == minutes);
+        }
+
+        public static TheoryData<int, int, double> DegreesMinutesSeconds_InvalidSeconds_Data = new TheoryData<int, int, double>
+        {
+            { 0, 0, -90.0 },
+            { 0, 0, 90.0 },
+        };
+
+        [Theory]
+        [MemberData(nameof(DegreesMinutesSeconds_InvalidSeconds_Data))]
+        public void FromDegreesMinutesSeconds_With_InvalidSeconds_Should_Throw(int degrees, int minutes, double seconds)
+        {
+            // arrange
+
+            // act
+            Action action = () => Angle.FromDegrees(degrees, minutes, seconds);
+
+            // assert
+            action.Should()
+                .Throw<ArgumentOutOfRangeException>()
+                .WithMessage($"Argument must be positive and less than 60.{Environment.NewLine}Parameter name: {nameof(seconds)}{Environment.NewLine}Actual value was {seconds}.")
+                .Where(ex => ex.ParamName == "seconds")
+                .Where(ex => (double)ex.ActualValue == seconds);
+        }
+
         /*
         [Fact]
         public void ToString_Should_Succeed()

@@ -98,7 +98,7 @@ namespace NetFabric
         /// <param name="other">An DegreesMinutesAngle to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleDegreesMinutes.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
-        bool IEquatable<AngleDegreesMinutes>.Equals(AngleDegreesMinutes other) =>
+        public bool Equals(AngleDegreesMinutes other) =>
             Degrees == other.Degrees && Minutes == other.Minutes;
 
         #endregion
@@ -380,23 +380,10 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is smaller.</returns>
-        public static ref readonly AngleDegreesMinutes Min(in AngleDegreesMinutes left, in AngleDegreesMinutes right)
-        {
-            // compare degrees component
-
-            if (left.Degrees < right.Degrees)
-                return ref left;
-
-            if (left.Degrees > right.Degrees)
-                return ref right;
-
-            // degrees components are equal, compare minutes component
-
-            if (left.Minutes < right.Minutes)
-                return ref left;
-
-            return ref right;
-        }
+        public static ref readonly AngleDegreesMinutes Min(in AngleDegreesMinutes left, in AngleDegreesMinutes right) =>
+            ref AngleDegreesMinutes.GetDegreesAngle(left) < AngleDegreesMinutes.GetDegreesAngle(right) ? 
+                ref left : 
+                ref right;
 
         #endregion
 
@@ -408,23 +395,10 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
-        public static ref readonly AngleDegreesMinutes Max(in AngleDegreesMinutes left, in AngleDegreesMinutes right)
-        {
-            // compare degrees component
-
-            if (left.Degrees < right.Degrees)
-                return ref right;
-
-            if (left.Degrees > right.Degrees)
-                return ref left;
-
-            // degrees components are equal, compare minutes component
-
-            if (left.Minutes < right.Minutes)
-                return ref right;
-
-            return ref left;
-        }
+        public static ref readonly AngleDegreesMinutes Max(in AngleDegreesMinutes left, in AngleDegreesMinutes right) =>
+            ref AngleDegreesMinutes.GetDegreesAngle(left) < AngleDegreesMinutes.GetDegreesAngle(right) ?
+                ref left :
+                ref right;
 
         #endregion
 

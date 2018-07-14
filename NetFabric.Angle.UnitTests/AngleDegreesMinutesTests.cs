@@ -81,56 +81,56 @@ namespace NetFabric.UnitTests
             angle.Should().BeOfType<AngleDegreesMinutes>().And.Be(expected);
         }
 
-        public static TheoryData<AngleDegreesMinutes, object, bool, bool, bool> CompareInvalidData => new TheoryData<AngleDegreesMinutes, object, bool, bool, bool>
+        public static TheoryData<AngleDegreesMinutes, object, Comparison> CompareInvalidData => new TheoryData<AngleDegreesMinutes, object, Comparison>
         {
-            { AngleDegreesMinutes.Right, null, false, false, false },
-            { AngleDegreesMinutes.Right, 90.0, false, false, false },
+            { AngleDegreesMinutes.Right, null, Comparison.Invalid },
+            { AngleDegreesMinutes.Right, 90.0, Comparison.Invalid },
         };
 
-        public static TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, bool, bool, bool> CompareData => new TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, bool, bool, bool>
+        public static TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, Comparison> CompareData => new TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, Comparison>
         {
-            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-10, 0.001), false, false, true },
-            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-9, 59.999), true, false, false },
-            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(10, 0.001), true, false, false },
-            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(9, 59.999), false, false, true },
+            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-10, 0.001), Comparison.GreaterThan },
+            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-9, 59.999), Comparison.LessThan },
+            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(10, 0.001), Comparison.LessThan },
+            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(9, 59.999), Comparison.GreaterThan },
 
-            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, false, true },
-            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, false, true },
-            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, false, true },
+            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.GreaterThan },
+            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.GreaterThan },
+            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.GreaterThan },
 
-            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right, true, false, false },
-            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right, false, true, false },
-            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right, false, false, true },
+            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right, Comparison.LessThan },
+            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right, Comparison.Equal },
+            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right, Comparison.GreaterThan },
 
-            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, true, false, false },
-            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, true, false, false },
-            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, true, false, false },
+            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, Comparison.LessThan },
+            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, Comparison.LessThan },
+            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, Comparison.LessThan },
         };
 
-        public static TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, bool, bool, bool> CompareReducedData => new TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, bool, bool, bool>
+        public static TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, Comparison> CompareReducedData => new TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, Comparison>
         {
-            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-10, 0.001), false, false, true },
-            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-9, 59.999), true, false, false },
-            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(10, 0.001), true, false, false },
-            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(9, 59.999), false, false, true },
+            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-10, 0.001), Comparison.GreaterThan },
+            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-9, 59.999), Comparison.LessThan },
+            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(10, 0.001), Comparison.LessThan },
+            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(9, 59.999), Comparison.GreaterThan },
 
-            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, true, false, false },
-            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, true, false },
-            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, false, true },
+            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.LessThan },
+            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.Equal },
+            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.GreaterThan },
 
-            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right, true, false, false },
-            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right, false, true, false },
-            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right, false, false, true },
+            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right, Comparison.LessThan },
+            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right, Comparison.Equal },
+            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right, Comparison.GreaterThan },
 
-            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, true, false, false },
-            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, false, true, false },
-            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, false, false, true },
+            { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, Comparison.LessThan },
+            { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, Comparison.Equal },
+            { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right + AngleDegreesMinutes.Full, Comparison.GreaterThan },
         };
 
         [Theory]
         [MemberData(nameof(CompareInvalidData))]
         [MemberData(nameof(CompareData))]
-        public void EqualsObject_Should_Succeed(in AngleDegreesMinutes left, object right, bool lessThan, bool equal, bool greaterThan)
+        public void EqualsObject_Should_Succeed(in AngleDegreesMinutes left, object right, Comparison comparison)
         {
             // arrange
 
@@ -138,12 +138,12 @@ namespace NetFabric.UnitTests
             var result = left.Equals(right);
 
             // assert
-            result.Should().Be(equal);
+            result.Should().Be(comparison == Comparison.Equal);
         }
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void Equals_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void Equals_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -151,12 +151,12 @@ namespace NetFabric.UnitTests
             var result = left.Equals(right);
 
             // assert
-            result.Should().Be(equal);
+            result.Should().Be(comparison == Comparison.Equal);
         }
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void GetHashCode_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void GetHashCode_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -164,7 +164,7 @@ namespace NetFabric.UnitTests
             var result = left.GetHashCode();
 
             // assert
-            if (equal)
+            if (comparison == Comparison.Equal)
                 result.Should().Be(right.GetHashCode());
             else
                 result.Should().NotBe(right.GetHashCode());
@@ -172,7 +172,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void OperatorEquality_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void OperatorEquality_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -180,12 +180,12 @@ namespace NetFabric.UnitTests
             var result = left == right;
 
             // assert
-            result.Should().Be(equal);
+            result.Should().Be(comparison == Comparison.Equal);
         }
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void OperatorInequality_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void OperatorInequality_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -193,12 +193,12 @@ namespace NetFabric.UnitTests
             var result = left != right;
 
             // assert
-            result.Should().Be(!equal);
+            result.Should().Be(comparison != Comparison.Equal);
         }
 
         [Theory]
         [MemberData(nameof(CompareInvalidData))]
-        public void CompareTo_When_InvalidData_Should_Thrown(in AngleDegreesMinutes angle, object obj, bool lessThan, bool equal, bool greaterThan)
+        public void CompareTo_When_InvalidData_Should_Thrown(in AngleDegreesMinutes angle, object obj, Comparison comparison)
         {
             // arrange
 
@@ -214,7 +214,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void CompareTo_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void CompareTo_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -222,17 +222,28 @@ namespace NetFabric.UnitTests
             var result = ((IComparable)left).CompareTo(right);
 
             // assert
-            if (lessThan)
-                result.Should().BeNegative();
-            else if (equal)
-                result.Should().Be(0);
-            else
-                result.Should().BePositive();
+            switch (comparison)
+            {
+                case Comparison.LessThan:
+                    result.Should().BeNegative();
+                    break;
+
+                case Comparison.Equal:
+                    result.Should().Be(0);
+                    break;
+
+                case Comparison.GreaterThan:
+                    result.Should().BePositive();
+                    break;
+
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void Compare_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void Compare_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -240,17 +251,28 @@ namespace NetFabric.UnitTests
             var result = Angle.Compare(left, right);
 
             // assert
-            if (lessThan)
-                result.Should().BeNegative();
-            else if (equal)
-                result.Should().Be(0);
-            else
-                result.Should().BePositive();
+            switch (comparison)
+            {
+                case Comparison.LessThan:
+                    result.Should().BeNegative();
+                    break;
+
+                case Comparison.Equal:
+                    result.Should().Be(0);
+                    break;
+
+                case Comparison.GreaterThan:
+                    result.Should().BePositive();
+                    break;
+
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         [Theory]
         [MemberData(nameof(CompareReducedData))]
-        public void CompareReduced_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void CompareReduced_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -258,17 +280,28 @@ namespace NetFabric.UnitTests
             var result = Angle.CompareReduced(left, right);
 
             // assert
-            if (lessThan)
-                result.Should().BeNegative();
-            else if (equal)
-                result.Should().Be(0);
-            else
-                result.Should().BePositive();
+            switch (comparison)
+            {
+                case Comparison.LessThan:
+                    result.Should().BeNegative();
+                    break;
+
+                case Comparison.Equal:
+                    result.Should().Be(0);
+                    break;
+
+                case Comparison.GreaterThan:
+                    result.Should().BePositive();
+                    break;
+
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void LessThan_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void LessThan_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -276,12 +309,12 @@ namespace NetFabric.UnitTests
             var result = left < right;
 
             // assert
-            result.Should().Be(lessThan);
+            result.Should().Be(comparison == Comparison.LessThan);
         }
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void LessThanOrEqual_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void LessThanOrEqual_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -289,12 +322,12 @@ namespace NetFabric.UnitTests
             var result = left <= right;
 
             // assert
-            result.Should().Be(lessThan || equal);
+            result.Should().Be(comparison == Comparison.LessThan || comparison == Comparison.Equal);
         }
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void GreaterThan_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void GreaterThan_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -302,12 +335,12 @@ namespace NetFabric.UnitTests
             var result = left > right;
 
             // assert
-            result.Should().Be(greaterThan);
+            result.Should().Be(comparison == Comparison.GreaterThan);
         }
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void GreaterThanOrEqual_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void GreaterThanOrEqual_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, Comparison comparison)
         {
             // arrange
 
@@ -315,7 +348,7 @@ namespace NetFabric.UnitTests
             var result = left >= right;
 
             // assert
-            result.Should().Be(greaterThan || equal);
+            result.Should().Be(comparison == Comparison.GreaterThan || comparison == Comparison.Equal);
         }
 
         public static TheoryData<AngleDegreesMinutes, AngleDegreesMinutes> ReduceData => new TheoryData<AngleDegreesMinutes, AngleDegreesMinutes> {

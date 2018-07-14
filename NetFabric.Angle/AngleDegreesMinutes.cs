@@ -112,7 +112,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than the value of a2; otherwise, false.</returns>
         public static bool operator <(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
-            a1.Degrees == a2.Degrees ? a1.Minutes < a2.Minutes : a1.Degrees < a2.Degrees;
+            GetDegreesAngle(a1) < GetDegreesAngle(a2);
 
         /// <summary>
         /// Indicates whether a specified DegreesMinutesAngle is less than or equal to another specified DegreesMinutesAngle.
@@ -121,7 +121,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than or equal to the value of a2; otherwise, false.</returns>
         public static bool operator <=(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
-            a1.Degrees == a2.Degrees ? a1.Minutes <= a2.Minutes : a1.Degrees < a2.Degrees;
+            GetDegreesAngle(a1) <= GetDegreesAngle(a2);
 
         /// <summary>
         /// Indicates whether a specified DegreesMinutesAngle is greater than another specified DegreesMinutesAngle.
@@ -130,7 +130,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than the value of a2; otherwise, false.</returns>
         public static bool operator >(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
-            a1.Degrees == a2.Degrees ? a1.Minutes > a2.Minutes : a1.Degrees > a2.Degrees;
+            GetDegreesAngle(a1) > GetDegreesAngle(a2);
 
         /// <summary>
         /// Indicates whether a specified DegreesMinutesAngle is greater than or equal to another specified DegreesMinutesAngle.
@@ -139,7 +139,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than or equal to the value of a2; otherwise, false.</returns>
         public static bool operator >=(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
-            a1.Degrees == a2.Degrees ? a1.Minutes >= a2.Minutes : a1.Degrees > a2.Degrees;
+            GetDegreesAngle(a1) >= GetDegreesAngle(a2);
 
         int IComparable<AngleDegreesMinutes>.CompareTo(AngleDegreesMinutes other) =>
             Angle.Compare(this, other);
@@ -410,7 +410,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns></returns>
         public static AngleDegreesMinutes Reduce(in AngleDegreesMinutes angle) =>
-            new AngleDegreesMinutes(AngleDegreesMinutes.Reduce(angle.Degrees), angle.Minutes);
+            new AngleDegreesMinutes(AngleDegrees.Reduce(AngleDegreesMinutes.GetDegreesAngle(angle)));
 
         /// <summary>
         /// Returns the quadrant where the terminal side of the angle is in when in the standard position.

@@ -70,7 +70,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(AngleDegreesMinutesData))]
-        public void ToDegrees_When_AngleDegreesMinutes_Should_Succeed(AngleDegreesMinutes value, AngleDegrees expected)
+        public void ToDegrees_When_AngleDegreesMinutes_Should_Succeed(in AngleDegreesMinutes value, AngleDegrees expected)
         {
             // arrange
 
@@ -89,6 +89,11 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegrees, AngleDegrees, bool, bool, bool> CompareData => new TheoryData<AngleDegrees, AngleDegrees, bool, bool, bool>
         {
+            { Angle.FromDegrees(-10.0), Angle.FromDegrees(-10.001), false, false, true },
+            { Angle.FromDegrees(-10.0), Angle.FromDegrees(-9.999), true, false, false },
+            { Angle.FromDegrees(10.0), Angle.FromDegrees(10.001), true, false, false },
+            { Angle.FromDegrees(10.0), Angle.FromDegrees(9.999), false, false, true },
+
             { AngleDegrees.Zero, AngleDegrees.Right - AngleDegrees.Full, false, false, true },
             { AngleDegrees.Right, AngleDegrees.Right - AngleDegrees.Full, false, false, true },
             { AngleDegrees.Straight, AngleDegrees.Right - AngleDegrees.Full, false, false, true },
@@ -104,6 +109,11 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegrees, AngleDegrees, bool, bool, bool> CompareReducedData => new TheoryData<AngleDegrees, AngleDegrees, bool, bool, bool>
         {
+            { Angle.FromDegrees(-10.0), Angle.FromDegrees(-10.001), false, false, true },
+            { Angle.FromDegrees(-10.0), Angle.FromDegrees(-9.999), true, false, false },
+            { Angle.FromDegrees(10.0), Angle.FromDegrees(10.001), true, false, false },
+            { Angle.FromDegrees(10.0), Angle.FromDegrees(9.999), false, false, true },
+
             { AngleDegrees.Zero, AngleDegrees.Right - AngleDegrees.Full, true, false, false },
             { AngleDegrees.Right, AngleDegrees.Right - AngleDegrees.Full, false, true, false },
             { AngleDegrees.Straight, AngleDegrees.Right - AngleDegrees.Full, false, false, true },

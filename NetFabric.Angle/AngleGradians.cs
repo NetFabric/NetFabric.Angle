@@ -9,32 +9,32 @@ namespace NetFabric
         , IFormattable
     {
         /// <summary>
-        /// Represents the zero GradiansAngle value (0 degrees). This field is read-only.
+        /// Represents the zero AngleGradians value (0 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleGradians Zero = new AngleGradians(0.0);
 
         /// <summary>
-        /// Represents the smallest possible value of a GradiansAngle. This field is read-only.
+        /// Represents the smallest possible value of a AngleGradians. This field is read-only.
         /// </summary>
         public static readonly AngleGradians MinValue = new AngleGradians(double.MinValue);
 
         /// <summary>
-        /// Represents the largest possible value of a GradiansAngle. This field is read-only.
+        /// Represents the largest possible value of a AngleGradians. This field is read-only.
         /// </summary>
         public static readonly AngleGradians MaxValue = new AngleGradians(double.MaxValue);
 
         /// <summary>
-        /// Represents the right GradiansAngle value (90 degrees). This field is read-only.
+        /// Represents the right AngleGradians value (90 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleGradians Right = new AngleGradians(RightAngle);
 
         /// <summary>
-        /// Represents the straight GradiansAngle value (180 degrees). This field is read-only.
+        /// Represents the straight AngleGradians value (180 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleGradians Straight = new AngleGradians(StraightAngle);
 
         /// <summary>
-        /// Represents the full GradiansAngle value (360 degrees). This field is read-only.
+        /// Represents the full AngleGradians value (360 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleGradians Full = new AngleGradians(FullAngle);
 
@@ -51,7 +51,7 @@ namespace NetFabric
         #region equality implementation
 
         /// <summary>
-        /// Indicates whether two GradiansAngle instances are equal.
+        /// Indicates whether two AngleGradians instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -60,7 +60,7 @@ namespace NetFabric
             a1.Gradians == a2.Gradians;
 
         /// <summary>
-        /// Indicates whether two GradiansAngle instances are equal.
+        /// Indicates whether two AngleGradians instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -69,7 +69,7 @@ namespace NetFabric
             a1.Gradians != a2.Gradians;
 
         /// <summary>
-        /// Indicates whether two GradiansAngle instances are equal.
+        /// Indicates whether two AngleGradians instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -78,9 +78,9 @@ namespace NetFabric
             a1.Gradians == a2.Gradians;
 
         /// <summary>
-        /// Indicates whether whether this instance is equal to a specified GradiansAngle object.
+        /// Indicates whether whether this instance is equal to a specified AngleGradians object.
         /// </summary>
-        /// <param name="other">An GradiansAngle to compare with this instance.</param>
+        /// <param name="other">An AngleGradians to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleGradians.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
         public bool Equals(AngleGradians other) =>
@@ -91,7 +91,7 @@ namespace NetFabric
         #region comparison implementation
 
         /// <summary>
-        /// Indicates whether a specified GradiansAngle is less than another specified GradiansAngle.
+        /// Indicates whether a specified AngleGradians is less than another specified AngleGradians.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -100,7 +100,7 @@ namespace NetFabric
             a1.Gradians < a2.Gradians;
 
         /// <summary>
-        /// Indicates whether a specified GradiansAngle is less than or equal to another specified GradiansAngle.
+        /// Indicates whether a specified AngleGradians is less than or equal to another specified AngleGradians.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -109,7 +109,7 @@ namespace NetFabric
             a1.Gradians <= a2.Gradians;
 
         /// <summary>
-        /// Indicates whether a specified GradiansAngle is greater than another specified GradiansAngle.
+        /// Indicates whether a specified AngleGradians is greater than another specified AngleGradians.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -118,7 +118,7 @@ namespace NetFabric
             a1.Gradians > a2.Gradians;
 
         /// <summary>
-        /// Indicates whether a specified GradiansAngle is greater than or equal to another specified GradiansAngle.
+        /// Indicates whether a specified AngleGradians is greater than or equal to another specified AngleGradians.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -193,19 +193,19 @@ namespace NetFabric
         #region string format
 
         /// <summary>
-        /// Converts the value of the current GradiansAngle object to its equivalent string representation, using a specified format.
+        /// Converts the value of the current AngleGradians object to its equivalent string representation, using a specified format.
         /// </summary>
         /// <param name="format">A string that specifies the format to be used for the returned string.</param>
-        /// <returns>A string representation of the value of the current GradiansAngle object, in the specified format.</returns>
+        /// <returns>A string representation of the value of the current AngleGradians object, in the specified format.</returns>
         public string ToString(string format) =>
             Gradians.ToString(format);
 
         /// <summary>
-        /// Converts the value of the current GradiansAngle object to its equivalent string representation using the specified format and culture-specific format information.
+        /// Converts the value of the current AngleGradians object to its equivalent string representation using the specified format and culture-specific format information.
         /// </summary>
         /// <param name="format">A standard or custom date and time format string.</param>
         /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
-        /// <returns>A string representation of value of the current GradiansAngle object as specified by format and provider.</returns>
+        /// <returns>A string representation of value of the current AngleGradians object as specified by format and provider.</returns>
         public string ToString(string format, IFormatProvider formatProvider) =>
             Gradians.ToString(format, formatProvider);
 
@@ -217,7 +217,7 @@ namespace NetFabric
         /// Returns a value indicating whether this instance is equal to a specified object.
         /// </summary>
         /// <param name="obj">An object to compare with this instance.</param>
-        /// <returns>true if value is a GradiansAngle object that represents the same angle as the current GradiansAngle structure; otherwise, false.</returns>
+        /// <returns>true if value is a AngleGradians object that represents the same angle as the current AngleGradians structure; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
             switch (obj)
@@ -271,11 +271,11 @@ namespace NetFabric
             new AngleGradians(value);
 
         /// <summary>
-        /// Returns the absolute value of the GradiansAngle.
+        /// Returns the absolute value of the AngleGradians.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>
-        /// An GradiansAngle, x, such that GradiansAngle.Zero &lt;= x &lt;= GradiansAngle.MaxValue.
+        /// An AngleGradians, x, such that AngleGradians.Zero &lt;= x &lt;= AngleGradians.MaxValue.
         /// </returns>
         public static AngleGradians Abs(AngleGradians angle) =>
             new AngleGradians(Math.Abs(angle.Gradians));
@@ -346,7 +346,7 @@ namespace NetFabric
         #region comparison 
 
         /// <summary>
-        /// Compares two GradiansAngle values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
+        /// Compares two AngleGradians values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -355,7 +355,7 @@ namespace NetFabric
             a1.Gradians.CompareTo(a2.Gradians);
 
         /// <summary>
-        /// Compares two GradiansAngle values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
+        /// Compares two AngleGradians values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>

@@ -10,37 +10,37 @@ namespace NetFabric
         , IFormattable
     {
         /// <summary>
-        /// Represents the zero RadiansAngle value (0 degrees). This field is read-only.
+        /// Represents the zero AngleRadians value (0 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleRadians Zero = new AngleRadians(0.0);
 
         /// <summary>
-        /// Represents the golden RadiansAngle value (~137.508 degrees). This field is read-only.
+        /// Represents the golden AngleRadians value (~137.508 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleRadians Golden = new AngleRadians(Math.PI * (3.0 - Math.Sqrt(5.0)));
 
         /// <summary>
-        /// Represents the smallest possible value of a RadiansAngle. This field is read-only.
+        /// Represents the smallest possible value of a AngleRadians. This field is read-only.
         /// </summary>
         public static readonly AngleRadians MinValue = new AngleRadians(double.MinValue);
 
         /// <summary>
-        /// Represents the largest possible value of a RadiansAngle. This field is read-only.
+        /// Represents the largest possible value of a AngleRadians. This field is read-only.
         /// </summary>
         public static readonly AngleRadians MaxValue = new AngleRadians(double.MaxValue);
 
         /// <summary>
-        /// Represents the right RadiansAngle value (90 degrees). This field is read-only.
+        /// Represents the right AngleRadians value (90 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleRadians Right = new AngleRadians(RightAngle);
 
         /// <summary>
-        /// Represents the straight RadiansAngle value (180 degrees). This field is read-only.
+        /// Represents the straight AngleRadians value (180 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleRadians Straight = new AngleRadians(StraightAngle);
 
         /// <summary>
-        /// Represents the full RadiansAngle value (360 degrees). This field is read-only.
+        /// Represents the full AngleRadians value (360 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleRadians Full = new AngleRadians(FullAngle);
 
@@ -57,7 +57,7 @@ namespace NetFabric
         #region equality implementation
 
         /// <summary>
-        /// Indicates whether two RadiansAngle instances are equal.
+        /// Indicates whether two AngleRadians instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -66,7 +66,7 @@ namespace NetFabric
             a1.Radians == a2.Radians;
 
         /// <summary>
-        /// Indicates whether two RadiansAngle instances are equal.
+        /// Indicates whether two AngleRadians instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -75,7 +75,7 @@ namespace NetFabric
             a1.Radians != a2.Radians;
 
         /// <summary>
-        /// Indicates whether two RadiansAngle instances are equal.
+        /// Indicates whether two AngleRadians instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -84,9 +84,9 @@ namespace NetFabric
             a1.Radians == a2.Radians;
 
         /// <summary>
-        /// Indicates whether whether this instance is equal to a specified RadiansAngle object.
+        /// Indicates whether whether this instance is equal to a specified AngleRadians object.
         /// </summary>
-        /// <param name="other">An RadiansAngle to compare with this instance.</param>
+        /// <param name="other">An AngleRadians to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleRadians.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
         public bool Equals(AngleRadians other) =>
@@ -97,7 +97,7 @@ namespace NetFabric
         #region comparison implementation
 
         /// <summary>
-        /// Indicates whether a specified RadiansAngle is less than another specified RadiansAngle.
+        /// Indicates whether a specified AngleRadians is less than another specified AngleRadians.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -106,7 +106,7 @@ namespace NetFabric
             a1.Radians < a2.Radians;
 
         /// <summary>
-        /// Indicates whether a specified RadiansAngle is less than or equal to another specified RadiansAngle.
+        /// Indicates whether a specified AngleRadians is less than or equal to another specified AngleRadians.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -115,7 +115,7 @@ namespace NetFabric
             a1.Radians <= a2.Radians;
 
         /// <summary>
-        /// Indicates whether a specified RadiansAngle is greater than another specified RadiansAngle.
+        /// Indicates whether a specified AngleRadians is greater than another specified AngleRadians.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -124,7 +124,7 @@ namespace NetFabric
             a1.Radians > a2.Radians;
 
         /// <summary>
-        /// Indicates whether a specified RadiansAngle is greater than or equal to another specified RadiansAngle.
+        /// Indicates whether a specified AngleRadians is greater than or equal to another specified AngleRadians.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -199,19 +199,19 @@ namespace NetFabric
         #region string format
 
         /// <summary>
-        /// Converts the value of the current RadiansAngle object to its equivalent string representation, using a specified format.
+        /// Converts the value of the current AngleRadians object to its equivalent string representation, using a specified format.
         /// </summary>
         /// <param name="format">A string that specifies the format to be used for the returned string.</param>
-        /// <returns>A string representation of the value of the current RadiansAngle object, in the specified format.</returns>
+        /// <returns>A string representation of the value of the current AngleRadians object, in the specified format.</returns>
         public string ToString(string format) =>
             Radians.ToString(format);
 
         /// <summary>
-        /// Converts the value of the current RadiansAngle object to its equivalent string representation using the specified format and culture-specific format information.
+        /// Converts the value of the current AngleRadians object to its equivalent string representation using the specified format and culture-specific format information.
         /// </summary>
         /// <param name="format">A standard or custom date and time format string.</param>
         /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
-        /// <returns>A string representation of value of the current RadiansAngle object as specified by format and provider.</returns>
+        /// <returns>A string representation of value of the current AngleRadians object as specified by format and provider.</returns>
         public string ToString(string format, IFormatProvider formatProvider) =>
             Radians.ToString(format, formatProvider);
 
@@ -223,7 +223,7 @@ namespace NetFabric
         /// Returns a value indicating whether this instance is equal to a specified object.
         /// </summary>
         /// <param name="obj">An object to compare with this instance.</param>
-        /// <returns>true if value is a RadiansAngle object that represents the same angle as the current RadiansAngle structure; otherwise, false.</returns>
+        /// <returns>true if value is a AngleRadians object that represents the same angle as the current AngleRadians structure; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
             switch (obj)
@@ -269,7 +269,7 @@ namespace NetFabric
     public static partial class Angle
     {
         /// <summary>
-        /// Returns an RadiansAngle that represents a angle with the specified number of radians.
+        /// Returns an AngleRadians that represents a angle with the specified number of radians.
         /// </summary>
         /// <param name="radians">A number of radians.</param>
         /// <returns>An object that represents value.</returns>
@@ -277,11 +277,11 @@ namespace NetFabric
             new AngleRadians(radians);
 
         /// <summary>
-        /// Returns the absolute value of the RadiansAngle.
+        /// Returns the absolute value of the AngleRadians.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>
-        /// An RadiansAngle, x, such that RadiansAngle.Zero &lt;= x &lt;= RadiansAngle.MaxValue.
+        /// An AngleRadians, x, such that AngleRadians.Zero &lt;= x &lt;= AngleRadians.MaxValue.
         /// </returns>
         public static AngleRadians Abs(AngleRadians angle) =>
             new AngleRadians(Math.Abs(angle.Radians));
@@ -351,7 +351,7 @@ namespace NetFabric
         #region comparison 
 
         /// <summary>
-        /// Compares two RadiansAngle values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
+        /// Compares two AngleRadians values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -360,7 +360,7 @@ namespace NetFabric
             a1.Radians.CompareTo(a2.Radians);
 
         /// <summary>
-        /// Compares two RadiansAngle values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
+        /// Compares two AngleRadians values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -464,7 +464,7 @@ namespace NetFabric
         /// Returns the hyperbolic sine of the specified angle.
         /// </summary>
         /// <param name="angle">An angle.</param>
-        /// <returns>The hyperbolic sine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an RadiansAngle equal to value.</returns>
+        /// <returns>The hyperbolic sine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an AngleRadians equal to value.</returns>
         public static double Sinh(AngleRadians angle) =>
              Math.Sinh(angle.Radians);
 
@@ -490,7 +490,7 @@ namespace NetFabric
         /// Returns the hyperbolic cosine of the specified angle.
         /// </summary>
         /// <param name="angle">An angle.</param>
-        /// <returns>The hyperbolic cosine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an RadiansAngle equal to value.</returns>
+        /// <returns>The hyperbolic cosine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an AngleRadians equal to value.</returns>
         public static double Cosh(AngleRadians angle) =>
             Math.Cosh(angle.Radians);
 

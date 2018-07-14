@@ -12,32 +12,32 @@ namespace NetFabric
         , IFormattable
     {
         /// <summary>
-        /// Represents the zero DegreesMinutesAngle value (0 degrees). This field is read-only.
+        /// Represents the zero AngleDegreesMinutes value (0 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegreesMinutes Zero = new AngleDegreesMinutes(0, 0.0);
 
         /// <summary>
-        /// Represents the smallest possible value of a DegreesMinutesAngle. This field is read-only.
+        /// Represents the smallest possible value of a AngleDegreesMinutes. This field is read-only.
         /// </summary>
         public static readonly AngleDegreesMinutes MinValue = new AngleDegreesMinutes(int.MinValue, 60.0 - double.Epsilon);
 
         /// <summary>
-        /// Represents the largest possible value of a DegreesMinutesAngle. This field is read-only.
+        /// Represents the largest possible value of a AngleDegreesMinutes. This field is read-only.
         /// </summary>
         public static readonly AngleDegreesMinutes MaxValue = new AngleDegreesMinutes(int.MaxValue, 60.0 - double.Epsilon);
 
         /// <summary>
-        /// Represents the right DegreesMinutesAngle value (90 degrees). This field is read-only.
+        /// Represents the right AngleDegreesMinutes value (90 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegreesMinutes Right = new AngleDegreesMinutes(RightAngle, 0.0);
 
         /// <summary>
-        /// Represents the straight DegreesMinutesAngle value (180 degrees). This field is read-only.
+        /// Represents the straight AngleDegreesMinutes value (180 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegreesMinutes Straight = new AngleDegreesMinutes(StraightAngle, 0.0);
 
         /// <summary>
-        /// Represents the full DegreesMinutesAngle value (360 degrees). This field is read-only.
+        /// Represents the full AngleDegreesMinutes value (360 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegreesMinutes Full = new AngleDegreesMinutes(FullAngle, 0.0);
 
@@ -66,7 +66,7 @@ namespace NetFabric
         #region equality implementation
 
         /// <summary>
-        /// Indicates whether two DegreesMinutesAngle instances are equal.
+        /// Indicates whether two AngleDegreesMinutes instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -75,7 +75,7 @@ namespace NetFabric
             a1.Degrees == a2.Degrees && a1.Minutes == a2.Minutes;
 
         /// <summary>
-        /// Indicates whether two DegreesMinutesAngle instances are equal.
+        /// Indicates whether two AngleDegreesMinutes instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -84,7 +84,7 @@ namespace NetFabric
             a1.Degrees != a2.Degrees || a1.Minutes != a2.Minutes;
 
         /// <summary>
-        /// Indicates whether two DegreesMinutesAngle instances are equal.
+        /// Indicates whether two AngleDegreesMinutes instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -93,9 +93,9 @@ namespace NetFabric
             a1.Degrees == a2.Degrees && a1.Minutes == a2.Minutes;
 
         /// <summary>
-        /// Indicates whether whether this instance is equal to a specified DegreesMinutesAngle object.
+        /// Indicates whether whether this instance is equal to a specified AngleDegreesMinutes object.
         /// </summary>
-        /// <param name="other">An DegreesMinutesAngle to compare with this instance.</param>
+        /// <param name="other">An AngleDegreesMinutes to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleDegreesMinutes.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
         public bool Equals(AngleDegreesMinutes other) =>
@@ -106,7 +106,7 @@ namespace NetFabric
         #region comparison implementation
 
         /// <summary>
-        /// Indicates whether a specified DegreesMinutesAngle is less than another specified DegreesMinutesAngle.
+        /// Indicates whether a specified AngleDegreesMinutes is less than another specified AngleDegreesMinutes.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -115,7 +115,7 @@ namespace NetFabric
             GetDegreesAngle(a1) < GetDegreesAngle(a2);
 
         /// <summary>
-        /// Indicates whether a specified DegreesMinutesAngle is less than or equal to another specified DegreesMinutesAngle.
+        /// Indicates whether a specified AngleDegreesMinutes is less than or equal to another specified AngleDegreesMinutes.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -124,7 +124,7 @@ namespace NetFabric
             GetDegreesAngle(a1) <= GetDegreesAngle(a2);
 
         /// <summary>
-        /// Indicates whether a specified DegreesMinutesAngle is greater than another specified DegreesMinutesAngle.
+        /// Indicates whether a specified AngleDegreesMinutes is greater than another specified AngleDegreesMinutes.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -133,7 +133,7 @@ namespace NetFabric
             GetDegreesAngle(a1) > GetDegreesAngle(a2);
 
         /// <summary>
-        /// Indicates whether a specified DegreesMinutesAngle is greater than or equal to another specified DegreesMinutesAngle.
+        /// Indicates whether a specified AngleDegreesMinutes is greater than or equal to another specified AngleDegreesMinutes.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -220,19 +220,19 @@ namespace NetFabric
         #region string format
 
         /// <summary>
-        /// Converts the value of the current DegreesMinutesAngle object to its equivalent string representation, using a specified format.
+        /// Converts the value of the current AngleDegreesMinutes object to its equivalent string representation, using a specified format.
         /// </summary>
         /// <param name="format">A string that specifies the format to be used for the returned string.</param>
-        /// <returns>A string representation of the value of the current DegreesMinutesAngle object, in the specified format.</returns>
+        /// <returns>A string representation of the value of the current AngleDegreesMinutes object, in the specified format.</returns>
         public string ToString(string format) =>
             $"{Degrees}° {Minutes.ToString(format)}'";
 
         /// <summary>
-        /// Converts the value of the current DegreesMinutesAngle object to its equivalent string representation using the specified format and culture-specific format information.
+        /// Converts the value of the current AngleDegreesMinutes object to its equivalent string representation using the specified format and culture-specific format information.
         /// </summary>
         /// <param name="format">A standard or custom date and time format string.</param>
         /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
-        /// <returns>A string representation of value of the current DegreesMinutesAngle object as specified by format and provider.</returns>
+        /// <returns>A string representation of value of the current AngleDegreesMinutes object as specified by format and provider.</returns>
         public string ToString(string format, IFormatProvider formatProvider) =>
             $"{Degrees}° {Minutes.ToString(format, formatProvider)}'";
 
@@ -244,7 +244,7 @@ namespace NetFabric
         /// Returns a value indicating whether this instance is equal to a specified object.
         /// </summary>
         /// <param name="obj">An object to compare with this instance.</param>
-        /// <returns>true if value is a DegreesMinutesAngle object that represents the same angle as the current DegreesMinutesAngle structure; otherwise, false.</returns>
+        /// <returns>true if value is a AngleDegreesMinutes object that represents the same angle as the current AngleDegreesMinutes structure; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
             switch (obj)
@@ -355,11 +355,11 @@ namespace NetFabric
         }
 
         /// <summary>
-        /// Returns the absolute value of the DegreesMinutesAngle.
+        /// Returns the absolute value of the AngleDegreesMinutes.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>
-        /// An DegreesMinutesAngle, x, such that DegreesMinutesAngle.Zero &lt;= x &lt;= DegreesMinutesAngle.MaxValue.
+        /// An AngleDegreesMinutes, x, such that AngleDegreesMinutes.Zero &lt;= x &lt;= AngleDegreesMinutes.MaxValue.
         /// </returns>
         public static AngleDegreesMinutes Abs(in AngleDegreesMinutes angle) =>
             new AngleDegreesMinutes(Math.Abs(angle.Degrees), angle.Minutes);
@@ -433,7 +433,7 @@ namespace NetFabric
         #region comparison 
 
         /// <summary>
-        /// Compares two DegreesMinutesAngle values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
+        /// Compares two AngleDegreesMinutes values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -442,7 +442,7 @@ namespace NetFabric
             AngleDegreesMinutes.GetDegreesAngle(a1).CompareTo(AngleDegreesMinutes.GetDegreesAngle(a2));
 
         /// <summary>
-        /// Compares two DegreesMinutesAngle values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
+        /// Compares two AngleDegreesMinutes values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>

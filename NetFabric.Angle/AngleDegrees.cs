@@ -9,32 +9,32 @@ namespace NetFabric
         , IFormattable
     {
         /// <summary>
-        /// Represents the zero DegreesAngle value (0 degrees). This field is read-only.
+        /// Represents the zero AngleDegrees value (0 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegrees Zero = new AngleDegrees(0.0);
 
         /// <summary>
-        /// Represents the smallest possible value of a DegreesAngle. This field is read-only.
+        /// Represents the smallest possible value of a AngleDegrees. This field is read-only.
         /// </summary>
         public static readonly AngleDegrees MinValue = new AngleDegrees(double.MinValue);
 
         /// <summary>
-        /// Represents the largest possible value of a DegreesAngle. This field is read-only.
+        /// Represents the largest possible value of a AngleDegrees. This field is read-only.
         /// </summary>
         public static readonly AngleDegrees MaxValue = new AngleDegrees(double.MaxValue);
 
         /// <summary>
-        /// Represents the right DegreesAngle value (90 degrees). This field is read-only.
+        /// Represents the right AngleDegrees value (90 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegrees Right = new AngleDegrees(RightAngle);
 
         /// <summary>
-        /// Represents the straight DegreesAngle value (180 degrees). This field is read-only.
+        /// Represents the straight AngleDegrees value (180 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegrees Straight = new AngleDegrees(StraightAngle);
 
         /// <summary>
-        /// Represents the full DegreesAngle value (360 degrees). This field is read-only.
+        /// Represents the full AngleDegrees value (360 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegrees Full = new AngleDegrees(FullAngle);
 
@@ -51,7 +51,7 @@ namespace NetFabric
         #region equality implementation
 
         /// <summary>
-        /// Indicates whether two DegreesAngle instances are equal.
+        /// Indicates whether two AngleDegrees instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -60,7 +60,7 @@ namespace NetFabric
             a1.Degrees == a2.Degrees;
 
         /// <summary>
-        /// Indicates whether two DegreesAngle instances are equal.
+        /// Indicates whether two AngleDegrees instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -69,7 +69,7 @@ namespace NetFabric
             a1.Degrees != a2.Degrees;
 
         /// <summary>
-        /// Indicates whether two DegreesAngle instances are equal.
+        /// Indicates whether two AngleDegrees instances are equal.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -78,9 +78,9 @@ namespace NetFabric
             a1.Degrees == a2.Degrees;
 
         /// <summary>
-        /// Indicates whether whether this instance is equal to a specified DegreesAngle object.
+        /// Indicates whether whether this instance is equal to a specified AngleDegrees object.
         /// </summary>
-        /// <param name="other">An DegreesAngle to compare with this instance.</param>
+        /// <param name="other">An AngleDegrees to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleDegrees.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
         public bool Equals(AngleDegrees other) =>
@@ -91,7 +91,7 @@ namespace NetFabric
         #region comparison implementation
 
         /// <summary>
-        /// Indicates whether a specified DegreesAngle is less than another specified DegreesAngle.
+        /// Indicates whether a specified AngleDegrees is less than another specified AngleDegrees.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -100,7 +100,7 @@ namespace NetFabric
             a1.Degrees < a2.Degrees;
 
         /// <summary>
-        /// Indicates whether a specified DegreesAngle is less than or equal to another specified DegreesAngle.
+        /// Indicates whether a specified AngleDegrees is less than or equal to another specified AngleDegrees.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -109,7 +109,7 @@ namespace NetFabric
             a1.Degrees <= a2.Degrees;
 
         /// <summary>
-        /// Indicates whether a specified DegreesAngle is greater than another specified DegreesAngle.
+        /// Indicates whether a specified AngleDegrees is greater than another specified AngleDegrees.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -118,7 +118,7 @@ namespace NetFabric
             a1.Degrees > a2.Degrees;
 
         /// <summary>
-        /// Indicates whether a specified DegreesAngle is greater than or equal to another specified DegreesAngle.
+        /// Indicates whether a specified AngleDegrees is greater than or equal to another specified AngleDegrees.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -193,19 +193,19 @@ namespace NetFabric
         #region string format
 
         /// <summary>
-        /// Converts the value of the current DegreesAngle object to its equivalent string representation, using a specified format.
+        /// Converts the value of the current AngleDegrees object to its equivalent string representation, using a specified format.
         /// </summary>
         /// <param name="format">A string that specifies the format to be used for the returned string.</param>
-        /// <returns>A string representation of the value of the current DegreesAngle object, in the specified format.</returns>
+        /// <returns>A string representation of the value of the current AngleDegrees object, in the specified format.</returns>
         public string ToString(string format) =>
             Degrees.ToString(format);
 
         /// <summary>
-        /// Converts the value of the current DegreesAngle object to its equivalent string representation using the specified format and culture-specific format information.
+        /// Converts the value of the current AngleDegrees object to its equivalent string representation using the specified format and culture-specific format information.
         /// </summary>
         /// <param name="format">A standard or custom date and time format string.</param>
         /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
-        /// <returns>A string representation of value of the current DegreesAngle object as specified by format and provider.</returns>
+        /// <returns>A string representation of value of the current AngleDegrees object as specified by format and provider.</returns>
         public string ToString(string format, IFormatProvider formatProvider) =>
             Degrees.ToString(format, formatProvider);
 
@@ -217,7 +217,7 @@ namespace NetFabric
         /// Returns a value indicating whether this instance is equal to a specified object.
         /// </summary>
         /// <param name="obj">An object to compare with this instance.</param>
-        /// <returns>true if value is a DegreesAngle object that represents the same angle as the current DegreesAngle structure; otherwise, false.</returns>
+        /// <returns>true if value is a AngleDegrees object that represents the same angle as the current AngleDegrees structure; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
             switch (obj)
@@ -271,11 +271,11 @@ namespace NetFabric
             new AngleDegrees(value);
 
         /// <summary>
-        /// Returns the absolute value of the DegreesAngle.
+        /// Returns the absolute value of the AngleDegrees.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>
-        /// An DegreesAngle, x, such that DegreesAngle.Zero &lt;= x &lt;= DegreesAngle.MaxValue.
+        /// An AngleDegrees, x, such that AngleDegrees.Zero &lt;= x &lt;= AngleDegrees.MaxValue.
         /// </returns>
         public static AngleDegrees Abs(AngleDegrees angle) =>
             new AngleDegrees(Math.Abs(angle.Degrees));
@@ -345,7 +345,7 @@ namespace NetFabric
         #region comparison 
 
         /// <summary>
-        /// Compares two DegreesAngle values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
+        /// Compares two AngleDegrees values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
@@ -354,7 +354,7 @@ namespace NetFabric
             a1.Degrees.CompareTo(a2.Degrees);
 
         /// <summary>
-        /// Compares two DegreesAngle values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
+        /// Compares two AngleDegrees values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
         /// </summary>
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>

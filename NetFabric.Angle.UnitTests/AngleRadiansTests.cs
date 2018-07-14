@@ -70,7 +70,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(AngleDegreesMinutesData))]
-        public void ToRadians_When_AngleDegreesMinutes_Should_Succeed(AngleDegreesMinutes value, AngleRadians expected)
+        public void ToRadians_When_AngleDegreesMinutes_Should_Succeed(in AngleDegreesMinutes value, AngleRadians expected)
         {
             // arrange
 

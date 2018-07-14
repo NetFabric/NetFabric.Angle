@@ -22,7 +22,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(AngleRadiansData))]
-        public void ToDegrees_When_AngleRadians_Should_Succeed(AngleRadians value, AngleDegreesMinutes expected)
+        public void ToDegrees_When_AngleRadians_Should_Succeed(AngleRadians value, in AngleDegreesMinutes expected)
         {
             // arrange
 
@@ -46,7 +46,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(AngleGradiansData))]
-        public void ToDegreesMinutes_When_AngleGradians_Should_Succeed(AngleGradians value, AngleDegreesMinutes expected)
+        public void ToDegreesMinutes_When_AngleGradians_Should_Succeed(AngleGradians value, in AngleDegreesMinutes expected)
         {
             // arrange
 
@@ -70,7 +70,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(AngleDegreesData))]
-        public void ToDegreesMinutes_When_AngleDegrees_Should_Succeed(AngleDegrees value, AngleDegreesMinutes expected)
+        public void ToDegreesMinutes_When_AngleDegrees_Should_Succeed(AngleDegrees value, in AngleDegreesMinutes expected)
         {
             // arrange
 
@@ -89,6 +89,11 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, bool, bool, bool> CompareData => new TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, bool, bool, bool>
         {
+            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-10, 0.001), false, false, true },
+            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-9, 59.999), true, false, false },
+            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(10, 0.001), true, false, false },
+            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(9, 59.999), false, false, true },
+
             { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, false, true },
             { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, false, true },
             { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, false, true },
@@ -104,6 +109,11 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, bool, bool, bool> CompareReducedData => new TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, bool, bool, bool>
         {
+            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-10, 0.001), false, false, true },
+            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-9, 59.999), true, false, false },
+            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(10, 0.001), true, false, false },
+            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(9, 59.999), false, false, true },
+
             { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, true, false, false },
             { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, true, false },
             { AngleDegreesMinutes.Straight, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, false, false, true },
@@ -120,7 +130,7 @@ namespace NetFabric.UnitTests
         [Theory]
         [MemberData(nameof(CompareInvalidData))]
         [MemberData(nameof(CompareData))]
-        public void EqualsObject_Should_Succeed(AngleDegreesMinutes left, object right, bool lessThan, bool equal, bool greaterThan)
+        public void EqualsObject_Should_Succeed(in AngleDegreesMinutes left, object right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -133,7 +143,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void Equals_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void Equals_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -146,7 +156,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void GetHashCode_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void GetHashCode_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -162,7 +172,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void OperatorEquality_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void OperatorEquality_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -175,7 +185,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void OperatorInequality_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void OperatorInequality_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -188,12 +198,13 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareInvalidData))]
-        public void CompareTo_When_InvalidData_Should_Thrown(AngleDegreesMinutes angle, object obj, bool lessThan, bool equal, bool greaterThan)
+        public void CompareTo_When_InvalidData_Should_Thrown(in AngleDegreesMinutes angle, object obj, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
             // act
-            Action act = () => ((IComparable)angle).CompareTo(obj);
+            var comparable = angle as IComparable;
+            Action act = () => comparable.CompareTo(obj);
 
             // assert
             act.Should()
@@ -203,7 +214,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void CompareTo_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void CompareTo_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -221,7 +232,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void Compare_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void Compare_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -239,7 +250,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareReducedData))]
-        public void CompareReduced_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void CompareReduced_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -257,7 +268,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void LessThan_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void LessThan_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -270,7 +281,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void LessThanOrEqual_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void LessThanOrEqual_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -283,7 +294,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void GreaterThan_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void GreaterThan_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -296,7 +307,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
-        public void GreaterThanOrEqual_Should_Succeed(AngleDegreesMinutes left, AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
+        public void GreaterThanOrEqual_Should_Succeed(in AngleDegreesMinutes left, in AngleDegreesMinutes right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
 
@@ -329,7 +340,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(ReduceData))]
-        public void Reduce_Should_Succeed(AngleDegreesMinutes angle, AngleDegreesMinutes expected)
+        public void Reduce_Should_Succeed(in AngleDegreesMinutes angle, in AngleDegreesMinutes expected)
         {
             // arrange
 
@@ -363,7 +374,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(QuadrantData))]
-        public void GetQuadrant_Should_Succeed(AngleDegreesMinutes angle, Quadrant expected)
+        public void GetQuadrant_Should_Succeed(in AngleDegreesMinutes angle, Quadrant expected)
         {
             // arrange
 
@@ -388,7 +399,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(ReferencetData))]
-        public void Reference_Should_Succeed(AngleDegreesMinutes angle, AngleDegreesMinutes expected)
+        public void Reference_Should_Succeed(in AngleDegreesMinutes angle, in AngleDegreesMinutes expected)
         {
             // arrange
 
@@ -418,7 +429,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(IsZeroData))]
-        public void IsZero_Should_Succeed(AngleDegreesMinutes angle, bool expected)
+        public void IsZero_Should_Succeed(in AngleDegreesMinutes angle, bool expected)
         {
             // arrange
 
@@ -448,7 +459,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(IsAcuteData))]
-        public void IsAcute_Should_Succeed(AngleDegreesMinutes angle, bool expected)
+        public void IsAcute_Should_Succeed(in AngleDegreesMinutes angle, bool expected)
         {
             // arrange
 
@@ -478,7 +489,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(IsRightData))]
-        public void IsRight_Should_Succeed(AngleDegreesMinutes angle, bool expected)
+        public void IsRight_Should_Succeed(in AngleDegreesMinutes angle, bool expected)
         {
             // arrange
 
@@ -508,7 +519,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(IsObtuseData))]
-        public void IsObtuse_Should_Succeed(AngleDegreesMinutes angle, bool expected)
+        public void IsObtuse_Should_Succeed(in AngleDegreesMinutes angle, bool expected)
         {
             // arrange
 
@@ -538,7 +549,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(IsStraightData))]
-        public void IsStraight_Should_Succeed(AngleDegreesMinutes angle, bool expected)
+        public void IsStraight_Should_Succeed(in AngleDegreesMinutes angle, bool expected)
         {
             // arrange
 
@@ -568,7 +579,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(IsReflexData))]
-        public void IsReflex_Should_Succeed(AngleDegreesMinutes angle, bool expected)
+        public void IsReflex_Should_Succeed(in AngleDegreesMinutes angle, bool expected)
         {
             // arrange
 
@@ -598,7 +609,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(IsObliqueData))]
-        public void IsOblique_Should_Succeed(AngleDegreesMinutes angle, bool expected)
+        public void IsOblique_Should_Succeed(in AngleDegreesMinutes angle, bool expected)
         {
             // arrange
 
@@ -632,7 +643,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(LerpData))]
-        public void Lerp_Should_Succeed(AngleDegreesMinutes a1, AngleDegreesMinutes a2, double t, AngleDegreesMinutes expected)
+        public void Lerp_Should_Succeed(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2, double t, in AngleDegreesMinutes expected)
         {
             // arrange
 
@@ -650,7 +661,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(ToStringData))]
-        public void ToString_Should_Succeed(AngleDegreesMinutes angle, string expected)
+        public void ToString_Should_Succeed(in AngleDegreesMinutes angle, string expected)
         {
             // arrange
 #if NET35
@@ -673,7 +684,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(ToStringFormatData))]
-        public void ToStringFormat_Should_Succeed(AngleDegreesMinutes angle, string format, string expected)
+        public void ToStringFormat_Should_Succeed(in AngleDegreesMinutes angle, string format, string expected)
         {
             // arrange
 #if NET35
@@ -696,7 +707,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(ToStringFormatCultureData))]
-        public void ToStringFormatCulture_Should_Succeed(AngleDegreesMinutes angle, string format, CultureInfo culture, string expected)
+        public void ToStringFormatCulture_Should_Succeed(in AngleDegreesMinutes angle, string format, CultureInfo culture, string expected)
         {
             // arrange
 

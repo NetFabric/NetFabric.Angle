@@ -438,17 +438,8 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
-        public static int Compare(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2)
-        {
-            var diff = AngleDegreesMinutes.GetDegreesAngle(a1) - AngleDegreesMinutes.GetDegreesAngle(a2);
-            if (diff > 0.0)
-                return 1;
-
-            if (diff < 0.0)
-                return -1;
-
-            return 0;
-        }
+        public static int Compare(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
+            AngleDegreesMinutes.GetDegreesAngle(a1).CompareTo(AngleDegreesMinutes.GetDegreesAngle(a2));
 
         /// <summary>
         /// Compares two DegreesMinutesAngle values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.

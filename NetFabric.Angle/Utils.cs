@@ -28,10 +28,35 @@ namespace NetFabric
 #if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+        public static Quadrant GetQuadrant(int angle, int rightAngle, int straightAngle, int fullAngle)
+        {
+            var reduced = Reduce(angle, fullAngle);
+            return GetQuadrant(reduced, rightAngle, straightAngle);
+        }
+
         public static Quadrant GetQuadrant(double angle, double rightAngle, double straightAngle, double fullAngle)
         {
             var reduced = Reduce(angle, fullAngle);
             return GetQuadrant(reduced, rightAngle, straightAngle);
+        }
+
+        public static int GetReference(int angle, int rightAngle, int straightAngle, int fullAngle)
+        {
+            var reduced = Reduce(angle, fullAngle);
+            var quadrant = GetQuadrant(reduced, rightAngle, straightAngle);
+            switch (quadrant)
+            {
+                case Quadrant.First:
+                    return reduced;
+                case Quadrant.Second:
+                    return straightAngle - reduced;
+                case Quadrant.Third:
+                    return reduced - straightAngle;
+                case Quadrant.Fourth:
+                    return fullAngle - reduced;
+                default:
+                    throw new InvalidOperationException();
+            }
         }
 
         public static double GetReference(double angle, double rightAngle, double straightAngle, double fullAngle)
@@ -71,6 +96,20 @@ namespace NetFabric
                 return Quadrant.Third;
 
             return Quadrant.Fourth;
+        }
+
+        public static int ToBase60(int value, out int carry)
+        {
+            var result = value % 60;
+            carry = (value - result) / 60;
+            return result;
+        }
+
+        public static double ToBase60(double value, out double carry)
+        {
+            var result = value % 60.0;
+            carry = (value - result) / 60.0;
+            return result;
         }
 
     }

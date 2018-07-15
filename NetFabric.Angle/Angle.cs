@@ -169,7 +169,12 @@ namespace NetFabric
         /// </summary>
         /// <param name="value">An angle in degrees and minutes.</param>
         /// <returns>An object that represents value.</returns>
-        public static AngleDegreesMinutesSeconds ToDegreesMinutesSeconds(in AngleDegreesMinutes angle) => 
-            new AngleDegreesMinutesSeconds(angle.Degrees, (int)Math.Floor(angle.Minutes / 60.0), angle.Minutes % 60.0);
+        public static AngleDegreesMinutesSeconds ToDegreesMinutesSeconds(in AngleDegreesMinutes angle)
+        {
+            var seconds = Utils.ToBase60(angle.Minutes, out var minutes);
+            return angle.Degrees >= 0 ?
+                new AngleDegreesMinutesSeconds(angle.Degrees, (int)minutes, seconds) :
+                new AngleDegreesMinutesSeconds(angle.Degrees, -(int)minutes, -seconds);
+        }
     }
 }

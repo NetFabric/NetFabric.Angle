@@ -22,7 +22,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(AngleRadiansData))]
-        public void ToDegrees_When_AngleRadians_Should_Succeed(AngleRadians value, in AngleDegreesMinutesSeconds expected)
+        public void ToDegreesMinutesSeconds_When_AngleRadians_Should_Succeed(AngleRadians value, in AngleDegreesMinutesSeconds expected)
         {
             // arrange
 
@@ -46,7 +46,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(AngleGradiansData))]
-        public void ToDegreesMinutes_When_AngleGradians_Should_Succeed(AngleGradians value, in AngleDegreesMinutesSeconds expected)
+        public void ToDegreesMinutesSeconds_When_AngleGradians_Should_Succeed(AngleGradians value, in AngleDegreesMinutesSeconds expected)
         {
             // arrange
 
@@ -66,11 +66,13 @@ namespace NetFabric.UnitTests
             { AngleDegrees.Right, AngleDegreesMinutesSeconds.Right },
             { AngleDegrees.Straight, AngleDegreesMinutesSeconds.Straight },
             { AngleDegrees.Full, AngleDegreesMinutesSeconds.Full },
+            { Angle.FromDegrees(25.497361), Angle.FromDegrees(25, 29, 50.5) },
+            { Angle.FromDegrees(-25.497361), Angle.FromDegrees(-25, 29, 50.5) },
         };
 
         [Theory]
         [MemberData(nameof(AngleDegreesData))]
-        public void ToDegreesMinutes_When_AngleDegrees_Should_Succeed(AngleDegrees value, in AngleDegreesMinutesSeconds expected)
+        public void ToDegreesMinutesSeconds_When_AngleDegrees_Should_Succeed(AngleDegrees value, in AngleDegreesMinutesSeconds expected)
         {
             // arrange
 
@@ -78,7 +80,10 @@ namespace NetFabric.UnitTests
             var angle = Angle.ToDegreesMinutesSeconds(value);
 
             // assert
-            angle.Should().BeOfType<AngleDegreesMinutesSeconds>().And.Be(expected);
+            angle.Should().BeOfType<AngleDegreesMinutesSeconds>();
+            angle.Degrees.Should().Be(expected.Degrees);
+            angle.Minutes.Should().Be(expected.Minutes);
+            angle.Seconds.Should().BeApproximately(expected.Seconds, 0.1f);
         }
 
         public static TheoryData<AngleDegreesMinutesSeconds, object, Comparison> CompareInvalidData => new TheoryData<AngleDegreesMinutesSeconds, object, Comparison>
@@ -351,6 +356,102 @@ namespace NetFabric.UnitTests
             result.Should().Be(comparison == Comparison.GreaterThan || comparison == Comparison.Equal);
         }
 
+        public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> AddData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> {
+            //{ AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero },
+            //{ Angle.FromDegrees(0, 0, 30.0), Angle.FromDegrees(0, 0, 30.0), Angle.FromDegrees(0, 1, 0.0) },
+            //{ Angle.FromDegrees(0, 30, 0.0), Angle.FromDegrees(0, 30, 0.0), Angle.FromDegrees(1, 0, 0.0) },
+            //{ Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(1, 1, 0.0) },
+            { Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(0, 0, 0.0) },
+            //{ -Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(0, 0, 0.0) },
+            //{ -Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(2, 2, 2.0) },
+        };
+
+
+        [Theory]
+        [MemberData(nameof(AddData))]
+        public void Add_Should_Succeed(in AngleDegreesMinutesSeconds left, in AngleDegreesMinutesSeconds right, in AngleDegreesMinutesSeconds expected)
+        {
+            // arrange
+
+            // act
+            var result = left + right;
+
+            // assert
+            result.Should().Be(expected);
+        }
+
+        public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> SubtractData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> {
+            { AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero },
+            { Angle.FromDegrees(0, 1, 0.0), Angle.FromDegrees(0, 0, 30.0), Angle.FromDegrees(0, 0, 30.0) },
+            { Angle.FromDegrees(1, 0, 0.0), Angle.FromDegrees(0, 30, 0.0), Angle.FromDegrees(0, 30, 0.0) },
+            { Angle.FromDegrees(1, 0, 0.0), Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(0, 29, 30.0) },
+            { Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(2, 2, 2.0) },
+            { -Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(2, 2, 2.0) },
+            { -Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(0, 0, 0.0) },
+        };
+
+
+        [Theory]
+        [MemberData(nameof(SubtractData))]
+        public void Subtract_Should_Succeed(in AngleDegreesMinutesSeconds left, in AngleDegreesMinutesSeconds right, in AngleDegreesMinutesSeconds expected)
+        {
+            // arrange
+
+            // act
+            var result = left - right;
+
+            // assert
+            result.Should().Be(expected);
+        }
+
+        public static TheoryData<double, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> MultiplyData => new TheoryData<double, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> {
+            { 0.0, AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero },
+            { 0.5, AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Right },
+            { 2.0, AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Full },
+            { 2.0,Angle.FromDegrees(0, 0, 30.0), Angle.FromDegrees(0, 1, 0.0) },
+            { 2.0, Angle.FromDegrees(0, 30, 0.0), Angle.FromDegrees(1, 0, 0.0) },
+            { 2.0, Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(1, 1, 0.0) },
+            { 20.0, Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(10, 10, 0.0) },
+            { -1.0, Angle.FromDegrees(30, 30, 30.0), -Angle.FromDegrees(30, 30, 30.0) },
+        };
+
+        [Theory]
+        [MemberData(nameof(MultiplyData))]
+        public void Multiply_Should_Succeed(double left, in AngleDegreesMinutesSeconds right, in AngleDegreesMinutesSeconds expected)
+        {
+            // arrange
+
+            // act
+            var result = left * right;
+
+            // assert
+            result.Should().Be(expected);
+        }
+
+        public static TheoryData<AngleDegreesMinutesSeconds, double, AngleDegreesMinutesSeconds> DivideData => new TheoryData<AngleDegreesMinutesSeconds, double, AngleDegreesMinutesSeconds> {
+            { AngleDegreesMinutesSeconds.Zero, 0.0, AngleDegreesMinutesSeconds.NaN },
+            { AngleDegreesMinutesSeconds.Straight, 2.0, AngleDegreesMinutesSeconds.Right },
+            { AngleDegreesMinutesSeconds.Straight, 0.5, AngleDegreesMinutesSeconds.Full },
+            { Angle.FromDegrees(0, 0, 30.0), 0.5, Angle.FromDegrees(0, 1, 0.0) },
+            { Angle.FromDegrees(0, 30, 0.0), 0.5, Angle.FromDegrees(1, 0, 0.0) },
+            { Angle.FromDegrees(0, 30, 30.0), 0.5, Angle.FromDegrees(1, 1, 0.0) },
+            { Angle.FromDegrees(30, 30, 30.0), -1.0, -Angle.FromDegrees(30, 30, 30.0) },
+        };
+
+
+        [Theory]
+        [MemberData(nameof(DivideData))]
+        public void Divide_Should_Succeed(in AngleDegreesMinutesSeconds left, double right, in AngleDegreesMinutesSeconds expected)
+        {
+            // arrange
+
+            // act
+            var result = left / right;
+
+            // assert
+            result.Should().Be(expected);
+        }
+
         public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> ReduceData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> {
             { AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero },
             { AcuteAngle, AcuteAngle },
@@ -422,6 +523,7 @@ namespace NetFabric.UnitTests
         public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> ReferencetData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> {
             {AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero},
             {AcuteAngle, AcuteAngle},
+            {-AcuteAngle, -AcuteAngle},
             {AngleDegreesMinutesSeconds.Right ,AngleDegreesMinutesSeconds.Right},
             {AngleDegreesMinutesSeconds.Right + AcuteAngle, AcuteAngle},
             {AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Zero},

@@ -12,6 +12,11 @@ namespace NetFabric
         , IFormattable
     {
         /// <summary>
+        /// Represents a AngleDegreesMinutes value that is not a number (NaN). This field is read-only.
+        /// </summary>
+        public static readonly AngleDegreesMinutes NaN = new AngleDegreesMinutes(0, double.NaN);
+
+        /// <summary>
         /// Represents the zero AngleDegreesMinutes value (0 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegreesMinutes Zero = new AngleDegreesMinutes(0, 0.0);
@@ -544,7 +549,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
         public static AngleDegreesMinutes Negate(in AngleDegreesMinutes angle) =>
-            new AngleDegreesMinutes(-angle.Degrees, angle.Minutes);
+            -angle;
 
         #endregion
 
@@ -556,12 +561,8 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the addition.</returns>
-        public static AngleDegreesMinutes Add(in AngleDegreesMinutes left, in AngleDegreesMinutes right)
-        {
-            var totalMinutes = left.Minutes + right.Minutes;
-            var totalDegrees = left.Degrees + right.Degrees + (int)Math.Floor(totalMinutes / 60.0);
-            return new AngleDegreesMinutes(totalDegrees, totalMinutes % 60.0);
-        }
+        public static AngleDegreesMinutes Add(in AngleDegreesMinutes left, in AngleDegreesMinutes right) =>
+            left + right;
 
         #endregion
 
@@ -573,12 +574,8 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the subtraction.</returns>
-        public static AngleDegreesMinutes Subtract(in AngleDegreesMinutes left, in AngleDegreesMinutes right)
-        {
-            var totalMinutes = left.Minutes - right.Minutes;
-            var totalDegrees = left.Degrees - right.Degrees + (int)Math.Floor(totalMinutes / 60.0);
-            return new AngleDegreesMinutes(totalDegrees, totalMinutes % 60.0);
-        }
+        public static AngleDegreesMinutes Subtract(in AngleDegreesMinutes left, in AngleDegreesMinutes right) =>
+            left - right;
 
         #endregion
 
@@ -590,12 +587,8 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
-        public static AngleDegreesMinutes Multiply(double left, in AngleDegreesMinutes right)
-        {
-            var totalMinutes = left * right.Minutes;
-            var totalDegrees = (int)Math.Floor(left * right.Degrees + totalMinutes / 60.0);
-            return new AngleDegreesMinutes(totalDegrees, totalMinutes % 60.0);
-        }
+        public static AngleDegreesMinutes Multiply(double left, in AngleDegreesMinutes right) =>
+            left * right;
 
         #endregion
 
@@ -607,12 +600,8 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Scalar value.</param>
         /// <returns>Result of the division.</returns>
-        public static AngleDegreesMinutes Divide(in AngleDegreesMinutes left, double right)
-        {
-            var totalMinutes = left.Minutes / right;
-            var totalDegrees = (int)Math.Floor(left.Degrees / right + totalMinutes / 60.0);
-            return new AngleDegreesMinutes(totalDegrees, totalMinutes % 60.0);
-        }
+        public static AngleDegreesMinutes Divide(in AngleDegreesMinutes left, double right) =>
+            left / right;
 
         #endregion
 

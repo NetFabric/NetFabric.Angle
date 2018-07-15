@@ -9,6 +9,11 @@ namespace NetFabric
         , IFormattable
     {
         /// <summary>
+        /// Represents a AngleDegrees value that is not a number (NaN). This field is read-only.
+        /// </summary>
+        public static readonly AngleDegrees NaN = new AngleDegrees(double.NaN);
+
+        /// <summary>
         /// Represents the zero AngleDegrees value (0 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleDegrees Zero = new AngleDegrees(0.0);

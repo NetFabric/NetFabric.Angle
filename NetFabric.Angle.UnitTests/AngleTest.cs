@@ -59,6 +59,20 @@ namespace NetFabric.UnitTests
             angle.Gradians.Should().Be(value);
         }
 
+        [Theory]
+        [MemberData(nameof(DoubleData))]
+        public void FromRevolutions_Should_Succeed(double value)
+        {
+            // arrange
+
+            // act
+            var angle = Angle.FromRevolutions(value);
+
+            // assert
+            angle.Should().BeOfType<AngleRevolutions>();
+            angle.Revolutions.Should().Be(value);
+        }
+
         public static TheoryData<int, double> DegreesMinutes_InvalidMinutes_Data = new TheoryData<int, double>
         {
             { 0, -90.0 },

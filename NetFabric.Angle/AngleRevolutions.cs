@@ -261,7 +261,7 @@ namespace NetFabric
                 return 0.0;
 
             if (revolutions < 0)
-                return 1.0 + revolutions - trunc;
+                return FullAngle + revolutions - trunc;
 
             return revolutions - trunc;
         }

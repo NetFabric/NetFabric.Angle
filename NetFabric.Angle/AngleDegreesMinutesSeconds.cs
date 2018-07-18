@@ -355,8 +355,17 @@ namespace NetFabric
 #if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-        internal static int GetReference(int degrees) =>
-            Utils.GetReference(degrees, RightAngle, StraightAngle, FullAngle);
+        internal static AngleDegreesMinutesSeconds GetReference(in AngleDegreesMinutesSeconds angle)
+        {
+            var degrees = Utils.GetReference(angle.degrees, RightAngle, StraightAngle, FullAngle);
+            if (angle.minutes == 0 && angle.seconds == 0)
+                return new AngleDegreesMinutesSeconds(degrees, 0, 0.0);
+
+            if (angle.degrees < 0)
+                return new AngleDegreesMinutesSeconds(degrees - 1, angle.minutes + 60, angle.seconds + 60.0);
+
+            return new AngleDegreesMinutesSeconds(degrees, angle.minutes, angle.seconds);
+        }
 
 #if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -484,7 +493,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>The reference angle.</returns>
         public static AngleDegreesMinutesSeconds GetReference(in AngleDegreesMinutesSeconds angle) =>
-            new AngleDegreesMinutesSeconds(AngleDegreesMinutesSeconds.GetReference(angle.Degrees), angle.Minutes, angle.Seconds);
+            AngleDegreesMinutesSeconds.GetReference(angle);
 
         #endregion
 

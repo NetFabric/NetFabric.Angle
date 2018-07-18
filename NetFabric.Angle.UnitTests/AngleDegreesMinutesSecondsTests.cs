@@ -523,7 +523,11 @@ namespace NetFabric.UnitTests
         public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> ReferencetData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> {
             {AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero},
             {AcuteAngle, AcuteAngle},
-            {-AcuteAngle, -AcuteAngle},
+            {-AcuteAngle, AcuteAngle},
+            {Angle.FromDegrees(-45, 1, 1.0), Angle.FromDegrees(44, 59, 59.0)},
+            {Angle.FromDegrees(-45, 59, 59.0), Angle.FromDegrees(44, 1, 1.0)},
+            {Angle.FromDegrees(-135, 0, 0.0), Angle.FromDegrees(45, 0, 0.0)},
+            {Angle.FromDegrees(-135, 1, 1.0), Angle.FromDegrees(44, 59, 59.0)},
             {AngleDegreesMinutesSeconds.Right ,AngleDegreesMinutesSeconds.Right},
             {AngleDegreesMinutesSeconds.Right + AcuteAngle, AcuteAngle},
             {AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Zero},

@@ -223,16 +223,8 @@ namespace NetFabric
         /// </summary>
         /// <param name="obj">An object to compare with this instance.</param>
         /// <returns>true if value is a AngleDegrees object that represents the same angle as the current AngleDegrees structure; otherwise, false.</returns>
-        public override bool Equals(object obj)
-        {
-            switch (obj)
-            {
-                case AngleDegrees angle:
-                    return Equals(angle);
-                default:
-                    return false;
-            }
-        }
+        public override bool Equals(object obj) =>
+            obj is AngleDegrees angle && Equals(angle);
 
         /// <summary>
         /// Returns a hash code for this instance.

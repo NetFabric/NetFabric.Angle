@@ -114,7 +114,7 @@ namespace NetFabric.UnitTests
             // assert
             action.Should()
                 .Throw<ArgumentOutOfRangeException>()
-                .WithMessage($"Argument must be positive and less than 60.{Environment.NewLine}Parameter name: {nameof(minutes)}{Environment.NewLine}Actual value was {minutes}.")
+                .WithMessage($"Argument must be greater or equal to 0 and less than 60.{Environment.NewLine}Parameter name: {nameof(minutes)}{Environment.NewLine}Actual value was {minutes}.")
                 .Where(ex => ex.ParamName == "minutes")
                 .Where(ex => (int)ex.ActualValue == minutes);
         }
@@ -137,7 +137,7 @@ namespace NetFabric.UnitTests
             // assert
             action.Should()
                 .Throw<ArgumentOutOfRangeException>()
-                .WithMessage($"Argument must be positive and less than 60.{Environment.NewLine}Parameter name: {nameof(seconds)}{Environment.NewLine}Actual value was {seconds}.")
+                .WithMessage($"Argument must be greater or equal to 0 and less than 60.{Environment.NewLine}Parameter name: {nameof(seconds)}{Environment.NewLine}Actual value was {seconds}.")
                 .Where(ex => ex.ParamName == "seconds")
                 .Where(ex => (double)ex.ActualValue == seconds);
         }

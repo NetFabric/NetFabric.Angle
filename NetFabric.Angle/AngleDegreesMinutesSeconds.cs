@@ -132,7 +132,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than the value of a2; otherwise, false.</returns>
         public static bool operator <(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
-            GetDegreesAngle(a1) < GetDegreesAngle(a2);
+            AngleDegreesMinutesSeconds.Compare(a1, a2) < 0;
 
         /// <summary>
         /// Indicates whether a specified AngleDegreesMinutesSeconds is less than or equal to another specified AngleDegreesMinutesSeconds.
@@ -141,7 +141,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than or equal to the value of a2; otherwise, false.</returns>
         public static bool operator <=(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
-            GetDegreesAngle(a1) <= GetDegreesAngle(a2);
+            AngleDegreesMinutesSeconds.Compare(a1, a2) <= 0;
 
         /// <summary>
         /// Indicates whether a specified AngleDegreesMinutesSeconds is greater than another specified AngleDegreesMinutesSeconds.
@@ -150,7 +150,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than the value of a2; otherwise, false.</returns>
         public static bool operator >(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
-            GetDegreesAngle(a1) > GetDegreesAngle(a2);
+            AngleDegreesMinutesSeconds.Compare(a1, a2) > 0;
 
         /// <summary>
         /// Indicates whether a specified AngleDegreesMinutesSeconds is greater than or equal to another specified AngleDegreesMinutesSeconds.
@@ -159,17 +159,17 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than or equal to the value of a2; otherwise, false.</returns>
         public static bool operator >=(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
-            GetDegreesAngle(a1) >= GetDegreesAngle(a2);
+            AngleDegreesMinutesSeconds.Compare(a1, a2) >= 0;
 
         int IComparable<AngleDegreesMinutesSeconds>.CompareTo(AngleDegreesMinutesSeconds other) =>
-            Angle.Compare(this, other);
+            Compare(this, other);
 
         int IComparable.CompareTo(object obj)
         {
-            switch (obj)
+            switch(obj)
             {
                 case AngleDegreesMinutesSeconds angle:
-                    return Angle.Compare(this, angle);
+                    return AngleDegreesMinutesSeconds.Compare(this, angle);
                 default:
                     throw new ArgumentException($"Argument has to be an {nameof(AngleDegreesMinutesSeconds)}.", nameof(obj));
             }
@@ -396,6 +396,26 @@ namespace NetFabric
             var reduced = Reduce(angle);
             return (reduced > minAngle && reduced < maxAngle); 
         }
+
+#if !NET35
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+        internal static int Compare(in AngleDegreesMinutesSeconds angle1, in AngleDegreesMinutesSeconds angle2)
+        {
+            if (angle1.degrees > angle2.degrees)
+                return 1;
+            if (angle1.degrees < angle2.degrees)
+                return -1;
+            if (angle1.minutes > angle2.minutes)
+                return 1;
+            if (angle1.minutes < angle2.minutes)
+                return -1;
+            if (angle1.seconds > angle2.seconds)
+                return 1;
+            if (angle1.seconds < angle2.seconds)
+                return -1;
+            return 0;
+        }
     }
 
     public static partial class Angle
@@ -407,15 +427,14 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         public static AngleDegreesMinutesSeconds FromDegrees(int degrees, int minutes, double seconds)
         {
+            if (degrees < 0)
+                throw new ArgumentOutOfRangeException(nameof(degrees), seconds, "Argument must be greater or equal to 0.");
             if (minutes < 0 || minutes >= 60)
-                throw new ArgumentOutOfRangeException(nameof(minutes), minutes, "Argument must be positive and less than 60.");
+                throw new ArgumentOutOfRangeException(nameof(minutes), minutes, "Argument must be greater or equal to 0 and less than 60.");
             if (seconds < 0.0 || seconds >= 60.0)
-                throw new ArgumentOutOfRangeException(nameof(seconds), seconds, "Argument must be positive and less than 60.");
+                throw new ArgumentOutOfRangeException(nameof(seconds), seconds, "Argument must be greater or equal to 0 and less than 60.");
 
-            if (degrees >= 0)
-                return new AngleDegreesMinutesSeconds(degrees, minutes, seconds);
-
-            return new AngleDegreesMinutesSeconds(degrees, -minutes, -seconds);
+            return new AngleDegreesMinutesSeconds(degrees, minutes, seconds);
         }
 
         /// <summary>
@@ -506,7 +525,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
         public static int Compare(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
-            AngleDegreesMinutesSeconds.GetDegreesAngle(a1).CompareTo(AngleDegreesMinutesSeconds.GetDegreesAngle(a2));
+            AngleDegreesMinutesSeconds.Compare(a1, a2);
 
         /// <summary>
         /// Compares two AngleDegreesMinutesSeconds values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
@@ -515,7 +534,7 @@ namespace NetFabric
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
         public static int CompareReduced(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
-            Compare(Reduce(a1), Reduce(a2));
+            AngleDegreesMinutesSeconds.Compare(Reduce(a1), Reduce(a2));
 
         #endregion
 

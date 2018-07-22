@@ -67,7 +67,7 @@ namespace NetFabric.UnitTests
             { AngleDegrees.Straight, AngleDegreesMinutesSeconds.Straight },
             { AngleDegrees.Full, AngleDegreesMinutesSeconds.Full },
             { Angle.FromDegrees(25.497361), Angle.FromDegrees(25, 29, 50.5) },
-            { Angle.FromDegrees(-25.497361), Angle.FromDegrees(-25, 29, 50.5) },
+            { -Angle.FromDegrees(25.497361), -Angle.FromDegrees(25, 29, 50.5) },
         };
 
         [Theory]
@@ -94,42 +94,32 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, Comparison> CompareData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, Comparison>
         {
-            { Angle.FromDegrees(-10, 0, 0.0), Angle.FromDegrees(-10, 0, 0.001), Comparison.GreaterThan },
-            { Angle.FromDegrees(-10, 0, 0.0), Angle.FromDegrees(-9, 0, 59.999), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 0, 0.001), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 0, 59.999), Comparison.GreaterThan },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 0, 0.0), Comparison.Equal },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 1, 0.0), Comparison.LessThan },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 59, 59.0), Comparison.GreaterThan },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 1, 1.0), Comparison.LessThan },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 0, 59.0), Comparison.GreaterThan },
 
-            { AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Right - AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
-            { AngleDegreesMinutesSeconds.Right, AngleDegreesMinutesSeconds.Right - AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
-            { AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Right - AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
-
-            { AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Right, Comparison.LessThan },
-            { AngleDegreesMinutesSeconds.Right, AngleDegreesMinutesSeconds.Right, Comparison.Equal },
-            { AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Right, Comparison.GreaterThan },
-
-            { AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Right + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
-            { AngleDegreesMinutesSeconds.Right, AngleDegreesMinutesSeconds.Right + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
-            { AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Right + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 0, 0.0), Comparison.Equal },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 1, 0.0), Comparison.GreaterThan },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(9, 59, 59.0), Comparison.LessThan },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 1, 1.0), Comparison.GreaterThan },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(9, 0, 59.0), Comparison.LessThan },
         };
 
         public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, Comparison> CompareReducedData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, Comparison>
         {
-            { Angle.FromDegrees(-10, 0, 0.0), Angle.FromDegrees(-10, 0, 0.001), Comparison.GreaterThan },
-            { Angle.FromDegrees(-10, 0, 0.0), Angle.FromDegrees(-9, 0, 59.999), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 0, 0.001), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 0, 59.999), Comparison.GreaterThan },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 0, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.Equal },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 1, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 59, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 1, 1.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
+            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 0, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
 
-            { AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Right - AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
-            { AngleDegreesMinutesSeconds.Right, AngleDegreesMinutesSeconds.Right - AngleDegreesMinutesSeconds.Full, Comparison.Equal },
-            { AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Right - AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
-
-            { AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Right, Comparison.LessThan },
-            { AngleDegreesMinutesSeconds.Right, AngleDegreesMinutesSeconds.Right, Comparison.Equal },
-            { AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Right, Comparison.GreaterThan },
-
-            { AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Right + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
-            { AngleDegreesMinutesSeconds.Right, AngleDegreesMinutesSeconds.Right + AngleDegreesMinutesSeconds.Full, Comparison.Equal },
-            { AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Right + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 0, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.Equal },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 1, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(9, 59, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 1, 1.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
+            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(9, 0, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
         };
 
         [Theory]
@@ -524,10 +514,10 @@ namespace NetFabric.UnitTests
             {AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero},
             {AcuteAngle, AcuteAngle},
             {-AcuteAngle, AcuteAngle},
-            {Angle.FromDegrees(-45, 1, 1.0), Angle.FromDegrees(44, 59, 59.0)},
-            {Angle.FromDegrees(-45, 59, 59.0), Angle.FromDegrees(44, 1, 1.0)},
-            {Angle.FromDegrees(-135, 0, 0.0), Angle.FromDegrees(45, 0, 0.0)},
-            {Angle.FromDegrees(-135, 1, 1.0), Angle.FromDegrees(44, 59, 59.0)},
+            {-Angle.FromDegrees(45, 1, 1.0), Angle.FromDegrees(44, 59, 59.0)},
+            {-Angle.FromDegrees(45, 59, 59.0), Angle.FromDegrees(44, 1, 1.0)},
+            {-Angle.FromDegrees(135, 0, 0.0), Angle.FromDegrees(45, 0, 0.0)},
+            {-Angle.FromDegrees(135, 1, 1.0), Angle.FromDegrees(44, 59, 59.0)},
             {AngleDegreesMinutesSeconds.Right ,AngleDegreesMinutesSeconds.Right},
             {AngleDegreesMinutesSeconds.Right + AcuteAngle, AcuteAngle},
             {AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Zero},

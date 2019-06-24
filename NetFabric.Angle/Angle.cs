@@ -130,7 +130,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in revolutions.</param>
         /// <returns>An object that represents value.</returns>
-        public static AngleGradians ToGradians(in AngleRevolutions angle) =>
+        public static AngleGradians ToGradians(AngleRevolutions angle) =>
             new AngleGradians(angle.Revolutions * AngleGradians.FullAngle);
 
         /// <summary>

@@ -104,13 +104,13 @@ namespace NetFabric
             a1.Degrees != a2.Degrees || a1.Minutes != a2.Minutes || a1.Seconds != a2.Seconds;
 
         /// <summary>
-        /// Indicates whether two AngleDegreesMinutesSeconds instances are equal.
+        /// Indicates whether whether this instance is equal to a specified AngleDegreesMinutesSeconds object.
         /// </summary>
-        /// <param name="a1">The first angle to compare.</param>
-        /// <param name="a2">The second angle to compare.</param>
-        /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
-        public static bool Equals(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
-            a1.Degrees == a2.Degrees && a1.Minutes == a2.Minutes && a1.Seconds == a2.Seconds;
+        /// <param name="other">An AngleDegreesMinutesSeconds to compare with this instance.</param>
+        /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
+        /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleDegreesMinutesSeconds.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
+        public bool Equals(in AngleDegreesMinutesSeconds other) =>
+            Degrees == other.Degrees && Minutes == other.Minutes && Seconds == other.Seconds;
 
         /// <summary>
         /// Indicates whether whether this instance is equal to a specified AngleDegreesMinutesSeconds object.
@@ -118,7 +118,7 @@ namespace NetFabric
         /// <param name="other">An AngleDegreesMinutesSeconds to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleDegreesMinutesSeconds.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
-        public bool Equals(AngleDegreesMinutesSeconds other) =>
+        bool IEquatable<AngleDegreesMinutesSeconds>.Equals(AngleDegreesMinutesSeconds other) =>
             Degrees == other.Degrees && Minutes == other.Minutes && Seconds == other.Seconds;
 
         #endregion

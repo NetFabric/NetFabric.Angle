@@ -19,7 +19,6 @@
     <RepositoryUrl>https://github.com/NetFabric/NetFabric.Angle</RepositoryUrl>
     <PackageReleaseNotes>New API with distinct angle representations for each unit type, reducing rounding issues.</PackageReleaseNotes>
     <RootNamespace>NetFabric</RootNamespace>
-    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,25 +37,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ErrorProne.NET.Structs" Version="0.1.0" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.3.0.5690" />
+    <PackageReference Include="ErrorProne.NET.Structs" Version="0.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.15.0.8572">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
-  
-  <!--
-  
-  <ItemGroup Condition="'$(TargetFramework)'!='net35'">
-    <Compile Include="Platforms\Tuples\**" />
-    <PackageReference Condition="'$(TargetFramework)'!='net47'" Include="System.ValueTuple" Version="4.3.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'!='netstandard1.0'">
-    <Compile Include="Platforms\Serializable\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Platforms\Serializable\" />
-  </ItemGroup>
-  
-  -->
 
 </Project>

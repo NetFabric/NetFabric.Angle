@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
-    <LangVersion>7.3</LangVersion>
     <RootNamespace>NetFabric.UnitTests</RootNamespace>
   </PropertyGroup>
   
@@ -12,10 +11,6 @@
     <None Remove="Platforms\**" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net35' ">
-    <PackageReference Condition=" '$(TargetFramework)' != 'net47'" Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="AngleEnumerableMaxTests.cs" />
     <Compile Remove="AngleEnumerableMinTests.cs" />
@@ -23,18 +18,14 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
-    <PackageReference Include="FluentAssertions" Version="4.19.4" />
-    <PackageReference Include="xunit" Version="2.2.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />
+    <PackageReference Include="FluentAssertions" Version="5.7.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="coverlet.msbuild" Version="2.6.2" />
-=======
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
-    <PackageReference Include="FluentAssertions" Version="5.4.0" />
-    <PackageReference Include="xunit" Version="2.3.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
->>>>>>> Refactoring of AngleRadians
   </ItemGroup>
 
   <ItemGroup>

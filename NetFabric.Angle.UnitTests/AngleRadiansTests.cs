@@ -27,7 +27,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToRadians(value);
+            var angle = Angle.InRadians(value);
 
             // assert
             angle.Should().BeOfType<AngleRadians>().And.Be(expected);
@@ -51,7 +51,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToRadians(value);
+            var angle = Angle.InRadians(value);
 
             // assert
             angle.Should().BeOfType<AngleRadians>().And.Be(expected);
@@ -75,7 +75,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToRadians(value);
+            var angle = Angle.InRadians(value);
 
             // assert
             angle.Should().BeOfType<AngleRadians>().And.Be(expected);
@@ -685,11 +685,7 @@ namespace NetFabric.UnitTests
         public void ToString_Should_Succeed(AngleRadians angle, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString();
@@ -708,11 +704,7 @@ namespace NetFabric.UnitTests
         public void ToStringFormat_Should_Succeed(AngleRadians angle, string format, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString(format);

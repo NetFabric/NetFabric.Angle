@@ -3,5 +3,9 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <Features>strict</Features>
+    <Copyright>Copyright © Antao Almada 2016-2019</Copyright>
+    <Authors>Antao Almada</Authors>
+    <Company>NetFabric</Company>
+    <UnityVersion>2019.1.8f1</UnityVersion>
   </PropertyGroup>
 </Project>

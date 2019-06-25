@@ -1,10 +1,9 @@
 ﻿using System;
-#if !NET35
 using System.Runtime.CompilerServices;
-#endif
 
 namespace NetFabric
 {
+    [Serializable]
     public readonly struct AngleDegreesMinutesSeconds
         : IEquatable<AngleDegreesMinutesSeconds>
         , IComparable
@@ -20,6 +19,11 @@ namespace NetFabric
         /// Represents the zero AngleDegreesMinutesSeconds value. This field is read-only.
         /// </summary>
         public static readonly AngleDegreesMinutesSeconds Zero = new AngleDegreesMinutesSeconds(0, 0, 0.0);
+
+        /// <summary>
+        /// Represents the golden AngleDegreesMinutesSeconds value (~137.508 degrees). This field is read-only.
+        /// </summary>
+        public static readonly AngleDegreesMinutesSeconds Golden = Angle.InDegreesMinutesSeconds(AngleRadians.Golden);
 
         /// <summary>
         /// Represents the smallest possible value of a AngleDegreesMinutesSeconds. This field is read-only.
@@ -171,7 +175,7 @@ namespace NetFabric
                 case AngleDegreesMinutesSeconds angle:
                     return AngleDegreesMinutesSeconds.Compare(this, angle);
                 default:
-                    throw new ArgumentException($"Argument has to be an {nameof(AngleDegreesMinutesSeconds)}.", nameof(obj));
+                    return ThrowHelper.ThrowArgumentException<int>(nameof(obj), $"Argument has to be an {nameof(AngleDegreesMinutesSeconds)}.");
             }
         }
 
@@ -331,9 +335,7 @@ namespace NetFabric
         internal const int StraightAngle = 180;
         internal const int FullAngle = 360;
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         internal static AngleDegreesMinutesSeconds Reduce(in AngleDegreesMinutesSeconds angle)
         {
             var degrees = Utils.Reduce(angle.degrees, FullAngle);
@@ -346,15 +348,11 @@ namespace NetFabric
             return new AngleDegreesMinutesSeconds(degrees, angle.minutes, angle.seconds);
         }
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         internal static Quadrant GetQuadrant(int degrees) =>
             Utils.GetQuadrant(degrees, RightAngle, StraightAngle, FullAngle);
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         internal static AngleDegreesMinutesSeconds GetReference(in AngleDegreesMinutesSeconds angle)
         {
             var degrees = Utils.GetReference(angle.degrees, RightAngle, StraightAngle, FullAngle);
@@ -367,39 +365,29 @@ namespace NetFabric
             return new AngleDegreesMinutesSeconds(degrees, angle.minutes, angle.seconds);
         }
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         internal static double GetDegreesAngle(in AngleDegreesMinutesSeconds angle) =>
             angle.degrees + angle.minutes / 60.0 + angle.seconds / 3_600.0;
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         internal static bool EqualsReduced(in AngleDegreesMinutesSeconds angle1, in AngleDegreesMinutesSeconds angle2) =>
             AngleDegreesMinutesSeconds.Equals(Reduce(angle1), angle2);
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         internal static bool GreaterThanReduced(in AngleDegreesMinutesSeconds angle1, in AngleDegreesMinutesSeconds angle2)
         {
             var reduced = Reduce(angle1);
             return reduced > angle2;
         }
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         internal static bool InRangeReduced(in AngleDegreesMinutesSeconds angle, in AngleDegreesMinutesSeconds minAngle, in AngleDegreesMinutesSeconds maxAngle)
         {
             var reduced = Reduce(angle);
             return (reduced > minAngle && reduced < maxAngle); 
         }
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         internal static int Compare(in AngleDegreesMinutesSeconds angle1, in AngleDegreesMinutesSeconds angle2)
         {
             if (angle1.degrees > angle2.degrees)
@@ -416,264 +404,5 @@ namespace NetFabric
                 return -1;
             return 0;
         }
-    }
-
-    public static partial class Angle
-    {
-        /// <summary>
-        /// Returns an AngleDegreesMinutesSeconds that represents a specified number of degrees, minutes and seconds.
-        /// </summary>
-        /// <param name="value">A number of gradians.</param>
-        /// <returns>An object that represents value.</returns>
-        public static AngleDegreesMinutesSeconds FromDegrees(int degrees, int minutes, double seconds)
-        {
-            if (degrees < 0)
-                throw new ArgumentOutOfRangeException(nameof(degrees), seconds, "Argument must be greater or equal to 0.");
-            if (minutes < 0 || minutes >= 60)
-                throw new ArgumentOutOfRangeException(nameof(minutes), minutes, "Argument must be greater or equal to 0 and less than 60.");
-            if (seconds < 0.0 || seconds >= 60.0)
-                throw new ArgumentOutOfRangeException(nameof(seconds), seconds, "Argument must be greater or equal to 0 and less than 60.");
-
-            return new AngleDegreesMinutesSeconds(degrees, minutes, seconds);
-        }
-
-        /// <summary>
-        /// Returns the absolute value of the AngleDegreesMinutesSeconds.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>
-        /// An AngleDegreesMinutesSeconds, x, such that AngleDegreesMinutesSeconds.Zero &lt;= x &lt;= AngleDegreesMinutesSeconds.MaxValue.
-        /// </returns>
-        public static AngleDegreesMinutesSeconds Abs(in AngleDegreesMinutesSeconds angle) =>
-            new AngleDegreesMinutesSeconds(Math.Abs(angle.Degrees), Math.Abs(angle.Minutes), Math.Abs(angle.Seconds));
-
-        /// <summary>
-        /// Returns a value indicating the sign of an angle.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
-        public static int Sign(in AngleDegreesMinutesSeconds angle) =>
-            Math.Sign(angle.Degrees);
-
-        #region min
-
-        /// <summary>
-        /// Returns the smaller of two angles.
-        /// </summary>
-        /// <param name="left">The first of two angles to compare.</param>
-        /// <param name="right">The second of two angles to compare.</param>
-        /// <returns>A reference to parameter left or right, whichever is smaller.</returns>
-        public static ref readonly AngleDegreesMinutesSeconds Min(in AngleDegreesMinutesSeconds left, in AngleDegreesMinutesSeconds right) =>
-            ref AngleDegreesMinutesSeconds.GetDegreesAngle(left) < AngleDegreesMinutesSeconds.GetDegreesAngle(right) ? 
-                ref left : 
-                ref right;
-
-        #endregion
-
-        #region max
-
-        /// <summary>
-        /// Returns the largest of two angles.
-        /// </summary>
-        /// <param name="left">The first of two angles to compare.</param>
-        /// <param name="right">The second of two angles to compare.</param>
-        /// <returns>A reference to parameter left or right, whichever is larger.</returns>
-        public static ref readonly AngleDegreesMinutesSeconds Max(in AngleDegreesMinutesSeconds left, in AngleDegreesMinutesSeconds right) =>
-            ref AngleDegreesMinutesSeconds.GetDegreesAngle(left) < AngleDegreesMinutesSeconds.GetDegreesAngle(right) ?
-                ref left :
-                ref right;
-
-        #endregion
-
-        #region reduce
-
-        /// <summary>
-        /// Reduce an angle between 0 and 2π.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns></returns>
-        public static AngleDegreesMinutesSeconds Reduce(in AngleDegreesMinutesSeconds angle) =>
-            AngleDegreesMinutesSeconds.Reduce(angle);
-
-        //public static AngleDegreesMinutesSeconds Reduce(in AngleDegreesMinutesSeconds angle) =>
-        //    new AngleDegreesMinutesSeconds(AngleDegreesMinutesSeconds.Reduce(angle.Degrees), angle.Minutes, angle.Seconds);
-
-        /// <summary>
-        /// Returns the quadrant where the terminal side of the angle is in when in the standard position.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
-        public static Quadrant GetQuadrant(in AngleDegreesMinutesSeconds angle) =>
-            AngleDegreesMinutesSeconds.GetQuadrant(angle.Degrees);
-
-        /// <summary>
-        /// Returns the reference angle.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>The reference angle.</returns>
-        public static AngleDegreesMinutesSeconds GetReference(in AngleDegreesMinutesSeconds angle) =>
-            AngleDegreesMinutesSeconds.GetReference(angle);
-
-        #endregion
-
-        #region comparison 
-
-        /// <summary>
-        /// Compares two AngleDegreesMinutesSeconds values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
-        /// </summary>
-        /// <param name="a1">The first angle to compare.</param>
-        /// <param name="a2">The second angle to compare.</param>
-        /// <returns></returns>
-        public static int Compare(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
-            AngleDegreesMinutesSeconds.Compare(a1, a2);
-
-        /// <summary>
-        /// Compares two AngleDegreesMinutesSeconds values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
-        /// </summary>
-        /// <param name="a1">The first angle to compare.</param>
-        /// <param name="a2">The second angle to compare.</param>
-        /// <returns></returns>
-        public static int CompareReduced(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
-            AngleDegreesMinutesSeconds.Compare(Reduce(a1), Reduce(a2));
-
-        #endregion
-
-        #region types of angles
-
-        /// <summary>
-        /// Indicates whether the specified angle is equal to Zero when reduced.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is zero; otherwise false.</returns>
-        public static bool IsZero(in AngleDegreesMinutesSeconds angle) =>
-            angle.Minutes == 0.0 && angle.Degrees % AngleDegreesMinutesSeconds.FullAngle == 0;
-
-        /// <summary>
-        /// Indicates whether the specified angle is acute.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is greater than zero and less than 90 degrees; otherwise false.</returns>
-        public static bool IsAcute(in AngleDegreesMinutesSeconds angle) =>
-            AngleDegreesMinutesSeconds.InRangeReduced(Angle.Abs(angle), AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Right);
-
-        /// <summary>
-        /// Indicates whether the specified angle is right.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is 90 degrees; otherwise false.</returns>
-        public static bool IsRight(in AngleDegreesMinutesSeconds angle) =>
-            AngleDegreesMinutesSeconds.EqualsReduced(Angle.Abs(angle), AngleDegreesMinutesSeconds.Right);
-
-        /// <summary>
-        /// Indicates whether the specified angle is obtuse.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is greater than 90 degrees and less than 180 degrees; otherwise false.</returns>
-        public static bool IsObtuse(in AngleDegreesMinutesSeconds angle) =>
-            AngleDegreesMinutesSeconds.InRangeReduced(Angle.Abs(angle), AngleDegreesMinutesSeconds.Right, AngleDegreesMinutesSeconds.Straight);
-
-        /// <summary>
-        /// Indicates whether the specified angle is straight.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
-        public static bool IsStraight(in AngleDegreesMinutesSeconds angle) =>
-            AngleDegreesMinutesSeconds.EqualsReduced(Angle.Abs(angle), AngleDegreesMinutesSeconds.Straight);
-
-        /// <summary>
-        /// Indicates whether the specified angle is reflex.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is greater than 180 degrees and less than 360 degrees; otherwise false.</returns>
-        public static bool IsReflex(in AngleDegreesMinutesSeconds angle) =>
-            AngleDegreesMinutesSeconds.GreaterThanReduced(Angle.Abs(angle), AngleDegreesMinutesSeconds.Straight);
-
-        /// <summary>
-        /// Indicates whether the specified angle is oblique.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the angle is not right or a multiple of a right angle; otherwise false.</returns>
-        public static bool IsOblique(in AngleDegreesMinutesSeconds angle) =>
-            angle.Minutes != 0.0 || angle.Seconds != 0.0 || angle.Degrees % AngleDegreesMinutesSeconds.RightAngle != 0.0;
-
-        #endregion
-
-        #region lerp
-
-        /// <summary>
-        /// Performs a linear interpolation.
-        /// </summary>
-        /// <param name="a1">The first angle.</param>
-        /// <param name="a2">The second angle.</param>
-        /// <param name="t">A value that linearly interpolates between the a1 parameter and the a2 parameter.</param>
-        /// <returns>The result of the linear interpolation.</returns>
-        public static AngleDegreesMinutesSeconds Lerp(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2, double t) =>
-            new AngleDegreesMinutesSeconds(Utils.Lerp(AngleDegreesMinutesSeconds.GetDegreesAngle(a1), AngleDegreesMinutesSeconds.GetDegreesAngle(a2), t));
-
-        #endregion
-
-        #region negation
-
-        /// <summary>
-        /// Negates an angle.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>Result of the negation.</returns>
-        public static AngleDegreesMinutesSeconds Negate(in AngleDegreesMinutesSeconds angle) =>
-            -angle;
-
-        #endregion
-
-        #region addition
-
-        /// <summary>
-        /// Adds two vectors. 
-        /// </summary>
-        /// <param name="left">Source angle.</param>
-        /// <param name="right">Source angle.</param>
-        /// <returns>Result of the addition.</returns>
-        public static AngleDegreesMinutesSeconds Add(in AngleDegreesMinutesSeconds left, in AngleDegreesMinutesSeconds right) =>
-            left + right;
-
-        #endregion
-
-        #region subtraction
-
-        /// <summary>
-        /// Subtracts a angle from a angle.  
-        /// </summary>
-        /// <param name="left">Source angle.</param>
-        /// <param name="right">Source angle.</param>
-        /// <returns>Result of the subtraction.</returns>
-        public static AngleDegreesMinutesSeconds Subtract(in AngleDegreesMinutesSeconds left, in AngleDegreesMinutesSeconds right) =>
-            left - right;
-
-        #endregion
-
-        #region multiplication
-
-        /// <summary>
-        /// Multiplies a angle by a scalar value.
-        /// </summary>
-        /// <param name="left">Scalar value.</param>
-        /// <param name="right">Source angle.</param>
-        /// <returns>Result of the multiplication.</returns>
-        public static AngleDegreesMinutesSeconds Multiply(double left, in AngleDegreesMinutesSeconds right) =>
-            left * right;
-
-        #endregion
-
-        #region division
-
-        /// <summary>
-        /// Divides a angle by a scalar value.
-        /// </summary>
-        /// <param name="left">Source angle.</param>
-        /// <param name="right">Scalar value.</param>
-        /// <returns>Result of the division.</returns>
-        public static AngleDegreesMinutesSeconds Divide(in AngleDegreesMinutesSeconds left, double right) =>
-            left / right;
-
-        #endregion
     }
 }

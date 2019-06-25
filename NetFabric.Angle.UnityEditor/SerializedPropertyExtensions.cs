@@ -88,10 +88,10 @@ namespace Supyrb
         public static T GetFieldOrPropertyValue<T>(string fieldName, object obj, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
         {
             FieldInfo field = obj.GetType().GetField(fieldName, bindings);
-            if (field != null) return (T)field.GetValue(obj);
+            if (field is object) return (T)field.GetValue(obj);
 
             PropertyInfo property = obj.GetType().GetProperty(fieldName, bindings);
-            if (property != null) return (T)property.GetValue(obj, null);
+            if (property is object) return (T)property.GetValue(obj, null);
 
             if (includeAllBases)
             {
@@ -99,27 +99,27 @@ namespace Supyrb
                 foreach (Type type in GetBaseClassesAndInterfaces(obj.GetType()))
                 {
                     field = type.GetField(fieldName, bindings);
-                    if (field != null) return (T)field.GetValue(obj);
+                    if (field is object) return (T)field.GetValue(obj);
 
                     property = type.GetProperty(fieldName, bindings);
-                    if (property != null) return (T)property.GetValue(obj, null);
+                    if (property is object) return (T)property.GetValue(obj, null);
                 }
             }
 
-            return default(T);
+            return default;
         }
 
         public static bool SetFieldOrPropertyValue(string fieldName, object obj, object value, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
         {
             var field = obj.GetType().GetField(fieldName, bindings);
-            if (field != null)
+            if (field is object)
             {
                 field.SetValue(obj, value);
                 return true;
             }
 
             var property = obj.GetType().GetProperty(fieldName, bindings);
-            if (property != null)
+            if (property is object)
             {
                 property.SetValue(obj, value, null);
                 return true;
@@ -130,14 +130,14 @@ namespace Supyrb
                 foreach (Type type in GetBaseClassesAndInterfaces(obj.GetType()))
                 {
                     field = type.GetField(fieldName, bindings);
-                    if (field != null)
+                    if (field is object)
                     {
                         field.SetValue(obj, value);
                         return true;
                     }
 
                     property = type.GetProperty(fieldName, bindings);
-                    if (property != null)
+                    if (property is object)
                     {
                         property.SetValue(obj, value, null);
                         return true;

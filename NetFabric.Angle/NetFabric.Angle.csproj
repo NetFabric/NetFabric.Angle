@@ -8,41 +8,29 @@
     <Version>3.0.0</Version>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <FileVersion>3.0.0.0</FileVersion>
-    <Copyright>Copyright © Antão Almada 2016-2017</Copyright>
-    <Authors>Antão Almada</Authors>
-    <Company>NetFabric</Company>
-    <PackageLicenseUrl>https://github.com/NetFabric/NetFabric.Angle/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/NetFabric/NetFabric.Angle</PackageProjectUrl>
-    <PackageIconUrl>https://iobservableblog.files.wordpress.com/2016/04/netfabric-angle-64x64.png</PackageIconUrl>
-    <PackageTags>math, numerics, trigonometry, uwp, xamarin, unity</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageIconUrl>https://user-images.githubusercontent.com/534533/49182105-390f3a80-f351-11e8-8e84-c785cddd2995.png</PackageIconUrl>
+    <PackageTags>math, numerics, trigonometry</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/NetFabric/NetFabric.Angle</RepositoryUrl>
     <PackageReleaseNotes>New API with distinct angle representations for each unit type, reducing rounding issues.</PackageReleaseNotes>
     <RootNamespace>NetFabric</RootNamespace>
+    <!--<PublishRepositoryUrl>true</PublishRepositoryUrl>-->
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DocumentationFile>NetFabric.Angle.xml</DocumentationFile>
+  </PropertyGroup>
+  
   <ItemGroup>
-    <Compile Remove="Enumerables\**" />
-    <Compile Remove="Platforms\**" />
-    <EmbeddedResource Remove="Enumerables\**" />
-    <EmbeddedResource Remove="Platforms\**" />
-    <None Remove="Enumerables\**" />
-    <None Remove="Platforms\**" />
-    <Compile Remove="AngleRangeAttribute.cs" />
-    <Compile Remove="DegreesMinutesSecondsAngle.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
-    <Compile Include="Platforms\Serializable\AngleSerializable.cs" />
+    <None Include="..\Licenses\LICENSE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ErrorProne.NET.Structs" Version="0.1.2">
-      <PrivateAssets>all</PrivateAssets>
+    <!--<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />-->
+    <PackageReference Include="ErrorProne.NET.Structs" Version="0.1.2" PrivateAssets="All">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.15.0.8572">
-      <PrivateAssets>all</PrivateAssets>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.15.0.8572" PrivateAssets="All">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>

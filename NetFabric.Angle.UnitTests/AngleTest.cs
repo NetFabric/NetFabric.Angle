@@ -24,7 +24,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.FromRadians(value);
+            var angle = Angle.InRadians(value);
 
             // assert
             angle.Should().BeOfType<AngleRadians>();
@@ -38,7 +38,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.FromDegrees(value);
+            var angle = Angle.InDegrees(value);
 
             // assert
             angle.Should().BeOfType<AngleDegrees>();
@@ -52,7 +52,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.FromGradians(value);
+            var angle = Angle.InGradians(value);
 
             // assert
             angle.Should().BeOfType<AngleGradians>();
@@ -66,7 +66,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.FromRevolutions(value);
+            var angle = Angle.InRevolutions(value);
 
             // assert
             angle.Should().BeOfType<AngleRevolutions>();
@@ -86,7 +86,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            Action action = () => Angle.FromDegrees(degrees, minutes);
+            Action action = () => Angle.InDegreesMinutes(degrees, minutes);
 
             // assert
             action.Should()
@@ -109,7 +109,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            Action action = () => Angle.FromDegrees(degrees, minutes, seconds);
+            Action action = () => Angle.InDegreesMinutesSeconds(degrees, minutes, seconds);
 
             // assert
             action.Should()
@@ -132,7 +132,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            Action action = () => Angle.FromDegrees(degrees, minutes, seconds);
+            Action action = () => Angle.InDegreesMinutesSeconds(degrees, minutes, seconds);
 
             // assert
             action.Should()
@@ -146,11 +146,7 @@ namespace NetFabric.UnitTests
         [Fact]
         public void ToString_Should_Succeed()
         {
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             RadiansAngle.Straight.ToString().Should().Be("3.14159265358979");
 

@@ -2,20 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Copyright>Copyright © Antão Almada 2016-2017</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="..\Externals\UnityAssemblies\UnityEditor.dll" />
-    <Reference Include="..\Externals\UnityAssemblies\UnityEngine.dll" />
+    <PackageReference Include="Unity3D" Version="1.1.0" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditorPath)" Private="false" />
+  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\NetFabric.Angle\NetFabric.Angle.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

@@ -27,7 +27,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToDegreesMinutes(value);
+            var angle = Angle.InDegreesMinutes(value);
 
             // assert
             angle.Should().BeOfType<AngleDegreesMinutes>().And.Be(expected);
@@ -51,7 +51,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToDegreesMinutes(value);
+            var angle = Angle.InDegreesMinutes(value);
 
             // assert
             angle.Should().BeOfType<AngleDegreesMinutes>().And.Be(expected);
@@ -75,7 +75,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToDegreesMinutes(value);
+            var angle = Angle.InDegreesMinutes(value);
 
             // assert
             angle.Should().BeOfType<AngleDegreesMinutes>().And.Be(expected);
@@ -89,10 +89,10 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, Comparison> CompareData => new TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, Comparison>
         {
-            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-10, 0.001), Comparison.GreaterThan },
-            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-9, 59.999), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(10, 0.001), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(9, 59.999), Comparison.GreaterThan },
+            { Angle.InDegreesMinutes(-10, 0.0), Angle.InDegreesMinutes(-10, 0.001), Comparison.GreaterThan },
+            { Angle.InDegreesMinutes(-10, 0.0), Angle.InDegreesMinutes(-9, 59.999), Comparison.LessThan },
+            { Angle.InDegreesMinutes(10, 0.0), Angle.InDegreesMinutes(10, 0.001), Comparison.LessThan },
+            { Angle.InDegreesMinutes(10, 0.0), Angle.InDegreesMinutes(9, 59.999), Comparison.GreaterThan },
 
             { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.GreaterThan },
             { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.GreaterThan },
@@ -109,10 +109,10 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, Comparison> CompareReducedData => new TheoryData<AngleDegreesMinutes, AngleDegreesMinutes, Comparison>
         {
-            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-10, 0.001), Comparison.GreaterThan },
-            { Angle.FromDegrees(-10, 0.0), Angle.FromDegrees(-9, 59.999), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(10, 0.001), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0.0), Angle.FromDegrees(9, 59.999), Comparison.GreaterThan },
+            { Angle.InDegreesMinutes(-10, 0.0), Angle.InDegreesMinutes(-10, 0.001), Comparison.GreaterThan },
+            { Angle.InDegreesMinutes(-10, 0.0), Angle.InDegreesMinutes(-9, 59.999), Comparison.LessThan },
+            { Angle.InDegreesMinutes(10, 0.0), Angle.InDegreesMinutes(10, 0.001), Comparison.LessThan },
+            { Angle.InDegreesMinutes(10, 0.0), Angle.InDegreesMinutes(9, 59.999), Comparison.GreaterThan },
 
             { AngleDegreesMinutes.Zero, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.LessThan },
             { AngleDegreesMinutes.Right, AngleDegreesMinutes.Right - AngleDegreesMinutes.Full, Comparison.Equal },
@@ -697,11 +697,7 @@ namespace NetFabric.UnitTests
         public void ToString_Should_Succeed(in AngleDegreesMinutes angle, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString();
@@ -720,11 +716,7 @@ namespace NetFabric.UnitTests
         public void ToStringFormat_Should_Succeed(in AngleDegreesMinutes angle, string format, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString(format);

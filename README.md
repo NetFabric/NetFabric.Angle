@@ -247,3 +247,14 @@ var range1 = new[] { Angle.Zero, Angle.Full, Angle.Right }.Range(); // (Angle.Ze
 // supports range of ranges
 var rangeOfRanges = new[] { range1, range0 }.Range(); // (-Angle.Full, Angle.Full)
 ```
+
+# Credits
+
+The following open-source projects are used to build and test this project:
+
+- [.NET](https://github.com/dotnet)
+- [BenchmarkDotNet](https://benchmarkdotnet.org/)
+- [coverlet](https://github.com/tonerdo/coverlet)
+- [Fluent Assertions](https://fluentassertions.com/)
+- [UnityAssemblies](https://github.com/DerploidEntertainment/UnityAssemblies)
+- [xUnit.net](https://xunit.net/)

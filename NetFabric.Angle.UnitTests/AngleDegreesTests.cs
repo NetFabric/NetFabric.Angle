@@ -27,7 +27,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToDegrees(value);
+            var angle = Angle.InDegrees(value);
 
             // assert
             angle.Should().BeOfType<AngleDegrees>().And.Be(expected);
@@ -51,7 +51,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToDegrees(value);
+            var angle = Angle.InDegrees(value);
 
             // assert
             angle.Should().BeOfType<AngleDegrees>().And.Be(expected);
@@ -75,7 +75,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToDegrees(value);
+            var angle = Angle.InDegrees(value);
 
             // assert
             angle.Should().BeOfType<AngleDegrees>().And.Be(expected);
@@ -89,10 +89,10 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegrees, AngleDegrees, Comparison> CompareData => new TheoryData<AngleDegrees, AngleDegrees, Comparison>
         {
-            { Angle.FromDegrees(-10.0), Angle.FromDegrees(-10.001), Comparison.GreaterThan },
-            { Angle.FromDegrees(-10.0), Angle.FromDegrees(-9.999), Comparison.LessThan },
-            { Angle.FromDegrees(10.0), Angle.FromDegrees(10.001), Comparison.LessThan },
-            { Angle.FromDegrees(10.0), Angle.FromDegrees(9.999), Comparison.GreaterThan },
+            { Angle.InDegrees(-10.0), Angle.InDegrees(-10.001), Comparison.GreaterThan },
+            { Angle.InDegrees(-10.0), Angle.InDegrees(-9.999), Comparison.LessThan },
+            { Angle.InDegrees(10.0), Angle.InDegrees(10.001), Comparison.LessThan },
+            { Angle.InDegrees(10.0), Angle.InDegrees(9.999), Comparison.GreaterThan },
 
             { AngleDegrees.Zero, AngleDegrees.Right - AngleDegrees.Full, Comparison.GreaterThan },
             { AngleDegrees.Right, AngleDegrees.Right - AngleDegrees.Full, Comparison.GreaterThan },
@@ -109,10 +109,10 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegrees, AngleDegrees, Comparison> CompareReducedData => new TheoryData<AngleDegrees, AngleDegrees, Comparison>
         {
-            { Angle.FromDegrees(-10.0), Angle.FromDegrees(-10.001), Comparison.GreaterThan },
-            { Angle.FromDegrees(-10.0), Angle.FromDegrees(-9.999), Comparison.LessThan },
-            { Angle.FromDegrees(10.0), Angle.FromDegrees(10.001), Comparison.LessThan },
-            { Angle.FromDegrees(10.0), Angle.FromDegrees(9.999), Comparison.GreaterThan },
+            { Angle.InDegrees(-10.0), Angle.InDegrees(-10.001), Comparison.GreaterThan },
+            { Angle.InDegrees(-10.0), Angle.InDegrees(-9.999), Comparison.LessThan },
+            { Angle.InDegrees(10.0), Angle.InDegrees(10.001), Comparison.LessThan },
+            { Angle.InDegrees(10.0), Angle.InDegrees(9.999), Comparison.GreaterThan },
 
             { AngleDegrees.Zero, AngleDegrees.Right - AngleDegrees.Full, Comparison.LessThan },
             { AngleDegrees.Right, AngleDegrees.Right - AngleDegrees.Full, Comparison.Equal },
@@ -696,11 +696,7 @@ namespace NetFabric.UnitTests
         public void ToString_Should_Succeed(AngleDegrees angle, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString();
@@ -719,11 +715,7 @@ namespace NetFabric.UnitTests
         public void ToStringFormat_Should_Succeed(AngleDegrees angle, string format, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString(format);

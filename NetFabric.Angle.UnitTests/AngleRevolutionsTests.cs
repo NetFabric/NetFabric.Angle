@@ -27,7 +27,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToRevolutions(value);
+            var angle = Angle.InRevolutions(value);
 
             // assert
             angle.Should().BeOfType<AngleRevolutions>().And.Be(expected);
@@ -51,7 +51,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToRevolutions(value);
+            var angle = Angle.InRevolutions(value);
 
             // assert
             angle.Should().BeOfType<AngleRevolutions>().And.Be(expected);
@@ -75,7 +75,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToRevolutions(value);
+            var angle = Angle.InRevolutions(value);
 
             // assert
             angle.Should().BeOfType<AngleRevolutions>().And.Be(expected);
@@ -99,7 +99,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToRevolutions(value);
+            var angle = Angle.InRevolutions(value);
 
             // assert
             angle.Should().BeOfType<AngleRevolutions>().And.Be(expected);
@@ -113,10 +113,10 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleRevolutions, AngleRevolutions, Comparison> CompareData => new TheoryData<AngleRevolutions, AngleRevolutions, Comparison>
         {
-            { Angle.FromRevolutions(-10.0), Angle.FromRevolutions(-10.001), Comparison.GreaterThan },
-            { Angle.FromRevolutions(-10.0), Angle.FromRevolutions(-9.999), Comparison.LessThan },
-            { Angle.FromRevolutions(10.0), Angle.FromRevolutions(10.001), Comparison.LessThan },
-            { Angle.FromRevolutions(10.0), Angle.FromRevolutions(9.999), Comparison.GreaterThan },
+            { Angle.InRevolutions(-10.0), Angle.InRevolutions(-10.001), Comparison.GreaterThan },
+            { Angle.InRevolutions(-10.0), Angle.InRevolutions(-9.999), Comparison.LessThan },
+            { Angle.InRevolutions(10.0), Angle.InRevolutions(10.001), Comparison.LessThan },
+            { Angle.InRevolutions(10.0), Angle.InRevolutions(9.999), Comparison.GreaterThan },
 
             { AngleRevolutions.Zero, AngleRevolutions.Right - AngleRevolutions.Full, Comparison.GreaterThan },
             { AngleRevolutions.Right, AngleRevolutions.Right - AngleRevolutions.Full, Comparison.GreaterThan },
@@ -133,10 +133,10 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleRevolutions, AngleRevolutions, Comparison> CompareReducedData => new TheoryData<AngleRevolutions, AngleRevolutions, Comparison>
         {
-            { Angle.FromRevolutions(-0.1), Angle.FromRevolutions(-0.101), Comparison.GreaterThan },
-            { Angle.FromRevolutions(-0.1), Angle.FromRevolutions(-0.099), Comparison.LessThan },
-            { Angle.FromRevolutions(0.1), Angle.FromRevolutions(0.101), Comparison.LessThan },
-            { Angle.FromRevolutions(0.1), Angle.FromRevolutions(0.099), Comparison.GreaterThan },
+            { Angle.InRevolutions(-0.1), Angle.InRevolutions(-0.101), Comparison.GreaterThan },
+            { Angle.InRevolutions(-0.1), Angle.InRevolutions(-0.099), Comparison.LessThan },
+            { Angle.InRevolutions(0.1), Angle.InRevolutions(0.101), Comparison.LessThan },
+            { Angle.InRevolutions(0.1), Angle.InRevolutions(0.099), Comparison.GreaterThan },
 
             { AngleRevolutions.Zero, AngleRevolutions.Right - AngleRevolutions.Full, Comparison.LessThan },
             { AngleRevolutions.Right, AngleRevolutions.Right - AngleRevolutions.Full, Comparison.Equal },
@@ -719,11 +719,7 @@ namespace NetFabric.UnitTests
         public void ToString_Should_Succeed(AngleRevolutions angle, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString();
@@ -742,11 +738,7 @@ namespace NetFabric.UnitTests
         public void ToStringFormat_Should_Succeed(AngleRevolutions angle, string format, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString(format);

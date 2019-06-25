@@ -1,33 +1,25 @@
 ﻿using System;
-#if !NET35
 using System.Runtime.CompilerServices;
-#endif
 
 namespace NetFabric
 {
     static class Utils
     {
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         public static int Reduce(int angle, int fullAngle)
         {
             var reduced = angle % fullAngle;
             return reduced >= 0 ? reduced : reduced + fullAngle;
         }
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         public static double Reduce(double angle, double fullAngle)
         {
             var reduced = angle % fullAngle;
             return reduced >= 0 ? reduced : reduced + fullAngle;
         }
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         public static Quadrant GetQuadrant(int angle, int rightAngle, int straightAngle, int fullAngle)
         {
             var reduced = Reduce(angle, fullAngle);
@@ -55,7 +47,7 @@ namespace NetFabric
                 case Quadrant.Fourth:
                     return fullAngle - reduced;
                 default:
-                    throw new InvalidOperationException();
+                    return ThrowHelper.ThrowInvalidOperationException<int>();
             }
         }
 
@@ -74,13 +66,11 @@ namespace NetFabric
                 case Quadrant.Fourth:
                     return fullAngle - reduced;
                 default:
-                    throw new InvalidOperationException();
+                    return ThrowHelper.ThrowInvalidOperationException<double>();
             }
         }
 
-#if !NET35
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
         public static double Lerp(double a1, double a2, double t) =>
             (1 - t) * a1 + t * a2;
 

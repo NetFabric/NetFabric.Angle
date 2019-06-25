@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
+    [Serializable]
     public readonly partial struct AngleGradians
         : IEquatable<AngleGradians>
         , IComparable
@@ -18,6 +19,11 @@ namespace NetFabric
         /// Represents the zero AngleGradians value (0 degrees). This field is read-only.
         /// </summary>
         public static readonly AngleGradians Zero = new AngleGradians(0.0);
+
+        /// <summary>
+        /// Represents the golden AngleGradians value (~137.508 degrees). This field is read-only.
+        /// </summary>
+        public static readonly AngleGradians Golden = Angle.InGradians(AngleRadians.Golden);
 
         /// <summary>
         /// Represents the smallest possible value of a AngleGradians. This field is read-only.
@@ -73,15 +79,6 @@ namespace NetFabric
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
         public static bool operator !=(AngleGradians a1, AngleGradians a2) =>
             a1.Gradians != a2.Gradians;
-
-        /// <summary>
-        /// Indicates whether two AngleGradians instances are equal.
-        /// </summary>
-        /// <param name="a1">The first angle to compare.</param>
-        /// <param name="a2">The second angle to compare.</param>
-        /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
-        public static bool Equals(AngleGradians a1, AngleGradians a2) =>
-            a1.Gradians == a2.Gradians;
 
         /// <summary>
         /// Indicates whether whether this instance is equal to a specified AngleGradians object.
@@ -142,7 +139,7 @@ namespace NetFabric
                 case AngleGradians angle:
                     return Gradians.CompareTo(angle.Gradians);
                 default:
-                    throw new ArgumentException($"Argument has to be an {nameof(AngleGradians)}.", nameof(obj));
+                    return ThrowHelper.ThrowArgumentException<int>(nameof(obj), $"Argument has to be an {nameof(AngleGradians)}.");
             }
         }
 
@@ -256,257 +253,6 @@ namespace NetFabric
 
         internal static double GetReference(double degrees) =>
             Utils.GetReference(degrees, RightAngle, StraightAngle, FullAngle);
-
-    }
-
-    public static partial class Angle
-    {
-        /// <summary>
-        /// Returns an GradianssAngle that represents a specified number of gradians.
-        /// </summary>
-        /// <param name="value">A number of gradians.</param>
-        /// <returns>An object that represents value.</returns>
-        public static AngleGradians FromGradians(double value) =>
-            new AngleGradians(value);
-
-        /// <summary>
-        /// Returns the absolute value of the AngleGradians.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>
-        /// An AngleGradians, x, such that AngleGradians.Zero &lt;= x &lt;= AngleGradians.MaxValue.
-        /// </returns>
-        public static AngleGradians Abs(AngleGradians angle) =>
-            new AngleGradians(Math.Abs(angle.Gradians));
-
-        /// <summary>
-        /// Returns a value indicating the sign of an angle.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
-        public static int Sign(AngleGradians angle) =>
-            Math.Sign(angle.Gradians);
-
-        #region min
-
-        /// <summary>
-        /// Returns the smaller of two angles.
-        /// </summary>
-        /// <param name="left">The first of two angles to compare.</param>
-        /// <param name="right">The second of two angles to compare.</param>
-        /// <returns>A reference to parameter left or right, whichever is smaller.</returns>
-        public static AngleGradians Min(AngleGradians left, AngleGradians right) =>
-            left.Gradians < right.Gradians ? left : right;
-
-        #endregion
-
-        #region max
-
-        /// <summary>
-        /// Returns the largest of two angles.
-        /// </summary>
-        /// <param name="left">The first of two angles to compare.</param>
-        /// <param name="right">The second of two angles to compare.</param>
-        /// <returns>A reference to parameter left or right, whichever is larger.</returns>
-        public static AngleGradians Max(AngleGradians left, AngleGradians right) =>
-            left.Gradians > right.Gradians ? left : right;
-
-
-        #endregion
-
-        #region reduce
-
-        /// <summary>
-        /// Reduce an angle between 0 and 2π.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns></returns>
-        public static AngleGradians Reduce(AngleGradians angle) =>
-            new AngleGradians(AngleGradians.Reduce(angle.Gradians));
-
-        /// <summary>
-        /// Returns the quadrant where the terminal side of the angle is in when in the standard position.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
-        public static Quadrant GetQuadrant(AngleGradians angle) =>
-            AngleGradians.GetQuadrant(angle.Gradians);
-
-        /// <summary>
-        /// Returns the reference angle.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>The reference angle.</returns>
-        public static AngleGradians GetReference(AngleGradians angle) =>
-            new AngleGradians(AngleGradians.GetReference(angle.Gradians));
-
-        #endregion
-
-        #region comparison 
-
-        /// <summary>
-        /// Compares two AngleGradians values and returns an integer that indicates whether the first value is shorter than, equal to, or longer than the second value.
-        /// </summary>
-        /// <param name="a1">The first angle to compare.</param>
-        /// <param name="a2">The second angle to compare.</param>
-        /// <returns></returns>
-        public static int Compare(AngleGradians a1, AngleGradians a2) =>
-            a1.Gradians.CompareTo(a2.Gradians);
-
-        /// <summary>
-        /// Compares two AngleGradians values and returns an integer that indicates whether when both reduced the first value is shorter than, equal to, or longer than the second value.
-        /// </summary>
-        /// <param name="a1">The first angle to compare.</param>
-        /// <param name="a2">The second angle to compare.</param>
-        /// <returns></returns>
-        public static int CompareReduced(AngleGradians a1, AngleGradians a2) =>
-            AngleGradians.Reduce(a1.Gradians).CompareTo(AngleGradians.Reduce(a2.Gradians));
-
-        #endregion
-
-        #region types of angles
-
-        /// <summary>
-        /// Indicates whether the specified angle is equal to Zero when reduced.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is zero; otherwise false.</returns>
-        public static bool IsZero(AngleGradians angle) =>
-            angle.Gradians % AngleGradians.FullAngle == 0.0;
-
-        /// <summary>
-        /// Indicates whether the specified angle is acute.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is greater than zero and less than 90 degrees; otherwise false.</returns>
-        public static bool IsAcute(AngleGradians angle)
-        {
-            var reduced = AngleGradians.Reduce(Math.Abs(angle.Gradians));
-            return reduced > 0.0 && reduced < AngleGradians.RightAngle;
-        }
-
-        /// <summary>
-        /// Indicates whether the specified angle is right.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is 90 degrees; otherwise false.</returns>
-        public static bool IsRight(AngleGradians angle) =>
-            AngleGradians.Reduce(Math.Abs(angle.Gradians)) == AngleGradians.RightAngle;
-
-        /// <summary>
-        /// Indicates whether the specified angle is obtuse.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is greater than 90 degrees and less than 180 degrees; otherwise false.</returns>
-        public static bool IsObtuse(AngleGradians angle)
-        {
-            var reduced = AngleGradians.Reduce(Math.Abs(angle.Gradians));
-            return reduced > AngleGradians.RightAngle && reduced < AngleGradians.StraightAngle;
-        }
-
-        /// <summary>
-        /// Indicates whether the specified angle is straight.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
-        public static bool IsStraight(AngleGradians angle) =>
-            AngleGradians.Reduce(Math.Abs(angle.Gradians)) == AngleGradians.StraightAngle;
-
-        /// <summary>
-        /// Indicates whether the specified angle is reflex.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the reduction of the absolute angle is greater than 180 degrees and less than 360 degrees; otherwise false.</returns>
-        public static bool IsReflex(AngleGradians angle) =>
-            AngleGradians.Reduce(Math.Abs(angle.Gradians)) > AngleGradians.StraightAngle;
-
-        /// <summary>
-        /// Indicates whether the specified angle is oblique.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>true if the angle is not right or a multiple of a right angle; otherwise false.</returns>
-        public static bool IsOblique(AngleGradians angle) =>
-            angle.Gradians % AngleGradians.RightAngle != 0.0;
-
-        #endregion
-
-        #region lerp
-
-        /// <summary>
-        /// Performs a linear interpolation.
-        /// </summary>
-        /// <param name="a1">The first angle.</param>
-        /// <param name="a2">The second angle.</param>
-        /// <param name="t">A value that linearly interpolates between the a1 parameter and the a2 parameter.</param>
-        /// <returns>The result of the linear interpolation.</returns>
-        public static AngleGradians Lerp(AngleGradians a1, AngleGradians a2, double t) =>
-            new AngleGradians(Utils.Lerp(a1.Gradians, a2.Gradians, t));
-
-        #endregion
-
-        #region negation
-
-        /// <summary>
-        /// Negates an angle.
-        /// </summary>
-        /// <param name="angle">Source angle.</param>
-        /// <returns>Result of the negation.</returns>
-        public static AngleGradians Negate(AngleGradians angle) =>
-            new AngleGradians(-angle.Gradians);
-
-        #endregion
-
-        #region addition
-
-        /// <summary>
-        /// Adds two vectors. 
-        /// </summary>
-        /// <param name="left">Source angle.</param>
-        /// <param name="right">Source angle.</param>
-        /// <returns>Result of the addition.</returns>
-        public static AngleGradians Add(AngleGradians left, AngleGradians right) =>
-            new AngleGradians(left.Gradians + right.Gradians);
-
-        #endregion
-
-        #region subtraction
-
-        /// <summary>
-        /// Subtracts a angle from a angle.  
-        /// </summary>
-        /// <param name="left">Source angle.</param>
-        /// <param name="right">Source angle.</param>
-        /// <returns>Result of the subtraction.</returns>
-        public static AngleGradians Subtract(AngleGradians left, AngleGradians right) =>
-            new AngleGradians(left.Gradians - right.Gradians);
-
-        #endregion
-
-        #region multiplication
-
-        /// <summary>
-        /// Multiplies a angle by a scalar value.
-        /// </summary>
-        /// <param name="left">Scalar value.</param>
-        /// <param name="right">Source angle.</param>
-        /// <returns>Result of the multiplication.</returns>
-        public static AngleGradians Multiply(double left, AngleGradians right) =>
-            new AngleGradians(left * right.Gradians);
-
-        #endregion
-
-        #region division
-
-        /// <summary>
-        /// Divides a angle by a scalar value.
-        /// </summary>
-        /// <param name="left">Source angle.</param>
-        /// <param name="right">Scalar value.</param>
-        /// <returns>Result of the division.</returns>
-        public static AngleGradians Divide(AngleGradians left, double right) =>
-            new AngleGradians(left.Gradians / right);
-
-        #endregion
 
     }
 }

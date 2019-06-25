@@ -27,7 +27,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToDegreesMinutesSeconds(value);
+            var angle = Angle.InDegreesMinutesSeconds(value);
 
             // assert
             angle.Should().BeOfType<AngleDegreesMinutesSeconds>().And.Be(expected);
@@ -51,7 +51,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToDegreesMinutesSeconds(value);
+            var angle = Angle.InDegreesMinutesSeconds(value);
 
             // assert
             angle.Should().BeOfType<AngleDegreesMinutesSeconds>().And.Be(expected);
@@ -66,8 +66,8 @@ namespace NetFabric.UnitTests
             { AngleDegrees.Right, AngleDegreesMinutesSeconds.Right },
             { AngleDegrees.Straight, AngleDegreesMinutesSeconds.Straight },
             { AngleDegrees.Full, AngleDegreesMinutesSeconds.Full },
-            { Angle.FromDegrees(25.497361), Angle.FromDegrees(25, 29, 50.5) },
-            { -Angle.FromDegrees(25.497361), -Angle.FromDegrees(25, 29, 50.5) },
+            { Angle.InDegrees(25.497361), Angle.InDegreesMinutesSeconds(25, 29, 50.5) },
+            { -Angle.InDegrees(25.497361), -Angle.InDegreesMinutesSeconds(25, 29, 50.5) },
         };
 
         [Theory]
@@ -77,7 +77,7 @@ namespace NetFabric.UnitTests
             // arrange
 
             // act
-            var angle = Angle.ToDegreesMinutesSeconds(value);
+            var angle = Angle.InDegreesMinutesSeconds(value);
 
             // assert
             angle.Should().BeOfType<AngleDegreesMinutesSeconds>();
@@ -94,32 +94,32 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, Comparison> CompareData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, Comparison>
         {
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 0, 0.0), Comparison.Equal },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 1, 0.0), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 59, 59.0), Comparison.GreaterThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 1, 1.0), Comparison.LessThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 0, 59.0), Comparison.GreaterThan },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(10, 0, 0.0), Comparison.Equal },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(10, 1, 0.0), Comparison.LessThan },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(9, 59, 59.0), Comparison.GreaterThan },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(10, 1, 1.0), Comparison.LessThan },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(9, 0, 59.0), Comparison.GreaterThan },
 
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 0, 0.0), Comparison.Equal },
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 1, 0.0), Comparison.GreaterThan },
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(9, 59, 59.0), Comparison.LessThan },
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 1, 1.0), Comparison.GreaterThan },
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(9, 0, 59.0), Comparison.LessThan },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(10, 0, 0.0), Comparison.Equal },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(10, 1, 0.0), Comparison.GreaterThan },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(9, 59, 59.0), Comparison.LessThan },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(10, 1, 1.0), Comparison.GreaterThan },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(9, 0, 59.0), Comparison.LessThan },
         };
 
         public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, Comparison> CompareReducedData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, Comparison>
         {
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 0, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.Equal },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 1, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 59, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(10, 1, 1.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
-            { Angle.FromDegrees(10, 0, 0.0), Angle.FromDegrees(9, 0, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(10, 0, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.Equal },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(10, 1, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(9, 59, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(10, 1, 1.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
+            { Angle.InDegreesMinutesSeconds(10, 0, 0.0), Angle.InDegreesMinutesSeconds(9, 0, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
 
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 0, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.Equal },
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 1, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(9, 59, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(10, 1, 1.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
-            { -Angle.FromDegrees(10, 0, 0.0), -Angle.FromDegrees(9, 0, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(10, 0, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.Equal },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(10, 1, 0.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(9, 59, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(10, 1, 1.0) + AngleDegreesMinutesSeconds.Full, Comparison.GreaterThan },
+            { -Angle.InDegreesMinutesSeconds(10, 0, 0.0), -Angle.InDegreesMinutesSeconds(9, 0, 59.0) + AngleDegreesMinutesSeconds.Full, Comparison.LessThan },
         };
 
         [Theory]
@@ -348,12 +348,12 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> AddData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> {
             //{ AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero },
-            //{ Angle.FromDegrees(0, 0, 30.0), Angle.FromDegrees(0, 0, 30.0), Angle.FromDegrees(0, 1, 0.0) },
-            //{ Angle.FromDegrees(0, 30, 0.0), Angle.FromDegrees(0, 30, 0.0), Angle.FromDegrees(1, 0, 0.0) },
-            //{ Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(1, 1, 0.0) },
-            { Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(0, 0, 0.0) },
-            //{ -Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(0, 0, 0.0) },
-            //{ -Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(2, 2, 2.0) },
+            //{ Angle.InDegrees(0, 0, 30.0), Angle.InDegrees(0, 0, 30.0), Angle.InDegrees(0, 1, 0.0) },
+            //{ Angle.InDegrees(0, 30, 0.0), Angle.InDegrees(0, 30, 0.0), Angle.InDegrees(1, 0, 0.0) },
+            //{ Angle.InDegrees(0, 30, 30.0), Angle.InDegrees(0, 30, 30.0), Angle.InDegrees(1, 1, 0.0) },
+            { Angle.InDegreesMinutesSeconds(1, 1, 1.0), -Angle.InDegreesMinutesSeconds(1, 1, 1.0), Angle.InDegreesMinutesSeconds(0, 0, 0.0) },
+            //{ -Angle.InDegrees(1, 1, 1.0), Angle.InDegrees(1, 1, 1.0), Angle.InDegrees(0, 0, 0.0) },
+            //{ -Angle.InDegrees(1, 1, 1.0), -Angle.InDegrees(1, 1, 1.0), -Angle.InDegrees(2, 2, 2.0) },
         };
 
 
@@ -372,12 +372,12 @@ namespace NetFabric.UnitTests
 
         public static TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> SubtractData => new TheoryData<AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds, AngleDegreesMinutesSeconds> {
             { AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero },
-            { Angle.FromDegrees(0, 1, 0.0), Angle.FromDegrees(0, 0, 30.0), Angle.FromDegrees(0, 0, 30.0) },
-            { Angle.FromDegrees(1, 0, 0.0), Angle.FromDegrees(0, 30, 0.0), Angle.FromDegrees(0, 30, 0.0) },
-            { Angle.FromDegrees(1, 0, 0.0), Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(0, 29, 30.0) },
-            { Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(2, 2, 2.0) },
-            { -Angle.FromDegrees(1, 1, 1.0), Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(2, 2, 2.0) },
-            { -Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(1, 1, 1.0), -Angle.FromDegrees(0, 0, 0.0) },
+            { Angle.InDegreesMinutesSeconds(0, 1, 0.0), Angle.InDegreesMinutesSeconds(0, 0, 30.0), Angle.InDegreesMinutesSeconds(0, 0, 30.0) },
+            { Angle.InDegreesMinutesSeconds(1, 0, 0.0), Angle.InDegreesMinutesSeconds(0, 30, 0.0), Angle.InDegreesMinutesSeconds(0, 30, 0.0) },
+            { Angle.InDegreesMinutesSeconds(1, 0, 0.0), Angle.InDegreesMinutesSeconds(0, 30, 30.0), Angle.InDegreesMinutesSeconds(0, 29, 30.0) },
+            { Angle.InDegreesMinutesSeconds(1, 1, 1.0), -Angle.InDegreesMinutesSeconds(1, 1, 1.0), Angle.InDegreesMinutesSeconds(2, 2, 2.0) },
+            { -Angle.InDegreesMinutesSeconds(1, 1, 1.0), Angle.InDegreesMinutesSeconds(1, 1, 1.0), -Angle.InDegreesMinutesSeconds(2, 2, 2.0) },
+            { -Angle.InDegreesMinutesSeconds(1, 1, 1.0), -Angle.InDegreesMinutesSeconds(1, 1, 1.0), -Angle.InDegreesMinutesSeconds(0, 0, 0.0) },
         };
 
 
@@ -398,11 +398,11 @@ namespace NetFabric.UnitTests
             { 0.0, AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero },
             { 0.5, AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Right },
             { 2.0, AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Full },
-            { 2.0,Angle.FromDegrees(0, 0, 30.0), Angle.FromDegrees(0, 1, 0.0) },
-            { 2.0, Angle.FromDegrees(0, 30, 0.0), Angle.FromDegrees(1, 0, 0.0) },
-            { 2.0, Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(1, 1, 0.0) },
-            { 20.0, Angle.FromDegrees(0, 30, 30.0), Angle.FromDegrees(10, 10, 0.0) },
-            { -1.0, Angle.FromDegrees(30, 30, 30.0), -Angle.FromDegrees(30, 30, 30.0) },
+            { 2.0,Angle.InDegreesMinutesSeconds(0, 0, 30.0), Angle.InDegreesMinutesSeconds(0, 1, 0.0) },
+            { 2.0, Angle.InDegreesMinutesSeconds(0, 30, 0.0), Angle.InDegreesMinutesSeconds(1, 0, 0.0) },
+            { 2.0, Angle.InDegreesMinutesSeconds(0, 30, 30.0), Angle.InDegreesMinutesSeconds(1, 1, 0.0) },
+            { 20.0, Angle.InDegreesMinutesSeconds(0, 30, 30.0), Angle.InDegreesMinutesSeconds(10, 10, 0.0) },
+            { -1.0, Angle.InDegreesMinutesSeconds(30, 30, 30.0), -Angle.InDegreesMinutesSeconds(30, 30, 30.0) },
         };
 
         [Theory]
@@ -422,10 +422,10 @@ namespace NetFabric.UnitTests
             { AngleDegreesMinutesSeconds.Zero, 0.0, AngleDegreesMinutesSeconds.NaN },
             { AngleDegreesMinutesSeconds.Straight, 2.0, AngleDegreesMinutesSeconds.Right },
             { AngleDegreesMinutesSeconds.Straight, 0.5, AngleDegreesMinutesSeconds.Full },
-            { Angle.FromDegrees(0, 0, 30.0), 0.5, Angle.FromDegrees(0, 1, 0.0) },
-            { Angle.FromDegrees(0, 30, 0.0), 0.5, Angle.FromDegrees(1, 0, 0.0) },
-            { Angle.FromDegrees(0, 30, 30.0), 0.5, Angle.FromDegrees(1, 1, 0.0) },
-            { Angle.FromDegrees(30, 30, 30.0), -1.0, -Angle.FromDegrees(30, 30, 30.0) },
+            { Angle.InDegreesMinutesSeconds(0, 0, 30.0), 0.5, Angle.InDegreesMinutesSeconds(0, 1, 0.0) },
+            { Angle.InDegreesMinutesSeconds(0, 30, 0.0), 0.5, Angle.InDegreesMinutesSeconds(1, 0, 0.0) },
+            { Angle.InDegreesMinutesSeconds(0, 30, 30.0), 0.5, Angle.InDegreesMinutesSeconds(1, 1, 0.0) },
+            { Angle.InDegreesMinutesSeconds(30, 30, 30.0), -1.0, -Angle.InDegreesMinutesSeconds(30, 30, 30.0) },
         };
 
 
@@ -514,10 +514,10 @@ namespace NetFabric.UnitTests
             {AngleDegreesMinutesSeconds.Zero, AngleDegreesMinutesSeconds.Zero},
             {AcuteAngle, AcuteAngle},
             {-AcuteAngle, AcuteAngle},
-            {-Angle.FromDegrees(45, 1, 1.0), Angle.FromDegrees(44, 59, 59.0)},
-            {-Angle.FromDegrees(45, 59, 59.0), Angle.FromDegrees(44, 1, 1.0)},
-            {-Angle.FromDegrees(135, 0, 0.0), Angle.FromDegrees(45, 0, 0.0)},
-            {-Angle.FromDegrees(135, 1, 1.0), Angle.FromDegrees(44, 59, 59.0)},
+            {-Angle.InDegreesMinutesSeconds(45, 1, 1.0), Angle.InDegreesMinutesSeconds(44, 59, 59.0)},
+            {-Angle.InDegreesMinutesSeconds(45, 59, 59.0), Angle.InDegreesMinutesSeconds(44, 1, 1.0)},
+            {-Angle.InDegreesMinutesSeconds(135, 0, 0.0), Angle.InDegreesMinutesSeconds(45, 0, 0.0)},
+            {-Angle.InDegreesMinutesSeconds(135, 1, 1.0), Angle.InDegreesMinutesSeconds(44, 59, 59.0)},
             {AngleDegreesMinutesSeconds.Right ,AngleDegreesMinutesSeconds.Right},
             {AngleDegreesMinutesSeconds.Right + AcuteAngle, AcuteAngle},
             {AngleDegreesMinutesSeconds.Straight, AngleDegreesMinutesSeconds.Zero},
@@ -794,11 +794,7 @@ namespace NetFabric.UnitTests
         public void ToString_Should_Succeed(in AngleDegreesMinutesSeconds angle, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString();
@@ -817,11 +813,7 @@ namespace NetFabric.UnitTests
         public void ToStringFormat_Should_Succeed(in AngleDegreesMinutesSeconds angle, string format, string expected)
         {
             // arrange
-#if NET35
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-#endif
 
             // act
             var result = angle.ToString(format);

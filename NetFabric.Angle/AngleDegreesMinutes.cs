@@ -270,7 +270,7 @@ namespace NetFabric
                 const int HashingMultiplier = 16777619;
 
                 var hash = HashingBase;
-                hash = (hash * HashingMultiplier) + Degrees.GetHashCode();
+                hash = (hash * HashingMultiplier) + Degrees;
                 hash = (hash * HashingMultiplier) + Minutes.GetHashCode();
                 return hash;
             }

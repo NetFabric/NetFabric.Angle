@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -230,6 +231,7 @@ namespace NetFabric
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() =>
             Revolutions.GetHashCode();
 

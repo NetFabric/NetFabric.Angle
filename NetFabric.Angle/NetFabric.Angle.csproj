@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Title>NetFabric.Angle</Title>
     <!--<TargetFrameworks>net35;net45;netstandard1.0;uap10.0;Xamarin.iOS10;MonoAndroid70</TargetFrameworks>-->
-    <TargetFrameworks>net35;net45;netstandard1.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <Summary>Implements a structure representing an angle.</Summary>
     <Description>The angle is represented internaly in radians but can be created and read in radians, degrees and gradians. Supports arcminutes and arcseconds, useful for GPS coordinates. The explicit declaration of the units in creation and reading methods, reduces the tipical confusion when dealing with angles. Includes linear interpolation, reduction, reference angle, comparison, classification and trigonometry operations.
 </Description>

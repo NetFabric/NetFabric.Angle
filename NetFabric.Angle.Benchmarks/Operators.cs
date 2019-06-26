@@ -3,39 +3,26 @@ using System;
 
 namespace NetFabric.Benchmarks
 {
+    [MemoryDiagnoser]
     public class Operators
     {
-        Angle angle0 = Angle.FromDegrees(45.0);
-        Angle angle1 = Angle.FromDegrees(30.0);
+        AngleDegrees angle0 = Angle.InDegrees(45.0);
+        AngleDegrees angle1 = Angle.InDegrees(30.0);
 
         [Benchmark]
         public double Sin()
         {
-            return Angle.Sin(angle0);
+            return Angle.Sin(Angle.InRadians(angle0));
         }
 
         [Benchmark]
-        public double SinByRef()
-        {
-            Angle.Sin(ref angle0, out double result);
-            return result;
-        }
-
-        [Benchmark]
-        public Angle Add()
+        public AngleDegrees Add()
         {
             return Angle.Add(angle0, angle1);
         }
 
         [Benchmark]
-        public Angle AddByRef()
-        {
-            Angle.Add(ref angle0, ref angle1, out Angle result);
-            return result;
-        }
-
-        [Benchmark]
-        public Angle AddOperator()
+        public AngleDegrees AddOperator()
         {
             return angle0 + angle1;
         }

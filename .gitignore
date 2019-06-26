@@ -239,3 +239,6 @@ _Pvt_Extensions
 
 # Coverlet
 coverage.json
+
+#BenchmarkDotNet
+**/*.Artifacts/

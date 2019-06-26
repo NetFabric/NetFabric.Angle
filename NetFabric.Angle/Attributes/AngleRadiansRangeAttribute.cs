@@ -3,18 +3,19 @@
 namespace NetFabric
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
-    public class AngleDegreesRangeAttribute : Attribute
+    public class AngleRadiansRangeAttribute : Attribute
     {
-        public AngleDegreesRangeAttribute(double min, double max)
+        public AngleRadiansRangeAttribute(double min, double max)
         {
             if (min > max)
                 throw new ArgumentException("max must be greater than or equal to min.", nameof(max));
 
-            Min = Angle.InDegrees(min);
-            Max = Angle.InDegrees(max);
+            Min = Angle.InRadians(min);
+            Max = Angle.InRadians(max);
         }
 
-        public AngleDegrees Min { get; }
-        public AngleDegrees Max { get; }
+        public AngleRadians Min { get; }
+
+        public AngleRadians Max { get; }
     }
 }

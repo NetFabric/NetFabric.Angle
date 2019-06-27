@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using static NetFabric.Angle;
 
 namespace NetFabric
 {
-    public static class Vector3Extensions
+    public static class Vector3Ex
     {
-        public static AngleDegrees AngleWith(this Vector3 from, Vector3 to) => 
-            Angle.InDegrees(Vector3.Angle(from, to));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static AngleDegrees Angle(Vector3 from, Vector3 to) 
+            => InDegrees(Vector3.Angle(from, to));
     }
 }

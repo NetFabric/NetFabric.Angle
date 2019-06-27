@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace NetFabric
 {
@@ -9,6 +11,7 @@ namespace NetFabric
         , IComparable
         , IComparable<AngleRevolutions>
         , IFormattable
+        , ISerializable
     {
         /// <summary>
         /// Represents a AngleRevolutions value that is not a number (NaN). This field is read-only.
@@ -36,17 +39,17 @@ namespace NetFabric
         public static readonly AngleRevolutions MaxValue = new AngleRevolutions(double.MaxValue);
 
         /// <summary>
-        /// Represents the right AngleRevolutions value (quarter revolution). This field is read-only.
+        /// Represents the right AngleRevolutions value (1/4 revolution). This field is read-only.
         /// </summary>
         public static readonly AngleRevolutions Right = new AngleRevolutions(RightAngle);
 
         /// <summary>
-        /// Represents the straight AngleRevolutions value (half revolution). This field is read-only.
+        /// Represents the straight AngleRevolutions value (1/2 revolution). This field is read-only.
         /// </summary>
         public static readonly AngleRevolutions Straight = new AngleRevolutions(StraightAngle);
 
         /// <summary>
-        /// Represents the full AngleRevolutions value (one revolutions). This field is read-only.
+        /// Represents the full AngleRevolutions value (1 revolution). This field is read-only.
         /// </summary>
         public static readonly AngleRevolutions Full = new AngleRevolutions(FullAngle);
 
@@ -58,6 +61,14 @@ namespace NetFabric
         internal AngleRevolutions(double revolutions)
         {
             Revolutions = revolutions;
+        }
+
+        AngleRevolutions(SerializationInfo info, StreamingContext context)
+        {
+            if (info is null)
+                ThrowHelper.ThrowArgumentNullException(nameof(info));
+
+            Revolutions = info.GetDouble("revolutions");
         }
 
         #region equality implementation
@@ -263,5 +274,10 @@ namespace NetFabric
         internal static double GetReference(double revolutions) =>
             Utils.GetReference(revolutions, RightAngle, StraightAngle, FullAngle);
 
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("revolutions", Revolutions);
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace NetFabric
 {
@@ -9,6 +11,7 @@ namespace NetFabric
         , IComparable
         , IComparable<AngleDegreesMinutesSeconds>
         , IFormattable
+        , ISerializable
     {
         /// <summary>
         /// Represents a AngleDegreesMinutesSeconds value that is not a number (NaN). This field is read-only.
@@ -78,6 +81,16 @@ namespace NetFabric
             Degrees = degrees;
             Minutes = minutes;
             Seconds = seconds;
+        }
+
+        AngleDegreesMinutesSeconds(SerializationInfo info, StreamingContext context)
+        {
+            if (info is null)
+                ThrowHelper.ThrowArgumentNullException(nameof(info));
+
+            Degrees = info.GetInt32("degrees");
+            Minutes = info.GetInt32("minutes");
+            Seconds = info.GetDouble("seconds");
         }
 
         public void Deconstruct(out int degrees, out int minutes, out double seconds)
@@ -403,6 +416,14 @@ namespace NetFabric
             if (angle1.Seconds < angle2.Seconds)
                 return -1;
             return 0;
+        }
+
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("degrees", Degrees);
+            info.AddValue("minutes", Minutes);
+            info.AddValue("seconds", Seconds);
         }
     }
 }

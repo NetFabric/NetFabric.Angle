@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace NetFabric
 {
@@ -9,6 +11,7 @@ namespace NetFabric
         , IComparable
         , IComparable<AngleGradians>
         , IFormattable
+        , ISerializable
     {
         /// <summary>
         /// Represents a AngleGradians value that is not a number (NaN). This field is read-only.
@@ -16,7 +19,7 @@ namespace NetFabric
         public static readonly AngleGradians NaN = new AngleGradians(double.NaN);
 
         /// <summary>
-        /// Represents the zero AngleGradians value (0 degrees). This field is read-only.
+        /// Represents the zero AngleGradians value (0 gradians). This field is read-only.
         /// </summary>
         public static readonly AngleGradians Zero = new AngleGradians(0.0);
 
@@ -36,28 +39,36 @@ namespace NetFabric
         public static readonly AngleGradians MaxValue = new AngleGradians(double.MaxValue);
 
         /// <summary>
-        /// Represents the right AngleGradians value (90 degrees). This field is read-only.
+        /// Represents the right AngleGradians value (100 gradians). This field is read-only.
         /// </summary>
         public static readonly AngleGradians Right = new AngleGradians(RightAngle);
 
         /// <summary>
-        /// Represents the straight AngleGradians value (180 degrees). This field is read-only.
+        /// Represents the straight AngleGradians value (200 gradians). This field is read-only.
         /// </summary>
         public static readonly AngleGradians Straight = new AngleGradians(StraightAngle);
 
         /// <summary>
-        /// Represents the full AngleGradians value (360 degrees). This field is read-only.
+        /// Represents the full AngleGradians value (400 gradians). This field is read-only.
         /// </summary>
         public static readonly AngleGradians Full = new AngleGradians(FullAngle);
 
         /// <summary>
-        /// Gets the amplitude of the angle in degrees. This field is read-only.
+        /// Gets the amplitude of the angle in gradians. This field is read-only.
         /// </summary>
         public readonly double Gradians;
 
-        internal AngleGradians(double degrees)
+        internal AngleGradians(double gradians)
         {
-            Gradians = degrees;
+            Gradians = gradians;
+        }
+
+        AngleGradians(SerializationInfo info, StreamingContext context)
+        {
+            if (info is null)
+                ThrowHelper.ThrowArgumentNullException(nameof(info));
+
+            Gradians = info.GetDouble("gradians");
         }
 
         #region equality implementation
@@ -245,14 +256,19 @@ namespace NetFabric
         internal const double StraightAngle = 200.0;
         internal const double FullAngle = 400.0;
 
-        internal static double Reduce(double degrees) =>
-            Utils.Reduce(degrees, FullAngle);
+        internal static double Reduce(double gradians) =>
+            Utils.Reduce(gradians, FullAngle);
 
-        internal static Quadrant GetQuadrant(double degrees) =>
-            Utils.GetQuadrant(degrees, RightAngle, StraightAngle, FullAngle);
+        internal static Quadrant GetQuadrant(double gradians) =>
+            Utils.GetQuadrant(gradians, RightAngle, StraightAngle, FullAngle);
 
-        internal static double GetReference(double degrees) =>
-            Utils.GetReference(degrees, RightAngle, StraightAngle, FullAngle);
+        internal static double GetReference(double gradians) =>
+            Utils.GetReference(gradians, RightAngle, StraightAngle, FullAngle);
 
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("gradians", Gradians);
+        }
     }
 }

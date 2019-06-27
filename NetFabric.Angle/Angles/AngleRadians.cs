@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace NetFabric
 {
@@ -10,6 +12,7 @@ namespace NetFabric
         , IComparable
         , IComparable<AngleRadians>
         , IFormattable
+        , ISerializable
     {
         /// <summary>
         /// Represents a AngleRadians value that is not a number (NaN). This field is read-only.
@@ -17,7 +20,7 @@ namespace NetFabric
         public static readonly AngleRadians NaN = new AngleRadians(double.NaN);
 
         /// <summary>
-        /// Represents the zero AngleRadians value (0 degrees). This field is read-only.
+        /// Represents the zero AngleRadians value (0 radians). This field is read-only.
         /// </summary>
         public static readonly AngleRadians Zero = new AngleRadians(0.0);
 
@@ -37,17 +40,17 @@ namespace NetFabric
         public static readonly AngleRadians MaxValue = new AngleRadians(double.MaxValue);
 
         /// <summary>
-        /// Represents the right AngleRadians value (90 degrees). This field is read-only.
+        /// Represents the right AngleRadians value (π/2 radians). This field is read-only.
         /// </summary>
         public static readonly AngleRadians Right = new AngleRadians(RightAngle);
 
         /// <summary>
-        /// Represents the straight AngleRadians value (180 degrees). This field is read-only.
+        /// Represents the straight AngleRadians value (π radians). This field is read-only.
         /// </summary>
         public static readonly AngleRadians Straight = new AngleRadians(StraightAngle);
 
         /// <summary>
-        /// Represents the full AngleRadians value (360 degrees). This field is read-only.
+        /// Represents the full AngleRadians value (2*π radians). This field is read-only.
         /// </summary>
         public static readonly AngleRadians Full = new AngleRadians(FullAngle);
 
@@ -59,6 +62,14 @@ namespace NetFabric
         internal AngleRadians(double radians)
         {
             Radians = radians;
+        }
+
+        AngleRadians(SerializationInfo info, StreamingContext context)
+        {
+            if (info is null)
+                ThrowHelper.ThrowArgumentNullException(nameof(info));
+
+            Radians = info.GetDouble("radians");
         }
 
         #region equality implementation
@@ -255,5 +266,10 @@ namespace NetFabric
         internal static double GetReference(double radians) =>
             Utils.GetReference(radians, RightAngle, StraightAngle, FullAngle);
 
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("radians", Radians);
+        }
     }
 }

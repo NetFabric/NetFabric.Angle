@@ -4,6 +4,9 @@ namespace NetFabric
 {
     static class ThrowHelper
     {
+        public static void ThrowArgumentNullException(string paramName)
+            => throw new ArgumentNullException(paramName);
+
         public static T ThrowArgumentException<T>(string paramName, string message)
             => throw new ArgumentException(message, paramName);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace NetFabric
 {
@@ -10,6 +11,7 @@ namespace NetFabric
         , IComparable
         , IComparable<AngleDegrees>
         , IFormattable
+        , ISerializable
     {
         /// <summary>
         /// Represents a AngleDegrees value that is not a number (NaN). This field is read-only.
@@ -59,6 +61,14 @@ namespace NetFabric
         internal AngleDegrees(double degrees)
         {
             Degrees = degrees;
+        }
+
+        AngleDegrees(SerializationInfo info, StreamingContext context)
+        {
+            if (info is null)
+                ThrowHelper.ThrowArgumentNullException(nameof(info));
+
+            Degrees = info.GetDouble("degrees");
         }
 
         #region equality implementation
@@ -254,5 +264,11 @@ namespace NetFabric
 
         internal static double GetReference(double degrees) =>
             Utils.GetReference(degrees, RightAngle, StraightAngle, FullAngle);
+
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("degrees", Degrees);
+        }
     }
 }

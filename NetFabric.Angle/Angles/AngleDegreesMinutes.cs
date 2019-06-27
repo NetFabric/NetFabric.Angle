@@ -72,6 +72,12 @@ namespace NetFabric
             Minutes = minutes;
         }
 
+        public void Deconstruct(out int degrees, out double minutes)
+        {
+            degrees = Degrees;
+            minutes = Minutes;
+        }
+
         #region equality implementation
 
         /// <summary>

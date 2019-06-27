@@ -50,41 +50,41 @@ namespace NetFabric
         /// </summary>
         public static readonly AngleDegreesMinutesSeconds Full = new AngleDegreesMinutesSeconds(FullAngle, 0, 0.0);
 
-        readonly int degrees;
-        readonly int minutes;
-        readonly double seconds;
-
         /// <summary>
         /// Gets the degrees component of the amplitude of the angle. This field is read-only.
         /// </summary>
-        public int Degrees => 
-            degrees;
+        public readonly int Degrees;
 
         /// <summary>
         /// Gets the minutes component of the amplitude of the angle. This field is read-only.
         /// </summary>
-        public int Minutes =>
-            Math.Abs(minutes);
+        public readonly int Minutes;
 
         /// <summary>
         /// Gets the seconds component of the amplitude of the angle. This field is read-only.
         /// </summary>
-        public double Seconds =>
-            Math.Abs(seconds);
+        public readonly double Seconds;
 
         internal AngleDegreesMinutesSeconds(double degrees)
         {
-            this.degrees = (int)degrees;
-            var decimalMinutes = (degrees - this.degrees) * 60.0;
-            this.minutes = (int)decimalMinutes;
-            this.seconds = (decimalMinutes - this.minutes) * 60.0;
+            Degrees = (int)degrees;
+            var decimalMinutes = (degrees - Degrees) * 60.0;
+            Minutes = (int)decimalMinutes;
+            Seconds = (decimalMinutes - Minutes) * 60.0;
         }
 
         internal AngleDegreesMinutesSeconds(int degrees, int minutes, double seconds)
         {
-            this.degrees = degrees;
-            this.minutes = minutes;
-            this.seconds = seconds;
+            Degrees = degrees;
+            Minutes = minutes;
+            Seconds = seconds;
+        }
+
+        public void Deconstruct(out int degrees, out int minutes, out double seconds)
+        {
+            degrees = Degrees;
+            minutes = Minutes;
+            seconds = Seconds;
         }
 
         #region equality implementation
@@ -189,7 +189,7 @@ namespace NetFabric
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
         public static AngleDegreesMinutesSeconds operator -(in AngleDegreesMinutesSeconds angle) =>
-            new AngleDegreesMinutesSeconds(-angle.degrees, -angle.minutes, -angle.seconds);
+            new AngleDegreesMinutesSeconds(-angle.Degrees, -angle.Minutes, -angle.Seconds);
 
         /// <summary>
         /// Adds two vectors. 
@@ -199,9 +199,9 @@ namespace NetFabric
         /// <returns>Result of the addition.</returns>
         public static AngleDegreesMinutesSeconds operator +(in AngleDegreesMinutesSeconds left, in AngleDegreesMinutesSeconds right)
         {
-            var seconds = Utils.ToBase60(left.seconds + right.seconds, out var secondsCarry);
-            var minutes = Utils.ToBase60(left.minutes + right.minutes + (int)secondsCarry, out var minutesCarry);
-            var degrees = left.degrees + right.degrees + minutesCarry;
+            var seconds = Utils.ToBase60(left.Seconds + right.Seconds, out var secondsCarry);
+            var minutes = Utils.ToBase60(left.Minutes + right.Minutes + (int)secondsCarry, out var minutesCarry);
+            var degrees = left.Degrees + right.Degrees + minutesCarry;
             return new AngleDegreesMinutesSeconds(degrees, minutes, seconds);
         }
 
@@ -214,28 +214,28 @@ namespace NetFabric
         public static AngleDegreesMinutesSeconds operator -(in AngleDegreesMinutesSeconds left, in AngleDegreesMinutesSeconds right)
         {
             double seconds, secondsCarry;
-            if (left.seconds >= right.seconds)
+            if (left.Seconds >= right.Seconds)
             {
-                seconds = Utils.ToBase60(left.seconds - right.seconds, out secondsCarry);
+                seconds = Utils.ToBase60(left.Seconds - right.Seconds, out secondsCarry);
             }
             else
             {
-                seconds = Utils.ToBase60(60.0 + left.seconds - right.seconds, out secondsCarry);
+                seconds = Utils.ToBase60(60.0 + left.Seconds - right.Seconds, out secondsCarry);
                 secondsCarry -= 1.0;
             }
 
             int minutes, minutesCarry;
-            if (left.minutes >= right.minutes)
+            if (left.Minutes >= right.Minutes)
             {
-                minutes = Utils.ToBase60((int)secondsCarry + left.minutes - right.minutes, out minutesCarry);
+                minutes = Utils.ToBase60((int)secondsCarry + left.Minutes - right.Minutes, out minutesCarry);
             }
             else
             {
-                minutes = Utils.ToBase60(60 + (int)secondsCarry + left.minutes - right.minutes, out minutesCarry);
+                minutes = Utils.ToBase60(60 + (int)secondsCarry + left.Minutes - right.Minutes, out minutesCarry);
                 minutesCarry -= 1;
             }
 
-            var degrees = minutesCarry + left.degrees - right.degrees;
+            var degrees = minutesCarry + left.Degrees - right.Degrees;
             return new AngleDegreesMinutesSeconds(degrees, minutes, seconds);
         }
 
@@ -247,9 +247,9 @@ namespace NetFabric
         /// <returns>Result of the multiplication.</returns>
         public static AngleDegreesMinutesSeconds operator *(double left, in AngleDegreesMinutesSeconds right)
         {
-            var seconds = Utils.ToBase60(left * right.seconds, out var secondsCarry);
-            var minutes = (int)Utils.ToBase60(left * right.minutes + (int)secondsCarry, out var minutesCarry);
-            var degrees = (int)(left * right.degrees + minutesCarry);
+            var seconds = Utils.ToBase60(left * right.Seconds, out var secondsCarry);
+            var minutes = (int)Utils.ToBase60(left * right.Minutes + (int)secondsCarry, out var minutesCarry);
+            var degrees = (int)(left * right.Degrees + minutesCarry);
             return new AngleDegreesMinutesSeconds(degrees, minutes, seconds);
         }
 
@@ -264,8 +264,8 @@ namespace NetFabric
             if (right == 0)
                 return new AngleDegreesMinutesSeconds(0, 0, Double.NaN);
 
-            var seconds = Utils.ToBase60(left.seconds / right, out var secondsCarry);
-            var minutes = (int)Utils.ToBase60(left.minutes / right + (int)secondsCarry, out var minutesCarry);
+            var seconds = Utils.ToBase60(left.Seconds / right, out var secondsCarry);
+            var minutes = (int)Utils.ToBase60(left.Minutes / right + (int)secondsCarry, out var minutesCarry);
             var degrees = (int)(left.Degrees / right + minutesCarry);
             return new AngleDegreesMinutesSeconds(degrees, minutes, seconds);
         }
@@ -338,14 +338,14 @@ namespace NetFabric
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static AngleDegreesMinutesSeconds Reduce(in AngleDegreesMinutesSeconds angle)
         {
-            var degrees = Utils.Reduce(angle.degrees, FullAngle);
-            if (angle.minutes == 0 && angle.seconds == 0)
+            var degrees = Utils.Reduce(angle.Degrees, FullAngle);
+            if (angle.Minutes == 0 && angle.Seconds == 0)
                 return new AngleDegreesMinutesSeconds(degrees, 0, 0.0);
 
             if (degrees < 0)
-                return new AngleDegreesMinutesSeconds(FullAngle + degrees, angle.minutes, angle.seconds);
+                return new AngleDegreesMinutesSeconds(FullAngle + degrees, angle.Minutes, angle.Seconds);
 
-            return new AngleDegreesMinutesSeconds(degrees, angle.minutes, angle.seconds);
+            return new AngleDegreesMinutesSeconds(degrees, angle.Minutes, angle.Seconds);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -355,19 +355,19 @@ namespace NetFabric
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static AngleDegreesMinutesSeconds GetReference(in AngleDegreesMinutesSeconds angle)
         {
-            var degrees = Utils.GetReference(angle.degrees, RightAngle, StraightAngle, FullAngle);
-            if (angle.minutes == 0 && angle.seconds == 0)
+            var degrees = Utils.GetReference(angle.Degrees, RightAngle, StraightAngle, FullAngle);
+            if (angle.Minutes == 0 && angle.Seconds == 0)
                 return new AngleDegreesMinutesSeconds(degrees, 0, 0.0);
 
-            if (angle.degrees < 0)
-                return new AngleDegreesMinutesSeconds(degrees - 1, angle.minutes + 60, angle.seconds + 60.0);
+            if (angle.Degrees < 0)
+                return new AngleDegreesMinutesSeconds(degrees - 1, angle.Minutes + 60, angle.Seconds + 60.0);
 
-            return new AngleDegreesMinutesSeconds(degrees, angle.minutes, angle.seconds);
+            return new AngleDegreesMinutesSeconds(degrees, angle.Minutes, angle.Seconds);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static double GetDegreesAngle(in AngleDegreesMinutesSeconds angle) =>
-            angle.degrees + angle.minutes / 60.0 + angle.seconds / 3_600.0;
+            angle.Degrees + angle.Minutes / 60.0 + angle.Seconds / 3_600.0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool EqualsReduced(in AngleDegreesMinutesSeconds angle1, in AngleDegreesMinutesSeconds angle2) =>
@@ -390,17 +390,17 @@ namespace NetFabric
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int Compare(in AngleDegreesMinutesSeconds angle1, in AngleDegreesMinutesSeconds angle2)
         {
-            if (angle1.degrees > angle2.degrees)
+            if (angle1.Degrees > angle2.Degrees)
                 return 1;
-            if (angle1.degrees < angle2.degrees)
+            if (angle1.Degrees < angle2.Degrees)
                 return -1;
-            if (angle1.minutes > angle2.minutes)
+            if (angle1.Minutes > angle2.Minutes)
                 return 1;
-            if (angle1.minutes < angle2.minutes)
+            if (angle1.Minutes < angle2.Minutes)
                 return -1;
-            if (angle1.seconds > angle2.seconds)
+            if (angle1.Seconds > angle2.Seconds)
                 return 1;
-            if (angle1.seconds < angle2.seconds)
+            if (angle1.Seconds < angle2.Seconds)
                 return -1;
             return 0;
         }

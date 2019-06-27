@@ -7,7 +7,9 @@ namespace NetFabric
         /// <summary>
         /// Returns an AngleDegreesMinutesSeconds that represents a specified number of degrees, minutes and seconds.
         /// </summary>
-        /// <param name="value">A number of gradians.</param>
+        /// <param name="degrees">A number of degrees.</param>
+        /// <param name="minutes">A number of minutes.</param>
+        /// <param name="seconds">A number of seconds.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(int degrees, int minutes, double seconds)
         {
@@ -22,7 +24,7 @@ namespace NetFabric
         /// <summary>
         /// Returns an AngleDegreesMinutesSeconds that represents the equivalent to the AngleRadians.
         /// </summary>
-        /// <param name="value">An angle in radians.</param>
+        /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(AngleRadians angle) =>
             new AngleDegreesMinutesSeconds(angle.Radians * DegreesInRadians);
@@ -30,7 +32,7 @@ namespace NetFabric
         /// <summary>
         /// Returns an AngleDegreesMinutesSeconds that represents the equivalent to the AngleDegrees.
         /// </summary>
-        /// <param name="value">An angle in degrees.</param>
+        /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(AngleDegrees angle) =>
             new AngleDegreesMinutesSeconds(angle.Degrees);
@@ -38,7 +40,7 @@ namespace NetFabric
         /// <summary>
         /// Returns an AngleDegreesMinutesSeconds that represents the equivalent to the AngleGradians.
         /// </summary>
-        /// <param name="value">An angle in gradians.</param>
+        /// <param name="angle">An angle in gradians.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(AngleGradians angle) =>
             new AngleDegreesMinutesSeconds(angle.Gradians / GradiansInDegrees);
@@ -46,7 +48,7 @@ namespace NetFabric
         /// <summary>
         /// Returns an AngleDegreesMinutesSeconds that represents the equivalent to the AngleGradians.
         /// </summary>
-        /// <param name="value">An angle in degrees and minutes.</param>
+        /// <param name="angle">An angle in degrees and minutes.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(in AngleDegreesMinutes angle)
         {
@@ -59,7 +61,7 @@ namespace NetFabric
         /// <summary>
         /// Returns an AngleDegreesMinutesSeconds that represents the equivalent to the AngleRevolutions.
         /// </summary>
-        /// <param name="value">An angle in revolutions.</param>
+        /// <param name="angle">An angle in revolutions.</param>
         /// <returns>An object that represents value.</returns>
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(AngleRevolutions angle) =>
             new AngleDegreesMinutesSeconds(angle.Revolutions * AngleDegreesMinutesSeconds.FullAngle);

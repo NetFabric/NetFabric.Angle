@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -11,6 +12,7 @@ namespace NetFabric
         /// <param name="minutes">A number of minutes.</param>
         /// <param name="seconds">A number of seconds.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(int degrees, int minutes, double seconds)
         {
             if (minutes < 0 || minutes >= 60)
@@ -26,6 +28,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(AngleRadians angle) =>
             new AngleDegreesMinutesSeconds(angle.Radians * DegreesInRadians);
 
@@ -34,6 +37,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(AngleDegrees angle) =>
             new AngleDegreesMinutesSeconds(angle.Degrees);
 
@@ -42,6 +46,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in gradians.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(AngleGradians angle) =>
             new AngleDegreesMinutesSeconds(angle.Gradians / GradiansInDegrees);
 
@@ -50,6 +55,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in degrees and minutes.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(in AngleDegreesMinutes angle)
         {
             var seconds = Utils.ToBase60(angle.Minutes, out var minutes);
@@ -63,6 +69,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in revolutions.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutesSeconds InDegreesMinutesSeconds(AngleRevolutions angle) =>
             new AngleDegreesMinutesSeconds(angle.Revolutions * AngleDegreesMinutesSeconds.FullAngle);
     }

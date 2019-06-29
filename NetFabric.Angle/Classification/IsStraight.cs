@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -9,6 +10,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStraight(AngleDegrees angle) =>
             AngleDegrees.Reduce(Math.Abs(angle.Degrees)) == AngleDegrees.StraightAngle;
 
@@ -17,6 +19,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStraight(in AngleDegreesMinutes angle) =>
             AngleDegreesMinutes.EqualsReduced(angle, AngleDegreesMinutes.StraightAngle);
 
@@ -25,6 +28,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStraight(in AngleDegreesMinutesSeconds angle) =>
             AngleDegreesMinutesSeconds.EqualsReduced(Angle.Abs(angle), AngleDegreesMinutesSeconds.Straight);
 
@@ -33,6 +37,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStraight(AngleGradians angle) =>
             AngleGradians.Reduce(Math.Abs(angle.Gradians)) == AngleGradians.StraightAngle;
 
@@ -41,6 +46,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStraight(AngleRadians angle) =>
             AngleRadians.Reduce(Math.Abs(angle.Radians)) == AngleRadians.StraightAngle;
 
@@ -49,6 +55,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 180 revolutions; otherwise false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStraight(AngleRevolutions angle) =>
             AngleRevolutions.Reduce(Math.Abs(angle.Revolutions)) == AngleRevolutions.StraightAngle;
     }

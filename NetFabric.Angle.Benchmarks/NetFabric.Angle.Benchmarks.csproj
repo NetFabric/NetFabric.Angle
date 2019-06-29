@@ -4,6 +4,9 @@
     <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
     <OutputType>exe</OutputType>
     <RootNamespace>NetFabric.Benchmarks</RootNamespace>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>

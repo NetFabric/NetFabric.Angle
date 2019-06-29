@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -11,6 +12,7 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees Max(AngleDegrees left, AngleDegrees right) =>
             left.Degrees > right.Degrees ? left : right;
 
@@ -20,6 +22,7 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ref readonly AngleDegreesMinutes Max(in AngleDegreesMinutes left, in AngleDegreesMinutes right) =>
             ref AngleDegreesMinutes.GetDegreesAngle(left) < AngleDegreesMinutes.GetDegreesAngle(right) ?
                 ref left :
@@ -31,6 +34,7 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ref readonly AngleDegreesMinutesSeconds Max(in AngleDegreesMinutesSeconds left, in AngleDegreesMinutesSeconds right) =>
             ref AngleDegreesMinutesSeconds.GetDegreesAngle(left) < AngleDegreesMinutesSeconds.GetDegreesAngle(right) ?
                 ref left :
@@ -42,6 +46,7 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleGradians Max(AngleGradians left, AngleGradians right) =>
             left.Gradians > right.Gradians ? left : right;
 
@@ -51,6 +56,7 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRadians Max(in AngleRadians left, in AngleRadians right) =>
             left.Radians > right.Radians ? left : right;
 
@@ -60,6 +66,7 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions Max(AngleRevolutions left, AngleRevolutions right) =>
             left.Revolutions > right.Revolutions ? left : right;
     }

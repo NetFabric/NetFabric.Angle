@@ -1,5 +1,6 @@
-﻿using BenchmarkDotNet.Running;
-using System;
+﻿using System;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
 
 namespace NetFabric.Benchmarks
 {
@@ -7,7 +8,10 @@ namespace NetFabric.Benchmarks
     {
         static void Main(string[] args)
         {
-            BenchmarkRunner.Run(typeof(Operators));
+            var switcher = new BenchmarkSwitcher(new[] {
+                typeof(OperatorsBenchmarks),
+            });
+            switcher.Run(args);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -10,6 +11,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Compare(AngleDegrees a1, AngleDegrees a2) =>
             a1.Degrees.CompareTo(a2.Degrees);
 

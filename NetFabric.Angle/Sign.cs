@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -9,6 +10,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(AngleDegrees angle) =>
             Math.Sign(angle.Degrees);
 
@@ -17,6 +19,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(in AngleDegreesMinutes angle) =>
             Math.Sign(angle.Degrees);
 
@@ -25,6 +28,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(in AngleDegreesMinutesSeconds angle) =>
             Math.Sign(angle.Degrees);
 
@@ -33,6 +37,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(AngleGradians angle) =>
             Math.Sign(angle.Gradians);
 
@@ -41,6 +46,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(AngleRadians angle) =>
             Math.Sign(angle.Radians);
 
@@ -49,6 +55,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(AngleRevolutions angle) =>
             Math.Sign(angle.Revolutions);
     }

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Security.Permissions;
 
 namespace NetFabric
 {
+    /// <summary>
+    /// Represents an angle measured in number of revolutions. 
+    /// </summary>
     [Serializable]
     public readonly partial struct AngleRevolutions
         : IEquatable<AngleRevolutions>
         , IComparable
         , IComparable<AngleRevolutions>
         , IFormattable
-        , ISerializable
     {
         /// <summary>
         /// Represents a AngleRevolutions value that is not a number (NaN). This field is read-only.
@@ -58,17 +58,10 @@ namespace NetFabric
         /// </summary>
         public readonly double Revolutions;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal AngleRevolutions(double revolutions)
         {
             Revolutions = revolutions;
-        }
-
-        AngleRevolutions(SerializationInfo info, StreamingContext context)
-        {
-            if (info is null)
-                ThrowHelper.ThrowArgumentNullException(nameof(info));
-
-            Revolutions = info.GetDouble("revolutions");
         }
 
         #region equality implementation
@@ -79,6 +72,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(AngleRevolutions a1, AngleRevolutions a2) =>
             a1.Revolutions == a2.Revolutions;
 
@@ -88,6 +82,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(AngleRevolutions a1, AngleRevolutions a2) =>
             a1.Revolutions != a2.Revolutions;
 
@@ -110,6 +105,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <(AngleRevolutions a1, AngleRevolutions a2) =>
             a1.Revolutions < a2.Revolutions;
 
@@ -119,6 +115,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than or equal to the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <=(AngleRevolutions a1, AngleRevolutions a2) =>
             a1.Revolutions <= a2.Revolutions;
 
@@ -128,6 +125,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >(AngleRevolutions a1, AngleRevolutions a2) =>
             a1.Revolutions > a2.Revolutions;
 
@@ -137,6 +135,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than or equal to the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >=(AngleRevolutions a1, AngleRevolutions a2) =>
             a1.Revolutions >= a2.Revolutions;
 
@@ -163,6 +162,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions operator -(AngleRevolutions angle) =>
             new AngleRevolutions(-angle.Revolutions);
 
@@ -172,6 +172,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the addition.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions operator +(AngleRevolutions left, AngleRevolutions right) =>
             new AngleRevolutions(left.Revolutions + right.Revolutions);
 
@@ -181,6 +182,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the subtraction.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions operator -(AngleRevolutions left, AngleRevolutions right) =>
             new AngleRevolutions(left.Revolutions - right.Revolutions);
 
@@ -190,6 +192,7 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions operator *(double left, AngleRevolutions right) =>
             new AngleRevolutions(left * right.Revolutions);
 
@@ -199,6 +202,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Scalar value.</param>
         /// <returns>Result of the division.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions operator /(AngleRevolutions left, double right) =>
             new AngleRevolutions(left.Revolutions / right);
 
@@ -211,6 +215,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="format">A string that specifies the format to be used for the returned string.</param>
         /// <returns>A string representation of the value of the current AngleRevolutions object, in the specified format.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format) =>
             Revolutions.ToString(format);
 
@@ -220,6 +225,7 @@ namespace NetFabric
         /// <param name="format">A standard or custom date and time format string.</param>
         /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>A string representation of value of the current AngleRevolutions object as specified by format and provider.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider) =>
             Revolutions.ToString(format, formatProvider);
 
@@ -247,6 +253,7 @@ namespace NetFabric
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() =>
             Revolutions.ToString();
 
@@ -256,28 +263,16 @@ namespace NetFabric
         internal const double StraightAngle = 0.5;
         internal const double FullAngle = 1.0;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static double Reduce(double revolutions)
-        {
-            var trunc = Math.Truncate(revolutions);
-            if (trunc == revolutions)
-                return 0.0;
+            => Utils.Reduce(revolutions, FullAngle);
 
-            if (revolutions < 0)
-                return FullAngle + revolutions - trunc;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static Quadrant GetQuadrant(double revolutions) 
+            => Utils.GetQuadrant(revolutions, RightAngle, FullAngle);
 
-            return revolutions - trunc;
-        }
-
-        internal static Quadrant GetQuadrant(double revolutions) =>
-            Utils.GetQuadrant(revolutions, RightAngle, StraightAngle, FullAngle);
-
-        internal static double GetReference(double revolutions) =>
-            Utils.GetReference(revolutions, RightAngle, StraightAngle, FullAngle);
-
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("revolutions", Revolutions);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static double GetReference(double revolutions) 
+            => Utils.GetReference(revolutions, RightAngle, StraightAngle, FullAngle);
     }
 }

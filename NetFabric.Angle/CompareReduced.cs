@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -10,6 +11,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CompareReduced(AngleDegrees a1, AngleDegrees a2) =>
             AngleDegrees.Reduce(a1.Degrees).CompareTo(AngleDegrees.Reduce(a2.Degrees));
 
@@ -19,6 +21,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CompareReduced(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
             Compare(Reduce(a1), Reduce(a2));
 
@@ -28,6 +31,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CompareReduced(in AngleDegreesMinutesSeconds a1, in AngleDegreesMinutesSeconds a2) =>
             AngleDegreesMinutesSeconds.Compare(Reduce(a1), Reduce(a2));
 
@@ -37,6 +41,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CompareReduced(AngleGradians a1, AngleGradians a2) =>
             AngleGradians.Reduce(a1.Gradians).CompareTo(AngleGradians.Reduce(a2.Gradians));
 
@@ -46,6 +51,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CompareReduced(AngleRadians a1, AngleRadians a2) =>
             AngleRadians.Reduce(a1.Radians).CompareTo(AngleRadians.Reduce(a2.Radians));
 
@@ -55,6 +61,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CompareReduced(AngleRevolutions a1, AngleRevolutions a2) =>
             AngleRevolutions.Reduce(a1.Revolutions).CompareTo(AngleRevolutions.Reduce(a2.Revolutions));
     }

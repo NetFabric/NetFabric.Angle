@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Security.Permissions;
 
 namespace NetFabric
 {
+    /// <summary>
+    /// Represents an angle measured in degrees and minutes. 
+    /// </summary>    
     [Serializable]
     public readonly struct AngleDegreesMinutes
         : IEquatable<AngleDegreesMinutes>
         , IComparable
         , IComparable<AngleDegreesMinutes>
         , IFormattable
-        , ISerializable
     {
         /// <summary>
         /// Represents a AngleDegreesMinutes value that is not a number (NaN). This field is read-only.
@@ -63,25 +63,18 @@ namespace NetFabric
         /// </summary>
         public readonly double Minutes;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal AngleDegreesMinutes(double degrees)
         {
             Degrees = (int)Math.Floor(degrees);
             Minutes = Math.Abs(degrees - Degrees) * 60.0;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal AngleDegreesMinutes(int degrees, double minutes)
         {
             Degrees = degrees;
             Minutes = minutes;
-        }
-
-        AngleDegreesMinutes(SerializationInfo info, StreamingContext context)
-        {
-            if (info is null)
-                ThrowHelper.ThrowArgumentNullException(nameof(info));
-
-            Degrees = info.GetInt32("degrees");
-            Minutes = info.GetDouble("minutes");
         }
 
         public void Deconstruct(out int degrees, out double minutes)
@@ -98,6 +91,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
             a1.Degrees == a2.Degrees && a1.Minutes == a2.Minutes;
 
@@ -107,6 +101,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
             a1.Degrees != a2.Degrees || a1.Minutes != a2.Minutes;
 
@@ -138,6 +133,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
             GetDegreesAngle(a1) < GetDegreesAngle(a2);
 
@@ -147,6 +143,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than or equal to the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <=(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
             GetDegreesAngle(a1) <= GetDegreesAngle(a2);
 
@@ -156,6 +153,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
             GetDegreesAngle(a1) > GetDegreesAngle(a2);
 
@@ -165,6 +163,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than or equal to the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >=(in AngleDegreesMinutes a1, in AngleDegreesMinutes a2) =>
             GetDegreesAngle(a1) >= GetDegreesAngle(a2);
 
@@ -191,6 +190,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutes operator -(in AngleDegreesMinutes angle) =>
             new AngleDegreesMinutes(-angle.Degrees, angle.Minutes);
 
@@ -255,6 +255,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="format">A string that specifies the format to be used for the returned string.</param>
         /// <returns>A string representation of the value of the current AngleDegreesMinutes object, in the specified format.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format) =>
             $"{Degrees}° {Minutes.ToString(format)}'";
 
@@ -264,6 +265,7 @@ namespace NetFabric
         /// <param name="format">A standard or custom date and time format string.</param>
         /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>A string representation of value of the current AngleDegreesMinutes object as specified by format and provider.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider) =>
             $"{Degrees}° {Minutes.ToString(format, formatProvider)}'";
 
@@ -301,6 +303,7 @@ namespace NetFabric
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() =>
             $"{Degrees}° {Minutes}'";
 
@@ -316,7 +319,7 @@ namespace NetFabric
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Quadrant GetQuadrant(int degrees) =>
-            Utils.GetQuadrant(degrees, RightAngle, StraightAngle, FullAngle);
+            Utils.GetQuadrant(degrees, RightAngle, FullAngle);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static double GetReference(in AngleDegreesMinutes angle) =>
@@ -351,13 +354,6 @@ namespace NetFabric
             return (reduced > minDegrees || 
                 reduced == minDegrees && angle.Minutes > 0.0) && 
                 reduced < maxDegrees;
-        }
-
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("degrees", Degrees);
-            info.AddValue("minutes", Minutes);
         }
     }
 }

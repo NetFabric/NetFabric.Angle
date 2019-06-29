@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -9,14 +10,16 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees Negate(AngleDegrees angle) =>
-            new AngleDegrees(-angle.Degrees);
+            -angle;
 
         /// <summary>
         /// Negates an angle.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutes Negate(in AngleDegreesMinutes angle) =>
             -angle;
 
@@ -25,6 +28,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutesSeconds Negate(in AngleDegreesMinutesSeconds angle) =>
             -angle;
 
@@ -33,23 +37,26 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleGradians Negate(AngleGradians angle) =>
-            new AngleGradians(-angle.Gradians);
+            -angle;
 
         /// <summary>
         /// Negates an angle.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRadians Negate(AngleRadians angle) =>
-            new AngleRadians(-angle.Radians);
+            -angle;
 
         /// <summary>
         /// Negates an angle.
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions Negate(AngleRevolutions angle) =>
-            new AngleRevolutions(-angle.Revolutions);
+            -angle;
     }
 }

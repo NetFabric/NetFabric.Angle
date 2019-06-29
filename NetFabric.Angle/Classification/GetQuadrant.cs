@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -9,6 +10,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quadrant GetQuadrant(AngleDegrees angle) =>
             AngleDegrees.GetQuadrant(angle.Degrees);
 
@@ -17,6 +19,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quadrant GetQuadrant(in AngleDegreesMinutes angle) =>
             AngleDegreesMinutes.GetQuadrant(angle.Degrees);
 
@@ -25,6 +28,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quadrant GetQuadrant(in AngleDegreesMinutesSeconds angle) =>
             AngleDegreesMinutesSeconds.GetQuadrant(angle.Degrees);
 
@@ -33,6 +37,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quadrant GetQuadrant(AngleGradians angle) =>
             AngleGradians.GetQuadrant(angle.Gradians);
 
@@ -41,6 +46,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quadrant GetQuadrant(AngleRadians angle) =>
             AngleRadians.GetQuadrant(angle.Radians);
 
@@ -49,6 +55,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quadrant GetQuadrant(AngleRevolutions angle) =>
             AngleRevolutions.GetQuadrant(angle.Revolutions);
 

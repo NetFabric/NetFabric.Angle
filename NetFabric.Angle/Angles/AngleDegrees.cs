@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Security.Permissions;
 
 namespace NetFabric
 {
+    /// <summary>
+    /// Represents an angle measured in degrees. 
+    /// </summary>
     [Serializable]
     public readonly partial struct AngleDegrees
         : IEquatable<AngleDegrees>
         , IComparable
         , IComparable<AngleDegrees>
         , IFormattable
-        , ISerializable
     {
         /// <summary>
         /// Represents a AngleDegrees value that is not a number (NaN). This field is read-only.
@@ -58,17 +58,10 @@ namespace NetFabric
         /// </summary>
         public readonly double Degrees;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal AngleDegrees(double degrees)
         {
             Degrees = degrees;
-        }
-
-        AngleDegrees(SerializationInfo info, StreamingContext context)
-        {
-            if (info is null)
-                ThrowHelper.ThrowArgumentNullException(nameof(info));
-
-            Degrees = info.GetDouble("degrees");
         }
 
         #region equality implementation
@@ -79,6 +72,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(AngleDegrees a1, AngleDegrees a2) =>
             a1.Degrees == a2.Degrees;
 
@@ -88,6 +82,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(AngleDegrees a1, AngleDegrees a2) =>
             a1.Degrees != a2.Degrees;
 
@@ -110,6 +105,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <(AngleDegrees a1, AngleDegrees a2) =>
             a1.Degrees < a2.Degrees;
 
@@ -119,6 +115,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than or equal to the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <=(AngleDegrees a1, AngleDegrees a2) =>
             a1.Degrees <= a2.Degrees;
 
@@ -128,6 +125,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >(AngleDegrees a1, AngleDegrees a2) =>
             a1.Degrees > a2.Degrees;
 
@@ -137,6 +135,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than or equal to the value of a2; otherwise, false.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >=(AngleDegrees a1, AngleDegrees a2) =>
             a1.Degrees >= a2.Degrees;
 
@@ -163,6 +162,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees operator -(AngleDegrees angle) =>
             new AngleDegrees(-angle.Degrees);
 
@@ -172,6 +172,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the addition.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees operator +(AngleDegrees left, AngleDegrees right) =>
             new AngleDegrees(left.Degrees + right.Degrees);
 
@@ -181,6 +182,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the subtraction.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees operator -(AngleDegrees left, AngleDegrees right) =>
             new AngleDegrees(left.Degrees - right.Degrees);
 
@@ -190,6 +192,7 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees operator *(double left, AngleDegrees right) =>
             new AngleDegrees(left * right.Degrees);
 
@@ -199,6 +202,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Scalar value.</param>
         /// <returns>Result of the division.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees operator /(AngleDegrees left, double right) =>
             new AngleDegrees(left.Degrees / right);
 
@@ -211,6 +215,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="format">A string that specifies the format to be used for the returned string.</param>
         /// <returns>A string representation of the value of the current AngleDegrees object, in the specified format.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format) =>
             Degrees.ToString(format);
 
@@ -220,6 +225,7 @@ namespace NetFabric
         /// <param name="format">A standard or custom date and time format string.</param>
         /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>A string representation of value of the current AngleDegrees object as specified by format and provider.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider) =>
             Degrees.ToString(format, formatProvider);
 
@@ -247,6 +253,7 @@ namespace NetFabric
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() =>
             Degrees.ToString();
 
@@ -256,19 +263,16 @@ namespace NetFabric
         internal const double StraightAngle = 180.0;
         internal const double FullAngle = 360.0;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static double Reduce(double degrees) =>
             Utils.Reduce(degrees, FullAngle);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Quadrant GetQuadrant(double degrees) =>
-            Utils.GetQuadrant(degrees, RightAngle, StraightAngle, FullAngle);
+            Utils.GetQuadrant(degrees, RightAngle, FullAngle);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static double GetReference(double degrees) =>
             Utils.GetReference(degrees, RightAngle, StraightAngle, FullAngle);
-
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("degrees", Degrees);
-        }
     }
 }

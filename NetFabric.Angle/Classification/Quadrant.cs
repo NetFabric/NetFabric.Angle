@@ -10,18 +10,18 @@ namespace NetFabric
         /// <summary>
         /// The region where x and y are positive.
         /// </summary>
-        First,
+        First = 0,
         /// <summary>
         /// The region where x is negative and y is positive.
         /// </summary>
-        Second,
+        Second = 1,
         /// <summary>
         /// The region where x and y are negative.
         /// </summary>
-        Third,
+        Third = 2,
         /// <summary>
         /// The region where x is positive and y is negative.
         /// </summary>
-        Fourth
+        Fourth = 3,
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -10,8 +11,9 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees Multiply(double left, AngleDegrees right) =>
-            new AngleDegrees(left * right.Degrees);
+            left * right;
 
         /// <summary>
         /// Multiplies a angle by a scalar value.
@@ -19,6 +21,7 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutes Multiply(double left, in AngleDegreesMinutes right) =>
             left * right;
 
@@ -28,6 +31,7 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegreesMinutesSeconds Multiply(double left, in AngleDegreesMinutesSeconds right) =>
             left * right;
 
@@ -37,8 +41,9 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleGradians Multiply(double left, AngleGradians right) =>
-            new AngleGradians(left * right.Gradians);
+            left * right;
 
         /// <summary>
         /// Multiplies a angle by a scalar value.
@@ -46,8 +51,9 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRadians Multiply(double left, AngleRadians right) =>
-            new AngleRadians(left * right.Radians);
+            left * right;
 
         /// <summary>
         /// Multiplies a angle by a scalar value.
@@ -55,7 +61,8 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions Multiply(double left, AngleRevolutions right) =>
-            new AngleRevolutions(left * right.Revolutions);
+            left * right;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NetFabric
 {
@@ -9,6 +10,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="radians">A number of radians.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRadians InRadians(double radians) =>
             new AngleRadians(radians);
 
@@ -17,6 +19,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRadians InRadians(AngleDegrees angle) =>
             new AngleRadians(angle.Degrees / DegreesInRadians);
 
@@ -25,6 +28,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in degrees and minutes.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRadians InRadians(in AngleDegreesMinutes angle) =>
             new AngleRadians(AngleDegreesMinutes.GetDegreesAngle(angle) / DegreesInRadians);
 
@@ -33,6 +37,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in degrees, minutes and seconds.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRadians InRadians(in AngleDegreesMinutesSeconds angle) =>
             new AngleRadians(AngleDegreesMinutesSeconds.GetDegreesAngle(angle) / DegreesInRadians);
 
@@ -41,6 +46,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in gradians.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRadians InRadians(AngleGradians angle) =>
             new AngleRadians(angle.Gradians / GradiansInRadians);
 
@@ -49,6 +55,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in revolutions.</param>
         /// <returns>An object that represents value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRadians InRadians(AngleRevolutions angle) =>
             new AngleRadians(angle.Revolutions * AngleRadians.FullAngle);
     }

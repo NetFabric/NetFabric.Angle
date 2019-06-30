@@ -21,7 +21,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions InRevolutions(AngleRadians angle) =>
-            new AngleRevolutions(angle.Radians / AngleRadians.FullAngle);
+            new AngleRevolutions(angle.Radians * RevolutionsPerRadian);
 
         /// <summary>
         /// Returns an AngleRevolutions that represents the equivalent to the AngleDegrees.
@@ -30,7 +30,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions InRevolutions(AngleDegrees angle) =>
-            new AngleRevolutions(angle.Degrees / AngleDegrees.FullAngle);
+            new AngleRevolutions(angle.Degrees * RevolutionsPerDegree);
 
         /// <summary>
         /// Returns an AngleRevolutions that represents the equivalent to the AngleDegreesMinutes.
@@ -39,7 +39,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions InRevolutions(in AngleDegreesMinutes angle) =>
-            new AngleRevolutions(AngleDegreesMinutes.GetDegreesAngle(angle) / AngleDegreesMinutes.FullAngle);
+            new AngleRevolutions(AngleDegreesMinutes.GetDegreesAngle(angle) * RevolutionsPerDegree);
 
         /// <summary>
         /// Returns an AngleRevolutions that represents the equivalent to the AngleDegreesMinutesSeconds.
@@ -48,7 +48,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions InRevolutions(in AngleDegreesMinutesSeconds angle) =>
-            new AngleRevolutions(AngleDegreesMinutesSeconds.GetDegreesAngle(angle) / AngleDegreesMinutesSeconds.FullAngle);
+            new AngleRevolutions(AngleDegreesMinutesSeconds.GetDegreesAngle(angle) * RevolutionsPerDegree);
 
         /// <summary>
         /// Returns an AngleRevolutions that represents the equivalent to the AngleGradians.
@@ -57,6 +57,6 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleRevolutions InRevolutions(AngleGradians angle) =>
-            new AngleRevolutions(angle.Gradians / AngleGradians.FullAngle);
+            new AngleRevolutions(angle.Gradians * RevolutionsPerGradian);
     }
 }

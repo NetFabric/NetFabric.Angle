@@ -21,7 +21,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees InDegrees(AngleRadians angle) =>
-            new AngleDegrees(angle.Radians * DegreesInRadians);
+            new AngleDegrees(angle.Radians * DegreesPerRadian);
 
         /// <summary>
         /// Returns an AngleDegrees that represents the equivalent to the AngleDegreesMinutes.
@@ -48,7 +48,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees InDegrees(AngleGradians angle) =>
-            new AngleDegrees(angle.Gradians / GradiansInDegrees);
+            new AngleDegrees(angle.Gradians * DegreesPerGradian);
 
         /// <summary>
         /// Returns an AngleDegrees that represents the equivalent to the AngleRevolutions.
@@ -57,6 +57,6 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleDegrees InDegrees(AngleRevolutions angle) =>
-            new AngleDegrees(angle.Revolutions * AngleGradians.FullAngle);
+            new AngleDegrees(angle.Revolutions * DegreesPerRevolution);
     }
 }

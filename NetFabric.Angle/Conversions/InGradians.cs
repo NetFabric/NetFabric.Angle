@@ -21,7 +21,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleGradians InGradians(AngleRadians angle) =>
-            new AngleGradians(angle.Radians * GradiansInRadians);
+            new AngleGradians(angle.Radians * GradiansPerRadian);
 
         /// <summary>
         /// Returns an AngleGradians that represents the equivalent to the AngleDegrees.
@@ -30,7 +30,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleGradians InGradians(AngleDegrees angle) =>
-            new AngleGradians(angle.Degrees * GradiansInDegrees);
+            new AngleGradians(angle.Degrees * GradiansPerDegree);
 
         /// <summary>
         /// Returns an AngleGradians that represents the equivalent to the AngleDegreesMinutes.
@@ -39,7 +39,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleGradians InGradians(in AngleDegreesMinutes angle) =>
-            new AngleGradians(AngleDegreesMinutes.GetDegreesAngle(angle) * GradiansInDegrees);
+            new AngleGradians(AngleDegreesMinutes.GetDegreesAngle(angle) * GradiansPerDegree);
 
         /// <summary>
         /// Returns an AngleGradians that represents the equivalent to the AngleDegreesMinutesSeconds.
@@ -48,7 +48,7 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleGradians InGradians(in AngleDegreesMinutesSeconds angle) =>
-            new AngleGradians(AngleDegreesMinutesSeconds.GetDegreesAngle(angle) * GradiansInDegrees);
+            new AngleGradians(AngleDegreesMinutesSeconds.GetDegreesAngle(angle) * GradiansPerDegree);
 
         /// <summary>
         /// Returns an AngleGradians that represents the equivalent to the AngleRevolutions.
@@ -57,6 +57,6 @@ namespace NetFabric
         /// <returns>An object that represents value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AngleGradians InGradians(AngleRevolutions angle) =>
-            new AngleGradians(angle.Revolutions * AngleGradians.FullAngle);
+            new AngleGradians(angle.Revolutions * GradiansPerRevolution);
     }
 }

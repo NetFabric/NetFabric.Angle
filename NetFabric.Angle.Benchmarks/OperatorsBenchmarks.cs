@@ -11,7 +11,7 @@ namespace NetFabric.Benchmarks
     [MarkdownExporterAttribute.GitHub]
     public class OperatorsBenchmarks
     {
-        const double DegreesInRadians = 360.0 / (Math.PI * 2.0);
+        const double RadiansInDegree = (Math.PI * 2.0) / 360.0;
 
         static readonly double degrees0 = 45.0;
         static readonly double degrees1 = 30.0;
@@ -24,7 +24,7 @@ namespace NetFabric.Benchmarks
 
         [BenchmarkCategory("Conversion")]
         [Benchmark(Baseline = true)]
-        public double Conversion_Double() => degrees0 / DegreesInRadians;
+        public double Conversion_Double() => degrees0 * RadiansInDegree;
 
         [BenchmarkCategory("Conversion")]
         [Benchmark]

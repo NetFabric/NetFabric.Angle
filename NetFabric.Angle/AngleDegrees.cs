@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace NetFabric
 {
+    [DebuggerDisplay("{Degrees}°")]
+    [DebuggerTypeProxy(typeof(AngleDegreesDebugView))]
     [Serializable]
     public readonly struct AngleDegrees
         : IEquatable<AngleDegrees>

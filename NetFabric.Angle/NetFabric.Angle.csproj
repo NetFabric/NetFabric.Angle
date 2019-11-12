@@ -3,14 +3,14 @@
   <PropertyGroup>
     <Title>NetFabric.Angle</Title>
     <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
-    <Summary>A strongly-typed representation for an angle.</Summary>
     <Description>
+      A strongly-typed representation of an angle.
       The explicit declaration of the units in creation and reading methods, reduces the tipical confusion when dealing with angles. 
-      Includes linear interpolation, reduction, reference angle, comparison, classification and trigonometry operations.
+      Includes conversion, linear interpolation, reduction, reference angle, comparison, classification, trigonometry and algebra operations.
     </Description>
-    <Version>3.1.0</Version>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
-    <FileVersion>3.1.0.0</FileVersion>
+    <Version>3.2.0</Version>
+    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <FileVersion>3.2.0.0</FileVersion>
     <Copyright>Copyright © Antão Almada 2016-2019</Copyright>
     <Authors>Antão Almada</Authors>
     <Company>NetFabric</Company>
@@ -18,7 +18,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageTags>math, numerics, trigonometry</PackageTags>
     <PackageReleaseNotes>
-      Add binary serialization.
+      Added debug views.
     </PackageReleaseNotes>
     <RootNamespace>NetFabric</RootNamespace>
     <LangVersion>8.0</LangVersion>

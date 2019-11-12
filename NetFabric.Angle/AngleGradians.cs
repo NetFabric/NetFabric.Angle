@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace NetFabric
 {
+    [DebuggerDisplay("{Gradians} gradians")]
+    [DebuggerTypeProxy(typeof(AngleGradiansDebugView))]
     [Serializable]
     public readonly struct AngleGradians
         : IEquatable<AngleGradians>

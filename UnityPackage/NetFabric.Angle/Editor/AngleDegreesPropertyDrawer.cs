@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace NetFabric
 {
-    [CustomPropertyDrawer(typeof(Angle))]
-    public class AnglePropertyDrawer
+    [CustomPropertyDrawer(typeof(AngleDegrees))]
+    public class AngleDegreesPropertyDrawer
         : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -14,8 +14,10 @@ namespace NetFabric
             var min = AngleDegrees.Zero;
             var max = AngleDegrees.Full;
 
-            var range = fieldInfo.GetCustomAttributes(typeof(AngleRangeAttribute), true).Cast<AngleRangeAttribute>().FirstOrDefault();
-            if (range != null)
+            var range = (AngleDegreesRangeAttribute)fieldInfo
+                .GetCustomAttributes(typeof(AngleDegreesRangeAttribute), true)
+                .FirstOrDefault();
+            if (range is object)
             {
                 min = range.Min;
                 max = range.Max;
@@ -25,10 +27,10 @@ namespace NetFabric
 
             position = EditorGUI.PrefixLabel(position, label);
 
-            var angle = property.GetValue<Angle>();
-            var newAngle = Angle.FromDegrees(EditorGUI.Slider(position, (float)angle.ToDegrees(), (float)min.ToDegrees(), (float)max.ToDegrees()));
+            var angle = property.GetValue<AngleDegrees>();
+            var newAngle = Angle.FromDegrees(EditorGUI.Slider(position, (float)angle.Degrees, (float)min.Degrees, (float)max.Degrees));
             if (newAngle != angle)
-                property.SetValue<Angle>(newAngle);
+                property.SetValue<AngleDegrees>(newAngle);
 
             EditorGUI.EndProperty();
         }

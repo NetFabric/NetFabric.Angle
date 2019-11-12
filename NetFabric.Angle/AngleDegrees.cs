@@ -2,6 +2,7 @@
 
 namespace NetFabric
 {
+    [Serializable]
     public readonly struct AngleDegrees
         : IEquatable<AngleDegrees>
         , IComparable

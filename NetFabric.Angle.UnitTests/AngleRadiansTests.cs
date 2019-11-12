@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using System;
 using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using Xunit;
 
 namespace NetFabric.UnitTests
@@ -55,6 +57,34 @@ namespace NetFabric.UnitTests
 
             // assert
             angle.Should().BeOfType<AngleRadians>().And.Be(expected);
+        }
+
+        public static TheoryData<AngleGradians> SerializableData = new TheoryData<AngleGradians>
+        {
+            -AngleGradians.Full,
+            -AngleGradians.Straight,
+            -AngleGradians.Right,
+            AngleGradians.Zero,
+            AngleGradians.Right,
+            AngleGradians.Straight,
+            AngleGradians.Full,
+        };
+
+        [Theory]
+        [MemberData(nameof(SerializableData))]
+        public void Serializable_Should_Succeed(AngleGradians angle)
+        {
+            // arrange
+            var formatter = new BinaryFormatter();
+            var stream = new MemoryStream();
+
+            // act
+            formatter.Serialize(stream, angle);
+            stream.Seek(0, SeekOrigin.Begin);
+            var result = (AngleGradians)formatter.Deserialize(stream);
+
+            // assert
+            result.Should().Be(angle);
         }
 
         public static TheoryData<AngleRadians, object, bool, bool, bool> CompareInvalidData => new TheoryData<AngleRadians, object, bool, bool, bool>

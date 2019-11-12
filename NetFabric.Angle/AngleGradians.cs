@@ -2,6 +2,7 @@
 
 namespace NetFabric
 {
+    [Serializable]
     public readonly struct AngleGradians
         : IEquatable<AngleGradians>
         , IComparable

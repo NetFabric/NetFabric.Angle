@@ -31,9 +31,7 @@ namespace Supyrb
         /// <param name="property">The serialized property</param>
         /// <returns>Returns the object type T if it is the type the property actually contains.</returns>
         public static T GetValue<T>(this SerializedProperty property)
-        {
-            return GetNestedObject<T>(property.propertyPath, GetSerializedPropertyRootComponent(property));
-        }
+            => GetNestedObject<T>(property.propertyPath, GetSerializedPropertyRootComponent(property));
 
         /// <summary>
         /// Set the value of a field of the property with the type T.
@@ -44,15 +42,14 @@ namespace Supyrb
         /// <returns>Returns if the operation was successful or failed.</returns>
         public static bool SetValue<T>(this SerializedProperty property, T value)
         {
-
-            object obj = GetSerializedPropertyRootComponent(property);
+            var obj = GetSerializedPropertyRootComponent(property) as object;
             //Iterate to parent object of the value, necessary if it is a nested object
-            string[] fieldStructure = property.propertyPath.Split('.');
-            for (int i = 0; i < fieldStructure.Length - 1; i++)
+            var fieldStructure = property.propertyPath.Split('.');
+            for (var i = 0; i < fieldStructure.Length - 1; i++)
             {
                 obj = GetFieldOrPropertyValue<object>(fieldStructure[i], obj);
             }
-            string fieldName = fieldStructure.Last();
+            var fieldName = fieldStructure.Last();
 
             return SetFieldOrPropertyValue(fieldName, obj, value);
 
@@ -64,9 +61,7 @@ namespace Supyrb
         /// <param name="property">The property that is part of the component</param>
         /// <returns>The root component of the property</returns>
         public static Component GetSerializedPropertyRootComponent(SerializedProperty property)
-        {
-            return (Component)property.serializedObject.targetObject;
-        }
+            => (Component)property.serializedObject.targetObject;
 
         /// <summary>
         /// Iterates through objects to handle objects that are nested in the root object
@@ -78,7 +73,7 @@ namespace Supyrb
         /// <returns>Returns the nested object casted to the type T</returns>
         public static T GetNestedObject<T>(string path, object obj, bool includeAllBases = false)
         {
-            foreach (string part in path.Split('.'))
+            foreach (var part in path.Split('.'))
             {
                 obj = GetFieldOrPropertyValue<object>(part, obj, includeAllBases);
             }
@@ -87,39 +82,38 @@ namespace Supyrb
 
         public static T GetFieldOrPropertyValue<T>(string fieldName, object obj, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
         {
-            FieldInfo field = obj.GetType().GetField(fieldName, bindings);
-            if (field != null) return (T)field.GetValue(obj);
+            var field = obj.GetType().GetField(fieldName, bindings);
+            if (field is object) return (T)field.GetValue(obj);
 
-            PropertyInfo property = obj.GetType().GetProperty(fieldName, bindings);
-            if (property != null) return (T)property.GetValue(obj, null);
+            var property = obj.GetType().GetProperty(fieldName, bindings);
+            if (property is object) return (T)property.GetValue(obj, null);
 
             if (includeAllBases)
             {
-
-                foreach (Type type in GetBaseClassesAndInterfaces(obj.GetType()))
+                foreach (var type in GetBaseClassesAndInterfaces(obj.GetType()))
                 {
                     field = type.GetField(fieldName, bindings);
-                    if (field != null) return (T)field.GetValue(obj);
+                    if (field is null) return (T)field.GetValue(obj);
 
                     property = type.GetProperty(fieldName, bindings);
-                    if (property != null) return (T)property.GetValue(obj, null);
+                    if (property is null) return (T)property.GetValue(obj, null);
                 }
             }
 
-            return default(T);
+            return default;
         }
 
         public static bool SetFieldOrPropertyValue(string fieldName, object obj, object value, bool includeAllBases = false, BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
         {
             var field = obj.GetType().GetField(fieldName, bindings);
-            if (field != null)
+            if (field is object)
             {
                 field.SetValue(obj, value);
                 return true;
             }
 
             var property = obj.GetType().GetProperty(fieldName, bindings);
-            if (property != null)
+            if (property is object)
             {
                 property.SetValue(obj, value, null);
                 return true;
@@ -130,14 +124,14 @@ namespace Supyrb
                 foreach (Type type in GetBaseClassesAndInterfaces(obj.GetType()))
                 {
                     field = type.GetField(fieldName, bindings);
-                    if (field != null)
+                    if (field is null)
                     {
                         field.SetValue(obj, value);
                         return true;
                     }
 
                     property = type.GetProperty(fieldName, bindings);
-                    if (property != null)
+                    if (property is null)
                     {
                         property.SetValue(obj, value, null);
                         return true;
@@ -149,26 +143,23 @@ namespace Supyrb
 
         public static IEnumerable<Type> GetBaseClassesAndInterfaces(this Type type, bool includeSelf = false)
         {
-            var allTypes = new List<Type>();
-
             if (includeSelf)
-                allTypes.Add(type);
+                yield return type;
 
             if (type.BaseType == typeof(object))
             {
-                allTypes.AddRange(type.GetInterfaces());
+                foreach (var interf in type.GetInterfaces())
+                    yield return interf;
             }
             else
             {
-                allTypes.AddRange(
-                        Enumerable
+                foreach (var baseType in Enumerable
                         .Repeat(type.BaseType, 1)
                         .Concat(type.GetInterfaces())
                         .Concat(type.BaseType.GetBaseClassesAndInterfaces())
-                        .Distinct());
+                        .Distinct())
+                    yield return baseType;
             }
-
-            return allTypes;
         }
     }
 }

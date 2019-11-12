@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace NetFabric
 {
+    [Serializable]
     public readonly struct AngleRadians
         : IEquatable<AngleRadians>
         , IComparable

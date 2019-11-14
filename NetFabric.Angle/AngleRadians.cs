@@ -142,7 +142,7 @@ namespace NetFabric
             => obj switch
             {
                 AngleRadians angle => Radians.CompareTo(angle.Radians),
-                _ => throw new ArgumentException($"Argument has to be an {nameof(AngleRadians)}.", nameof(obj)),
+                _ => Throw.ArgumentException<int>($"Argument has to be an {nameof(AngleRadians)}.", nameof(obj)),
             };
 
         #endregion
@@ -501,7 +501,7 @@ namespace NetFabric
         public static AngleRadians Asin(double value)
         {
             if (value < -1.0 || value > 1.0)
-                throw new ArgumentOutOfRangeException(nameof(value), value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
+                Throw.ArgumentOutOfRangeException(nameof(value), value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
 
             return new AngleRadians(Math.Asin(value));
         }
@@ -530,7 +530,7 @@ namespace NetFabric
         public static AngleRadians Acos(double value)
         {
             if (value < -1.0 || value > 1.0)
-                throw new ArgumentOutOfRangeException(nameof(value), value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
+                Throw.ArgumentOutOfRangeException(nameof(value), value, "Argument must be greater or equal to -1.0 and less or equal to 1.0.");
 
             return new AngleRadians(Math.Acos(value));
         }

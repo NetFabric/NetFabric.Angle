@@ -157,7 +157,7 @@ namespace NetFabric
             => obj switch
             {
                 AngleDegrees angle => Degrees.CompareTo(angle.Degrees),
-                _ => throw new ArgumentException($"Argument has to be an {nameof(AngleDegrees)}.", nameof(obj)),
+                _ => Throw.ArgumentException<int>($"Argument has to be an {nameof(AngleDegrees)}.", nameof(obj)),
             };
 
         #endregion
@@ -295,7 +295,7 @@ namespace NetFabric
         public static AngleDegrees FromDegrees(int degrees, double minutes) 
         {
             if (minutes < 0.0 || minutes >= 60.0)
-                throw new ArgumentOutOfRangeException(nameof(minutes), minutes, "Argument must be positive and less than 60.");
+                Throw.ArgumentOutOfRangeException(nameof(minutes), minutes, "Argument must be positive and less than 60.");
 
             if (degrees < 0)
                 return new AngleDegrees(degrees - minutes / 60.0);
@@ -313,9 +313,9 @@ namespace NetFabric
         public static AngleDegrees FromDegrees(int degrees, int minutes, double seconds) 
         {
             if (minutes < 0.0 || minutes >= 60.0)
-                throw new ArgumentOutOfRangeException(nameof(minutes), minutes, "Argument must be positive and less than 60.");
+                Throw.ArgumentOutOfRangeException(nameof(minutes), minutes, "Argument must be positive and less than 60.");
             if (seconds < 0.0 || seconds >= 60.0)
-                throw new ArgumentOutOfRangeException(nameof(seconds), seconds, "Argument must be positive and less than 60.");
+                Throw.ArgumentOutOfRangeException(nameof(seconds), seconds, "Argument must be positive and less than 60.");
 
             if (degrees < 0)
                 return new AngleDegrees(degrees - minutes / 60.0 - seconds / 3600.0);

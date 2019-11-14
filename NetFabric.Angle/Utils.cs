@@ -37,7 +37,7 @@ namespace NetFabric
                 Quadrant.Second => straightAngle - reduced,
                 Quadrant.Third => reduced - straightAngle,
                 Quadrant.Fourth => fullAngle - reduced,
-                _ => throw new InvalidOperationException(),
+                _ => Throw.InvalidOperationException<double>(),
             };
         }
 

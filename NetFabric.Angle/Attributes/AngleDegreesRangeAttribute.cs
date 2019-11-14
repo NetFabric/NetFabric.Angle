@@ -9,7 +9,7 @@ namespace NetFabric
         public AngleDegreesRangeAttribute(int min, int max)
         {
             if (min > max)
-                throw new ArgumentException("max must be greater than or equal to min.", nameof(max));
+                Throw.ArgumentException("max must be greater than or equal to min.", nameof(max));
 
             Min = Angle.FromDegrees(min);
             Max = Angle.FromDegrees(max);

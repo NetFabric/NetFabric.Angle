@@ -137,7 +137,7 @@ namespace NetFabric
             => obj switch
             {
                 AngleGradians angle => Gradians.CompareTo(angle.Gradians),
-                _ => throw new ArgumentException($"Argument has to be an {nameof(AngleGradians)}.", nameof(obj)),
+                _ => Throw.ArgumentException<int>($"Argument has to be an {nameof(AngleGradians)}.", nameof(obj)),
             };
 
         #endregion

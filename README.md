@@ -163,7 +163,7 @@ The usual trigonometry operations (sin, cos, tan, asin, acos, atan, sinh and cos
 
 ```csharp
 double value0 = Angle.Sin(angleRadians);
-AngleRadians angle0 = Angle.Asin(angleRadians);
+AngleRadians angle0 = Angle.Asin(value0);
 ```
 
 Angles not in radians have to be converted:

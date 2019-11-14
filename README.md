@@ -19,7 +19,7 @@ Includes lerp, reduction, reference angle, comparison, classification and trigon
 
 ### Adding to your project
 
-NetFabric.Angle is available as a [NuGet package](https://www.nuget.org/packages/NetFabric.Angle/). 
+NetFabric.Angle is available as a [NuGet package](https://www.nuget.org/packages/NetFabric.Angle/) and as a [Unity package](https://github.com/NetFabric/NetFabric.Angle/releases).
 
 ### Creation of the angle:
 
@@ -49,9 +49,9 @@ var full = AngleDegrees.Full;          // 360 degrees
 
 ```csharp
 var zero = AngleRadians.Zero;          // 0 radians
-var right = AngleRadians.Right;        // PI/2 degrees
-var straight = AngleRadians.Straight;  // PI degrees
-var full = AngleRadians.Full;          // 2 * PI degrees
+var right = AngleRadians.Right;        // PI/2 radians
+var straight = AngleRadians.Straight;  // PI radians
+var full = AngleRadians.Full;          // 2 * PI radians
 ```
 
 ### Reading the angle:
@@ -62,7 +62,7 @@ var degrees = angleDegrees.Degrees;
 var gradians = angleGradians.Gradians;
 ```
 
-The angle can also be converted to DMS notation. This can be done using either *out* arguments:
+An angle in degrees can be deconstructed into DMS notation. This can be done using either *out* arguments:
 
 ``` csharp
 int degrees0;
@@ -82,7 +82,7 @@ angleDegrees.Deconstruct(out var degrees0, out var minutes0);
 angleDegrees.Deconstruct(out var degrees1, out var minutes1, out var seconds1);
 ```
 
-using tuples:
+or using value tuples:
 
 ```csharp
 (var degrees0, var minutes0) = angleDegrees;
@@ -94,13 +94,13 @@ using tuples:
 The angle can be reduced to a coterminal angle in the range [0.0, 360.0[ degrees:
 ​
 ``` csharp
-var angle = Angle.Reduce(Angle.Right + Angle.Full); // result is Angle.Right
+var angle = Angle.Reduce(AngleDegrees.Right + AngleDegrees.Full); // result is AngleDegrees.Right
 ```
 
 Getting the reference angle (the smallest angle with the x-axis):
 
 ``` csharp
-var angle = Angle.GetReference(Angle.Right + Angle.FromDegrees(45.0)); // result is an angle with 45 degrees
+var angle = Angle.GetReference(AngleDegrees.Right + AngleDegrees.FromDegrees(45.0)); // result is an angle with 45 degrees
 ```
 
 ### Math operations
@@ -117,8 +117,8 @@ var angle3 = Angle.FromDegrees(30.0) / 2.0;
 Equivalent methods are also defined so they can be used for languages that do not support operators.
 
 ``` csharp
-var angle0 = Angle.Negate(Angle.Right);
-var angle1 = Angle.Add(Angle.Straight, Angle.FromDegrees(45.0));
+var angle0 = Angle.Negate(AngleDegrees.Right);
+var angle1 = Angle.Add(AngleDegrees.Straight, Angle.FromDegrees(45.0));
 var angle2 = Angle.Multiply(2.0, Angle.FromDegrees(30.0));
 var angle3 = Angle.Divide(Angle.FromDegrees(30.0), 2.0);
 ```
@@ -164,9 +164,13 @@ The usual trigonometry operations (sin, cos, tan, asin, acos, atan, sinh and cos
 ```csharp
 double value0 = Angle.Sin(angleRadians);
 AngleRadians angle0 = Angle.Asin(angleRadians);
+```
 
+Angles not in radians have to be converted:
+
+```csharp
 double value1 = Angle.Sin(Angle.ToRadians(angleDegrees));
-AngleRadians angle1 = Angle.Asin(Angle.ToRadians(angleDegrees));
+AngleDegrees angle1 = Angle.ToDegrees(Angle.Asin(value1));
 ```
 
 ### Classification

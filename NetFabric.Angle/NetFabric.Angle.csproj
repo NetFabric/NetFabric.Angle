@@ -23,6 +23,7 @@
     <RootNamespace>NetFabric</RootNamespace>
     <LangVersion>8.0</LangVersion>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <DefineConstants>CONTRACTS_FULL</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

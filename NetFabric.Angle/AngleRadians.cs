@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 namespace NetFabric
 {
@@ -65,6 +66,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        [Pure]
         public static bool operator ==(AngleRadians a1, AngleRadians a2) =>
             a1.Radians == a2.Radians;
 
@@ -74,6 +76,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        [Pure]
         public static bool operator !=(AngleRadians a1, AngleRadians a2) =>
             a1.Radians != a2.Radians;
 
@@ -83,6 +86,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the values of a1 and a2 are equal; otherwise, false.</returns>
+        [Pure]
         public static bool Equals(AngleRadians a1, AngleRadians a2) =>
             a1.Radians == a2.Radians;
 
@@ -92,6 +96,7 @@ namespace NetFabric
         /// <param name="other">An RadiansAngle to compare with this instance.</param>
         /// <returns>true if obj represents the same angle as this instance; otherwise, false.</returns>
         /// <remarks>This method implements the System.IEquatable&lt;T&gt; interface, and performs slightly better than <see cref="AngleRadians.Equals(object)"/> because it does not have to convert the obj parameter to an object.</remarks>
+        [Pure]
         public readonly bool Equals(AngleRadians other) =>
             Radians == other.Radians;
 
@@ -105,6 +110,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than the value of a2; otherwise, false.</returns>
+        [Pure]
         public static bool operator <(AngleRadians a1, AngleRadians a2) =>
             a1.Radians < a2.Radians;
 
@@ -114,6 +120,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is less than or equal to the value of a2; otherwise, false.</returns>
+        [Pure]
         public static bool operator <=(AngleRadians a1, AngleRadians a2) =>
             a1.Radians <= a2.Radians;
 
@@ -123,6 +130,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than the value of a2; otherwise, false.</returns>
+        [Pure]
         public static bool operator >(AngleRadians a1, AngleRadians a2) =>
             a1.Radians > a2.Radians;
 
@@ -132,12 +140,15 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns>true if the value of a1 is greater than or equal to the value of a2; otherwise, false.</returns>
+        [Pure]
         public static bool operator >=(AngleRadians a1, AngleRadians a2) =>
             a1.Radians >= a2.Radians;
 
+        [Pure]
         readonly int IComparable<AngleRadians>.CompareTo(AngleRadians other) =>
             Radians.CompareTo(other.Radians);
 
+        [Pure]
         readonly int IComparable.CompareTo(object obj) 
             => obj switch
             {
@@ -154,6 +165,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [Pure]
         public static AngleRadians operator -(AngleRadians angle) =>
             new AngleRadians(-angle.Radians);
 
@@ -163,6 +175,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the addition.</returns>
+        [Pure]
         public static AngleRadians operator +(AngleRadians left, AngleRadians right) =>
             new AngleRadians(left.Radians + right.Radians);
 
@@ -172,6 +185,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the subtraction.</returns>
+        [Pure]
         public static AngleRadians operator -(AngleRadians left, AngleRadians right) =>
             new AngleRadians(left.Radians - right.Radians);
 
@@ -181,6 +195,7 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [Pure]
         public static AngleRadians operator *(double left, AngleRadians right) =>
             new AngleRadians(left * right.Radians);
 
@@ -190,11 +205,12 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Scalar value.</param>
         /// <returns>Result of the division.</returns>
+        [Pure]
         public static AngleRadians operator /(AngleRadians left, double right) =>
             new AngleRadians(left.Radians / right);
 
-        #endregion        
-        
+        #endregion
+
         #region string format
 
         /// <summary>
@@ -202,6 +218,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="format">A string that specifies the format to be used for the returned string.</param>
         /// <returns>A string representation of the value of the current RadiansAngle object, in the specified format.</returns>
+        [Pure]
         public readonly string ToString(string format) =>
             Radians.ToString(format);
 
@@ -211,6 +228,7 @@ namespace NetFabric
         /// <param name="format">A standard or custom date and time format string.</param>
         /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>A string representation of value of the current RadiansAngle object as specified by format and provider.</returns>
+        [Pure]
         public readonly string ToString(string format, IFormatProvider formatProvider) =>
             Radians.ToString(format, formatProvider);
 
@@ -268,6 +286,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="radians">A number of radians.</param>
         /// <returns>An object that represents value.</returns>
+        [Pure]
         public static AngleRadians FromRadians(double radians) =>
             new AngleRadians(radians);
 
@@ -278,6 +297,7 @@ namespace NetFabric
         /// <returns>
         /// An RadiansAngle, x, such that RadiansAngle.Zero &lt;= x &lt;= RadiansAngle.MaxValue.
         /// </returns>
+        [Pure]
         public static AngleRadians Abs(AngleRadians angle) =>
             new AngleRadians(Math.Abs(angle.Radians));
 
@@ -286,6 +306,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>A number that indicates the sign of value, -1 if value is less than zero, 0 if value equal to zero, 1 if value is grater than zero.</returns>
+        [Pure]
         public static int Sign(AngleRadians angle) =>
             Math.Sign(angle.Radians);
 
@@ -297,6 +318,7 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is smaller.</returns>
+        [Pure]
         public static AngleRadians Min(AngleRadians left, AngleRadians right)
         {
             if (left.Radians < right.Radians)
@@ -315,6 +337,7 @@ namespace NetFabric
         /// <param name="left">The first of two angles to compare.</param>
         /// <param name="right">The second of two angles to compare.</param>
         /// <returns>A reference to parameter left or right, whichever is larger.</returns>
+        [Pure]
         public static AngleRadians Max(AngleRadians left, AngleRadians right)
         {
             if (left.Radians > right.Radians)
@@ -332,6 +355,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns></returns>
+        [Pure]
         public static AngleRadians Reduce(AngleRadians angle) =>
             new AngleRadians(AngleRadians.Reduce(angle.Radians));
 
@@ -340,6 +364,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The quadrant where the terminal side of the angle is in when in the standard position.</returns>
+        [Pure]
         public static Quadrant GetQuadrant(AngleRadians angle) =>
             AngleRadians.GetQuadrant(angle.Radians);
 
@@ -348,6 +373,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>The reference angle.</returns>
+        [Pure]
         public static AngleRadians GetReference(AngleRadians angle) =>
             new AngleRadians(AngleRadians.GetReference(angle.Radians));
 
@@ -361,6 +387,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
+        [Pure]
         public static int Compare(AngleRadians a1, AngleRadians a2) =>
             a1.Radians.CompareTo(a2.Radians);
 
@@ -370,6 +397,7 @@ namespace NetFabric
         /// <param name="a1">The first angle to compare.</param>
         /// <param name="a2">The second angle to compare.</param>
         /// <returns></returns>
+        [Pure]
         public static int CompareReduced(AngleRadians a1, AngleRadians a2) =>
             AngleRadians.Reduce(a1.Radians).CompareTo(AngleRadians.Reduce(a2.Radians));
 
@@ -382,6 +410,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is zero; otherwise false.</returns>
+        [Pure]
         public static bool IsZero(AngleRadians angle) =>
             angle.Radians % AngleRadians.FullAngle == 0.0;
 
@@ -390,6 +419,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is greater than zero and less than 90 degrees; otherwise false.</returns>
+        [Pure]
         public static bool IsAcute(AngleRadians angle)
         {
             var reduced = AngleRadians.Reduce(Math.Abs(angle.Radians));
@@ -401,6 +431,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 90 degrees; otherwise false.</returns>
+        [Pure]
         public static bool IsRight(AngleRadians angle) =>
             AngleRadians.Reduce(Math.Abs(angle.Radians)) == AngleRadians.RightAngle;
 
@@ -409,6 +440,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is greater than 90 degrees and less than 180 degrees; otherwise false.</returns>
+        [Pure]
         public static bool IsObtuse(AngleRadians angle)
         {
             var reduced = AngleRadians.Reduce(Math.Abs(angle.Radians));
@@ -420,6 +452,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is 180 degrees; otherwise false.</returns>
+        [Pure]
         public static bool IsStraight(AngleRadians angle) =>
             AngleRadians.Reduce(Math.Abs(angle.Radians)) == AngleRadians.StraightAngle;
 
@@ -428,6 +461,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the reduction of the absolute angle is greater than 180 degrees and less than 360 degrees; otherwise false.</returns>
+        [Pure]
         public static bool IsReflex(AngleRadians angle) =>
             AngleRadians.Reduce(Math.Abs(angle.Radians)) > AngleRadians.StraightAngle;
 
@@ -436,6 +470,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>true if the angle is not right or a multiple of a right angle; otherwise false.</returns>
+        [Pure]
         public static bool IsOblique(AngleRadians angle) =>
             angle.Radians % AngleRadians.RightAngle != 0.0;
 
@@ -450,6 +485,7 @@ namespace NetFabric
         /// <param name="a2">The second angle.</param>
         /// <param name="t">A value that linearly interpolates between the a1 parameter and the a2 parameter.</param>
         /// <returns>The result of the linear interpolation.</returns>
+        [Pure]
         public static AngleRadians Lerp(AngleRadians a1, AngleRadians a2, double t) =>
             new AngleRadians(Utils.Lerp(a1.Radians, a2.Radians, t));
 
@@ -462,42 +498,25 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle.</param>
         /// <returns>The sine of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</returns>
+        [Pure]
         public static double Sin(AngleRadians angle) =>
             Math.Sin(angle.Radians);
-
-        /// <summary>
-        /// Return the sine of the specified angle.
-        /// </summary>
-        /// <param name="angle">An angle.</param>
-        /// <param name="result">The sine of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</param>
-        public static void Sin(AngleRadians angle, out double result)
-        {
-            result = Math.Sin(angle.Radians);
-        }
 
         /// <summary>
         /// Returns the hyperbolic sine of the specified angle.
         /// </summary>
         /// <param name="angle">An angle.</param>
         /// <returns>The hyperbolic sine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an RadiansAngle equal to value.</returns>
+        [Pure]
         public static double Sinh(AngleRadians angle) =>
              Math.Sinh(angle.Radians);
-
-        /// <summary>
-        /// Returns the hyperbolic sine of the specified angle.
-        /// </summary>
-        /// <param name="angle">An angle.</param>
-        /// <param name="result">The hyperbolic sine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an RadiansAngle equal to value.</param>
-        public static void Sinh(AngleRadians angle, out double result)
-        {
-            result = Math.Sinh(angle.Radians);
-        }
 
         /// <summary>
         /// Returns the angle whose sine is the specified number.
         /// </summary>
         /// <param name="value">A number representing a sine, where value must be greater than or equal to -1, but less than or equal to 1.</param>
         /// <returns>The angle whose sine is the specified number.</returns>
+        [Pure]
         public static AngleRadians Asin(double value)
         {
             if (value < -1.0 || value > 1.0)
@@ -511,6 +530,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle.</param>
         /// <returns>The cosine of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</returns>
+        [Pure]
         public static double Cos(AngleRadians angle) =>
             Math.Cos(angle.Radians);
 
@@ -519,6 +539,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle.</param>
         /// <returns>The hyperbolic cosine of value. If value is equal to NegativeInfinity, PositiveInfinity, or NaN, this method returns an RadiansAngle equal to value.</returns>
+        [Pure]
         public static double Cosh(AngleRadians angle) =>
             Math.Cosh(angle.Radians);
 
@@ -527,6 +548,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="value">A number representing a cosine, where value must be greater than or equal to -1, but less than or equal to 1.</param>
         /// <returns>The angle whose cosine is the specified number.</returns>
+        [Pure]
         public static AngleRadians Acos(double value)
         {
             if (value < -1.0 || value > 1.0)
@@ -540,6 +562,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle.</param>
         /// <returns>The tangent of the specified angle. If angle is equal to NaN, NegativeInfinity, or PositiveInfinity, this method returns NaN.</returns>
+        [Pure]
         public static double Tan(AngleRadians angle) =>
             Math.Tan(angle.Radians);
 
@@ -548,6 +571,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="value">A number representing a tangent.</param>
         /// <returns>The angle whose tangent is the specified number.</returns>
+        [Pure]
         public static AngleRadians Atan(double value) =>
             new AngleRadians(Math.Atan(value));
 
@@ -557,6 +581,7 @@ namespace NetFabric
         /// <param name="x">The y coordinate of a point.</param>
         /// <param name="y">The x coordinate of a point.</param>
         /// <returns>The angle whose tangent is the quotient of two specified numbers.</returns>
+        [Pure]
         public static AngleRadians Atan2(double y, double x) =>
             new AngleRadians(Math.Atan2(y, x));
 
@@ -569,6 +594,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">Source angle.</param>
         /// <returns>Result of the negation.</returns>
+        [Pure]
         public static AngleRadians Negate(AngleRadians angle) =>
             new AngleRadians(-angle.Radians);
 
@@ -582,6 +608,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the addition.</returns>
+        [Pure]
         public static AngleRadians Add(AngleRadians left, AngleRadians right) =>
             new AngleRadians(left.Radians + right.Radians);
 
@@ -595,6 +622,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the subtraction.</returns>
+        [Pure]
         public static AngleRadians Subtract(AngleRadians left, AngleRadians right) =>
             new AngleRadians(left.Radians - right.Radians);
 
@@ -608,6 +636,7 @@ namespace NetFabric
         /// <param name="left">Scalar value.</param>
         /// <param name="right">Source angle.</param>
         /// <returns>Result of the multiplication.</returns>
+        [Pure]
         public static AngleRadians Multiply(double left, AngleRadians right) =>
             new AngleRadians(left * right.Radians);
 
@@ -621,6 +650,7 @@ namespace NetFabric
         /// <param name="left">Source angle.</param>
         /// <param name="right">Scalar value.</param>
         /// <returns>Result of the division.</returns>
+        [Pure]
         public static AngleRadians Divide(AngleRadians left, double right) =>
             new AngleRadians(left.Radians / right);
 

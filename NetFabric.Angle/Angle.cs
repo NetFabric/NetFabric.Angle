@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
 namespace NetFabric
 {
@@ -16,6 +17,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
+        [Pure]
         public static AngleRadians ToRadians(AngleDegrees angle) =>
             new AngleRadians(angle.Degrees / DegreesInRadians);
 
@@ -24,6 +26,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in degrees.</param>
         /// <returns>An object that represents value.</returns>
+        [Pure]
         public static AngleRadians ToRadians(AngleGradians angle) =>
             new AngleRadians(angle.Gradians / GradiansInRadians);
 
@@ -32,6 +35,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
+        [Pure]
         public static AngleDegrees ToDegrees(AngleRadians angle) =>
             new AngleDegrees(angle.Radians * DegreesInRadians);
 
@@ -40,6 +44,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
+        [Pure]
         public static AngleDegrees ToDegrees(AngleGradians angle) =>
             new AngleDegrees(angle.Gradians / GradiansInDegrees);
 
@@ -48,6 +53,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
+        [Pure]
         public static AngleGradians ToGradians(AngleRadians angle) =>
             new AngleGradians(angle.Radians * GradiansInRadians);
 
@@ -56,6 +62,7 @@ namespace NetFabric
         /// </summary>
         /// <param name="angle">An angle in radians.</param>
         /// <returns>An object that represents value.</returns>
+        [Pure]
         public static AngleGradians ToGradians(AngleDegrees angle) =>
             new AngleGradians(angle.Degrees * GradiansInDegrees);
     }

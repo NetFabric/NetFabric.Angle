@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net472;netcoreapp3.0</TargetFrameworks>
   </PropertyGroup>
   
   <ItemGroup>
@@ -18,7 +18,6 @@
     <Compile Remove="AngleEnumerableMaxTests.cs" />
     <Compile Remove="AngleEnumerableMinTests.cs" />
     <Compile Remove="AngleEnumerableRangeTests.cs" />
-    <Compile Remove="AngleRangeAttributeTests.cs" />
   </ItemGroup>
 
   <ItemGroup>

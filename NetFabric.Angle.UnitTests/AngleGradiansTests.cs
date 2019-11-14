@@ -204,7 +204,7 @@ namespace NetFabric.UnitTests
             // assert
             act.Should()
                 .Throw<ArgumentException>()
-                .WithMessage($"Argument has to be an {nameof(AngleGradians)}. (Parameter 'obj')");
+                .WithMessage($"Argument has to be an {nameof(AngleGradians)}.*");
         }
 
         [Theory]

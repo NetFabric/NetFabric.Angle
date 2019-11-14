@@ -4,7 +4,7 @@ using Xunit;
 
 namespace NetFabric.UnitTests
 {
-    public class AngleRangeAttributeTests
+    public class AngleDegreesRangeAttributeTests
     {
     }
 }

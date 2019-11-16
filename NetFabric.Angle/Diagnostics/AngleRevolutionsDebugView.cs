@@ -2,11 +2,11 @@
 
 namespace NetFabric
 {
-    public class AngleDegreesDebugView
+    public class AngleRevolutionsDebugView
     {
-        readonly AngleDegrees angle;
+        readonly AngleRevolutions angle;
 
-        public AngleDegreesDebugView(AngleDegrees angle)
+        public AngleRevolutionsDebugView(AngleRevolutions angle)
         {
             this.angle = angle;
         }
@@ -15,13 +15,13 @@ namespace NetFabric
             => Angle.ToRadians(angle).Radians.ToString();
 
         public string Degrees
-            => $"{angle.Degrees}°";
+            => $"{Angle.ToDegrees(angle).Degrees}°";
 
         public string DegreesMinutes 
         { 
             get 
             {
-                angle.Deconstruct(out var degrees, out var minutes);
+                Angle.ToDegrees(angle).Deconstruct(out var degrees, out var minutes);
                 return $"{degrees}° {minutes}'";
             } 
         }
@@ -30,7 +30,7 @@ namespace NetFabric
         {
             get
             {
-                angle.Deconstruct(out var degrees, out var minutes, out var seconds);
+                Angle.ToDegrees(angle).Deconstruct(out var degrees, out var minutes, out var seconds);
                 return $"{degrees}° {minutes}' {seconds}''";
             }
         }
@@ -39,6 +39,6 @@ namespace NetFabric
             => Angle.ToGradians(angle).Gradians.ToString();
 
         public string Revolutions
-            => Angle.ToRevolutions(angle).Revolutions.ToString();
+            => angle.Revolutions.ToString();
     }
 }

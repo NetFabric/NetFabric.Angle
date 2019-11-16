@@ -37,5 +37,8 @@ namespace NetFabric
 
         public string Gradians
             => Angle.ToGradians(angle).Gradians.ToString();
+
+        public string Revolutions
+            => Angle.ToRevolutions(angle).Revolutions.ToString();
     }
 }

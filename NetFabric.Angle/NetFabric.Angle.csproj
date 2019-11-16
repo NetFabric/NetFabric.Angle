@@ -8,9 +8,9 @@
       The explicit declaration of the units in creation and reading methods, reduces the tipical confusion when dealing with angles. 
       Includes conversion, linear interpolation, reduction, reference angle, comparison, classification, trigonometry and algebra operations.
     </Description>
-    <Version>3.2.0</Version>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
-    <FileVersion>3.2.0.0</FileVersion>
+    <Version>3.3.0</Version>
+    <AssemblyVersion>3.3.0.0</AssemblyVersion>
+    <FileVersion>3.3.0.0</FileVersion>
     <Copyright>Copyright © Antão Almada 2016-2019</Copyright>
     <Authors>Antão Almada</Authors>
     <Company>NetFabric</Company>
@@ -18,7 +18,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageTags>math, numerics, trigonometry</PackageTags>
     <PackageReleaseNotes>
-      Added debug views.
+      Added angle representation in revolutions.
     </PackageReleaseNotes>
     <RootNamespace>NetFabric</RootNamespace>
     <LangVersion>8.0</LangVersion>
@@ -42,11 +42,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19554-01" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19554-01">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NetFabric.Hyperlinq.Analyzer" Version="1.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

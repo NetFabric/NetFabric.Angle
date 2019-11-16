@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -10,54 +11,6 @@ namespace NetFabric.UnitTests
     public class AngleGradiansTests
     {
         static readonly AngleGradians AcuteAngle = AngleGradians.Right / 2.0;
-
-        public static TheoryData<AngleRadians, AngleGradians> AngleRadiansData = new TheoryData<AngleRadians, AngleGradians>
-        {
-            { -AngleRadians.Full, -AngleGradians.Full },
-            { -AngleRadians.Straight, -AngleGradians.Straight },
-            { -AngleRadians.Right, -AngleGradians.Right },
-            { AngleRadians.Zero, AngleGradians.Zero },
-            { AngleRadians.Right, AngleGradians.Right },
-            { AngleRadians.Straight, AngleGradians.Straight },
-            { AngleRadians.Full, AngleGradians.Full },
-        };
-
-        [Theory]
-        [MemberData(nameof(AngleRadiansData))]
-        public void ToGradians_When_AngleRadians_Should_Succeed(AngleRadians value, AngleGradians expected)
-        {
-            // arrange
-
-            // act
-            var angle = Angle.ToGradians(value);
-
-            // assert
-            angle.Should().BeOfType<AngleGradians>().And.Be(expected);
-        }
-
-        public static TheoryData<AngleDegrees, AngleGradians> AngleDegreesData = new TheoryData<AngleDegrees, AngleGradians>
-        {
-            { -AngleDegrees.Full, -AngleGradians.Full },
-            { -AngleDegrees.Straight, -AngleGradians.Straight },
-            { -AngleDegrees.Right, -AngleGradians.Right },
-            { AngleDegrees.Zero, AngleGradians.Zero },
-            { AngleDegrees.Right, AngleGradians.Right },
-            { AngleDegrees.Straight, AngleGradians.Straight },
-            { AngleDegrees.Full, AngleGradians.Full },
-        };
-
-        [Theory]
-        [MemberData(nameof(AngleDegreesData))]
-        public void ToGradians_When_AngleDegrees_Should_Succeed(AngleDegrees value, AngleGradians expected)
-        {
-            // arrange
-
-            // act
-            var angle = Angle.ToGradians(value);
-
-            // assert
-            angle.Should().BeOfType<AngleGradians>().And.Be(expected);
-        }
 
         public static TheoryData<AngleGradians> SerializableData = new TheoryData<AngleGradians>
         {
@@ -126,6 +79,7 @@ namespace NetFabric.UnitTests
         [Theory]
         [MemberData(nameof(CompareInvalidData))]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void EqualsObject_Should_Succeed(AngleGradians left, object right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -139,6 +93,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void Equals_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -152,6 +107,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void GetHashCode_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -168,6 +124,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void OperatorEquality_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -181,6 +138,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void OperatorInequality_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -194,6 +152,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareInvalidData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void CompareTo_When_InvalidData_Should_Thrown(AngleGradians angle, object obj, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -209,6 +168,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void CompareTo_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -227,6 +187,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void Compare_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -245,6 +206,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareReducedData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void CompareReduced_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -263,6 +225,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void LessThan_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -276,6 +239,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void LessThanOrEqual_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -289,6 +253,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void GreaterThan_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange
@@ -302,6 +267,7 @@ namespace NetFabric.UnitTests
 
         [Theory]
         [MemberData(nameof(CompareData))]
+        [SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters")]
         public void GreaterThanOrEqual_Should_Succeed(AngleGradians left, AngleGradians right, bool lessThan, bool equal, bool greaterThan)
         {
             // arrange

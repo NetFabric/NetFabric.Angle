@@ -8,9 +8,9 @@ NetFabric.Angle
 
 Implements a structure representing an angle.
 
-The explicit declaration of the units in creation and reading methods reduces the usual units confusion when dealing with angles.
+The angle is stored in memory in the angle measurement unit it was originally defined, with double precision, allowing fine control over conversions and reducing rounding errors. All operations are strongly-typed.
 
-Includes lerp, reduction, reference angle, comparison, classification and trigonometry operations. 
+Includes angle operations like lerp, reduction, reference angle, comparison, classification and trigonometry. 
 
 # Usage:
 
@@ -20,40 +20,54 @@ NetFabric.Angle is available as a [NuGet package](https://www.nuget.org/packages
 
 ### Creation of the angle:
 
-Use the methods for the units you are working with:
+Use the methods for the measurement units you are working with:
 
-```csharp
+``` csharp
 var right0 = Angle.FromRadian(Math.PI / 2.0);
 var right1 = Angle.FromDegrees(90.0);
 var right3 = Angle.FromGradian(100.0);
 ```
 
-Arcminutes and arcseconds have to be values in the interval [0.0, 60.0[
+When using DMS format, arcminutes and arcseconds have to be values in the interval [0.0, 60.0[
 
-```csharp
-var right3 = Angle.FromDegrees(90, 0.0); // degrees and arcminutes
-var right4 = Angle.FromDegrees(-90, 0, 0.0); // degrees, arcminutes and arcseconds
+``` csharp
+var right3 = Angle.FromDegrees(90, 59.9); // degrees and arcminutes
+var right4 = Angle.FromDegrees(-90, 59, 59.9); // degrees, arcminutes and arcseconds
 ```
 
-You can use the predefined angles:
+You can use the predefined angles in any measuring unit:
 
-```csharp
+``` csharp
 var zero = AngleDegrees.Zero;          // 0 degrees
 var right = AngleDegrees.Right;        // 90 degrees
 var straight = AngleDegrees.Straight;  // 180 degrees
 var full = AngleDegrees.Full;          // 360 degrees
 ```
 
-```csharp
+``` csharp
 var zero = AngleRadians.Zero;          // 0 radians
 var right = AngleRadians.Right;        // PI/2 radians
 var straight = AngleRadians.Straight;  // PI radians
 var full = AngleRadians.Full;          // 2 * PI radians
 ```
 
+### Converting the angle:
+
+Use the `static` methods to convert any angle:
+
+``` csharp
+var radians = Angle.ToRadians(angle);
+```
+
+Angles are strongly typed so it knows what measuring unit is converting from. 
+
+**Note:** If required, the results have to be explicitly reduced.
+
 ### Reading the angle:
 
-```csharp
+Use the property named after the measuring unit (to be explicit):
+
+``` csharp
 var radians = angleRadians.Radians;
 var degrees = angleDegrees.Degrees;
 var gradians = angleGradians.Gradians;
@@ -74,16 +88,16 @@ angleDegrees.Deconstruct(out degrees1, out minutes1, out seconds1);
 
 *out* arguments with C# 7 syntax:
 
-```csharp
+``` csharp
 angleDegrees.Deconstruct(out var degrees0, out var minutes0);
 angleDegrees.Deconstruct(out var degrees1, out var minutes1, out var seconds1);
 ```
 
-or using value tuples:
+or using C# 7 deconstructors:
 
-```csharp
-(var degrees0, var minutes0) = angleDegrees;
-(var degrees1, var minutes1, var seconds1) = angleDegrees;
+``` csharp
+var (degrees0, minutes0) = angleDegrees;
+var (degrees1, minutes1, seconds1) = angleDegrees;
 ```
 
 ### Reduction and reference
@@ -102,7 +116,7 @@ var angle = Angle.GetReference(AngleDegrees.Right + AngleDegrees.FromDegrees(45.
 
 ### Math operations
 
-Math operators are defined allowing calculations with angles. (For performance reasons the results are not reduced)
+Math operators are defined allowing calculations with angles.
 ​
 ``` csharp
 var angle0 = -AngleDegrees.Right;
@@ -110,6 +124,8 @@ var angle1 = AngleDegrees.Straight + Angle.FromDegrees(45.0);
 var angle2 = 2.0 * Angle.FromDegrees(30.0);
 var angle3 = Angle.FromDegrees(30.0) / 2.0;
 ```
+
+**Note:** If required, the results have to be explicitly reduced.
 
 Equivalent methods are also defined so they can be used for languages that do not support operators.
 
@@ -124,7 +140,7 @@ var angle3 = Angle.Divide(Angle.FromDegrees(30.0), 2.0);
 
 Comparison operatores can be used to compare two angles:
 ​
-```csharp
+``` csharp
 if(angle0 > angle1 || angle0 == angle2) {
     ...
 }
@@ -132,15 +148,15 @@ if(angle0 > angle1 || angle0 == angle2) {
 
 For languages that do not support operators use the static Compare() method:
 ​
-```csharp
+``` csharp
 if(Angle.Compare(angle0, angle1) <= 0) { // less or equal to
     ...
 }
 ```
 
-For performance reasons, the values compared are not reduced. You'll have to explicitly reduce both angles before comparing:
+For performance reasons, the values compared are not reduced. If required, they have to be explicitly reduced:
 ​
-```csharp
+``` csharp
 if(Angle.Reduce(angle0) > Angle.Reduce(angle1)) {
     ...
 }
@@ -148,7 +164,7 @@ if(Angle.Reduce(angle0) > Angle.Reduce(angle1)) {
 
 or use the static CompareReduced() method:
 
-```csharp
+``` csharp
 if(Angle.CompareReduced(angle0, angle1) > 0) {
     ...
 }
@@ -158,14 +174,14 @@ if(Angle.CompareReduced(angle0, angle1) > 0) {
 
 The usual trigonometry operations (sin, cos, tan, asin, acos, atan, sinh and cosh) are available as static methods but only for angles in radians:
 
-```csharp
+``` csharp
 double value0 = Angle.Sin(angleRadians);
 AngleRadians angle0 = Angle.Asin(value0);
 ```
 
 Angles not in radians have to be converted:
 
-```csharp
+``` csharp
 double value1 = Angle.Sin(Angle.ToRadians(angleDegrees));
 AngleDegrees angle1 = Angle.ToDegrees(Angle.Asin(value1));
 ```
@@ -174,7 +190,7 @@ AngleDegrees angle1 = Angle.ToDegrees(Angle.Asin(value1));
 
 You can get the quadrante of the angle
 
-```csharp
+``` csharp
 var quad0 = Angle.GetQuadrant(Angle.FromDegrees(45.0)); // Angle.Quadrant.First
 var quad1 = Angle.GetQuadrant(Angle.FromDegrees(220.0)); // Angle.Quadrant.Third
 var quad2 = Angle.GetQuadrant(Angle.FromDegrees(-45.0)); // Angle.Quadrant.Fourth
@@ -182,7 +198,7 @@ var quad2 = Angle.GetQuadrant(Angle.FromDegrees(-45.0)); // Angle.Quadrant.Fourt
 
 and can check if an angle is acute, right, obtuse, straight or reflex:
 
-```csharp
+``` csharp
 var isAcute = Angle.IsAcute(AngleDegrees.Right); // false
 var isAcute = Angle.IsAcute(Angle.FromDegrees(45.0)); // true
 var isRight = Angle.IsRight(AngleDegrees.Right); // true
@@ -190,7 +206,7 @@ var isRight = Angle.IsRight(AngleDegrees.Right); // true
 
 Classification considers the reduced positive equivalent of the angle so:
 
-```csharp
+``` csharp
 var isAcute = Angle.IsAcute(Angle.FromDegrees(45.0)); // true
 var isAcute = Angle.IsAcute(Angle.FromDegrees(-45.0)); // true
 var isAcute = Angle.IsAcute(Angle.FromDegrees(315.0)); // false

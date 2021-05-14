@@ -1,47 +1,32 @@
-name: .NET Core
+
+name: .NET
 
 on: [push]
 
 jobs:
-  linux:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix: 
-        os: [ubuntu-latest, macos]
+  build:
+
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.0.101
-    - name: Build solution
-      run: dotnet build -c:Release
-    - name: Tests
-      run: dotnet test ./NetFabric.Angle.UnitTests/NetFabric.Angle.UnitTests.csproj -c:Release -f:netcoreapp3.0
-          
-  windows:
-    runs-on: windows-latest
+    - uses: actions/checkout@v2
 
-    steps:
-    - uses: actions/checkout@v1
-    - name: Setup .NET Core
+    - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.0.101
+        dotnet-version: 5.0.201
+        
     - name: Build solution
       run: dotnet build -c:Release
+      
     - name: Tests with coverage
-      run: dotnet test ./NetFabric.Angle.UnitTests/NetFabric.Angle.UnitTests.csproj -c:Release -p:CollectCoverage=true -p:Exclude="[xunit.*]*" -p:CoverletOutputFormat=cobertura -p:CoverletOutput="./Coverage/"
-    - name: Setup report generator
-      run: dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.4.1
-    - name: Generate report
-      run: reportgenerator -reports:./NetFabric.Angle.UnitTests/Coverage/coverage.netcoreapp3.0.cobertura.xml -targetdir:./NetFabric.Angle.UnitTests/Coverage/Reports
-    - name: Publish report
-      uses: 5monkeys/cobertura-action@v1
+      run: dotnet test ./NetFabric.Angle.UnitTests/NetFabric.Angle.UnitTests.csproj -c:Release -f:net5.0 -p:CollectCoverage=true -p:CoverletOutputFormat=lcov -p:CoverletOutput=TestResults/
+      
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
       with:
-        path: ./NetFabric.Angle.UnitTests/Coverage/Reports
-        repo_token: ${{ secrets.GITHUB_TOKEN }}  
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./NetFabric.Angle.UnitTests/TestResults/coverage.net5.0.info
       
 
       
